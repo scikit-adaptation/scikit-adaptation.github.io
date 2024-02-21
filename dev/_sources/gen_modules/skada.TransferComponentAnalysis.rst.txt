@@ -1,0 +1,11 @@
+﻿skada.TransferComponentAnalysis
+===============================
+
+.. currentmodule:: skada
+
+.. autofunction:: TransferComponentAnalysis
+
+.. _sphx_glr_backreferences_skada.TransferComponentAnalysis:
+
+.. minigallery:: skada.TransferComponentAnalysis
+    :add-heading:

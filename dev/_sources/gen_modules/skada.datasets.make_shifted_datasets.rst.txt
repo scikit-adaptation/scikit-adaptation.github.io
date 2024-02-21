@@ -1,0 +1,11 @@
+﻿skada.datasets.make\_shifted\_datasets
+======================================
+
+.. currentmodule:: skada.datasets
+
+.. autofunction:: make_shifted_datasets
+
+.. _sphx_glr_backreferences_skada.datasets.make_shifted_datasets:
+
+.. minigallery:: skada.datasets.make_shifted_datasets
+    :add-heading:

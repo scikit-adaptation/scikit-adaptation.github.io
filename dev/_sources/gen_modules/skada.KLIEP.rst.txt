@@ -1,0 +1,11 @@
+﻿skada.KLIEP
+===========
+
+.. currentmodule:: skada
+
+.. autofunction:: KLIEP
+
+.. _sphx_glr_backreferences_skada.KLIEP:
+
+.. minigallery:: skada.KLIEP
+    :add-heading:

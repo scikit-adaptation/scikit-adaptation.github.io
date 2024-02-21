@@ -1,0 +1,11 @@
+﻿skada.SubspaceAlignment
+=======================
+
+.. currentmodule:: skada
+
+.. autofunction:: SubspaceAlignment
+
+.. _sphx_glr_backreferences_skada.SubspaceAlignment:
+
+.. minigallery:: skada.SubspaceAlignment
+    :add-heading:

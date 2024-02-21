@@ -1,0 +1,13 @@
+﻿skada.feature.CDAN
+==================
+
+.. currentmodule:: skada.feature
+
+.. autoclass:: CDAN
+   :special-members: __contains__,__getitem__,__iter__,__len__,__add__,__sub__,__mul__,__div__,__neg__
+   :members:
+
+.. _sphx_glr_backreferences_skada.feature.CDAN:
+
+.. minigallery:: skada.feature.CDAN
+    :add-heading:

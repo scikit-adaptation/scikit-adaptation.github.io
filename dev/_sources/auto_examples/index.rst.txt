@@ -1,0 +1,262 @@
+:orphan:
+
+Examples gallery
+================
+
+This is a gallery of all the SKADA example files. 
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp...">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_method_comparison_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_plot_method_comparison.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot comparison of DA methods</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_method_comparison
+
+
+
+Domain Adaptation Datasets
+--------------------------
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating...">
+
+.. only:: html
+
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_regression_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating...">
+
+.. only:: html
+
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_variable_frequency_dataset dataset generator. Each method consists of...">
+
+.. only:: html
+
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_variable_frequency_dataset_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_dataset_from_moons_distribution dataset generator. Each method consis...">
+
+.. only:: html
+
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_dataset_from_moons_distribution_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_datasets_plot_dataset_from_moons_distribution.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/datasets/plot_shifted_dataset_regression
+   /auto_examples/datasets/plot_shifted_dataset
+   /auto_examples/datasets/plot_variable_frequency_dataset
+   /auto_examples/datasets/plot_dataset_from_moons_distribution
+
+
+DA methods
+----------
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot JDOT Regressor">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_jdot_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Plot JDOT Regressor</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task.">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_optimal_transport_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Optimal Transport Domain Adaptation (OTDA)</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/methods/plot_jdot_da
+   /auto_examples/methods/plot_optimal_transport_da
+
+
+DA validation procedures
+------------------------
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV.">
+
+.. only:: html
+
+  .. image:: /auto_examples/validation/images/thumb/sphx_glr_plot_gridsearch_for_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_validation_plot_gridsearch_for_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such TargetAccuracyScorer with cross_val_score.">
+
+.. only:: html
+
+  .. image:: /auto_examples/validation/images/thumb/sphx_glr_plot_cross_val_score_for_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_validation_plot_cross_val_score_for_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/validation/plot_gridsearch_for_da
+   /auto_examples/validation/plot_cross_val_score_for_da
+
+
+.. only:: html
+
+  .. container:: sphx-glr-footer sphx-glr-footer-gallery
+
+    .. container:: sphx-glr-download sphx-glr-download-python
+
+      :download:`Download all examples in Python source code: auto_examples_python.zip </auto_examples/auto_examples_python.zip>`
+
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+      :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip </auto_examples/auto_examples_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

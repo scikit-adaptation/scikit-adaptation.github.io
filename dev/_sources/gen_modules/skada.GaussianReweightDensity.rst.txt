@@ -1,0 +1,11 @@
+﻿skada.GaussianReweightDensity
+=============================
+
+.. currentmodule:: skada
+
+.. autofunction:: GaussianReweightDensity
+
+.. _sphx_glr_backreferences_skada.GaussianReweightDensity:
+
+.. minigallery:: skada.GaussianReweightDensity
+    :add-heading:

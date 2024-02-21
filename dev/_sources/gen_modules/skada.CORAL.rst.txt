@@ -1,0 +1,11 @@
+﻿skada.CORAL
+===========
+
+.. currentmodule:: skada
+
+.. autofunction:: CORAL
+
+.. _sphx_glr_backreferences_skada.CORAL:
+
+.. minigallery:: skada.CORAL
+    :add-heading:

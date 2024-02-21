@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.feature._losses &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5467c19a"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SKADA
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">skada.feature._losses</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for skada.feature._losses</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
+<span class="c1">#         Remi Flamary &lt;remi.flamary@polytechnique.edu&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3-Clause</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Function</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">Dataset</span>
+
+<span class="kn">import</span> <span class="nn">ot</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+
+<div class="viewcode-block" id="deepcoral_loss">
+<a class="viewcode-back" href="../../../gen_modules/skada.feature.deepcoral_loss.html#skada.feature.deepcoral_loss">[docs]</a>
+<span class="k">def</span> <span class="nf">deepcoral_loss</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">cov_target</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate the Frobenius norm divide by 4*n**2</span>
+<span class="sd">       for DeepCORAL method [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cov : tensor</span>
+<span class="sd">        Covariance of the embeddings of the source data.</span>
+<span class="sd">    cov_target : tensor</span>
+<span class="sd">        Covariance of the embeddings of the target data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    loss : ndarray</span>
+<span class="sd">        The loss of the method.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1]  Baochen Sun and Kate Saenko. Deep coral:</span>
+<span class="sd">            Correlation alignment for deep domain</span>
+<span class="sd">            adaptation. In ECCV Workshops, 2016.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">cov</span> <span class="o">-</span> <span class="n">cov_target</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">diff</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss</span></div>
+
+
+
+<div class="viewcode-block" id="deepjdot_loss">
+<a class="viewcode-back" href="../../../gen_modules/skada.feature.deepjdot_loss.html#skada.feature.deepjdot_loss">[docs]</a>
+<span class="k">def</span> <span class="nf">deepjdot_loss</span><span class="p">(</span>
+    <span class="n">embedd</span><span class="p">,</span>
+    <span class="n">embedd_target</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">y_target</span><span class="p">,</span>
+    <span class="n">reg_d</span><span class="p">,</span>
+    <span class="n">reg_cl</span><span class="p">,</span>
+    <span class="n">sample_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">target_sample_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the OT loss for DeepJDOT method [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    embedd : tensor</span>
+<span class="sd">        embeddings of the source data used to perform the distance matrix.</span>
+<span class="sd">    embedd_target : tensor</span>
+<span class="sd">        embeddings of the target data used to perform the distance matrix.</span>
+<span class="sd">    y : tensor</span>
+<span class="sd">        labels of the source data used to perform the distance matrix.</span>
+<span class="sd">    y_target : tensor</span>
+<span class="sd">        labels of the target data used to perform the distance matrix.</span>
+<span class="sd">    reg_d : float, default=1</span>
+<span class="sd">        Distance term regularization parameter.</span>
+<span class="sd">    reg_cl : float, default=1</span>
+<span class="sd">        Class distance term regularization parameter.</span>
+<span class="sd">    sample_weights : tensor</span>
+<span class="sd">        Weights of the source samples.</span>
+<span class="sd">        If None, create uniform weights.</span>
+<span class="sd">    target_sample_weights : tensor</span>
+<span class="sd">        Weights of the source samples.</span>
+<span class="sd">        If None, create uniform weights.</span>
+<span class="sd">    criterion : torch criterion (class)</span>
+<span class="sd">        The criterion (loss) used to compute the</span>
+<span class="sd">        DeepJDOT loss. If None, use the CrossEntropyLoss.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    loss : ndarray</span>
+<span class="sd">        The loss of the method.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1]  Bharath Bhushan Damodaran, Benjamin Kellenberger,</span>
+<span class="sd">            Remi Flamary, Devis Tuia, and Nicolas Courty.</span>
+<span class="sd">            DeepJDOT: Deep Joint Distribution Optimal Transport</span>
+<span class="sd">            for Unsupervised Domain Adaptation. In ECCV 2018</span>
+<span class="sd">            15th European Conference on Computer Vision,</span>
+<span class="sd">            September 2018. Springer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">embedd</span><span class="p">,</span> <span class="n">embedd_target</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="n">y_target_matrix</span> <span class="o">=</span> <span class="n">y_target</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_target</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+    <span class="n">loss_target</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">y_target_matrix</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">reg_d</span> <span class="o">*</span> <span class="n">dist</span> <span class="o">+</span> <span class="n">reg_cl</span> <span class="o">*</span> <span class="n">loss_target</span>
+
+    <span class="c1"># Compute the loss</span>
+    <span class="k">if</span> <span class="n">sample_weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sample_weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">embedd</span><span class="p">),),</span>
+            <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">embedd</span><span class="p">),</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">embedd</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">target_sample_weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">target_sample_weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">embedd_target</span><span class="p">),),</span>
+            <span class="mf">1.0</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">embedd_target</span><span class="p">),</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">embedd_target</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">emd2</span><span class="p">(</span><span class="n">sample_weights</span><span class="p">,</span> <span class="n">target_sample_weights</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">loss</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes multi gaussian kernel between each pair of the two vectors.&quot;&quot;&quot;</span>
+    <span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">sigmas</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">sigmas</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">dist_</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">dist_</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">s</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_maximum_mean_discrepancy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the maximum mean discrepency between the vectors</span>
+<span class="sd">       using the given kernel.&quot;&quot;&quot;</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="n">cost</span> <span class="o">+=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kernel</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">cost</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">cost</span>
+
+
+<div class="viewcode-block" id="dan_loss">
+<a class="viewcode-back" href="../../../gen_modules/skada.feature.dan_loss.html#skada.feature.dan_loss">[docs]</a>
+<span class="k">def</span> <span class="nf">dan_loss</span><span class="p">(</span><span class="n">source_features</span><span class="p">,</span> <span class="n">target_features</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define the mmd loss based on multi-kernel defined in [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source_features : tensor</span>
+<span class="sd">        Source features used to compute the mmd loss.</span>
+<span class="sd">    target_features : tensor</span>
+<span class="sd">        Target features used to compute the mmd loss.</span>
+<span class="sd">    sigmas : array like, default=None,</span>
+<span class="sd">        If array, sigmas used for the multi gaussian kernel.</span>
+<span class="sd">        If None, uses sigmas proposed  in [1]_.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    loss : float</span>
+<span class="sd">        The loss of the method.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1]  Mingsheng Long et. al. Learning Transferable</span>
+<span class="sd">            Features with Deep Adaptation Networks.</span>
+<span class="sd">            In ICML, 2015.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">sigmas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">median_pairwise_distance</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">median</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">source_features</span><span class="p">,</span> <span class="n">source_features</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">sigmas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">33</span><span class="p">)]</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">source_features</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">*</span> <span class="n">median_pairwise_distance</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sigmas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">sigmas</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">source_features</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="n">gaussian_kernel</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span>
+        <span class="n">_gaussian_kernel</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span>
+    <span class="p">)</span>
+
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">_maximum_mean_discrepancy</span><span class="p">(</span>
+        <span class="n">source_features</span><span class="p">,</span> <span class="n">target_features</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">gaussian_kernel</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">loss</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">10</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">NeuralNetwork</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_extractor</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="n">n_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">AvgPool1d</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">len_last_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_len_last_layer</span><span class="p">(</span><span class="n">n_channels</span><span class="p">,</span> <span class="n">input_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">len_last_layer</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_extractor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="k">def</span> <span class="nf">_len_last_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">input_size</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_extractor</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">feature_extractor</span><span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_channels</span><span class="p">,</span> <span class="n">input_size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feature_extractor</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+
+<span class="k">class</span> <span class="nc">CustomDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">X</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+
+
+<span class="k">class</span> <span class="nc">MNISTtoUSPSNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MNISTtoUSPSNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">9216</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxpool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxpool</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+
+<span class="k">class</span> <span class="nc">ReverseLayerF</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">reg</span><span class="p">):</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">view_as</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">grad_output</span><span class="o">.</span><span class="n">neg</span><span class="p">()</span> <span class="o">*</span> <span class="n">ctx</span><span class="o">.</span><span class="n">reg</span>
+
+        <span class="k">return</span> <span class="n">output</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="k">class</span> <span class="nc">DomainClassifier</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classifier Architecture for DANN method.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n_channels : int</span>
+<span class="sd">        Number of EEG channels.</span>
+<span class="sd">    sfreq : float</span>
+<span class="sd">        EEG sampling frequency.</span>
+<span class="sd">    n_conv_chs : int</span>
+<span class="sd">        Number of convolutional channels. Set to 8 in [1]_.</span>
+<span class="sd">    time_conv_size_s : float</span>
+<span class="sd">        Size of filters in temporal convolution layers, in seconds. Set to 0.5</span>
+<span class="sd">        in [1]_ (64 samples at sfreq=128).</span>
+<span class="sd">    max_pool_size_s : float</span>
+<span class="sd">        Max pooling size, in seconds. Set to 0.125 in [1]_ (16 samples at</span>
+<span class="sd">        sfreq=128).</span>
+<span class="sd">    n_classes : int</span>
+<span class="sd">        Number of classes.</span>
+<span class="sd">    input_size_s : float</span>
+<span class="sd">        Size of the input, in seconds.</span>
+<span class="sd">    dropout : float</span>
+<span class="sd">        Dropout rate before the output dense layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">len_last_layer</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+        <span class="n">n_classes</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">len_last_layer</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward pass.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ---------</span>
+<span class="sd">        x: torch.Tensor</span>
+<span class="sd">            Batch of EEG windows of shape (batch_size, n_channels, n_times).</span>
+<span class="sd">        lamb: float</span>
+<span class="sd">            Parameter for the reverse layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">reverse_x</span> <span class="o">=</span> <span class="n">ReverseLayerF</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">reg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifier</span><span class="p">(</span><span class="n">reverse_x</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

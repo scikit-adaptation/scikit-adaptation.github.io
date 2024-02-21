@@ -1,0 +1,11 @@
+﻿skada.LinearOTMapping
+=====================
+
+.. currentmodule:: skada
+
+.. autofunction:: LinearOTMapping
+
+.. _sphx_glr_backreferences_skada.LinearOTMapping:
+
+.. minigallery:: skada.LinearOTMapping
+    :add-heading:

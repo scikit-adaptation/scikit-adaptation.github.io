@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.ClassRegularizerOTMapping &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5467c19a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="skada.LinearOTMapping" href="skada.LinearOTMapping.html" />
+    <link rel="prev" title="skada.EntropicOTMapping" href="skada.EntropicOTMapping.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SKADA
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_shifted_blobs.html">skada.datasets.make_shifted_blobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_shifted_datasets.html">skada.datasets.make_shifted_datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_dataset_from_moons_distribution.html">skada.datasets.make_dataset_from_moons_distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_variable_frequency_dataset.html">skada.datasets.make_variable_frequency_dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.ReweightDensity.html">skada.ReweightDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.GaussianReweightDensity.html">skada.GaussianReweightDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.DiscriminatorReweightDensity.html">skada.DiscriminatorReweightDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.KLIEP.html">skada.KLIEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.SubspaceAlignment.html">skada.SubspaceAlignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.OTMapping.html">skada.OTMapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.EntropicOTMapping.html">skada.EntropicOTMapping</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">skada.ClassRegularizerOTMapping</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#skada.ClassRegularizerOTMapping"><code class="docutils literal notranslate"><span class="pre">ClassRegularizerOTMapping()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples-using-skada-classregularizerotmapping">Examples using <code class="docutils literal notranslate"><span class="pre">skada.ClassRegularizerOTMapping</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="skada.LinearOTMapping.html">skada.LinearOTMapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.CORAL.html">skada.CORAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.JDOTRegressor.html">skada.JDOTRegressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.make_da_pipeline.html">skada.make_da_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DeepCORAL.html">skada.feature.DeepCORAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DeepJDOT.html">skada.feature.DeepJDOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DANN.html">skada.feature.DANN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.CDAN.html">skada.feature.CDAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DAN.html">skada.feature.DAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.dan_loss.html">skada.feature.dan_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.deepcoral_loss.html">skada.feature.deepcoral_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.deepjdot_loss.html">skada.feature.deepjdot_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.SupervisedScorer.html">skada.metrics.SupervisedScorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.ImportanceWeightedScorer.html">skada.metrics.ImportanceWeightedScorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.PredictionEntropyScorer.html">skada.metrics.PredictionEntropyScorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
+      <li class="breadcrumb-item active">skada.ClassRegularizerOTMapping</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/gen_modules/skada.ClassRegularizerOTMapping.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="skada-classregularizerotmapping">
+<h1>skada.ClassRegularizerOTMapping<a class="headerlink" href="#skada-classregularizerotmapping" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="skada.ClassRegularizerOTMapping">
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">ClassRegularizerOTMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SVC()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqeuclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lpl1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_inner_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_cl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#ClassRegularizerOTMapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.ClassRegularizerOTMapping" title="Link to this definition"></a></dt>
+<dd><p>ClassRegularizedOTMapping pipeline with adapter and estimator.</p>
+<p>see <a class="reference internal" href="#rb6f8a3343324-1" id="id1">[1]</a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>base_estimator</strong><span class="classifier">object, optional (default=SVC(kernel=&quot;rbf&quot;))</span></dt><dd><p>The base estimator to fit on the target dataset.</p>
+</dd>
+<dt><strong>reg_e</strong><span class="classifier">float, default=1</span></dt><dd><p>Entropic regularization parameter.</p>
+</dd>
+<dt><strong>reg_cl</strong><span class="classifier">float, default=0.1</span></dt><dd><p>Class regularization parameter.</p>
+</dd>
+<dt><strong>norm</strong><span class="classifier">str, default=&quot;lpl1&quot;</span></dt><dd><p>Norm use for the regularizer of the class labels.
+If &quot;lpl1&quot;, use the lp l1 norm.
+If &quot;l1l2&quot;, use the l1 l2 norm.</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">str, optional (default=&quot;sqeuclidean&quot;)</span></dt><dd><p>The ground metric for the Wasserstein problem</p>
+</dd>
+<dt><strong>max_iter</strong><span class="classifier">int, float, optional (default=10)</span></dt><dd><p>The minimum number of iteration before stopping the optimization
+algorithm if it has not converged</p>
+</dd>
+<dt><strong>max_inner_iter</strong><span class="classifier">int, float, optional (default=200)</span></dt><dd><p>The number of iteration in the inner loop</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, optional (default=10e-9)</span></dt><dd><p>Stop threshold on error (inner sinkhorn solver) (&gt;0)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pipeline</strong><span class="classifier">Pipeline</span></dt><dd><p>Pipeline containing ClassRegularizerOTMapping adapter and base estimator.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="rb6f8a3343324-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,
+Optimal Transport for Domain Adaptation, in IEEE
+Transactions on Pattern Analysis and Machine Intelligence</p>
+</div>
+</div>
+</dd></dl>
+
+<section id="examples-using-skada-classregularizerotmapping">
+<span id="sphx-glr-backreferences-skada-classregularizerotmapping"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.ClassRegularizerOTMapping</span></code><a class="headerlink" href="#examples-using-skada-classregularizerotmapping" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp..."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Plot comparison of DA methods</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plot comparison of DA methods</div>
+</div></div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="skada.EntropicOTMapping.html" class="btn btn-neutral float-left" title="skada.EntropicOTMapping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.LinearOTMapping.html" class="btn btn-neutral float-right" title="skada.LinearOTMapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+﻿skada.EntropicOTMapping
+=======================
+
+.. currentmodule:: skada
+
+.. autofunction:: EntropicOTMapping
+
+.. _sphx_glr_backreferences_skada.EntropicOTMapping:
+
+.. minigallery:: skada.EntropicOTMapping
+    :add-heading:

@@ -1,0 +1,13 @@
+﻿skada.metrics.DeepEmbeddedValidation
+====================================
+
+.. currentmodule:: skada.metrics
+
+.. autoclass:: DeepEmbeddedValidation
+   :special-members: __contains__,__getitem__,__iter__,__len__,__add__,__sub__,__mul__,__div__,__neg__
+   :members:
+
+.. _sphx_glr_backreferences_skada.metrics.DeepEmbeddedValidation:
+
+.. minigallery:: skada.metrics.DeepEmbeddedValidation
+    :add-heading:

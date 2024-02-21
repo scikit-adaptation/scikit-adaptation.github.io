@@ -1,0 +1,11 @@
+﻿skada.feature.deepjdot\_loss
+============================
+
+.. currentmodule:: skada.feature
+
+.. autofunction:: deepjdot_loss
+
+.. _sphx_glr_backreferences_skada.feature.deepjdot_loss:
+
+.. minigallery:: skada.feature.deepjdot_loss
+    :add-heading:

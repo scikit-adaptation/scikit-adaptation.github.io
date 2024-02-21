@@ -1,0 +1,11 @@
+﻿skada.feature.deepcoral\_loss
+=============================
+
+.. currentmodule:: skada.feature
+
+.. autofunction:: deepcoral_loss
+
+.. _sphx_glr_backreferences_skada.feature.deepcoral_loss:
+
+.. minigallery:: skada.feature.deepcoral_loss
+    :add-heading:
