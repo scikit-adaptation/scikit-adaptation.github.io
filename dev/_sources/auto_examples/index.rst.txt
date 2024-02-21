@@ -25,7 +25,7 @@ This is a gallery of all the SKADA example files.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Plot comparison of DA methods</div>
+      <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
     </div>
 
 
@@ -143,7 +143,7 @@ DA methods
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Plot JDOT Regressor">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to...">
 
 .. only:: html
 
@@ -154,7 +154,7 @@ DA methods
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Plot JDOT Regressor</div>
+      <div class="sphx-glr-thumbnail-title">JDOT Regressor example</div>
     </div>
 
 
