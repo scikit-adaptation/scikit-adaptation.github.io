@@ -1,0 +1,11 @@
+﻿skada.JDOTRegressor
+===================
+
+.. currentmodule:: skada
+
+.. autofunction:: JDOTRegressor
+
+.. _sphx_glr_backreferences_skada.JDOTRegressor:
+
+.. minigallery:: skada.JDOTRegressor
+    :add-heading:

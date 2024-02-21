@@ -1,0 +1,11 @@
+﻿skada.datasets.make\_dataset\_from\_moons\_distribution
+=======================================================
+
+.. currentmodule:: skada.datasets
+
+.. autofunction:: make_dataset_from_moons_distribution
+
+.. _sphx_glr_backreferences_skada.datasets.make_dataset_from_moons_distribution:
+
+.. minigallery:: skada.datasets.make_dataset_from_moons_distribution
+    :add-heading:

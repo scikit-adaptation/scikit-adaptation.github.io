@@ -1,0 +1,11 @@
+﻿skada.feature.dan\_loss
+=======================
+
+.. currentmodule:: skada.feature
+
+.. autofunction:: dan_loss
+
+.. _sphx_glr_backreferences_skada.feature.dan_loss:
+
+.. minigallery:: skada.feature.dan_loss
+    :add-heading:

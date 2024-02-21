@@ -1,0 +1,11 @@
+﻿skada.datasets.make\_shifted\_blobs
+===================================
+
+.. currentmodule:: skada.datasets
+
+.. autofunction:: make_shifted_blobs
+
+.. _sphx_glr_backreferences_skada.datasets.make_shifted_blobs:
+
+.. minigallery:: skada.datasets.make_shifted_blobs
+    :add-heading:

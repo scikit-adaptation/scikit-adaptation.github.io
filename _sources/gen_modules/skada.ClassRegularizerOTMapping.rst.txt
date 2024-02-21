@@ -1,0 +1,11 @@
+﻿skada.ClassRegularizerOTMapping
+===============================
+
+.. currentmodule:: skada
+
+.. autofunction:: ClassRegularizerOTMapping
+
+.. _sphx_glr_backreferences_skada.ClassRegularizerOTMapping:
+
+.. minigallery:: skada.ClassRegularizerOTMapping
+    :add-heading:

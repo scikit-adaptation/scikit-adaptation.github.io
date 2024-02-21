@@ -1,0 +1,11 @@
+﻿skada.datasets.make\_variable\_frequency\_dataset
+=================================================
+
+.. currentmodule:: skada.datasets
+
+.. autofunction:: make_variable_frequency_dataset
+
+.. _sphx_glr_backreferences_skada.datasets.make_variable_frequency_dataset:
+
+.. minigallery:: skada.datasets.make_variable_frequency_dataset
+    :add-heading:

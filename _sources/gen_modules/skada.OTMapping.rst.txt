@@ -1,0 +1,11 @@
+﻿skada.OTMapping
+===============
+
+.. currentmodule:: skada
+
+.. autofunction:: OTMapping
+
+.. _sphx_glr_backreferences_skada.OTMapping:
+
+.. minigallery:: skada.OTMapping
+    :add-heading:

@@ -1,0 +1,11 @@
+﻿skada.make\_da\_pipeline
+========================
+
+.. currentmodule:: skada
+
+.. autofunction:: make_da_pipeline
+
+.. _sphx_glr_backreferences_skada.make_da_pipeline:
+
+.. minigallery:: skada.make_da_pipeline
+    :add-heading:

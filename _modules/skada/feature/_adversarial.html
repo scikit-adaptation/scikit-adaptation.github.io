@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.feature._adversarial &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5467c19a"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SKADA
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">skada.feature._adversarial</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for skada.feature._adversarial</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
+<span class="c1">#         Remi Flamary &lt;remi.flamary@polytechnique.edu&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3-Clause</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="kn">from</span> <span class="nn">skorch.utils</span> <span class="kn">import</span> <span class="n">to_tensor</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseDANetwork</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_generator</span>
+
+
+<span class="k">class</span> <span class="nc">BaseAdversarial</span><span class="p">(</span><span class="n">BaseDANetwork</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain-Adversarial Training of Neural Networks (DANN).</span>
+
+<span class="sd">    From [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`. In general, the</span>
+<span class="sd">        uninstantiated class should be passed, although instantiated</span>
+<span class="sd">        modules will also work.</span>
+<span class="sd">    criterion : torch criterion (class)</span>
+<span class="sd">        The uninitialized criterion (loss) used to optimize the</span>
+<span class="sd">        module.</span>
+<span class="sd">    layer_names : list of tuples</span>
+<span class="sd">        The names of the module&#39;s layers whose outputs are</span>
+<span class="sd">        collected during the training.</span>
+<span class="sd">    domain_classifier : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module` used for classying domain.</span>
+<span class="sd">        In general, the uninstantiated class should be passed, although</span>
+<span class="sd">        instantiated modules will also work.</span>
+<span class="sd">    domain_criterion : torch criterion (class)</span>
+<span class="sd">        The uninitialized criterion (loss) used to optimize the</span>
+<span class="sd">        domain classifier.</span>
+<span class="sd">    reg: float, optional (default=1)</span>
+<span class="sd">        The regularization parameter of the domain classifier.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1]  Yaroslav Ganin et. al. Domain-Adversarial Training</span>
+<span class="sd">            of Neural Networks  In Journal of Machine Learning</span>
+<span class="sd">            Research, 2016.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">module</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="p">,</span>
+        <span class="n">layer_names</span><span class="p">,</span>
+        <span class="n">domain_classifier</span><span class="p">,</span>
+        <span class="n">domain_criterion</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">module</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">layer_names</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">domain_classifier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion</span> <span class="o">=</span> <span class="n">domain_criterion</span>
+
+    <span class="k">def</span> <span class="nf">initialize_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the criterion.</span>
+
+<span class="sd">        If the criterion is already initialized and no parameter was changed, it</span>
+<span class="sd">        will be left as is.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_params_for</span><span class="p">(</span><span class="s1">&#39;domain_criterion&#39;</span><span class="p">)</span>
+        <span class="n">domain_criterion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized_instance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">domain_criterion</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">initialize_criterion</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">initialize_module</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the module and add hooks to return features.</span>
+
+<span class="sd">        If the module is already initialized and no parameter was changed, it</span>
+<span class="sd">        will be left as is.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_params_for</span><span class="p">(</span><span class="s1">&#39;domain_classifier&#39;</span><span class="p">)</span>
+        <span class="n">domain_classifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialized_instance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span> <span class="o">=</span> <span class="n">domain_classifier</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">initialize_module</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="DANN">
+<a class="viewcode-back" href="../../../gen_modules/skada.feature.DANN.html#skada.feature.DANN">[docs]</a>
+<span class="k">class</span> <span class="nc">DANN</span><span class="p">(</span><span class="n">BaseAdversarial</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain-Adversarial Training of Neural Networks (DANN).</span>
+
+<span class="sd">    From [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`. In general, the</span>
+<span class="sd">        uninstantiated class should be passed, although instantiated</span>
+<span class="sd">        modules will also work.</span>
+<span class="sd">    criterion : torch criterion (class)</span>
+<span class="sd">        The uninitialized criterion (loss) used to optimize the</span>
+<span class="sd">        module.</span>
+<span class="sd">    layer_names : list of tuples</span>
+<span class="sd">        The names of the module&#39;s layers whose outputs are</span>
+<span class="sd">        collected during the training.</span>
+<span class="sd">    domain_classifier : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module` used for classying domain.</span>
+<span class="sd">        In general, the uninstantiated class should be passed, although</span>
+<span class="sd">        instantiated modules will also work.</span>
+<span class="sd">    domain_criterion : torch criterion (class)</span>
+<span class="sd">        The uninitialized criterion (loss) used to optimize the</span>
+<span class="sd">        domain classifier.</span>
+<span class="sd">    reg: float, optional (default=1)</span>
+<span class="sd">        The regularization parameter of the domain classifier.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1]  Yaroslav Ganin et. al. Domain-Adversarial Training</span>
+<span class="sd">            of Neural Networks  In Journal of Machine Learning</span>
+<span class="sd">            Research, 2016.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">module</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="p">,</span>
+        <span class="n">layer_names</span><span class="p">,</span>
+        <span class="n">domain_classifier</span><span class="p">,</span>
+        <span class="n">domain_criterion</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">,</span>
+        <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">module</span><span class="p">,</span>
+            <span class="n">criterion</span><span class="p">,</span>
+            <span class="n">layer_names</span><span class="p">,</span>
+            <span class="n">domain_classifier</span><span class="p">,</span>
+            <span class="n">domain_criterion</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+
+    <span class="k">def</span> <span class="nf">_get_loss_da</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_pred</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="p">,</span>
+        <span class="n">embedd</span><span class="p">,</span>
+        <span class="n">embedd_target</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">X_target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_pred_target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">training</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">to_tensor</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">loss_DANN</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">embedd</span><span class="p">)):</span>
+            <span class="c1"># create domain label</span>
+            <span class="n">domain_label</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">embedd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+            <span class="p">)</span>
+            <span class="n">domain_label_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">embedd_target</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+            <span class="p">)</span>
+
+            <span class="c1"># update classification function</span>
+            <span class="n">output_domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+                <span class="n">embedd</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">output_domain_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+                <span class="n">embedd_target</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">loss_DANN</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">output_domain</span><span class="p">,</span> <span class="n">domain_label</span><span class="p">)</span> <span class="o">+</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">output_domain_target</span><span class="p">,</span> <span class="n">domain_label_target</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">loss_classif</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion_</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss_classif</span> <span class="o">+</span> <span class="n">loss_DANN</span><span class="p">,</span> <span class="n">loss_classif</span><span class="p">,</span> <span class="n">loss_DANN</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">_RandomLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Randomized multilinear map layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    random_state : int, Generator instance or None</span>
+<span class="sd">        Determines random number generation for random layer creation</span>
+<span class="sd">    input_dims : list of int</span>
+<span class="sd">        List of input dimensions.</span>
+<span class="sd">    output_dims : int</span>
+<span class="sd">        Output dimension wanted.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">input_dims</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_RandomLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">gen</span> <span class="o">=</span> <span class="n">check_generator</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span> <span class="o">=</span> <span class="n">output_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_matrix</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">input_dims</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">output_dim</span><span class="p">),</span> <span class="n">generator</span><span class="o">=</span><span class="n">gen</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_dims</span><span class="p">))</span>
+        <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">):</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span>
+        <span class="n">return_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">input_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_list</span><span class="p">))</span>
+        <span class="p">]</span>
+        <span class="n">return_tensor</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">return_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span><span class="p">),</span> <span class="mf">1.0</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">input_list</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">single</span> <span class="ow">in</span> <span class="n">return_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">return_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">return_tensor</span><span class="p">,</span> <span class="n">single</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">return_tensor</span>
+
+
+<div class="viewcode-block" id="CDAN">
+<a class="viewcode-back" href="../../../gen_modules/skada.feature.CDAN.html#skada.feature.CDAN">[docs]</a>
+<span class="k">class</span> <span class="nc">CDAN</span><span class="p">(</span><span class="n">BaseAdversarial</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conditional Domain Adversarial Networks (CDAN).</span>
+
+<span class="sd">    From [1]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`. In general, the</span>
+<span class="sd">        uninstantiated class should be passed, although instantiated</span>
+<span class="sd">        modules will also work.</span>
+<span class="sd">    criterion : torch criterion (class)</span>
+<span class="sd">        The uninitialized criterion (loss) used to optimize the</span>
+<span class="sd">        module.</span>
+<span class="sd">    layer_names : list of tuples</span>
+<span class="sd">        The names of the module&#39;s layers whose outputs are</span>
+<span class="sd">        collected during the training.</span>
+<span class="sd">    domain_classifier : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module` used for classifying domain.</span>
+<span class="sd">        The input size of the domain classifier should be</span>
+<span class="sd">        min(max_features, embedding_size \times n_classes).</span>
+<span class="sd">        In general, the uninstantiated class should be passed, although</span>
+<span class="sd">        instantiated modules will also work.</span>
+<span class="sd">    domain_criterion : torch criterion (class), default=BCELoss</span>
+<span class="sd">        The uninitialized criterion (loss) used to optimize the</span>
+<span class="sd">        domain classifier.</span>
+<span class="sd">    reg: float, (default=1)</span>
+<span class="sd">        The regularization parameter of the domain classifier.</span>
+<span class="sd">    max_features : int, default=4096</span>
+<span class="sd">        Maximum size of the input for the domain classifier.</span>
+<span class="sd">        4096 is the largest number of units in typical deep network</span>
+<span class="sd">        according to [1]_.</span>
+<span class="sd">    random_state : int, Generator instance or None, default=None</span>
+<span class="sd">        Determines random number generation for random layer creation. Pass an int</span>
+<span class="sd">        for reproducible output across multiple function calls.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1]  Mingsheng Long et. al. Conditional Adversarial Domain Adaptation</span>
+<span class="sd">            In NeurIPS, 2016.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">module</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="p">,</span>
+        <span class="n">layer_names</span><span class="p">,</span>
+        <span class="n">domain_classifier</span><span class="p">,</span>
+        <span class="n">domain_criterion</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">,</span>
+        <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">max_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">module</span><span class="p">,</span>
+            <span class="n">criterion</span><span class="p">,</span>
+            <span class="n">layer_names</span><span class="p">,</span>
+            <span class="n">domain_classifier</span><span class="p">,</span>
+            <span class="n">domain_criterion</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_features</span> <span class="o">=</span> <span class="n">max_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+
+    <span class="k">def</span> <span class="nf">_get_loss_da</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_pred</span><span class="p">,</span>
+        <span class="n">y_true</span><span class="p">,</span>
+        <span class="n">embedd</span><span class="p">,</span>
+        <span class="n">embedd_target</span><span class="p">,</span>
+        <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">X_target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">y_pred_target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">training</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">to_tensor</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">loss_CDAN</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+        <span class="n">n_classes</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">gen</span> <span class="o">=</span> <span class="n">check_generator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">embedd</span><span class="p">)):</span>
+            <span class="n">n_features</span> <span class="o">=</span> <span class="n">embedd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">n_features</span> <span class="o">*</span> <span class="n">n_classes</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_features</span><span class="p">:</span>
+                <span class="n">random_layer</span> <span class="o">=</span> <span class="n">_RandomLayer</span><span class="p">(</span>
+                    <span class="n">gen</span><span class="p">,</span>
+                    <span class="n">input_dims</span><span class="o">=</span><span class="p">[</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">],</span>
+                    <span class="n">output_dim</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_features</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">random_layer</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># Compute the input for the domain classifier</span>
+            <span class="k">if</span> <span class="n">random_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span>
+                    <span class="n">y_pred</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">embedd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                <span class="n">multilinear_map_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span>
+                    <span class="n">y_pred_target</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">embedd_target</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">multilinear_map</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">*</span> <span class="n">n_classes</span><span class="p">)</span>
+                <span class="n">multilinear_map_target</span> <span class="o">=</span> <span class="n">multilinear_map_target</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                        <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">*</span> <span class="n">n_classes</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">random_layer</span><span class="o">.</span><span class="n">forward</span><span class="p">([</span><span class="n">embedd</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">])</span>
+                <span class="n">multilinear_map_target</span> <span class="o">=</span> <span class="n">random_layer</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+                    <span class="p">[</span><span class="n">embedd_target</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred_target</span><span class="p">])</span>
+
+            <span class="c1"># Compute the output of the domain classifier</span>
+            <span class="n">output_domain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+               <span class="n">multilinear_map</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">output_domain_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span>
+                <span class="n">multilinear_map_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+            <span class="c1"># create domain label</span>
+            <span class="n">domain_label</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">embedd</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+            <span class="p">)</span>
+            <span class="n">domain_label_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">embedd_target</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span>
+            <span class="p">)</span>
+
+            <span class="c1"># update classification function</span>
+            <span class="n">loss_CDAN</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">output_domain</span><span class="p">,</span> <span class="n">domain_label</span><span class="p">)</span> <span class="o">+</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">output_domain_target</span><span class="p">,</span> <span class="n">domain_label_target</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">loss_classif</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">criterion_</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_true</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss_classif</span> <span class="o">+</span> <span class="n">loss_CDAN</span><span class="p">,</span> <span class="n">loss_classif</span><span class="p">,</span> <span class="n">loss_CDAN</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

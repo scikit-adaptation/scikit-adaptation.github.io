@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.feature.CDAN &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5467c19a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="skada.feature.DAN" href="skada.feature.DAN.html" />
+    <link rel="prev" title="skada.feature.DANN" href="skada.feature.DANN.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SKADA
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_shifted_blobs.html">skada.datasets.make_shifted_blobs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_shifted_datasets.html">skada.datasets.make_shifted_datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_dataset_from_moons_distribution.html">skada.datasets.make_dataset_from_moons_distribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.datasets.make_variable_frequency_dataset.html">skada.datasets.make_variable_frequency_dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.ReweightDensity.html">skada.ReweightDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.GaussianReweightDensity.html">skada.GaussianReweightDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.DiscriminatorReweightDensity.html">skada.DiscriminatorReweightDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.KLIEP.html">skada.KLIEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.SubspaceAlignment.html">skada.SubspaceAlignment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.OTMapping.html">skada.OTMapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.EntropicOTMapping.html">skada.EntropicOTMapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.ClassRegularizerOTMapping.html">skada.ClassRegularizerOTMapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.LinearOTMapping.html">skada.LinearOTMapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.CORAL.html">skada.CORAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.JDOTRegressor.html">skada.JDOTRegressor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.make_da_pipeline.html">skada.make_da_pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DeepCORAL.html">skada.feature.DeepCORAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DeepJDOT.html">skada.feature.DeepJDOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DANN.html">skada.feature.DANN</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">skada.feature.CDAN</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#skada.feature.CDAN"><code class="docutils literal notranslate"><span class="pre">CDAN</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.DAN.html">skada.feature.DAN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.dan_loss.html">skada.feature.dan_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.deepcoral_loss.html">skada.feature.deepcoral_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.feature.deepjdot_loss.html">skada.feature.deepjdot_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.SupervisedScorer.html">skada.metrics.SupervisedScorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.ImportanceWeightedScorer.html">skada.metrics.ImportanceWeightedScorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.PredictionEntropyScorer.html">skada.metrics.PredictionEntropyScorer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
+      <li class="breadcrumb-item active">skada.feature.CDAN</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/gen_modules/skada.feature.CDAN.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="skada-feature-cdan">
+<h1>skada.feature.CDAN<a class="headerlink" href="#skada-feature-cdan" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skada.feature.CDAN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.feature.</span></span><span class="sig-name descname"><span class="pre">CDAN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">criterion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_classifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_criterion=&lt;class</span> <span class="pre">'torch.nn.modules.loss.BCELoss'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_features=4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/feature/_adversarial.html#CDAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.feature.CDAN" title="Link to this definition"></a></dt>
+<dd><p>Conditional Domain Adversarial Networks (CDAN).</p>
+<p>From <a class="reference internal" href="#r2315db4cf2b4-1" id="id1">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>module</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>. In general, the
+uninstantiated class should be passed, although instantiated
+modules will also work.</p>
+</dd>
+<dt><strong>criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The uninitialized criterion (loss) used to optimize the
+module.</p>
+</dd>
+<dt><strong>layer_names</strong><span class="classifier">list of tuples</span></dt><dd><p>The names of the module's layers whose outputs are
+collected during the training.</p>
+</dd>
+<dt><strong>domain_classifier</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used for classifying domain.
+The input size of the domain classifier should be
+min(max_features, embedding_size        imes n_classes).
+In general, the uninstantiated class should be passed, although
+instantiated modules will also work.</p>
+</dd>
+<dt><strong>domain_criterion</strong><span class="classifier">torch criterion (class), default=BCELoss</span></dt><dd><p>The uninitialized criterion (loss) used to optimize the
+domain classifier.</p>
+</dd>
+<dt><strong>reg: float, (default=1)</strong></dt><dd><p>The regularization parameter of the domain classifier.</p>
+</dd>
+<dt><strong>max_features</strong><span class="classifier">int, default=4096</span></dt><dd><p>Maximum size of the input for the domain classifier.
+4096 is the largest number of units in typical deep network
+according to <a class="reference internal" href="#r2315db4cf2b4-1" id="id2">[1]</a>.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, Generator instance or None, default=None</span></dt><dd><p>Determines random number generation for random layer creation. Pass an int
+for reproducible output across multiple function calls.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r2315db4cf2b4-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Mingsheng Long et. al. Conditional Adversarial Domain Adaptation
+In NeurIPS, 2016.</p>
+</div>
+</div>
+</dd></dl>
+
+<span class="target" id="sphx-glr-backreferences-skada-feature-cdan"></span></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="skada.feature.DANN.html" class="btn btn-neutral float-left" title="skada.feature.DANN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.feature.DAN.html" class="btn btn-neutral float-right" title="skada.feature.DAN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
