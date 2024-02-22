@@ -179,7 +179,7 @@ boundary learned by the KRR.
 
 
 .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_002.png
-   :alt: KRR Prediction on source (MSE=0.06), KRR Prediction on target (MSE=1.30)
+   :alt: KRR Prediction on source (MSE=0.06), KRR Prediction on target (MSE=0.77)
    :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_002.png
    :class: sphx-glr-single-img
 
@@ -189,7 +189,7 @@ boundary learned by the KRR.
  .. code-block:: none
 
     MSE on source: 0.06
-    MSE on target: 1.30
+    MSE on target: 0.77
 
     (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
 
@@ -244,7 +244,7 @@ domain than with the KRR trained on source.
 
 
 .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_003.png
-   :alt: JDOT Prediction on source (MSE=0.64), JDOT Prediction on target (MSE=0.17)
+   :alt: JDOT Prediction on source (MSE=0.51), JDOT Prediction on target (MSE=0.15)
    :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_003.png
    :class: sphx-glr-single-img
 
@@ -253,8 +253,8 @@ domain than with the KRR trained on source.
 
  .. code-block:: none
 
-    JDOT MSE on source: 0.64
-    JDOT MSE on target: 0.17
+    JDOT MSE on source: 0.51
+    JDOT MSE on target: 0.15
 
     (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
 
@@ -309,7 +309,7 @@ is able to align the source and target samples while preserving the label.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.033 seconds)
+   **Total running time of the script:** (0 minutes 0.851 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_jdot_da.py:

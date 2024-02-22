@@ -26,8 +26,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Plot dataset source domain and shifted target domain" href="plot_shifted_dataset.html" />
-    <link rel="prev" title="Comparison of DA classification methods" href="../plot_method_comparison.html" /> 
+    <link rel="next" title="Plot dataset source domain and shifted target domain" href="plot_variable_frequency_dataset.html" />
+    <link rel="prev" title="Plot dataset source domain and shifted target domain" href="plot_shifted_dataset.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -60,8 +60,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Plot dataset source domain and shifted target domain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_shifted_dataset.html">Plot dataset source domain and shifted target domain</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Plot dataset source domain and shifted target domain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_variable_frequency_dataset.html">Plot dataset source domain and shifted target domain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_dataset_from_moons_distribution.html">Plot dataset source domain and shifted target domain</a></li>
 </ul>
@@ -150,9 +150,10 @@ Pattern recognition, 45(1):521-530.</p>
     <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
         <span class="n">X_source</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
         <span class="n">X_source</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="n">y_source</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">y_source</span><span class="p">,</span>
+        <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;autumn&quot;</span>
     <span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Source data&quot;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
@@ -161,9 +162,10 @@ Pattern recognition, 45(1):521-530.</p>
     <span class="n">s</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
         <span class="n">X_target</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
         <span class="n">X_target</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="n">y_target</span><span class="o">*</span><span class="mi">10</span><span class="p">,</span>
-        <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">y_target</span><span class="p">,</span>
+        <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
         <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;autumn&quot;</span>
     <span class="p">)</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Target data&quot;</span><span class="p">)</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
@@ -172,7 +174,7 @@ Pattern recognition, 45(1):521-530.</p>
     <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
     <span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">])</span>
     <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
-    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;y-value*10&quot;</span><span class="p">)</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;y-value&quot;</span><span class="p">)</span>
 
     <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -192,7 +194,7 @@ Pattern recognition, 45(1):521-530.</p>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_regression_003.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_regression_003.png" alt="Concept Drift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_regression_004.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_regression_004.png" alt="Subspace, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 </ul>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.675 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.598 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-datasets-plot-shifted-dataset-regression-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d60ce60a409539bb42aea31156ebd424/plot_shifted_dataset_regression.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_shifted_dataset_regression.ipynb</span></code></a></p>
@@ -208,8 +210,8 @@ Pattern recognition, 45(1):521-530.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../plot_method_comparison.html" class="btn btn-neutral float-left" title="Comparison of DA classification methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plot_shifted_dataset.html" class="btn btn-neutral float-right" title="Plot dataset source domain and shifted target domain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plot_shifted_dataset.html" class="btn btn-neutral float-left" title="Plot dataset source domain and shifted target domain" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plot_variable_frequency_dataset.html" class="btn btn-neutral float-right" title="Plot dataset source domain and shifted target domain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
