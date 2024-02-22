@@ -26,7 +26,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API and modules" href="all.html" /> 
+    <link rel="next" title="Quickstart" href="quickstart.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,9 +53,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
 </ul>
 
         </div>
@@ -89,255 +89,175 @@
 <div class="toctree-wrapper compound">
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
 </ul>
 </div>
+<section id="skada-domain-adaptation-with-scikit-learn-and-pytorch">
+<h3>SKADA - Domain Adaptation with scikit-learn and Pytorch<a class="headerlink" href="#skada-domain-adaptation-with-scikit-learn-and-pytorch" title="Link to this heading"></a></h3>
+<p><a class="reference external" href="https://badge.fury.io/py/skada"><img alt="PyPI version" src="https://badge.fury.io/py/skada.svg" /></a>
+<a class="reference external" href="https://github.com/scikit-adaptation/skada/actions"><img alt="Build Status" src="https://github.com/scikit-adaptation/skada/actions/workflows/testing.yml/badge.svg" /></a>
+<a class="reference external" href="https://codecov.io/gh/scikit-adaptation/skada"><img alt="Codecov Status" src="https://codecov.io/gh/scikit-adaptation/skada/branch/main/graph/badge.svg" /></a>
+<a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg" /></a></p>
 <blockquote>
 <div><p>[!WARNING]
 This library is currently in a phase of active development. All features are subject to change without prior notice. If you are interested in collaborating, please feel free to reach out by opening an issue or starting a discussion.</p>
 </div></blockquote>
-<section id="domain-aware-api">
-<h3>Domain Aware API<a class="headerlink" href="#domain-aware-api" title="Link to this heading"></a></h3>
-<p>The core concept introduced with this API are the following:</p>
+<p>SKADA is a library for domain adaptation (DA) with a scikit-learn and Pytorch/skorch
+compatible API with the following features:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> labels</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DomainAwareDataset</span></code> API</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Adapter</span></code> interface</p></li>
-<li><p>Pipeline, <code class="docutils literal notranslate"><span class="pre">make_da_pipeline</span></code> and selectors</p></li>
-<li><p>Model selection (model scoring, splitters)</p></li>
+<li><p>DA estimators with a scikit-learn compatible API (fit, transform, predict).</p></li>
+<li><p>Pytorch/skorch API for deep learning DA algorithms.</p></li>
+<li><p>Classifier/Regressor and data Adapter DA algorithms compatible with scikit-learn pipelines.</p></li>
+<li><p>Compatible with scikit-learn validation loops (cross_val_score, GridSearchCV, etc).</p></li>
 </ul>
-<p>The are a few test suites available to see examples, specifically</p>
+<section id="implemented-algorithms">
+<h4>Implemented algorithms<a class="headerlink" href="#implemented-algorithms" title="Link to this heading"></a></h4>
+<p>The following algorithms are currently implemented.</p>
+<section id="domain-adaptation-algorithms">
+<h5>Domain adaptation algorithms<a class="headerlink" href="#domain-adaptation-algorithms" title="Link to this heading"></a></h5>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_mapping.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_reweight.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_subspace.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_pipeline.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_scorer.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tests/test_cv.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">datasets/tests/test_samples_generator.py</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">datasets/tests/test_office.py</span></code></p></li>
+<li><p>Sample reweighting methods (Gaussian [1], Discriminant [2], KLIEP [3],
+DensityRatio [4])</p></li>
+<li><p>Sample mapping methods (CORAL [5], Optimal Transport DA OTDA [6], LinearMonge [7])</p></li>
+<li><p>Subspace methods (SubspaceAlignment [8], TCA [9])</p></li>
+<li><p>Other methods (JDOT [10], DASVM [11])</p></li>
 </ul>
-<p>To run all tests, simply execute</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>skada/<span class="w"> </span>--ignore<span class="o">=</span>skada/feature
-</pre></div>
-</div>
-<p>A test suite for new datasets API is on its way. A separate test suite for new <code class="docutils literal notranslate"><span class="pre">Office31</span></code> dataset is already in there (note, it take a bit longer to run compared to other tests as it has to fetch datasets first).</p>
-<section id="sample-domain">
-<h4>Sample Domain<a class="headerlink" href="#sample-domain" title="Link to this heading"></a></h4>
-<p>Typically, in supervised learning we deal with samples (<code class="docutils literal notranslate"><span class="pre">X</span></code>) and labels (<code class="docutils literal notranslate"><span class="pre">y</span></code>). Like that:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>With domain adaptation it's a bit more complicated as we have multiple <code class="docutils literal notranslate"><span class="pre">(X,</span> <span class="pre">y)</span></code> pairs originating from different domains. A core theme of the new API is an explicit labeling of domains per each sample: all methods (like <code class="docutils literal notranslate"><span class="pre">fit</span></code>, <code class="docutils literal notranslate"><span class="pre">predict</span></code>, <code class="docutils literal notranslate"><span class="pre">score</span></code>, <code class="docutils literal notranslate"><span class="pre">adapt</span></code> and others) takes additional argument <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code>. Each domain is assigned with an integer label. When passing into processing, source domains are marked with positive labels and target as negatives. A bunch of helpers are available to make work with domain labeling simple and straightforward. Common use case looks like</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">DomainAwareEstimator</span><span class="p">(</span><span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain_train</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain_test</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> could be skipped if a) there's a single source and single target domain, b) target labels are masked with the special value <code class="docutils literal notranslate"><span class="pre">-1</span></code>. In such a case, <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> would be automatically derived. In other scenarios, <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> is required.</p>
+<p>All methods that can be cast as an adaptation of the input data can be used as a
+scikit-learn transformer (Adapter) provides both a full Classifier/Regressor
+estimator and an <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> that can be used in a DA pipeline with
+<code class="docutils literal notranslate"><span class="pre">make_da_pipeline</span></code>. See the examples below and <a class="reference external" href="https://scikit-adaptation.github.io/auto_examples/index.html">the gallery</a>.</p>
 </section>
-<section id="dataset">
-<h4>Dataset<a class="headerlink" href="#dataset" title="Link to this heading"></a></h4>
-<p>New <code class="docutils literal notranslate"><span class="pre">skada.datasets.DomainAwareDataset</span></code> class to act as a container for all domains with the API built around <code class="docutils literal notranslate"><span class="pre">add_domain</span></code> and <code class="docutils literal notranslate"><span class="pre">pack</span></code> methods:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">DomainAwareDataset</span><span class="p">()</span>
-<span class="n">datasets</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_subj1</span><span class="p">,</span> <span class="n">y_subj1</span><span class="p">,</span> <span class="n">domain_name</span><span class="o">=</span><span class="s2">&quot;subj_1&quot;</span><span class="p">)</span>
-<span class="n">datasets</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_subj3</span><span class="p">,</span> <span class="n">y_subj3</span><span class="p">,</span> <span class="n">domain_name</span><span class="o">=</span><span class="s2">&quot;subj_3&quot;</span><span class="p">)</span>
-<span class="n">datasets</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_subj12</span><span class="p">,</span> <span class="n">y_subj12</span><span class="p">,</span> <span class="n">domain_name</span><span class="o">=</span><span class="s2">&quot;subj_12&quot;</span><span class="p">)</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;subj_12&#39;</span><span class="p">,</span> <span class="s1">&#39;subj_1&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;subj_3&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>should be also compatible for fetchers, like</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">office31</span> <span class="o">=</span> <span class="n">fetch_office31_surf_all</span><span class="p">()</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;dslr&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;webcam&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>Method <code class="docutils literal notranslate"><span class="pre">pack</span></code> also accepts optional <code class="docutils literal notranslate"><span class="pre">return_X_y</span></code> argument (defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>). When this argument is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the method returns <code class="docutils literal notranslate"><span class="pre">Bunch</span></code> object with the following set of keys:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">office31</span> <span class="o">=</span> <span class="n">fetch_all_office31_surf</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;dslr&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;webcam&#39;</span><span class="p">],</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="go">dict_keys([&#39;X&#39;, &#39;y&#39;, &#39;sample_domain&#39;, &#39;domain_names&#39;])</span>
-</pre></div>
-</div>
-<p>This is mostly to cover use cases where you need access to <code class="docutils literal notranslate"><span class="pre">'domain_names'</span></code> labels. Domain labels are assigned following the convention that source gets non-negative integer (1,2,..) and target always gets negative (-1,-2,...). Labels are assigned in the order that datasets are provided, should make it easier to &quot;reconstruct&quot; labels even working with tuple output (without access to <code class="docutils literal notranslate"><span class="pre">Bunch</span></code> object). Absolute value of the label is always static for a given domain name, for example if &quot;amazon&quot; domain gets index 2 it will be included in <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> as 2 when included as source and -2 when included as target. Such convention is required to avoid fluctuations of domain labels (otherwise multi-estimator API won't be possible).</p>
-<p>Considering different scenarios, the dataset provides the following helpers:</p>
+<section id="deep-learning-domain-adaptation-algorithms">
+<h5>Deep learning domain adaptation algorithms<a class="headerlink" href="#deep-learning-domain-adaptation-algorithms" title="Link to this heading"></a></h5>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">pack_train</span></code> masks labels for domains designated for being used as targets</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pack_test</span></code> packs requested targets</p></li>
-</ul>
-<p>Working with an estimator with a new API would look like the following:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">office31</span> <span class="o">=</span> <span class="n">fetch_office31_surf_all</span><span class="p">()</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;dslr&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;webcam&#39;</span><span class="p">])</span>
-
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">CORALAdapter</span><span class="p">(),</span><span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
-
-<span class="c1"># predict and score on target domain</span>
-<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">pack_test</span><span class="p">(</span><span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;webcam&#39;</span><span class="p">])</span>
-<span class="n">webcam_idx</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">select_domain</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="s1">&#39;webcam&#39;</span><span class="p">)</span>
-<span class="n">y_target</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">,[</span><span class="n">webcam_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="n">webcam_idx</span><span class="p">])</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="n">webcam_idx</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">y_test</span><span class="p">[</span><span class="n">webcam_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="n">webcam_idx</span><span class="p">])</span>
-
-<span class="c1"># pick multiple domains</span>
-<span class="n">source_idx</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">select_domain</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;dslr&#39;</span><span class="p">))</span>
-
-<span class="c1"># or using markers from `DomainAware*` API (see description below)</span>
-<span class="n">target_idx</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">select_domain</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">DomainAwareEstimator</span><span class="o">.</span><span class="n">INCLUDE_ALL_TARGETS</span><span class="p">)</span>
-
-<span class="c1"># generic helper to simplify flow when the dataset is created &quot;on the fly&quot;</span>
-<span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <span class="n">select_domain</span>
-<span class="n">source_idx</span> <span class="o">=</span> <span class="n">select_domain</span><span class="p">(</span><span class="n">office31</span><span class="o">.</span><span class="n">domain_names</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;dslr&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</section>
-<section id="adapters-and-estimators">
-<h4>Adapters and Estimators<a class="headerlink" href="#adapters-and-estimators" title="Link to this heading"></a></h4>
-<section id="adapter">
-<h5>Adapter<a class="headerlink" href="#adapter" title="Link to this heading"></a></h5>
-<p>The next building block for domain adaptation API is &quot;Adapter&quot; (see <code class="docutils literal notranslate"><span class="pre">skada.base.BaseAdapter</span></code> for details). The job of the adapter is to transform source and target samples (and, possibly, labels or weights) into the output space where estimator is going to be defined.  &quot;Adapter&quot; is defined by providing <code class="docutils literal notranslate"><span class="pre">fit</span></code> and <code class="docutils literal notranslate"><span class="pre">adapt</span></code> methods (the closest analogy for adapters is <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> transformers, typical workflow is also similar).</p>
-<p>The list of adapters that were moved to a new API:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ClassRegularizerOTMappingAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">CORALAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">EntropicOTMappingAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">LinearOTMappingAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">OTMappingAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DiscriminatorReweightDensityAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GaussianReweightDensityAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">KLIEPAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ReweightDensityAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SubspaceAlignmentAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TransferComponentAnalysisAdapter</span></code></p></li>
+<li><p>Deep Correlation alignment (DeepCORAL [12])</p></li>
+<li><p>Deep joint distribution optimal (DeepJDOT [13])</p></li>
+<li><p>Divergence minimization (MMD/DAN [14])</p></li>
+<li><p>Adversarial/discriminator based DA (DANN [15], CDAN [16])</p></li>
 </ul>
 </section>
-<section id="pipeline">
-<h5>Pipeline<a class="headerlink" href="#pipeline" title="Link to this heading"></a></h5>
-<p>You can create a domain aware estimator as the pipeline that combines together adapter of your choice (to perform transformation) and the estimator (well, as an estimator):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
+<section id="da-metrics">
+<h5>DA metrics<a class="headerlink" href="#da-metrics" title="Link to this heading"></a></h5>
+<ul class="simple">
+<li><p>Importance Weighted [17]</p></li>
+<li><p>Prediction entropy [18]</p></li>
+<li><p>Soft neighborhood density [19]</p></li>
+<li><p>Deep Embedded Validation (DEV) [20]</p></li>
+</ul>
+</section>
+</section>
+<section id="installation">
+<h4>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h4>
+<p>The library is not yet available on PyPI. You can install it from the source code.</p>
+</section>
+<section id="short-examples">
+<h4>Short examples<a class="headerlink" href="#short-examples" title="Link to this heading"></a></h4>
+<p>We provide here a few examples to illustrate the use of the library. For more
+details, please refer to this <a class="reference external" href="https://scikit-adaptation.github.io/auto_examples/plot_how_to_use_skada.html">example</a>, the <a class="reference external" href="https://scikit-adaptation.github.io/quickstart.html">quick start guide</a> and the <a class="reference external" href="https://scikit-adaptation.github.io/auto_examples/index.html">gallery</a>.</p>
+<p>First the DA data in the skada API is stored in the following format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the input data, <code class="docutils literal notranslate"><span class="pre">y</span></code> is the target labels and <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> is the
+domain label (positive for source and negative for target domains). We provide
+below an exmaple ho how to fit a DA estimator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORAL</span>
 
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">CORALAdapter</span><span class="p">(),</span>
-    <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="p">)</span>
-<span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+<span class="n">da</span> <span class="o">=</span> <span class="n">CORAL</span><span class="p">()</span>
+<span class="n">da</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span> <span class="c1"># sample_domain passed by name</span>
+
+<span class="n">ypred</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span> <span class="c1"># predict on test data</span>
 </pre></div>
 </div>
-<p>The helper function <code class="docutils literal notranslate"><span class="pre">make_da_pipeline</span></code> creates a built-in <code class="docutils literal notranslate"><span class="pre">sklearn.pipeline.Pipeline</span></code> meta-estimator, which exposes all estimator-related calls (like <code class="docutils literal notranslate"><span class="pre">fit</span></code> and <code class="docutils literal notranslate"><span class="pre">predict</span></code>), it also defines additional methods based on the functionality provided in the base estimator (like <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> or <code class="docutils literal notranslate"><span class="pre">score</span></code>). It also has a special method <code class="docutils literal notranslate"><span class="pre">adapt</span></code> to perform transformation without passing it into estimator.</p>
-<p>Feel free to stack more transformers as necessary:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">StandardScaler</span><span class="p">(),</span>
-    <span class="n">PCA</span><span class="p">(),</span>
-    <span class="n">CORALAdapter</span><span class="p">(),</span>
-    <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="p">)</span>
-<span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+<p>One can also use <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> classes to create a full pipeline with DA:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORALAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span> <span class="c1"># sample_domain passed by name</span>
+</pre></div>
+</div>
+<p>Note that for <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> classes that provide Reweighting of the sample, the
+subsequent classifier/regressor must require sample_weights as input. This is
+done with the <code class="docutils literal notranslate"><span class="pre">set_fit_requires</span></code> for instance for the <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> with
+<code class="docutils literal notranslate"><span class="pre">LogisticRegression().set_fit_requires('sample_weight')</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">GaussianReweightDensityAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">GaussianReweightDensityAdapter</span><span class="p">(),</span>
+                        <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Finally skada can be used for estimating cross validation scores and parameter
+selection :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">skada.model_selection</span> <span class="kn">import</span> <span class="n">SourceTargetShuffleSplit</span>
+<span class="kn">from</span> <span class="nn">skada.metrics</span> <span class="kn">import</span> <span class="n">PredictionEntropyScorer</span>
+
+<span class="c1"># make pipeline</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+
+<span class="c1"># split and score</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">SourceTargetShuffleSplit</span><span class="p">()</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="n">PredictionEntropyScorer</span><span class="p">()</span>
+
+<span class="c1"># cross va score</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="n">sample_domain</span><span class="p">},</span>
+                         <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+
+<span class="c1"># grid search</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coraladapter__reg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]}</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">clf</span><span class="p">,</span>
+                           <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;coraladapter__reg&quot;</span><span class="p">:</span> <span class="n">reg_coral</span><span class="p">},</span>
+                           <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">)</span>
+
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </section>
-<section id="selector">
-<h5>Selector<a class="headerlink" href="#selector" title="Link to this heading"></a></h5>
-<p><code class="docutils literal notranslate"><span class="pre">Shared</span></code> is a simplest select that always returns the same entity (note that <code class="docutils literal notranslate"><span class="pre">BaseAdapter</span></code> is also sklearn estimator for additional conveniences). Also note, that a single adapter and/or estimator would still work on multiple domains by concatenating them. Other selectors available:</p>
+<section id="acknowledgements">
+<h4>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading"></a></h4>
+<p>This toolbox has been created and is maintained by the SKADA team that includes the following members:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">PerDomainSelector</span></code> (single base adapter/estimator, cloned and fitted per each domain)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SourceTargetSelector</span></code> (one adapter/estimator for all sources, one for all targets)</p></li>
+<li><p><a class="reference external" href="https://tgnassou.github.io/">Théo Gnassounou</a></p></li>
+<li><p><a class="reference external" href="https://kachayev.github.io/talks/">Oleksii Kachaiev</a></p></li>
+<li><p><a class="reference external" href="https://remi.flamary.com/">Rémi Flamary</a></p></li>
+<li><p><a class="reference external" href="https://www.antoinecollas.fr/">Antoine Collas</a></p></li>
+<li><p><a class="reference external" href="https://github.com/YanisLalou">Yanis Lalou</a></p></li>
+<li><p><a class="reference external" href="https://scholar.google.com/citations?user=h79bffAAAAAJ&amp;amp;hl=fr">Antoine de Mathelin</a></p></li>
 </ul>
-<p>Even though, as of now, we don't have any adapters that would be reasonable to split per domain, - when they are ready, the usage would look as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">OTMappingAdapter</span><span class="p">(),</span>
-    <span class="n">PerDomain</span><span class="p">(</span><span class="n">LogisticRegression</span><span class="p">())</span>
-<span class="p">)</span>
-<span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>If you have the scenario that fits neither, low-level API is available at your convenience (see the section below).</p>
-</section>
-<section id="test-time-domain-adaptation">
-<h5>Test-time Domain Adaptation<a class="headerlink" href="#test-time-domain-adaptation" title="Link to this heading"></a></h5>
-<p>When working with multiple domains, <code class="docutils literal notranslate"><span class="pre">predict</span></code> only respects domains that were seen during the fitting. For doing test-time domain adaptation (when new adapter or estimator is fit at a test time) <code class="docutils literal notranslate"><span class="pre">update</span></code> and <code class="docutils literal notranslate"><span class="pre">update_predict</span></code> methods are available. Those work the same way as <code class="docutils literal notranslate"><span class="pre">fit</span></code> and <code class="docutils literal notranslate"><span class="pre">fit_predict</span></code> with the only difference that they take in new domains (previously unseen).</p>
-</section>
-</section>
-<section id="model-selection">
-<h4>Model Selection<a class="headerlink" href="#model-selection" title="Link to this heading"></a></h4>
-<p>The implementation is largely compatible with scikit-learn's model selection tools, such as <code class="docutils literal notranslate"><span class="pre">cross_validate</span></code> and <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>. When using these tools, the <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> should be included in the <code class="docutils literal notranslate"><span class="pre">params</span></code> dictionary passed to the respective method. For practical usage examples, refer to the tests in <code class="docutils literal notranslate"><span class="pre">skada/tests/test_cv.py</span></code>, which showcase how to integrate these splitters with scikit-learn's model selection framework effectively.</p>
-<section id="scoring">
-<h5>Scoring<a class="headerlink" href="#scoring" title="Link to this heading"></a></h5>
-<p>The library ships a few scorers for domain adaptation models. The following scorers are plug-and-play compatible:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ImportanceWeightedScorer</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">PredictionEntropyScorer</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">SoftNeighborhoodDensity</span></code></p></li>
-</ul>
-<p>See API usage examples in <code class="docutils literal notranslate"><span class="pre">skada/tests/test_scorer.py</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">SupervisedScorer</span></code> is a unique scorer that necessitates special consideration. Since it requires access to target labels, which are masked during the dataset packing process for training, this scorer mandates an additional key to be passed within the <code class="docutils literal notranslate"><span class="pre">params</span></code>. The usage is as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">da_dataset</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span>
-<span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">ReweightDensityAdapter</span><span class="p">(),</span>
-    <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_score_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">target_labels</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">da_dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">scoring</span> <span class="o">=</span> <span class="n">SupervisedScorer</span><span class="p">()</span>
-<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span>
-    <span class="n">estimator</span><span class="p">,</span>
-    <span class="n">X</span><span class="p">,</span>
-    <span class="n">y</span><span class="p">,</span>
-    <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
-    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="s1">&#39;target_labels&#39;</span><span class="p">:</span> <span class="n">target_labels</span><span class="p">},</span>
-    <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>The code fails if the validation uses <code class="docutils literal notranslate"><span class="pre">SupervisedScorer</span></code> but <code class="docutils literal notranslate"><span class="pre">target_labels</span></code> are not provided.</p>
-</section>
-<section id="splitters">
-<h5>Splitters<a class="headerlink" href="#splitters" title="Link to this heading"></a></h5>
-<p>The library includes a range of splitters designed specifically for domain adaptation scenarios.</p>
-<p><code class="docutils literal notranslate"><span class="pre">skada.model_selection.SourceTargetShuffleSplit</span></code>: This splitter functions similarly to the standard <code class="docutils literal notranslate"><span class="pre">ShuffleSplit</span></code> but takes into account the distinct separation between source and target domains. It follows the standard API structure:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">da_dataset</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;s2&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;t2&#39;</span><span class="p">])</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">SubspaceAlignmentAdapter</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">LogisticRegression</span><span class="p">(),</span>
-<span class="p">)</span>
-<span class="n">n_splits</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">SourceTargetShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span>
-    <span class="n">pipe</span><span class="p">,</span>
-    <span class="n">X</span><span class="p">,</span>
-    <span class="n">y</span><span class="p">,</span>
-    <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
-    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="n">sample_domain</span><span class="p">},</span>
-    <span class="n">scoring</span><span class="o">=</span><span class="n">PredictionEntropyScorer</span><span class="p">(),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">skada.model_selection.LeaveOneDomainOut</span></code> is a cross-validator that, in each iteration, randomly selects a single domain to serve as the target. After this selection, the train/test split is performed using the <code class="docutils literal notranslate"><span class="pre">ShuffleSplit</span></code> algorithm. The <code class="docutils literal notranslate"><span class="pre">max_n_splits</span></code> parameter limits the number of splits; in its absence, each domain is used as a target exactly once.</p>
-<p>This splitter requires the dataset to be specially prepared so that each domain is represented as both a source and a target simultaneously. This preparation can be achieved using the <code class="docutils literal notranslate"><span class="pre">pack_lodo</span></code> method. An example is provided below for clarity:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">da_dataset</span><span class="o">.</span><span class="n">pack_lodo</span><span class="p">()</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">SubspaceAlignmentAdapter</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-    <span class="n">LogisticRegression</span><span class="p">(),</span>
-<span class="p">)</span>
-<span class="n">cv</span> <span class="o">=</span> <span class="n">LeaveOneDomainOut</span><span class="p">(</span><span class="n">max_n_splits</span><span class="o">=</span><span class="n">max_n_splits</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validate</span><span class="p">(</span>
-    <span class="n">pipe</span><span class="p">,</span>
-    <span class="n">X</span><span class="p">,</span>
-    <span class="n">y</span><span class="p">,</span>
-    <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
-    <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="n">sample_domain</span><span class="p">},</span>
-    <span class="n">scoring</span><span class="o">=</span><span class="n">PredictionEntropyScorer</span><span class="p">(),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>More examples demonstrating the usage of splitters and scorers can be found in the  <code class="docutils literal notranslate"><span class="pre">skada/tests/test_cv.py</span></code> test suite.</p>
-</section>
-</section>
 </section>
 <section id="license">
-<h3>License<a class="headerlink" href="#license" title="Link to this heading"></a></h3>
+<h4>License<a class="headerlink" href="#license" title="Link to this heading"></a></h4>
 <p>The library is distributed under the 3-Clause BSD license.</p>
+</section>
+<section id="references">
+<h4>References<a class="headerlink" href="#references" title="Link to this heading"></a></h4>
+<p>[1] Shimodaira Hidetoshi. <a class="reference external" href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;amp;type=pdf&amp;amp;doi=235723a15c86c369c99a42e7b666dfe156ad2cba">&quot;Improving predictive inference under covariate shift by weighting the log-likelihood function.&quot;</a> Journal of statistical planning and inference 90, no. 2 (2000): 227-244.</p>
+<p>[2] Sugiyama Masashi, Taiji Suzuki, and Takafumi Kanamori. <a class="reference external" href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;amp;type=pdf&amp;amp;doi=f1467208a75def8b2e52a447ab83644db66445ea">&quot;Density-ratio matching under the Bregman divergence: a unified framework of density-ratio estimation.&quot;</a> Annals of the Institute of Statistical Mathematics 64 (2012): 1009-1044.</p>
+<p>[3] Sugiyama Masashi, Taiji Suzuki, Shinichi Nakajima, Hisashi Kashima, Paul Von Bünau, and Motoaki Kawanabe. <a class="reference external" href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;amp;type=pdf&amp;amp;doi=af14e09a9f829b9f0952eac244b0ac0c8bda2ca8">&quot;Direct importance estimation for covariate shift adaptation.&quot;</a> Annals of the Institute of Statistical Mathematics 60 (2008): 699-746.</p>
+<p>[4] Sugiyama Masashi, and Klaus-Robert Müller. <a class="reference external" href="https://web.archive.org/web/20070221112234id_/http://sugiyama-www.cs.titech.ac.jp:80/~sugi/2005/IWSIC.pdf">&quot;Input-dependent estimation of generalization error under covariate shift.&quot;</a> (2005): 249-279.</p>
+<p>[5] Sun Baochen, Jiashi Feng, and Kate Saenko. <a class="reference external" href="https://arxiv.org/pdf/1612.01939.pdf">&quot;Correlation alignment for unsupervised domain adaptation.&quot;</a> Domain adaptation in computer vision applications (2017): 153-171.</p>
+<p>[6] Courty Nicolas, Flamary Rémi, Tuia Devis, and Alain Rakotomamonjy. <a class="reference external" href="https://arxiv.org/pdf/1507.00504.pdf">&quot;Optimal transport for domain adaptation.&quot;</a> IEEE Trans. Pattern Anal. Mach. Intell 1, no. 1-40 (2016): 2.</p>
+<p>[7] Flamary, R., Lounici, K., &amp; Ferrari, A. (2019). <a class="reference external" href="https://arxiv.org/pdf/1905.10155.pdf">Concentration bounds for linear monge mapping estimation and optimal transport domain adaptation</a>. arXiv preprint arXiv:1905.10155.</p>
+<p>[8] Fernando, B., Habrard, A., Sebban, M., &amp; Tuytelaars, T. (2013). <a class="reference external" href="https://openaccess.thecvf.com/content_iccv_2013/papers/Fernando_Unsupervised_Visual_Domain_2013_ICCV_paper.pdf">Unsupervised visual domain adaptation using subspace alignment</a>. In Proceedings of the IEEE international conference on computer vision (pp. 2960-2967).</p>
+<p>[9] Pan, S. J., Tsang, I. W., Kwok, J. T., &amp; Yang, Q. (2010). <a class="reference external" href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;amp;type=pdf&amp;amp;doi=4823e52161ec339d4d3526099a5477321f6a9a0f">Domain adaptation via transfer component analysis</a>. IEEE transactions on neural networks, 22(2), 199-210.</p>
+<p>[10] Courty, N., Flamary, R., Habrard, A., &amp; Rakotomamonjy, A. (2017). <a class="reference external" href="https://proceedings.neurips.cc/paper_files/paper/2017/file/0070d23b06b1486a538c0eaa45dd167a-Paper.pdf">Joint distribution optimal transportation for domain adaptation</a>. Advances in neural information processing systems, 30.</p>
+<p>[11] Bruzzone, L., &amp; Marconcini, M. (2009). <a class="reference external" href="https://ieeexplore.ieee.org/document/4803844">Domain adaptation problems: A DASVM classification technique and a circular validation strategy.</a> IEEE transactions on pattern analysis and machine intelligence, 32(5), 770-787.</p>
+<p>[12] Sun, B., &amp; Saenko, K. (2016). <a class="reference external" href="https://arxiv.org/pdf/1607.01719.pdf">Deep coral: Correlation alignment for deep domain adaptation</a>. In Computer Vision–ECCV 2016 Workshops: Amsterdam, The Netherlands, October 8-10 and 15-16, 2016, Proceedings, Part III 14 (pp. 443-450). Springer International Publishing.</p>
+<p>[13] Damodaran, B. B., Kellenberger, B., Flamary, R., Tuia, D., &amp; Courty, N. (2018). <a class="reference external" href="https://openaccess.thecvf.com/content_ECCV_2018/papers/Bharath_Bhushan_Damodaran_DeepJDOT_Deep_Joint_ECCV_2018_paper.pdf">Deepjdot: Deep joint distribution optimal transport for unsupervised domain adaptation</a>. In Proceedings of the European conference on computer vision (ECCV) (pp. 447-463).</p>
+<p>[14] Long, M., Cao, Y., Wang, J., &amp; Jordan, M. (2015, June). <a class="reference external" href="https://proceedings.mlr.press/v37/long15.pdf">Learning transferable features with deep adaptation networks</a>. In International conference on machine learning (pp. 97-105). PMLR.</p>
+<p>[15] Ganin, Y., Ustinova, E., Ajakan, H., Germain, P., Larochelle, H., Laviolette, F., ... &amp; Lempitsky, V. (2016). <a class="reference external" href="https://www.jmlr.org/papers/volume17/15-239/15-239.pdf">Domain-adversarial training of neural networks</a>. Journal of machine learning research, 17(59), 1-35.</p>
+<p>[16] Long, M., Cao, Z., Wang, J., &amp; Jordan, M. I. (2018). <a class="reference external" href="https://proceedings.neurips.cc/paper_files/paper/2018/file/ab88b15733f543179858600245108dd8-Paper.pdf">Conditional adversarial domain adaptation</a>. Advances in neural information processing systems, 31.</p>
+<p>[17] Sugiyama, M., Krauledat, M., &amp; Müller, K. R. (2007). <a class="reference external" href="https://www.jmlr.org/papers/volume8/sugiyama07a/sugiyama07a.pdf">Covariate shift adaptation by importance weighted cross validation</a>. Journal of Machine Learning Research, 8(5).</p>
+<p>[18] Morerio, P., Cavazza, J., &amp; Murino, V. (2017).<a class="reference external" href="https://arxiv.org/pdf/1711.10288.pdf"> Minimal-entropy correlation alignment for unsupervised deep domain adaptation</a>. arXiv preprint arXiv:1711.10288.</p>
+<p>[19] Saito, K., Kim, D., Teterwak, P., Sclaroff, S., Darrell, T., &amp; Saenko, K. (2021). <a class="reference external" href="https://openaccess.thecvf.com/content/ICCV2021/papers/Saito_Tune_It_the_Right_Way_Unsupervised_Validation_of_Domain_Adaptation_ICCV_2021_paper.pdf">Tune it the right way: Unsupervised validation of domain adaptation via soft neighborhood density</a>. In Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 9184-9193).</p>
+<p>[20] You, K., Wang, X., Long, M., &amp; Jordan, M. (2019, May). <a class="reference external" href="https://proceedings.mlr.press/v97/you19a/you19a.pdf">Towards accurate model selection in deep unsupervised domain adaptation</a>. In International Conference on Machine Learning (pp. 7124-7133). PMLR.</p>
+</section>
 </section>
 </section>
 </section>
@@ -354,7 +274,7 @@ This library is currently in a phase of active development. All features are sub
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="all.html" class="btn btn-neutral float-right" title="API and modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -373,7 +293,56 @@ This library is currently in a phase of active development. All features are sub
       </div>
     </section>
   </div>
-  <script>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });

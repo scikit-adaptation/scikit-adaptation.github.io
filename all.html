@@ -26,8 +26,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="skada.datasets.make_shifted_blobs" href="gen_modules/skada.datasets.make_shifted_blobs.html" />
-    <link rel="prev" title="SKADA: Scikit Domain Adaptation" href="index.html" /> 
+    <link rel="next" title="skada.ReweightDensity" href="gen_modules/skada.ReweightDensity.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,41 +54,66 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">SKADA: Scikit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API and modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_blobs.html">skada.datasets.make_shifted_blobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_datasets.html">skada.datasets.make_shifted_datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.datasets.make_dataset_from_moons_distribution.html">skada.datasets.make_dataset_from_moons_distribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.datasets.make_variable_frequency_dataset.html">skada.datasets.make_variable_frequency_dataset</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.ReweightDensity.html">skada.ReweightDensity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.GaussianReweightDensity.html">skada.GaussianReweightDensity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.DiscriminatorReweightDensity.html">skada.DiscriminatorReweightDensity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.KLIEP.html">skada.KLIEP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.SubspaceAlignment.html">skada.SubspaceAlignment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.OTMapping.html">skada.OTMapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html">skada.EntropicOTMapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMapping.html">skada.ClassRegularizerOTMapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.LinearOTMapping.html">skada.LinearOTMapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.CORAL.html">skada.CORAL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.JDOTRegressor.html">skada.JDOTRegressor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.make_da_pipeline.html">skada.make_da_pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.DeepCORAL.html">skada.feature.DeepCORAL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.DeepJDOT.html">skada.feature.DeepJDOT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.DANN.html">skada.feature.DANN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.CDAN.html">skada.feature.CDAN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.DAN.html">skada.feature.DAN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.dan_loss.html">skada.feature.dan_loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.deepcoral_loss.html">skada.feature.deepcoral_loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.feature.deepjdot_loss.html">skada.feature.deepjdot_loss</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.metrics.SupervisedScorer.html">skada.metrics.SupervisedScorer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.metrics.ImportanceWeightedScorer.html">skada.metrics.ImportanceWeightedScorer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.metrics.PredictionEntropyScorer.html">skada.metrics.PredictionEntropyScorer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gen_modules/skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-module-skada">Main module  <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sample-reweighting-da-methods">Sample reweighting DA methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.ReweightDensity.html">skada.ReweightDensity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.GaussianReweightDensity.html">skada.GaussianReweightDensity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.DiscriminatorReweightDensity.html">skada.DiscriminatorReweightDensity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.KLIEP.html">skada.KLIEP</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#sample-mapping-and-alignment-da-methods">Sample mapping and alignment DA methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.SubspaceAlignment.html">skada.SubspaceAlignment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.CORAL.html">skada.CORAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.OTMapping.html">skada.OTMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html">skada.EntropicOTMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMapping.html">skada.ClassRegularizerOTMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.LinearOTMapping.html">skada.LinearOTMapping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#other-da-methods">Other DA methods</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.JDOTRegressor.html">skada.JDOTRegressor</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#da-pipeline">DA pipeline</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.make_da_pipeline.html">skada.make_da_pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-skada.feature">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DeepCORAL.html">skada.feature.DeepCORAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DeepJDOT.html">skada.feature.DeepJDOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DANN.html">skada.feature.DANN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.CDAN.html">skada.feature.CDAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DAN.html">skada.feature.DAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.dan_loss.html">skada.feature.dan_loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.deepcoral_loss.html">skada.feature.deepcoral_loss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.deepjdot_loss.html">skada.feature.deepjdot_loss</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.SupervisedScorer.html">skada.metrics.SupervisedScorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.ImportanceWeightedScorer.html">skada.metrics.ImportanceWeightedScorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.PredictionEntropyScorer.html">skada.metrics.PredictionEntropyScorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_blobs.html">skada.datasets.make_shifted_blobs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_datasets.html">skada.datasets.make_shifted_datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.datasets.make_dataset_from_moons_distribution.html">skada.datasets.make_dataset_from_moons_distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.datasets.make_variable_frequency_dataset.html">skada.datasets.make_variable_frequency_dataset</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="scorer.html">Metrics: Compute score for domain adaptation problems</a></li>
 </ul>
 
         </div>
@@ -115,27 +140,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-skada.datasets">
-<span id="api-and-modules"></span><span id="sphx-glr-api-reference"></span><h1>API and modules<a class="headerlink" href="#module-skada.datasets" title="Link to this heading"></a></h1>
-<p>Utilities to produce datasets for testing and benchmarking.</p>
-<p><a class="reference internal" href="#module-skada.datasets" title="skada.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a>:</p>
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_blobs.html#skada.datasets.make_shifted_blobs" title="skada.datasets.make_shifted_blobs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_shifted_blobs</span></code></a>([n_samples, n_features, ...])</p></td>
-<td><p>Generate source and shift target isotropic Gaussian blobs .</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_shifted_datasets</span></code></a>([n_samples_source, ...])</p></td>
-<td><p>Generate source and shift target.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_dataset_from_moons_distribution.html#skada.datasets.make_dataset_from_moons_distribution" title="skada.datasets.make_dataset_from_moons_distribution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_dataset_from_moons_distribution</span></code></a>([...])</p></td>
-<td><p>Make dataset from moons.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_variable_frequency_dataset.html#skada.datasets.make_variable_frequency_dataset" title="skada.datasets.make_variable_frequency_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_variable_frequency_dataset</span></code></a>([...])</p></td>
-<td><p>Make dataset with different peak frequency.</p></td>
-</tr>
-</tbody>
-</table>
-<span class="target" id="module-skada"></span><p><a class="reference internal" href="#module-skada" title="skada"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a>:</p>
+  <section id="api-and-modules">
+<span id="sphx-glr-api-reference"></span><h1>API and modules<a class="headerlink" href="#api-and-modules" title="Link to this heading"></a></h1>
+<section id="main-module-skada">
+<h2>Main module  <a class="reference internal" href="#module-skada" title="skada"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><a class="headerlink" href="#main-module-skada" title="Link to this heading"></a></h2>
+<span class="target" id="module-skada"></span><section id="sample-reweighting-da-methods">
+<h3>Sample reweighting DA methods<a class="headerlink" href="#sample-reweighting-da-methods" title="Link to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.ReweightDensity.html#skada.ReweightDensity" title="skada.ReweightDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReweightDensity</span></code></a>([base_estimator, ...])</p></td>
@@ -150,37 +160,64 @@
 <tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.KLIEP.html#skada.KLIEP" title="skada.KLIEP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KLIEP</span></code></a>([base_estimator, gamma, cv, ...])</p></td>
 <td><p>KLIEP pipeline adapter and estimator.</p></td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="sample-mapping-and-alignment-da-methods">
+<h3>Sample mapping and alignment DA methods<a class="headerlink" href="#sample-mapping-and-alignment-da-methods" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SubspaceAlignment</span></code></a>([base_estimator, ...])</p></td>
 <td><p>Domain Adaptation Using Subspace Alignment.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransferComponentAnalysis</span></code></a>([base_estimator, ...])</p></td>
 <td><p>Domain Adaptation Using Transfer Component Analysis.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OTMapping</span></code></a>([base_estimator, metric, norm, ...])</p></td>
-<td><p>OTmapping pipeline with adapter and estimator.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EntropicOTMapping</span></code></a>([base_estimator, metric, ...])</p></td>
-<td><p>EntropicOTMapping pipeline with adapter and estimator.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassRegularizerOTMapping</span></code></a>([base_estimator, ...])</p></td>
-<td><p>ClassRegularizedOTMapping pipeline with adapter and estimator.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearOTMapping</span></code></a>([base_estimator, reg, bias])</p></td>
-<td><p>Returns a the linear OT mapping method with adapter and estimator.</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CORAL</span></code></a>([base_estimator, reg])</p></td>
 <td><p>CORAL pipeline with adapter and estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.JDOTRegressor.html#skada.JDOTRegressor" title="skada.JDOTRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JDOTRegressor</span></code></a>([base_estimator, alpha, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OTMapping</span></code></a>([base_estimator, metric, norm, ...])</p></td>
+<td><p>OTmapping pipeline with adapter and estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EntropicOTMapping</span></code></a>([base_estimator, metric, ...])</p></td>
+<td><p>EntropicOTMapping pipeline with adapter and estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassRegularizerOTMapping</span></code></a>([base_estimator, ...])</p></td>
+<td><p>ClassRegularizedOTMapping pipeline with adapter and estimator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearOTMapping</span></code></a>([base_estimator, reg, bias])</p></td>
+<td><p>Returns a the linear OT mapping method with adapter and estimator.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="other-da-methods">
+<h3>Other DA methods<a class="headerlink" href="#other-da-methods" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.JDOTRegressor.html#skada.JDOTRegressor" title="skada.JDOTRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JDOTRegressor</span></code></a>([base_estimator, alpha, ...])</p></td>
 <td><p>Joint Distribution Optimal Transport Regressor</p></td>
 </tr>
+</tbody>
+</table>
+</section>
+<section id="da-pipeline">
+<h3>DA pipeline<a class="headerlink" href="#da-pipeline" title="Link to this heading"></a></h3>
+<table class="autosummary longtable docutils align-default">
+<tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_da_pipeline</span></code></a>(*steps[, memory, verbose, ...])</p></td>
 <td><p>Construct a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> from the given estimators.</p></td>
 </tr>
 </tbody>
 </table>
-<p id="module-skada.feature">Some methods for deep domain adaptation.</p>
-<p><a class="reference internal" href="#module-skada.feature" title="skada.feature"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a>:</p>
+</section>
+<section id="utilities">
+<h3>Utilities<a class="headerlink" href="#utilities" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="module-skada.feature">
+<span id="deep-learning-da-skada-feature"></span><h2>Deep learning DA <a class="reference internal" href="#module-skada.feature" title="skada.feature"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a><a class="headerlink" href="#module-skada.feature" title="Link to this heading"></a></h2>
+<p>Some methods for deep domain adaptation.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.feature.DeepCORAL.html#skada.feature.DeepCORAL" title="skada.feature.DeepCORAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepCORAL</span></code></a>(module, criterion, layer_names[, reg])</p></td>
@@ -213,7 +250,9 @@
 </tr>
 </tbody>
 </table>
-<span class="target" id="module-skada.metrics"></span><p><a class="reference internal" href="#module-skada.metrics" title="skada.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a>:</p>
+</section>
+<section id="module-skada.metrics">
+<span id="da-metrics-skada-metrics"></span><h2>DA metrics <a class="reference internal" href="#module-skada.metrics" title="skada.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a><a class="headerlink" href="#module-skada.metrics" title="Link to this heading"></a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.metrics.SupervisedScorer.html#skada.metrics.SupervisedScorer" title="skada.metrics.SupervisedScorer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SupervisedScorer</span></code></a>([scoring, greater_is_better])</p></td>
@@ -234,13 +273,34 @@
 </tbody>
 </table>
 </section>
+<section id="datasets-skada-datasets">
+<h2>Datasets <a class="reference internal" href="#module-skada.datasets" title="skada.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a><a class="headerlink" href="#datasets-skada-datasets" title="Link to this heading"></a></h2>
+<p id="module-skada.datasets">Utilities to produce datasets for testing and benchmarking.</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_blobs.html#skada.datasets.make_shifted_blobs" title="skada.datasets.make_shifted_blobs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_shifted_blobs</span></code></a>([n_samples, n_features, ...])</p></td>
+<td><p>Generate source and shift target isotropic Gaussian blobs .</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_shifted_datasets</span></code></a>([n_samples_source, ...])</p></td>
+<td><p>Generate source and shift target.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_dataset_from_moons_distribution.html#skada.datasets.make_dataset_from_moons_distribution" title="skada.datasets.make_dataset_from_moons_distribution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_dataset_from_moons_distribution</span></code></a>([...])</p></td>
+<td><p>Make dataset from moons.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.datasets.make_variable_frequency_dataset.html#skada.datasets.make_variable_frequency_dataset" title="skada.datasets.make_variable_frequency_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_variable_frequency_dataset</span></code></a>([...])</p></td>
+<td><p>Make dataset with different peak frequency.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="SKADA: Scikit Domain Adaptation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="gen_modules/skada.datasets.make_shifted_blobs.html" class="btn btn-neutral float-right" title="skada.datasets.make_shifted_blobs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gen_modules/skada.ReweightDensity.html" class="btn btn-neutral float-right" title="skada.ReweightDensity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -259,7 +319,56 @@
       </div>
     </section>
   </div>
-  <script>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
