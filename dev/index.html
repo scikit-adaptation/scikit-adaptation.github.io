@@ -154,7 +154,70 @@ estimator and an <code class="docutils literal notranslate"><span class="pre">Ad
 </section>
 <section id="short-examples">
 <h4>Short examples<a class="headerlink" href="#short-examples" title="Link to this heading"></a></h4>
-<p>TODO</p>
+<p>We provide here a few examples to illustrate the use of the library. For more
+details, please refer to this <a class="reference external" href="https://scikit-adaptation.github.io/auto_examples/plot_how_to_use_skada.html">example</a>, the <a class="reference external" href="https://scikit-adaptation.github.io/quickstart.html">quick start guide</a> and the <a class="reference external" href="https://scikit-adaptation.github.io/auto_examples/index.html">gallery</a>.</p>
+<p>First the DA data in the skada API is stored in the following format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the input data, <code class="docutils literal notranslate"><span class="pre">y</span></code> is the target labels and <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> is the
+domain label (positive for source and negative for target domains). We provide
+below an exmaple ho how to fit a DA estimator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORAL</span>
+
+<span class="n">da</span> <span class="o">=</span> <span class="n">CORAL</span><span class="p">()</span>
+<span class="n">da</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span> <span class="c1"># sample_domain passed by name</span>
+
+<span class="n">ypred</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span> <span class="c1"># predict on test data</span>
+</pre></div>
+</div>
+<p>One can also use <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> classes to create a full pipeline with DA:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORALAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span> <span class="c1"># sample_domain passed by name</span>
+</pre></div>
+</div>
+<p>Note that for <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> classes that provide Reweighting of the sample, the
+subsequent classifier/regressor must require sample_weights as input. This is
+done with the <code class="docutils literal notranslate"><span class="pre">set_fit_requires</span></code> for instance for the <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code> with
+<code class="docutils literal notranslate"><span class="pre">LogisticRegression().set_fit_requires('sample_weight')</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">GaussianReweightDensityAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">GaussianReweightDensityAdapter</span><span class="p">(),</span>
+                        <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Finally skada can be used for estimating cross validation scores and parameter
+selection :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">skada.model_selection</span> <span class="kn">import</span> <span class="n">SourceTargetShuffleSplit</span>
+<span class="kn">from</span> <span class="nn">skada.metrics</span> <span class="kn">import</span> <span class="n">PredictionEntropyScorer</span>
+
+<span class="c1"># make pipeline</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span><span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
+
+<span class="c1"># split and score</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="n">SourceTargetShuffleSplit</span><span class="p">()</span>
+<span class="n">scoring</span> <span class="o">=</span> <span class="n">PredictionEntropyScorer</span><span class="p">()</span>
+
+<span class="c1"># cross va score</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="n">sample_domain</span><span class="p">},</span>
+                         <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">)</span>
+
+<span class="c1"># grid search</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coraladapter__reg&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]}</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">clf</span><span class="p">,</span>
+                           <span class="n">param_grid</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;coraladapter__reg&quot;</span><span class="p">:</span> <span class="n">reg_coral</span><span class="p">},</span>
+                           <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">)</span>
+
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+
+</pre></div>
+</div>
 </section>
 <section id="acknowledgements">
 <h4>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading"></a></h4>

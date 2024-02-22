@@ -57,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#da-methods">DA methods</a><ul class="current">
@@ -261,17 +262,7 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
 <a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">lims</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_optimal_transport_da_003.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_003.png" alt="OTDA Prediction on source (ACC=0.84), OTDA Prediction on target (ACC=1.00)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_plot_optimal_transport_da_003.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_003.png" alt="OTDA Prediction on source (ACC=0.84), OTDA Prediction on target (ACC=1.00)" class = "sphx-glr-single-img"/></section>
 <section id="how-does-otda-works">
 <h2>How does OTDA works?<a class="headerlink" href="#how-does-otda-works" title="Link to this heading"></a></h2>
 <p>The OTDA method is based on the following idea: the optimal transport between
@@ -341,10 +332,7 @@ mapped  # samples.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Step 3: train on adapted source&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_optimal_transport_da_004.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_004.png" alt="Step 1: compute OT plan, Step 2: adapt source distribution, Step 3: train on adapted source" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-
-Text(0.5, 1.0, &#39;Step 3: train on adapted source&#39;)
+<img src="../../_images/sphx_glr_plot_optimal_transport_da_004.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_004.png" alt="Step 1: compute OT plan, Step 2: adapt source distribution, Step 3: train on adapted source" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Step 3: train on adapted source&#39;)
 </pre></div>
 </div>
 </section>
@@ -514,19 +502,11 @@ illustrate the different methods available in SKADA.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_optimal_transport_da_005.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_005.png" alt="OTDA adapted, OTDA Sinkhorn adapted, OTDA class reg adapted, OTDA linear adapted, OTDA (ACC=1.00), OTDA Sinkhorn (ACC=1.00), OTDA class reg (ACC=1.00), OTDA linear (ACC=1.00)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_sinkhorn.py:531: UserWarning: Sinkhorn did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
   warnings.warn(&quot;Sinkhorn did not converge. You might want to &quot;
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
-/home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-  warnings.warn(
 
 Text(0.5, 1.0, &#39;OTDA linear (ACC=1.00)&#39;)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.169 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.842 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-optimal-transport-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/875c197df9ab4cd7d876a5e7d11e20a3/plot_optimal_transport_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_optimal_transport_da.ipynb</span></code></a></p>

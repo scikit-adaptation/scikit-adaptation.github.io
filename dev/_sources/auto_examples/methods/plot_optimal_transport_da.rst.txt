@@ -246,19 +246,6 @@ Optimal Transport Domain Adaptation
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-
 
 
 
@@ -353,8 +340,6 @@ We illustrate below the different steps of the OTDA method.
 
  .. code-block:: none
 
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
 
     Text(0.5, 1.0, 'Step 3: train on adapted source')
 
@@ -546,14 +531,6 @@ illustrate the different methods available in SKADA.
 
     /home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_sinkhorn.py:531: UserWarning: Sinkhorn did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
       warnings.warn("Sinkhorn did not converge. You might want to "
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
 
     Text(0.5, 1.0, 'OTDA linear (ACC=1.00)')
 
@@ -562,7 +539,7 @@ illustrate the different methods available in SKADA.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.169 seconds)
+   **Total running time of the script:** (0 minutes 1.842 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_optimal_transport_da.py:

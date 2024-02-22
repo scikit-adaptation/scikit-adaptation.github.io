@@ -100,10 +100,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     TCA Pipeline(steps=[('transfercomponentanalysisadapter',
                      Shared(base_estimator=TransferComponentAnalysisAdapter(mu=0.5,
                                                                             n_components=1),
@@ -125,10 +121,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Entropic OT mapping Pipeline(steps=[('entropicotmappingadapter',
                      Shared(base_estimator=EntropicOTMappingAdapter(),
                             max_iter=1000, metric='sqeuclidean', norm=None,
@@ -140,10 +132,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
@@ -155,10 +143,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Linear OT mapping Pipeline(steps=[('linearotmappingadapter',
                      Shared(base_estimator=LinearOTMappingAdapter(reg=1.0),
                             bias=True, reg=1.0)),
@@ -169,10 +153,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(base_estimator=CORALAdapter(), reg='auto')),
                     ('svc',
@@ -182,10 +162,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -238,10 +214,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     TCA Pipeline(steps=[('transfercomponentanalysisadapter',
                      Shared(base_estimator=TransferComponentAnalysisAdapter(mu=0.5,
                                                                             n_components=1),
@@ -263,10 +235,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Entropic OT mapping Pipeline(steps=[('entropicotmappingadapter',
                      Shared(base_estimator=EntropicOTMappingAdapter(),
                             max_iter=1000, metric='sqeuclidean', norm=None,
@@ -278,10 +246,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
@@ -293,10 +257,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Linear OT mapping Pipeline(steps=[('linearotmappingadapter',
                      Shared(base_estimator=LinearOTMappingAdapter(reg=1.0),
                             bias=True, reg=1.0)),
@@ -307,10 +267,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(base_estimator=CORALAdapter(), reg='auto')),
                     ('svc',
@@ -320,10 +276,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -376,10 +328,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     TCA Pipeline(steps=[('transfercomponentanalysisadapter',
                      Shared(base_estimator=TransferComponentAnalysisAdapter(mu=0.5,
                                                                             n_components=1),
@@ -401,10 +349,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Entropic OT mapping Pipeline(steps=[('entropicotmappingadapter',
                      Shared(base_estimator=EntropicOTMappingAdapter(),
                             max_iter=1000, metric='sqeuclidean', norm=None,
@@ -416,10 +360,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
@@ -431,10 +371,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Linear OT mapping Pipeline(steps=[('linearotmappingadapter',
                      Shared(base_estimator=LinearOTMappingAdapter(reg=1.0),
                             bias=True, reg=1.0)),
@@ -445,10 +381,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(base_estimator=CORALAdapter(), reg='auto')),
                     ('svc',
@@ -458,10 +390,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -514,10 +442,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     TCA Pipeline(steps=[('transfercomponentanalysisadapter',
                      Shared(base_estimator=TransferComponentAnalysisAdapter(mu=0.5,
                                                                             n_components=1),
@@ -539,10 +463,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Entropic OT mapping Pipeline(steps=[('entropicotmappingadapter',
                      Shared(base_estimator=EntropicOTMappingAdapter(),
                             max_iter=1000, metric='sqeuclidean', norm=None,
@@ -554,10 +474,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
@@ -569,10 +485,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     Linear OT mapping Pipeline(steps=[('linearotmappingadapter',
                      Shared(base_estimator=LinearOTMappingAdapter(reg=1.0),
                             bias=True, reg=1.0)),
@@ -583,10 +495,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(base_estimator=CORALAdapter(), reg='auto')),
                     ('svc',
@@ -596,10 +504,6 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
-    /home/circleci/project/skada/utils.py:391: UserWarning: One of the arrays in a pair is empty, it will be inferred
-      warnings.warn(
 
 
 
@@ -802,7 +706,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.732 seconds)
+   **Total running time of the script:** (0 minutes 6.176 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
