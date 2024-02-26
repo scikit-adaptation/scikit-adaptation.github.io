@@ -105,6 +105,13 @@
 <li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#model-selection-skada-model-selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.SourceTargetShuffleSplit.html">skada.model_selection.SourceTargetShuffleSplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.DomainShuffleSplit.html">skada.model_selection.DomainShuffleSplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html">skada.model_selection.StratifiedDomainShuffleSplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.LeaveOneDomainOut.html">skada.model_selection.LeaveOneDomainOut</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_blobs.html">skada.datasets.make_shifted_blobs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.datasets.make_shifted_datasets.html">skada.datasets.make_shifted_datasets</a></li>
@@ -270,6 +277,25 @@
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.metrics.SoftNeighborhoodDensity.html#skada.metrics.SoftNeighborhoodDensity" title="skada.metrics.SoftNeighborhoodDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoftNeighborhoodDensity</span></code></a>([T, greater_is_better])</p></td>
 <td><p>Score based on the entropy of similarity between unsupervised dataset.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="model-selection-skada-model-selection">
+<h2>Model Selection <a class="reference internal" href="#module-skada.model_selection" title="skada.model_selection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a><a class="headerlink" href="#model-selection-skada-model-selection" title="Link to this heading"></a></h2>
+<span class="target" id="module-skada.model_selection"></span><table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.SourceTargetShuffleSplit.html#skada.model_selection.SourceTargetShuffleSplit" title="skada.model_selection.SourceTargetShuffleSplit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceTargetShuffleSplit</span></code></a>([n_splits, ...])</p></td>
+<td><p>Source-Target-Shuffle-Split cross-validator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.DomainShuffleSplit.html#skada.model_selection.DomainShuffleSplit" title="skada.model_selection.DomainShuffleSplit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DomainShuffleSplit</span></code></a>([n_splits, test_size, ...])</p></td>
+<td><p>Domain-Shuffle-Split cross-validator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html#skada.model_selection.StratifiedDomainShuffleSplit" title="skada.model_selection.StratifiedDomainShuffleSplit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StratifiedDomainShuffleSplit</span></code></a>([n_splits, ...])</p></td>
+<td><p>Stratified-Domain-Shuffle-Split cross-validator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.LeaveOneDomainOut.html#skada.model_selection.LeaveOneDomainOut" title="skada.model_selection.LeaveOneDomainOut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LeaveOneDomainOut</span></code></a>([max_n_splits, test_size, ...])</p></td>
+<td><p>Leave-One-Domain-Out cross-validator.</p></td>
 </tr>
 </tbody>
 </table>
