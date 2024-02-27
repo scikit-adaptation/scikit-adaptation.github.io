@@ -196,6 +196,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Kernel Mean Matching">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_kmm_reweighting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_kmm_reweighting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Kernel Mean Matching</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task.">
 
 .. only:: html
@@ -220,6 +237,7 @@ DA methods
    :hidden:
 
    /auto_examples/methods/plot_jdot_da
+   /auto_examples/methods/plot_kmm_reweighting
    /auto_examples/methods/plot_optimal_transport_da
 
 
