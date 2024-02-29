@@ -179,23 +179,6 @@ DA methods
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to...">
-
-.. only:: html
-
-  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_jdot_da_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">JDOT Regressor example</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip="Kernel Mean Matching">
 
 .. only:: html
@@ -230,6 +213,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to...">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_jdot_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task.">
 
 .. only:: html
@@ -253,9 +253,9 @@ DA methods
 .. toctree::
    :hidden:
 
-   /auto_examples/methods/plot_jdot_da
    /auto_examples/methods/plot_kmm_reweighting
    /auto_examples/methods/plot_dasvm
+   /auto_examples/methods/plot_jdot_da
    /auto_examples/methods/plot_optimal_transport_da
 
 

@@ -52,7 +52,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">SKADA: SciKit Domain Adaptation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
 </ul>
@@ -90,16 +91,203 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">DAEstimator</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">source_target_split</span>
 <span class="kn">import</span> <span class="nn">ot</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 
+<span class="k">def</span> <span class="nf">get_jdot_class_cost_matrix</span><span class="p">(</span><span class="n">Ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;multinomial&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the cost matrix for the joint distribution optimal transport</span>
+<span class="sd">    classification problem.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Ys : array-like of shape (n_samples,n_classes)</span>
+<span class="sd">        Source domain labels one hot encoded.</span>
+<span class="sd">    Xt : array-like of shape (m_samples, n_features)</span>
+<span class="sd">        Target domain samples.</span>
+<span class="sd">    estimator : object</span>
+<span class="sd">        The already fitted estimator to be used for the classification task. This</span>
+<span class="sd">        estimator should optimize a classification loss coresponding to the</span>
+<span class="sd">        given metric and provide compatible predict method (decision_function of</span>
+<span class="sd">        predict_proba). If None, a constant prediction is used.</span>
+<span class="sd">    metric : str, default=&#39;multinomial&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;multinomial&#39; for cross-entropy</span>
+<span class="sd">        cost/ multinomial logistic regression or &#39;hinge&#39; for hinge cost (SVM/SVC).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    M : array-like of shape (n_samples, m_samples)</span>
+<span class="sd">        The cost matrix.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">         Optimal Transportation for Domain Adaptation, Neural Information Processing</span>
+<span class="sd">         Systems (NIPS), 2017.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">Ys</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Xt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">*</span><span class="mi">10</span>
+        <span class="k">return</span> <span class="n">M</span>
+
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;multinomial&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s1">&#39;predict_log_proba&#39;</span><span class="p">):</span>
+            <span class="n">Yt_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_log_proba</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Ys</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span><span class="o">*</span><span class="n">Yt_pred</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s1">&#39;predict_proba&#39;</span><span class="p">):</span>
+            <span class="n">Yt_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Ys</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Yt_pred</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span><span class="o">+</span><span class="mf">1e-16</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Estimator must have predict_proba or predict_log_proba&#39;</span>
+                <span class="s1">&#39; method for cce loss&#39;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;hinge&#39;</span><span class="p">:</span>
+        <span class="n">Ys</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Ys</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># make Y -1/1 for hinge loss</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s1">&#39;decision_function&#39;</span><span class="p">):</span>
+            <span class="n">Yt_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Yt_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">Yt_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">Yt_pred</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Ys</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">Yt_pred</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Estimator must have decision_function method for hinge loss&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown metric&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">M</span>
+
+
+<span class="k">def</span> <span class="nf">get_data_jdot_class</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">Yth</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">thr_weights</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the data for the joint distribution optimal transport</span>
+<span class="sd">    classification problem. This function will repeat sample to allow for</span>
+<span class="sd">    training on uncertain labels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Xt : array-like of shape (m_samples, n_features)</span>
+<span class="sd">        Target domain samples.</span>
+<span class="sd">    Yth : array-like of shape (n_samples,n_classes)</span>
+<span class="sd">        Transported source domain labels one hot encoded.</span>
+<span class="sd">    labels : array-like of shape (n_classes,)</span>
+<span class="sd">        The labels of the classification problem.</span>
+<span class="sd">    thr_weights : float, default=1e-6</span>
+<span class="sd">        The relative threshold for the weights</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Xh : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        The transported source domain samples.</span>
+<span class="sd">    yh : array-like of shape (n_samples,)</span>
+<span class="sd">        The transported source domain labels.</span>
+<span class="sd">    wh : array-like of shape (n_samples,)</span>
+<span class="sd">        The transported source domain weights.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">         Optimal Transportation for Domain Adaptation, Neural Information Processing</span>
+<span class="sd">         Systems (NIPS), 2017.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">thr</span> <span class="o">=</span> <span class="n">thr_weights</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">Yth</span><span class="p">)</span>
+
+    <span class="n">Xh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">Yth</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">yh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">Yth</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">wh</span> <span class="o">=</span> <span class="n">Yth</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="c1"># remove samples with low weights</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">wh</span> <span class="o">&gt;</span> <span class="n">thr</span>
+    <span class="n">Xh</span> <span class="o">=</span> <span class="n">Xh</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+    <span class="n">yh</span> <span class="o">=</span> <span class="n">yh</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+    <span class="n">wh</span> <span class="o">=</span> <span class="n">wh</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">Xh</span><span class="p">,</span> <span class="n">yh</span><span class="p">,</span> <span class="n">wh</span>
+
+
+<span class="k">def</span> <span class="nf">get_tgt_loss_jdot_class</span><span class="p">(</span><span class="n">Xh</span><span class="p">,</span> <span class="n">yh</span><span class="p">,</span> <span class="n">wh</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;multinomial&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Compute the target loss for the joint distribution optimal transport</span>
+<span class="sd">    classification problem.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    Xh : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        The transported source domain samples.</span>
+<span class="sd">    yh : array-like of shape (n_samples,)</span>
+<span class="sd">        The transported source domain labels.</span>
+<span class="sd">    wh : array-like of shape (n_samples,)</span>
+<span class="sd">        The transported source domain weights.</span>
+<span class="sd">    estimator : object</span>
+<span class="sd">        The already fitted estimator to be used for the classification task. This</span>
+<span class="sd">        estimator should optimize a classification loss coresponding to the</span>
+<span class="sd">        given metric and provide compatible predict method (decision_function of</span>
+<span class="sd">        predict_proba).</span>
+<span class="sd">    metric : str, default=&#39;multinomial&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;multinomial&#39; for cross-entropy</span>
+<span class="sd">        cost/ multinomial logistic regression or &#39;hinge&#39; for hinge cost</span>
+<span class="sd">        (SVM/SVC).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    loss : float</span>
+<span class="sd">        The target labels losses.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">         Optimal Transportation for Domain Adaptation, Neural Information Processing</span>
+<span class="sd">         Systems (NIPS), 2017.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;multinomial&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s1">&#39;predict_log_proba&#39;</span><span class="p">):</span>
+            <span class="n">Yh_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_log_proba</span><span class="p">(</span><span class="n">Xh</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">yh</span><span class="o">*</span><span class="n">Yh_pred</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wh</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s1">&#39;predict_proba&#39;</span><span class="p">):</span>
+            <span class="n">Yh_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">Xh</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">yh</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Yh_pred</span><span class="o">+</span><span class="mf">1e-16</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wh</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Estimator must have predict_proba or predict_log_proba method&#39;</span>
+                <span class="s1">&#39; for multinomial loss&#39;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s1">&#39;hinge&#39;</span><span class="p">:</span>
+        <span class="n">yh</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">yh</span> <span class="o">-</span> <span class="mi">1</span>  <span class="c1"># make Y -1/1 for hinge loss</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s1">&#39;decision_function&#39;</span><span class="p">):</span>
+            <span class="n">Yh_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">Xh</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">Yh_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># handle binary classification</span>
+                <span class="n">Yh_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">Yh_pred</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">yh</span> <span class="o">*</span> <span class="n">Yh_pred</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">wh</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Estimator must have decision_function method for hinge loss&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown metric&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">loss</span>
+
+
 <span class="k">def</span> <span class="nf">solve_jdot_regression</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">n_iter_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve the joint distribution optimal transport regression problem</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve the joint distribution optimal transport regression problem [10]</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This estimator assumes that the loss function optimized by the base</span>
+<span class="sd">        estimator is the quadratic loss. For instance, the base estimator should</span>
+<span class="sd">        optimize and L2 loss (e.g. LinearRegression() or Ridge() or even</span>
+<span class="sd">        MLPRegressor ()). While any estimator providing the necessary prediction</span>
+<span class="sd">        functions can be used, the convergence of the fixed point is not guaranteed</span>
+<span class="sd">        and behavior can be unpredictable.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -143,7 +331,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    [1] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
 <span class="sd">        Optimal Transportation for Domain Adaptation, Neural Information Processing</span>
 <span class="sd">        Systems (NIPS), 2017.</span>
 
@@ -221,10 +409,166 @@
     <span class="k">return</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">lst_loss_ot</span><span class="p">,</span> <span class="n">lst_loss_tgt_labels</span><span class="p">,</span> <span class="n">sol</span>
 
 
+<span class="k">def</span> <span class="nf">solve_jdot_classification</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;multinomial&#39;</span><span class="p">,</span>
+                              <span class="n">n_iter_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                              <span class="n">thr_weights</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve the joint distribution optimal transport classification problem [10]</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This estimator assumes that the loss function optimized by the base</span>
+<span class="sd">        estimator is compatible with the given metric. For instance, if the</span>
+<span class="sd">        metric is &#39;multinomial&#39;, the base estimator should optimize a</span>
+<span class="sd">        cross-entropy loss (e.g. LogisticRegression with multi_class=&#39;multinomial&#39;)</span>
+<span class="sd">        or a hinge loss (e.g. SVC with kernel=&#39;linear&#39; and one versus rest) if the</span>
+<span class="sd">        metric is &#39;hinge&#39;. While any estimator providing the necessary prediction</span>
+<span class="sd">        functions can be used, the convergence of the fixed point is not guaranteed</span>
+<span class="sd">        and behavior can be unpredictable.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : object</span>
+<span class="sd">        The base estimator to be used for the classification task. This estimator</span>
+<span class="sd">        should solve a classification problem to correspond to JDOT theoretical</span>
+<span class="sd">        classification problem but other approaches can be used with the risk</span>
+<span class="sd">        that the fixed point might not converge.</span>
+<span class="sd">    Xs : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Source domain samples.</span>
+<span class="sd">    ys : array-like of shape (n_samples,)</span>
+<span class="sd">        Source domain labels.</span>
+<span class="sd">    Xt : array-like of shape (m_samples, n_features)</span>
+<span class="sd">        Target domain samples.</span>
+<span class="sd">    alpha : float, default=0.5</span>
+<span class="sd">        The trade-off parameter between the feature and label loss in OT metric</span>
+<span class="sd">    ws : array-like of shape (n_samples,)</span>
+<span class="sd">        Source domain weights (will ne normalized to sum to 1).</span>
+<span class="sd">    wt : array-like of shape (m_samples,)</span>
+<span class="sd">        Target domain weights (will ne normalized to sum to 1).</span>
+<span class="sd">    metric : str, default=&#39;multinomial&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;multinomial&#39; for</span>
+<span class="sd">        cross-entropy cost/ multinomial logistic regression or &#39;hinge&#39; for</span>
+<span class="sd">        hinge cost (SVM/SVC).</span>
+<span class="sd">    n_iter_max: int</span>
+<span class="sd">        Max number of JDOT alternate optimization iterations.</span>
+<span class="sd">    tol: float&gt;0</span>
+<span class="sd">        Tolerance for loss variations (OT and mse) stopping iterations.</span>
+<span class="sd">    verbose: bool</span>
+<span class="sd">        Print loss along iterations if True.as_integer_ratio</span>
+<span class="sd">    thr_weights : float, default=1e-6</span>
+<span class="sd">        The relative threshold for the weights</span>
+<span class="sd">    kwargs : dict</span>
+<span class="sd">        Additional parameters to be passed to the base estimator.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    estimator : object</span>
+<span class="sd">        The fitted estimator.</span>
+<span class="sd">    lst_loss_ot : list</span>
+<span class="sd">        The list of OT losses at each iteration.</span>
+<span class="sd">    lst_loss_tgt_labels : list</span>
+<span class="sd">        The list of target labels losses at each iteration.</span>
+<span class="sd">    sol : object</span>
+<span class="sd">        The solution of the OT problem.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">         Optimal Transportation for Domain Adaptation, Neural Information Processing</span>
+<span class="sd">         Systems (NIPS), 2017.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">)</span>
+
+    <span class="c1"># compute feature distance matrix</span>
+    <span class="n">Mf</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">)</span>
+    <span class="n">Mf</span> <span class="o">=</span> <span class="n">Mf</span> <span class="o">/</span> <span class="n">Mf</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">nt</span> <span class="o">=</span> <span class="n">Xt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ws</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">),))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">ws</span> <span class="o">/</span> <span class="n">ws</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">wt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">nt</span><span class="p">,))</span> <span class="o">/</span> <span class="n">nt</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">wt</span> <span class="o">/</span> <span class="n">wt</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">Ys</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">ys</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">categories_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">lst_loss_ot</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lst_loss_tgt_labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Ml</span> <span class="o">=</span> <span class="n">get_jdot_class_cost_matrix</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iter_max</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># update the cost matrix</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Mf</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">Ml</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">M</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">Mf</span>
+
+        <span class="c1"># sole OT problem</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+        <span class="n">T</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">plan</span>
+        <span class="n">loss_ot</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">loss_ot</span> <span class="o">+=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Ml</span> <span class="o">*</span> <span class="n">T</span><span class="p">)</span>
+
+        <span class="n">lst_loss_ot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_ot</span><span class="p">)</span>
+
+        <span class="c1"># compute the transported labels</span>
+        <span class="n">Yth</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Ys</span><span class="p">)</span> <span class="o">*</span> <span class="n">nt</span>  <span class="c1"># not normalized because weights used in fit</span>
+
+        <span class="c1"># cerate reweighted taregt data for classification</span>
+        <span class="n">Xh</span><span class="p">,</span> <span class="n">yh</span><span class="p">,</span> <span class="n">wh</span> <span class="o">=</span> <span class="n">get_data_jdot_class</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">Yth</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">thr_weights</span><span class="o">=</span><span class="n">thr_weights</span><span class="p">)</span>
+
+        <span class="c1"># fit the estimator</span>
+        <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xh</span><span class="p">,</span> <span class="n">yh</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">wh</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">Ml</span> <span class="o">=</span> <span class="n">get_jdot_class_cost_matrix</span><span class="p">(</span><span class="n">Ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span>
+
+        <span class="c1"># compute the losses</span>
+        <span class="n">loss_tgt_labels</span> <span class="o">=</span> <span class="n">get_tgt_loss_jdot_class</span><span class="p">(</span>
+            <span class="n">Xh</span><span class="p">,</span> <span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">yh</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">wh</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span><span class="o">/</span><span class="n">nt</span>
+        <span class="n">lst_loss_tgt_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_tgt_labels</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;iter=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, loss_ot=</span><span class="si">{</span><span class="n">loss_ot</span><span class="si">}</span><span class="s1">, loss_tgt_labels=</span><span class="si">{</span><span class="n">loss_tgt_labels</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># break on tol OT loss</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lst_loss_ot</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lst_loss_ot</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># break on tol target loss</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lst_loss_tgt_labels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lst_loss_tgt_labels</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="c1"># update the cost matrix</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n_iter_max</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Maximum number of iterations reached.&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">lst_loss_ot</span><span class="p">,</span> <span class="n">lst_loss_tgt_labels</span><span class="p">,</span> <span class="n">sol</span>
+
+
 <div class="viewcode-block" id="JDOTRegressor">
 <a class="viewcode-back" href="../../gen_modules/skada.JDOTRegressor.html#skada.JDOTRegressor">[docs]</a>
 <span class="k">class</span> <span class="nc">JDOTRegressor</span><span class="p">(</span><span class="n">DAEstimator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Joint Distribution Optimal Transport Regressor</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Joint Distribution Optimal Transport Regressor proposed in [10]</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This estimator assumes that the loss function optimized by the base</span>
+<span class="sd">        estimator is the quadratic loss. For instance, the base estimator should</span>
+<span class="sd">        optimize and L2 loss (e.g. LinearRegression() or Ridge() or even</span>
+<span class="sd">        MLPRegressor ()). While any estimator providing the necessary prediction</span>
+<span class="sd">        functions can be used, the convergence of the fixed point is not guaranteed</span>
+<span class="sd">        and behavior can be unpredictable.</span>
+
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -256,9 +600,9 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    [1] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
-<span class="sd">        Optimal Transportation for Domain Adaptation, Neural Information</span>
-<span class="sd">        Processing Systems (NIPS), 2017.</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">         Optimal Transportation for Domain Adaptation, Neural Information</span>
+<span class="sd">         Processing Systems (NIPS), 2017.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -308,6 +652,122 @@
                 <span class="s1">&#39;and score might be biased.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span></div>
 
+
+
+<span class="k">class</span> <span class="nc">JDOTClassifier</span><span class="p">(</span><span class="n">DAEstimator</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Joint Distribution Optimal Transport Classifier proposed in [10]</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        This estimator assumes that the loss function optimized by the base</span>
+<span class="sd">        estimator is compatible with the given metric. For instance, if the</span>
+<span class="sd">        metric is &#39;multinomial&#39;, the base estimator should optimize a</span>
+<span class="sd">        cross-entropy loss (e.g. LogisticRegression with multi_class=&#39;multinomial&#39;)</span>
+<span class="sd">        or a hinge loss (e.g. SVC with kernel=&#39;linear&#39; and one versus rest) if the</span>
+<span class="sd">        metric is &#39;hinge&#39;. While any estimator providing the necessary prediction</span>
+<span class="sd">        functions can be used, the convergence of the fixed point is not guaranteed</span>
+<span class="sd">        and behavior can be unpredictable.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : object</span>
+<span class="sd">        The base estimator to be used for the classification task. This</span>
+<span class="sd">        estimator should solve a classification problem to correspond to JDOT</span>
+<span class="sd">        theoretical classification problem but other approaches can be used with</span>
+<span class="sd">        the risk that the fixed point might not converge. default value is</span>
+<span class="sd">        LogisticRegression() from scikit-learn.</span>
+<span class="sd">    alpha : float, default=0.5</span>
+<span class="sd">        The trade-off parameter between the feature and label loss in OT metric</span>
+<span class="sd">    metric : str, default=&#39;multinomial&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;multinomial&#39; for</span>
+<span class="sd">        cross-entropy cost/ multinomial logistic regression or &#39;hinge&#39; for hinge</span>
+<span class="sd">        cost (SVM/SVC).</span>
+<span class="sd">    n_iter_max: int</span>
+<span class="sd">        Max number of JDOT alternat optimization iterations.</span>
+<span class="sd">    tol: float&gt;0</span>
+<span class="sd">        Tolerance for loss variations (OT and mse) stopping iterations.</span>
+<span class="sd">    verbose: bool</span>
+<span class="sd">        Print loss along iterations if True.as_integer_ratio</span>
+<span class="sd">    thr_weights : float, default=1e-6</span>
+<span class="sd">        The relative threshold for the weights</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    estimator_ : object</span>
+<span class="sd">        The fitted estimator.</span>
+<span class="sd">    lst_loss_ot_ : list</span>
+<span class="sd">        The list of OT losses at each iteration.</span>
+<span class="sd">    lst_loss_tgt_labels_ : list</span>
+<span class="sd">        The list of target labels losses at each iteration.</span>
+<span class="sd">    sol_ : object</span>
+<span class="sd">        The solution of the OT problem.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</span>
+<span class="sd">         Optimal Transportation for Domain Adaptation, Neural Information</span>
+<span class="sd">         Processing Systems (NIPS), 2017.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;multinomial&#39;</span><span class="p">,</span>
+                 <span class="n">n_iter_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">thr_weights</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">multi_class</span><span class="o">=</span><span class="s1">&#39;multinomial&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="s1">&#39;fit&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span>
+                    <span class="n">base_estimator</span><span class="p">,</span> <span class="s1">&#39;predict&#39;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;base_estimator must be a regressor with&#39;</span>
+                                 <span class="s1">&#39; fit and predict methods&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">base_estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_iter_max</span> <span class="o">=</span> <span class="n">n_iter_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thr_weights</span> <span class="o">=</span> <span class="n">thr_weights</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters&quot;&quot;&quot;</span>
+
+        <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">ws</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">solve_jdot_classification</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">,</span>
+            <span class="n">Xs</span><span class="p">,</span>
+            <span class="n">ys</span><span class="p">,</span>
+            <span class="n">Xt</span><span class="p">,</span>
+            <span class="n">ws</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span>
+            <span class="n">wt</span><span class="o">=</span><span class="n">wt</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
+            <span class="n">n_iter_max</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter_max</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">thr_weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">thr_weights</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lst_loss_ot_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lst_loss_tgt_labels_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sol_</span> <span class="o">=</span> <span class="n">res</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict using the model&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s1">&#39;Source domain detected. Predictor is trained on target&#39;</span>
+                <span class="s1">&#39;and prediction might be biased.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the scores of the prediction&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s1">&#39;Source domain detected. Predictor is trained on target&#39;</span>
+                <span class="s1">&#39;and score might be biased.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span>
 </pre></div>
 
            </div>
