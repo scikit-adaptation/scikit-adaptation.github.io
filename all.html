@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="skada.ReweightDensity" href="gen_modules/skada.ReweightDensity.html" />
-    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+    <link rel="prev" title="Users Guide" href="quickstart.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,6 +40,7 @@
           
           <a href="index.html" class="icon icon-home">
             SKADA
+              <img src="_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 0.2
@@ -53,8 +54,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">SKADA: Scikit Domain Adaptation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API and modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#main-module-skada">Main module  <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sample-reweighting-da-methods">Sample reweighting DA methods</a><ul>
@@ -76,6 +78,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#other-da-methods">Other DA methods</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.JDOTRegressor.html">skada.JDOTRegressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.DASVMClassifier.html">skada.DASVMClassifier</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#da-pipeline">DA pipeline</a><ul>
@@ -102,6 +105,13 @@
 <li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.PredictionEntropyScorer.html">skada.metrics.PredictionEntropyScorer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#model-selection-skada-model-selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.SourceTargetShuffleSplit.html">skada.model_selection.SourceTargetShuffleSplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.DomainShuffleSplit.html">skada.model_selection.DomainShuffleSplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html">skada.model_selection.StratifiedDomainShuffleSplit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.model_selection.LeaveOneDomainOut.html">skada.model_selection.LeaveOneDomainOut</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a><ul>
@@ -196,7 +206,10 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.JDOTRegressor.html#skada.JDOTRegressor" title="skada.JDOTRegressor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">JDOTRegressor</span></code></a>([base_estimator, alpha, ...])</p></td>
-<td><p>Joint Distribution Optimal Transport Regressor</p></td>
+<td><p>Joint Distribution Optimal Transport Regressor proposed in [10]</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.DASVMClassifier.html#skada.DASVMClassifier" title="skada.DASVMClassifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DASVMClassifier</span></code></a>([base_estimator, k, ...])</p></td>
+<td><p>DASVM Estimator:</p></td>
 </tr>
 </tbody>
 </table>
@@ -273,6 +286,25 @@
 </tbody>
 </table>
 </section>
+<section id="model-selection-skada-model-selection">
+<h2>Model Selection <a class="reference internal" href="#module-skada.model_selection" title="skada.model_selection"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a><a class="headerlink" href="#model-selection-skada-model-selection" title="Link to this heading"></a></h2>
+<span class="target" id="module-skada.model_selection"></span><table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.SourceTargetShuffleSplit.html#skada.model_selection.SourceTargetShuffleSplit" title="skada.model_selection.SourceTargetShuffleSplit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SourceTargetShuffleSplit</span></code></a>([n_splits, ...])</p></td>
+<td><p>Source-Target-Shuffle-Split cross-validator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.DomainShuffleSplit.html#skada.model_selection.DomainShuffleSplit" title="skada.model_selection.DomainShuffleSplit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DomainShuffleSplit</span></code></a>([n_splits, test_size, ...])</p></td>
+<td><p>Domain-Shuffle-Split cross-validator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html#skada.model_selection.StratifiedDomainShuffleSplit" title="skada.model_selection.StratifiedDomainShuffleSplit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StratifiedDomainShuffleSplit</span></code></a>([n_splits, ...])</p></td>
+<td><p>Stratified-Domain-Shuffle-Split cross-validator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.model_selection.LeaveOneDomainOut.html#skada.model_selection.LeaveOneDomainOut" title="skada.model_selection.LeaveOneDomainOut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LeaveOneDomainOut</span></code></a>([max_n_splits, test_size, ...])</p></td>
+<td><p>Leave-One-Domain-Out cross-validator.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="datasets-skada-datasets">
 <h2>Datasets <a class="reference internal" href="#module-skada.datasets" title="skada.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a><a class="headerlink" href="#datasets-skada-datasets" title="Link to this heading"></a></h2>
 <p id="module-skada.datasets">Utilities to produce datasets for testing and benchmarking.</p>
@@ -299,7 +331,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Users Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="gen_modules/skada.ReweightDensity.html" class="btn btn-neutral float-right" title="skada.ReweightDensity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

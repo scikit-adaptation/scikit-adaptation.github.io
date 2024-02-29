@@ -26,7 +26,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="skada.make_da_pipeline" href="skada.make_da_pipeline.html" />
+    <link rel="next" title="skada.DASVMClassifier" href="skada.DASVMClassifier.html" />
     <link rel="prev" title="skada.LinearOTMapping" href="skada.LinearOTMapping.html" /> 
 </head>
 
@@ -40,6 +40,7 @@
           
           <a href="../index.html" class="icon icon-home">
             SKADA
+              <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 0.2
@@ -53,14 +54,16 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: Scikit Domain Adaptation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../all.html#main-module-skada">Main module  <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../all.html#sample-reweighting-da-methods">Sample reweighting DA methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#sample-mapping-and-alignment-da-methods">Sample mapping and alignment DA methods</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../all.html#other-da-methods">Other DA methods</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">skada.JDOTRegressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.DASVMClassifier.html">skada.DASVMClassifier</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#da-pipeline">DA pipeline</a></li>
@@ -69,6 +72,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.feature">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#model-selection-skada-model-selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
 </ul>
 </li>
@@ -105,7 +109,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.JDOTRegressor">
 <span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">JDOTRegressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_ot.html#JDOTRegressor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.JDOTRegressor" title="Link to this definition"></a></dt>
-<dd><p>Joint Distribution Optimal Transport Regressor</p>
+<dd><p>Joint Distribution Optimal Transport Regressor proposed in [10]</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This estimator assumes that the loss function optimized by the base
+estimator is the quadratic loss. For instance, the base estimator should
+optimize and L2 loss (e.g. LinearRegression() or Ridge() or even
+MLPRegressor ()). While any estimator providing the necessary prediction
+functions can be used, the convergence of the fixed point is not guaranteed
+and behavior can be unpredictable.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -128,7 +141,7 @@ converge. default value is LinearRegression() from scikit-learn.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="simple">
-<dt>[1] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</dt><dd><p>Optimal Transportation for Domain Adaptation, Neural Information
+<dt>[10] N. Courty, R. Flamary, A. Habrard, A. Rakotomamonjy, Joint Distribution</dt><dd><p>Optimal Transportation for Domain Adaptation, Neural Information
 Processing Systems (NIPS), 2017.</p>
 </dd>
 </dl>
@@ -151,8 +164,8 @@ Processing Systems (NIPS), 2017.</p>
 <section id="examples-using-skada-jdotregressor">
 <span id="sphx-glr-backreferences-skada-jdotregressor"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.JDOTRegressor</span></code><a class="headerlink" href="#examples-using-skada-jdotregressor" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to..."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor example</span></a></p>
-  <div class="sphx-glr-thumbnail-title">JDOT Regressor example</div>
+<p><a class="reference internal" href="../auto_examples/methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor and Classifier examples</span></a></p>
+  <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
 </div></div></section>
 </section>
 
@@ -161,7 +174,7 @@ Processing Systems (NIPS), 2017.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="skada.LinearOTMapping.html" class="btn btn-neutral float-left" title="skada.LinearOTMapping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="skada.make_da_pipeline.html" class="btn btn-neutral float-right" title="skada.make_da_pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="skada.DASVMClassifier.html" class="btn btn-neutral float-right" title="skada.DASVMClassifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

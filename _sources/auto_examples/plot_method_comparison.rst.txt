@@ -34,7 +34,7 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-206
+.. GENERATED FROM PYTHON SOURCE LINES 18-211
 
 
 
@@ -59,7 +59,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Gaussian Reweight Density Pipeline(steps=[('gaussianreweightdensityadapter',
+    Gaussian Reweight Pipeline(steps=[('gaussianreweightdensityadapter',
                      Shared(base_estimator=GaussianReweightDensityAdapter(),
                             reg='auto')),
                     ('svc',
@@ -69,7 +69,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Discr. Reweight Density Pipeline(steps=[('discriminatorreweightdensityadapter',
+    Discr. Reweight Pipeline(steps=[('discriminatorreweightdensityadapter',
                      Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
                             domain_classifier=LogisticRegression())),
                     ('svc',
@@ -132,7 +132,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
+    Class Reg. OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
                             norm='lpl1', reg_cl=0.1, reg_e=1.0, tol=1e-08)),
@@ -162,6 +162,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -173,7 +174,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Gaussian Reweight Density Pipeline(steps=[('gaussianreweightdensityadapter',
+    Gaussian Reweight Pipeline(steps=[('gaussianreweightdensityadapter',
                      Shared(base_estimator=GaussianReweightDensityAdapter(),
                             reg='auto')),
                     ('svc',
@@ -183,7 +184,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Discr. Reweight Density Pipeline(steps=[('discriminatorreweightdensityadapter',
+    Discr. Reweight Pipeline(steps=[('discriminatorreweightdensityadapter',
                      Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
                             domain_classifier=LogisticRegression())),
                     ('svc',
@@ -246,7 +247,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
+    Class Reg. OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
                             norm='lpl1', reg_cl=0.1, reg_e=1.0, tol=1e-08)),
@@ -276,6 +277,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -287,7 +289,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Gaussian Reweight Density Pipeline(steps=[('gaussianreweightdensityadapter',
+    Gaussian Reweight Pipeline(steps=[('gaussianreweightdensityadapter',
                      Shared(base_estimator=GaussianReweightDensityAdapter(),
                             reg='auto')),
                     ('svc',
@@ -297,7 +299,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Discr. Reweight Density Pipeline(steps=[('discriminatorreweightdensityadapter',
+    Discr. Reweight Pipeline(steps=[('discriminatorreweightdensityadapter',
                      Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
                             domain_classifier=LogisticRegression())),
                     ('svc',
@@ -360,7 +362,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
+    Class Reg. OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
                             norm='lpl1', reg_cl=0.1, reg_e=1.0, tol=1e-08)),
@@ -390,6 +392,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -401,7 +404,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Gaussian Reweight Density Pipeline(steps=[('gaussianreweightdensityadapter',
+    Gaussian Reweight Pipeline(steps=[('gaussianreweightdensityadapter',
                      Shared(base_estimator=GaussianReweightDensityAdapter(),
                             reg='auto')),
                     ('svc',
@@ -411,7 +414,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Discr. Reweight Density Pipeline(steps=[('discriminatorreweightdensityadapter',
+    Discr. Reweight Pipeline(steps=[('discriminatorreweightdensityadapter',
                      Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
                             domain_classifier=LogisticRegression())),
                     ('svc',
@@ -474,7 +477,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    Class Regularizer OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
+    Class Reg. OT mapping Pipeline(steps=[('classregularizerotmappingadapter',
                      Shared(base_estimator=ClassRegularizerOTMappingAdapter(),
                             max_inner_iter=200, max_iter=10, metric='sqeuclidean',
                             norm='lpl1', reg_cl=0.1, reg_e=1.0, tol=1e-08)),
@@ -504,6 +507,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
 
 
 
@@ -533,7 +537,8 @@ accuracy on the test set.
         EntropicOTMapping,
         ClassRegularizerOTMapping,
         LinearOTMapping,
-        CORAL
+        CORAL,
+        JDOTClassifier
     )
     from skada.datasets import make_shifted_datasets
 
@@ -544,16 +549,17 @@ accuracy on the test set.
     names = [
         "Without da",
         "Reweight Density",
-        "Gaussian Reweight Density",
-        "Discr. Reweight Density",
+        "Gaussian Reweight",
+        "Discr. Reweight",
         "KLIEP",
         "Subspace Alignment",
         "TCA",
         "OT mapping",
         "Entropic OT mapping",
-        "Class Regularizer OT mapping",
+        "Class Reg. OT mapping",
         "Linear OT mapping",
-        "CORAL"
+        "CORAL",
+        "JDOT"
     ]
 
     classifiers = [
@@ -572,6 +578,7 @@ accuracy on the test set.
         ClassRegularizerOTMapping(base_estimator=SVC()),
         LinearOTMapping(base_estimator=SVC()),
         CORAL(base_estimator=SVC()),
+        JDOTClassifier(base_estimator=SVC(), metric='hinge')
     ]
 
     datasets = [
@@ -667,13 +674,15 @@ accuracy on the test set.
         for name, clf in zip(names, classifiers):
             print(name, clf)
             ax = axes[i, ds_cnt]
+            ax.set_xlim(x_min, x_max)
+            ax.set_ylim(y_min, y_max)
             if name == "Without da":
                 clf.fit(Xs, ys)
             else:
                 clf.fit(X, y, sample_domain=sample_domain)
             score = clf.score(Xt, yt)
             DecisionBoundaryDisplay.from_estimator(
-                clf, Xs, cmap=cm, alpha=0.8, ax=ax, eps=0.5, response_method="predict",
+                clf, X, cmap=cm, alpha=0.8, ax=ax, eps=0.5, response_method="predict",
             )
 
             # Plot the target points
@@ -706,7 +715,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.763 seconds)
+   **Total running time of the script:** (0 minutes 6.196 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:

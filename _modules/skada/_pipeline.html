@@ -37,6 +37,7 @@
           
           <a href="../../index.html" class="icon icon-home">
             SKADA
+              <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 0.2
@@ -50,8 +51,9 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">SKADA: Scikit Domain Adaptation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
 </ul>
@@ -169,8 +171,23 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">steps</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Missing 1 required positional argument: &#39;steps&#39;&quot;</span><span class="p">)</span>
 
-    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">step</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">]</span>
-    <span class="n">estimators</span> <span class="o">=</span> <span class="p">[</span><span class="n">step</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">step</span> <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">]</span>
+    <span class="n">names</span><span class="p">,</span> <span class="n">estimators</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+        <span class="n">name</span><span class="p">,</span> <span class="n">estimator</span> <span class="o">=</span> <span class="n">step</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">BaseSelector</span><span class="p">):</span>
+            <span class="c1"># this means we got DA pipeline as a step in the pipeline</span>
+            <span class="k">for</span> <span class="n">nested_name</span><span class="p">,</span> <span class="n">nested_selector</span> <span class="ow">in</span> <span class="n">estimator</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">nested_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">nested_name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nested_name</span><span class="p">)</span>
+                <span class="c1"># the final mark is gonna be added later</span>
+                <span class="c1"># overall, if we have marked as final estimator as it is not</span>
+                <span class="c1"># the final one in the unrolled (un-nested) pipeline, we are</span>
+                <span class="c1"># likely doing something wrong</span>
+                <span class="n">estimators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nested_selector</span><span class="o">.</span><span class="n">_unmark_as_final</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">estimators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
 
     <span class="n">wrapped_estimators</span> <span class="o">=</span> <span class="n">_wrap_with_selectors</span><span class="p">(</span><span class="n">estimators</span><span class="p">,</span> <span class="n">default_selector</span><span class="p">)</span>
     <span class="n">steps</span> <span class="o">=</span> <span class="n">_name_estimators</span><span class="p">(</span><span class="n">wrapped_estimators</span><span class="p">)</span>

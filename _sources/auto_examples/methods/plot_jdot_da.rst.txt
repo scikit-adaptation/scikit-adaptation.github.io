@@ -18,8 +18,8 @@
 .. _sphx_glr_auto_examples_methods_plot_jdot_da.py:
 
 
-JDOT Regressor example
-======================
+JDOT Regressor and Classifier examples
+======================================
 
 This example shows how to use the JDOTRegressor [10] to learn a regression model
 from source to target domain on a simple concept drift 2D exemple. We use a
@@ -29,9 +29,9 @@ We compare the performance of the KRR on the source and target domain, and the
 JDOTRegressor on the same task and illustrate the learned decision boundary and
 the OT plan between samples estimated by JDOT.
 
-[10] Courty, N., Flamary, R., Habrard, A., & Rakotomamonjy, A. (2017). Joint
- distribution optimal transportation for domain adaptation. Advances in neural
- information processing systems, 30.
+.. [10] Courty, N., Flamary, R., Habrard, A., & Rakotomamonjy, A. (2017). Joint
+        distribution optimal transportation for domain adaptation. Advances in
+        neural information processing systems, 30.
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-25
 
@@ -40,7 +40,7 @@ the OT plan between samples estimated by JDOT.
 
     # Author: Remi Flamary
     #
-    # License: MIT License
+    # License: BSD 3-Clause
     # sphinx_gallery_thumbnail_number = 4
 
 
@@ -51,17 +51,19 @@ the OT plan between samples estimated by JDOT.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-37
+.. GENERATED FROM PYTHON SOURCE LINES 26-39
 
 .. code-block:: Python
 
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.svm import SVC
     import numpy as np
     import matplotlib.pyplot as plt
 
     from sklearn.metrics import mean_squared_error
     from sklearn.kernel_ridge import KernelRidge
 
-    from skada import JDOTRegressor
+    from skada import JDOTRegressor, JDOTClassifier
     from skada.datasets import make_shifted_datasets
     from skada import source_target_split
 
@@ -73,14 +75,14 @@ the OT plan between samples estimated by JDOT.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-42
+.. GENERATED FROM PYTHON SOURCE LINES 40-44
 
-Generate concept drift dataset and plot it
-------------------------------------------
+Generate concept drift regression dataset and plot it
+-----------------------------------------------------
 
 We generate a simple 2D concept drift dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-68
+.. GENERATED FROM PYTHON SOURCE LINES 44-70
 
 .. code-block:: Python
 
@@ -128,7 +130,7 @@ We generate a simple 2D concept drift dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-76
+.. GENERATED FROM PYTHON SOURCE LINES 71-78
 
 Train a regressor on source data
 --------------------------------
@@ -138,7 +140,7 @@ evaluate its performance on the source and target domain. Performance is
 much lower on the target domain due to the shift. We also plot the decision
 boundary learned by the KRR.
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-109
+.. GENERATED FROM PYTHON SOURCE LINES 78-111
 
 .. code-block:: Python
 
@@ -179,7 +181,7 @@ boundary learned by the KRR.
 
 
 .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_002.png
-   :alt: KRR Prediction on source (MSE=0.06), KRR Prediction on target (MSE=1.30)
+   :alt: KRR Prediction on source (MSE=0.06), KRR Prediction on target (MSE=0.77)
    :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_002.png
    :class: sphx-glr-single-img
 
@@ -189,13 +191,13 @@ boundary learned by the KRR.
  .. code-block:: none
 
     MSE on source: 0.06
-    MSE on target: 1.30
+    MSE on target: 0.77
 
     (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-118
+.. GENERATED FROM PYTHON SOURCE LINES 112-120
 
 Train with JDOT regressor
 -------------------------
@@ -206,7 +208,7 @@ performance of JDOT on the source and target domain, and illustrate the
 learned decision boundary of JDOT. Performance is much better on the target
 domain than with the KRR trained on source.
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-148
+.. GENERATED FROM PYTHON SOURCE LINES 120-150
 
 .. code-block:: Python
 
@@ -244,7 +246,7 @@ domain than with the KRR trained on source.
 
 
 .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_003.png
-   :alt: JDOT Prediction on source (MSE=0.64), JDOT Prediction on target (MSE=0.17)
+   :alt: JDOT Prediction on source (MSE=0.51), JDOT Prediction on target (MSE=0.15)
    :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_003.png
    :class: sphx-glr-single-img
 
@@ -253,14 +255,14 @@ domain than with the KRR trained on source.
 
  .. code-block:: none
 
-    JDOT MSE on source: 0.64
-    JDOT MSE on target: 0.17
+    JDOT MSE on source: 0.51
+    JDOT MSE on target: 0.15
 
     (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-155
+.. GENERATED FROM PYTHON SOURCE LINES 151-157
 
 Illustration of the OT plan
 ---------------------------
@@ -269,7 +271,7 @@ We illustrate the OT plan between samples estimated by JDOT. We plot the
 OT plan between the source and target samples. We can see that the OT plan
 is able to align the source and target samples while preserving the label.
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-170
+.. GENERATED FROM PYTHON SOURCE LINES 157-174
 
 .. code-block:: Python
 
@@ -291,6 +293,8 @@ is able to align the source and target samples while preserving the label.
 
 
 
+
+
 .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_004.png
    :alt: OT plan between source and target
    :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_004.png
@@ -306,10 +310,328 @@ is able to align the source and target samples while preserving the label.
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 175-179
+
+Generate concept drift classification dataset and plot it
+-----------------------------------------------------
+
+We generate a simple 2D concept drift dataset.
+
+.. GENERATED FROM PYTHON SOURCE LINES 179-204
+
+.. code-block:: Python
+
+
+    X, y, sample_domain = make_shifted_datasets(
+            n_samples_source=20,
+            n_samples_target=20,
+            shift="concept_drift",
+            noise=0.2,
+            label="multiclass",
+            random_state=42,
+        )
+
+
+    Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
+
+
+    plt.figure(5, (10, 5))
+    plt.subplot(1, 2, 1)
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Source")
+    plt.title("Source data")
+    ax = plt.axis()
+
+    plt.subplot(1, 2, 2)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Target")
+    plt.title("Target data")
+    plt.axis(ax)
+
+
+
+
+.. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_005.png
+   :alt: Source data, Target data
+   :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_005.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+
+    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 205-211
+
+Train a classifier on source data
+--------------------------------
+
+We train a simple SVC classifier on the source domain and evaluate its
+performance on the source and target domain. Performance is much lower on
+the target domain due to the shift. We also plot the decision boundary
+
+.. GENERATED FROM PYTHON SOURCE LINES 211-265
+
+.. code-block:: Python
+
+
+
+    clf = LogisticRegression()
+    clf.fit(Xs, ys)
+
+    # Compute accuracy on source and target
+    ys_pred = clf.predict(Xs)
+    yt_pred = clf.predict(Xt)
+
+    acc_s = (ys_pred == ys).mean()
+    acc_t = (yt_pred == yt).mean()
+
+    print(f"Accuracy on source: {acc_s:.2f}")
+    print(f"Accuracy on target: {acc_t:.2f}")
+
+    XX, YY = np.meshgrid(np.linspace(ax[0], ax[1], 100), np.linspace(ax[2], ax[3], 100))
+    Z = clf.predict(np.c_[XX.ravel(), YY.ravel()]).reshape(XX.shape)
+
+
+    plt.figure(6, (10, 5))
+    plt.subplot(1, 2, 1)
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(
+            ax[0],
+            ax[1],
+            ax[2],
+            ax[3]),
+        origin='lower',
+        alpha=0.5,
+        cmap='tab10',
+        vmax=9,
+            )
+    plt.title(f"SVC Prediction on source (ACC={acc_s:.2f})")
+
+    plt.subplot(1, 2, 2)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(
+            ax[0],
+            ax[1],
+            ax[2],
+            ax[3]),
+        origin='lower',
+        alpha=0.5,
+        cmap='tab10',
+        vmax=9,
+            )
+    plt.title(f"SVC Prediction on target (ACC={acc_t:.2f})")
+    plt.axis(ax)
+
+
+
+
+
+.. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_006.png
+   :alt: SVC Prediction on source (ACC=0.99), SVC Prediction on target (ACC=0.50)
+   :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_006.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Accuracy on source: 0.99
+    Accuracy on target: 0.50
+
+    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 266-274
+
+Train with JDOT classifier
+-------------------------
+
+We now use the JDOTClassifier to learn a classification model from source to
+target domain. We use the same SVC as base estimator. We compare the
+performance of JDOT on the source and target domain, and illustrate the
+learned decision boundary of JDOT. Performance is much better on the target
+domain than with the SVC trained on source.
+
+.. GENERATED FROM PYTHON SOURCE LINES 274-328
+
+.. code-block:: Python
+
+
+
+    jdot = JDOTClassifier(LogisticRegression(), verbose=True)
+
+    jdot.fit(X, y, sample_domain=sample_domain)
+
+    ys_pred = jdot.predict(Xs)
+    yt_pred = jdot.predict(Xt)
+
+    acc_s = (ys_pred == ys).mean()
+    acc_t = (yt_pred == yt).mean()
+
+    print(f"JDOT Accuracy on source: {acc_s:.2f}")
+    print(f"JDOT Accuracy on target: {acc_t:.2f}")
+
+    XX, YY = np.meshgrid(np.linspace(ax[0], ax[1], 100), np.linspace(ax[2], ax[3], 100))
+    Z = jdot.predict(np.c_[XX.ravel(), YY.ravel()]).reshape(XX.shape)
+
+
+    plt.figure(7, (10, 5))
+    plt.subplot(1, 2, 1)
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(
+            ax[0],
+            ax[1],
+            ax[2],
+            ax[3]),
+        origin='lower',
+        alpha=0.5,
+        cmap='tab10',
+        vmax=9,
+            )
+    plt.title(f"JDOT reglog on source (ACC={acc_s:.2f})")
+
+    plt.subplot(1, 2, 2)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(
+            ax[0],
+            ax[1],
+            ax[2],
+            ax[3]),
+        origin='lower',
+        alpha=0.5,
+        cmap='tab10',
+        vmax=9,
+            )
+    plt.title(f"JDOT reglog on target (ACC={acc_t:.2f})")
+    plt.axis(ax)
+
+
+
+
+
+.. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_007.png
+   :alt: JDOT reglog on source (ACC=0.84), JDOT reglog on target (ACC=0.97)
+   :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_007.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.22983129554592746
+    iter=1, loss_ot=0.18530735809550575, loss_tgt_labels=0.21420445266620783
+    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620783
+    JDOT Accuracy on source: 0.84
+    JDOT Accuracy on target: 0.97
+
+    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 329-336
+
+Train with JDOT classifier with SVC
+-------------------------
+
+We now use the JDOTClassifier with a support vector classifier as base
+estimator to learn a classification model from source to target domain.
+Note that in this case it is necessary to change the metric from the default
+'multinomial' to 'hinge' to match the hinge loss used by the SVC.
+
+.. GENERATED FROM PYTHON SOURCE LINES 336-387
+
+.. code-block:: Python
+
+
+    jdot = JDOTClassifier(SVC(kernel='rbf', C=1), metric='hinge')
+
+    jdot.fit(X, y, sample_domain=sample_domain)
+
+    ys_pred = jdot.predict(Xs)
+    yt_pred = jdot.predict(Xt)
+
+    acc_s = (ys_pred == ys).mean()
+    acc_t = (yt_pred == yt).mean()
+
+    print(f"JDOT Accuracy on source: {acc_s:.2f}")
+    print(f"JDOT Accuracy on target: {acc_t:.2f}")
+
+    XX, YY = np.meshgrid(np.linspace(ax[0], ax[1], 100), np.linspace(ax[2], ax[3], 100))
+    Z = jdot.predict(np.c_[XX.ravel(), YY.ravel()]).reshape(XX.shape)
+
+
+    plt.figure(8, (10, 5))
+    plt.subplot(1, 2, 1)
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(
+            ax[0],
+            ax[1],
+            ax[2],
+            ax[3]),
+        origin='lower',
+        alpha=0.5,
+        cmap='tab10',
+        vmax=9,
+            )
+    plt.title(f"JDOT SVC on source (ACC={acc_s:.2f})")
+
+    plt.subplot(1, 2, 2)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(
+            ax[0],
+            ax[1],
+            ax[2],
+            ax[3]),
+        origin='lower',
+        alpha=0.5,
+        cmap='tab10',
+        vmax=9,
+            )
+    plt.title(f"JDOT SVC on target (ACC={acc_t:.2f})")
+    plt.axis(ax)
+
+
+
+.. image-sg:: /auto_examples/methods/images/sphx_glr_plot_jdot_da_008.png
+   :alt: JDOT SVC on source (ACC=0.82), JDOT SVC on target (ACC=0.97)
+   :srcset: /auto_examples/methods/images/sphx_glr_plot_jdot_da_008.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    JDOT Accuracy on source: 0.82
+    JDOT Accuracy on target: 0.97
+
+    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+
+
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.000 seconds)
+   **Total running time of the script:** (0 minutes 1.773 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_jdot_da.py:

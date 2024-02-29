@@ -31,6 +31,23 @@ This is a gallery of all the SKADA example files.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip=" In this example we plot the logos of the SKADA toolbox.">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_skada_logo_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_plot_skada_logo.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">SKADA logo generation</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp...">
 
 .. only:: html
@@ -55,6 +72,7 @@ This is a gallery of all the SKADA example files.
    :hidden:
 
    /auto_examples/plot_how_to_use_skada
+   /auto_examples/plot_skada_logo
    /auto_examples/plot_method_comparison
 
 
@@ -74,10 +92,10 @@ Domain Adaptation Datasets
 
 .. only:: html
 
-  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_regression_thumb.png
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py`
+  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py`
 
 .. raw:: html
 
@@ -91,10 +109,10 @@ Domain Adaptation Datasets
 
 .. only:: html
 
-  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_thumb.png
+  .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_regression_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py`
+  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py`
 
 .. raw:: html
 
@@ -144,8 +162,8 @@ Domain Adaptation Datasets
 .. toctree::
    :hidden:
 
-   /auto_examples/datasets/plot_shifted_dataset_regression
    /auto_examples/datasets/plot_shifted_dataset
+   /auto_examples/datasets/plot_shifted_dataset_regression
    /auto_examples/datasets/plot_variable_frequency_dataset
    /auto_examples/datasets/plot_dataset_from_moons_distribution
 
@@ -161,6 +179,40 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Kernel Mean Matching">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_kmm_reweighting_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_kmm_reweighting.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Kernel Mean Matching</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the DASVM method from [21].">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_dasvm_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_dasvm.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">DASVM classifier example</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to...">
 
 .. only:: html
@@ -172,7 +224,7 @@ DA methods
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">JDOT Regressor example</div>
+      <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
     </div>
 
 
@@ -201,6 +253,8 @@ DA methods
 .. toctree::
    :hidden:
 
+   /auto_examples/methods/plot_kmm_reweighting
+   /auto_examples/methods/plot_dasvm
    /auto_examples/methods/plot_jdot_da
    /auto_examples/methods/plot_optimal_transport_da
 
@@ -250,6 +304,23 @@ DA validation procedures
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as  DomainShuffleSplit.">
+
+.. only:: html
+
+  .. image:: /auto_examples/validation/images/thumb/sphx_glr_plot_cross_validation_for_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_validation_plot_cross_validation_for_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Visualizing cross-validation behavior in skada</div>
+    </div>
+
+
+.. raw:: html
+
     </div>
 
 
@@ -258,6 +329,7 @@ DA validation procedures
 
    /auto_examples/validation/plot_gridsearch_for_da
    /auto_examples/validation/plot_cross_val_score_for_da
+   /auto_examples/validation/plot_cross_validation_for_da
 
 
 .. only:: html

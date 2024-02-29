@@ -1,0 +1,11 @@
+﻿skada.DASVMClassifier
+=====================
+
+.. currentmodule:: skada
+
+.. autofunction:: DASVMClassifier
+
+.. _sphx_glr_backreferences_skada.DASVMClassifier:
+
+.. minigallery:: skada.DASVMClassifier
+    :add-heading:

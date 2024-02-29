@@ -26,7 +26,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to use SKADA" href="plot_how_to_use_skada.html" />
+    <link rel="next" title="SKADA logo generation" href="plot_skada_logo.html" />
     <link rel="prev" title="skada.datasets.make_variable_frequency_dataset" href="../gen_modules/skada.datasets.make_variable_frequency_dataset.html" /> 
 </head>
 
@@ -40,6 +40,7 @@
           
           <a href="../index.html" class="icon icon-home">
             SKADA
+              <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
                 0.2
@@ -53,27 +54,32 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: Scikit Domain Adaptation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#domain-adaptation-datasets">Domain Adaptation Datasets</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="datasets/plot_shifted_dataset_regression.html">Plot dataset source domain and shifted target domain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets/plot_shifted_dataset.html">Plot dataset source domain and shifted target domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasets/plot_shifted_dataset_regression.html">Plot dataset source domain and shifted target domain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets/plot_variable_frequency_dataset.html">Plot dataset source domain and shifted target domain</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datasets/plot_dataset_from_moons_distribution.html">Plot dataset source domain and shifted target domain</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#da-methods">DA methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="methods/plot_jdot_da.html">JDOT Regressor example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/plot_kmm_reweighting.html">Kernel Mean Matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/plot_dasvm.html">DASVM classifier example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods/plot_jdot_da.html">JDOT Regressor and Classifier examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="methods/plot_optimal_transport_da.html">Optimal Transport Domain Adaptation (OTDA)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#da-validation-procedures">DA validation procedures</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="validation/plot_gridsearch_for_da.html">Using GridSearchCV with skada</a></li>
 <li class="toctree-l3"><a class="reference internal" href="validation/plot_cross_val_score_for_da.html">Using cross_val_score with skada</a></li>
+<li class="toctree-l3"><a class="reference internal" href="validation/plot_cross_validation_for_da.html">Visualizing cross-validation behavior in skada</a></li>
 </ul>
 </li>
 </ul>
@@ -110,6 +116,9 @@
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example of how to use SKADA to perform domain adaptation on a simple dataset wi..."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
 <p><a class="reference internal" href="plot_how_to_use_skada.html#sphx-glr-auto-examples-plot-how-to-use-skada-py"><span class="std std-ref">How to use SKADA</span></a></p>
   <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip=" In this example we plot the logos of the SKADA toolbox."><img alt="" src="../_images/sphx_glr_plot_skada_logo_thumb.png" />
+<p><a class="reference internal" href="plot_skada_logo.html#sphx-glr-auto-examples-plot-skada-logo-py"><span class="std std-ref">SKADA logo generation</span></a></p>
+  <div class="sphx-glr-thumbnail-title">SKADA logo generation</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp..."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
 <p><a class="reference internal" href="plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
   <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
@@ -117,11 +126,11 @@
 </div>
 <section id="domain-adaptation-datasets">
 <h2>Domain Adaptation Datasets<a class="headerlink" href="#domain-adaptation-datasets" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating..."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
-<p><a class="reference internal" href="datasets/plot_shifted_dataset_regression.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-regression-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating..."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating..."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
 <p><a class="reference internal" href="datasets/plot_shifted_dataset.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating..."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
+<p><a class="reference internal" href="datasets/plot_shifted_dataset_regression.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-regression-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_variable_frequency_dataset dataset generator. Each method consists of..."><img alt="" src="../_images/sphx_glr_plot_variable_frequency_dataset_thumb.png" />
 <p><a class="reference internal" href="datasets/plot_variable_frequency_dataset.html#sphx-glr-auto-examples-datasets-plot-variable-frequency-dataset-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
@@ -134,9 +143,15 @@
 </section>
 <section id="da-methods">
 <h2>DA methods<a class="headerlink" href="#da-methods" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to..."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
-<p><a class="reference internal" href="methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor example</span></a></p>
-  <div class="sphx-glr-thumbnail-title">JDOT Regressor example</div>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Kernel Mean Matching"><img alt="" src="../_images/sphx_glr_plot_kmm_reweighting_thumb.png" />
+<p><a class="reference internal" href="methods/plot_kmm_reweighting.html#sphx-glr-auto-examples-methods-plot-kmm-reweighting-py"><span class="std std-ref">Kernel Mean Matching</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Kernel Mean Matching</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the DASVM method from [21]."><img alt="" src="../_images/sphx_glr_plot_dasvm_thumb.png" />
+<p><a class="reference internal" href="methods/plot_dasvm.html#sphx-glr-auto-examples-methods-plot-dasvm-py"><span class="std std-ref">DASVM classifier example</span></a></p>
+  <div class="sphx-glr-thumbnail-title">DASVM classifier example</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to..."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
+<p><a class="reference internal" href="methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor and Classifier examples</span></a></p>
+  <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task."><img alt="" src="../_images/sphx_glr_plot_optimal_transport_da_thumb.png" />
 <p><a class="reference internal" href="methods/plot_optimal_transport_da.html#sphx-glr-auto-examples-methods-plot-optimal-transport-da-py"><span class="std std-ref">Optimal Transport Domain Adaptation (OTDA)</span></a></p>
   <div class="sphx-glr-thumbnail-title">Optimal Transport Domain Adaptation (OTDA)</div>
@@ -151,6 +166,9 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such TargetAccuracyScorer with cross_val_score."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
 <p><a class="reference internal" href="validation/plot_cross_val_score_for_da.html#sphx-glr-auto-examples-validation-plot-cross-val-score-for-da-py"><span class="std std-ref">Using cross_val_score with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as  DomainShuffleSplit."><img alt="" src="../_images/sphx_glr_plot_cross_validation_for_da_thumb.png" />
+<p><a class="reference internal" href="validation/plot_cross_validation_for_da.html#sphx-glr-auto-examples-validation-plot-cross-validation-for-da-py"><span class="std std-ref">Visualizing cross-validation behavior in skada</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Visualizing cross-validation behavior in skada</div>
 </div></div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-footer sphx-glr-footer-gallery docutils container">
@@ -170,7 +188,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../gen_modules/skada.datasets.make_variable_frequency_dataset.html" class="btn btn-neutral float-left" title="skada.datasets.make_variable_frequency_dataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plot_how_to_use_skada.html" class="btn btn-neutral float-right" title="How to use SKADA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plot_skada_logo.html" class="btn btn-neutral float-right" title="SKADA logo generation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

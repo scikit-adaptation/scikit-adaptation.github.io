@@ -1,0 +1,13 @@
+﻿skada.model\_selection.LeaveOneDomainOut
+========================================
+
+.. currentmodule:: skada.model_selection
+
+.. autoclass:: LeaveOneDomainOut
+   :special-members: __contains__,__getitem__,__iter__,__len__,__add__,__sub__,__mul__,__div__,__neg__
+   :members:
+
+.. _sphx_glr_backreferences_skada.model_selection.LeaveOneDomainOut:
+
+.. minigallery:: skada.model_selection.LeaveOneDomainOut
+    :add-heading:
