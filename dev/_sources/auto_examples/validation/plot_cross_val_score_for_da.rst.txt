@@ -111,7 +111,7 @@ separately, so they are only available for the scoring.
 
  .. code-block:: none
 
-    Cross-validation score with supervised DA: 0.93 (+/- 0.01)
+    Cross-validation score with supervised DA: 0.98 (+/- 0.01)
 
 
 
@@ -188,7 +188,7 @@ Compare scores with the simple estimator with no adaptation
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.242 seconds)
+   **Total running time of the script:** (0 minutes 0.334 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_cross_val_score_for_da.py:
