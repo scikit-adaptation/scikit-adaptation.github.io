@@ -1,0 +1,11 @@
+﻿skada.MMDTarSReweight
+=====================
+
+.. currentmodule:: skada
+
+.. autofunction:: MMDTarSReweight
+
+.. _sphx_glr_backreferences_skada.MMDTarSReweight:
+
+.. minigallery:: skada.MMDTarSReweight
+    :add-heading:
