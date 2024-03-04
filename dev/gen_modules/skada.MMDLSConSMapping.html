@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>skada.EntropicOTMapping &mdash; SKADA : Scikit Adaptation</title>
+  <title>skada.MMDLSConSMapping &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
@@ -26,8 +26,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="skada.ClassRegularizerOTMapping" href="skada.ClassRegularizerOTMapping.html" />
-    <link rel="prev" title="skada.OTMapping" href="skada.OTMapping.html" /> 
+    <link rel="next" title="skada.JDOTRegressor" href="skada.JDOTRegressor.html" />
+    <link rel="prev" title="skada.LinearOTMapping" href="skada.LinearOTMapping.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -65,10 +65,10 @@
 <li class="toctree-l4"><a class="reference internal" href="skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.CORAL.html">skada.CORAL</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.OTMapping.html">skada.OTMapping</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">skada.EntropicOTMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.EntropicOTMapping.html">skada.EntropicOTMapping</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.ClassRegularizerOTMapping.html">skada.ClassRegularizerOTMapping</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.LinearOTMapping.html">skada.LinearOTMapping</a></li>
-<li class="toctree-l4"><a class="reference internal" href="skada.MMDLSConSMapping.html">skada.MMDLSConSMapping</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">skada.MMDLSConSMapping</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#other-da-methods">Other DA methods</a></li>
@@ -100,9 +100,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
-      <li class="breadcrumb-item active">skada.EntropicOTMapping</li>
+      <li class="breadcrumb-item active">skada.MMDLSConSMapping</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/gen_modules/skada.EntropicOTMapping.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/gen_modules/skada.MMDLSConSMapping.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -110,62 +110,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="skada-entropicotmapping">
-<h1>skada.EntropicOTMapping<a class="headerlink" href="#skada-entropicotmapping" title="Link to this heading"></a></h1>
+  <section id="skada-mmdlsconsmapping">
+<h1>skada.MMDLSConSMapping<a class="headerlink" href="#skada-mmdlsconsmapping" title="Link to this heading"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="skada.EntropicOTMapping">
-<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">EntropicOTMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqeuclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#EntropicOTMapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.EntropicOTMapping" title="Link to this definition"></a></dt>
-<dd><p>EntropicOTMapping pipeline with adapter and estimator.</p>
-<p>see <a class="reference internal" href="#r55a6f9af6a06-1" id="id1">[1]</a> for details.</p>
+<dt class="sig sig-object py" id="skada.MMDLSConSMapping">
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">MMDLSConSMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#MMDLSConSMapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.MMDLSConSMapping" title="Link to this definition"></a></dt>
+<dd><p>MMDLSConSMapping pipeline with adapter and estimator.</p>
+<p>see <a class="reference internal" href="#rfbbe3dc67993-4" id="id1">[4]</a> for details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>base_estimator</strong><span class="classifier">object, optional (default=None)</span></dt><dd><p>The base estimator to fit on the target dataset.</p>
 </dd>
-<dt><strong>reg_e</strong><span class="classifier">float, default=1</span></dt><dd><p>Entropic regularization parameter.</p>
+<dt><strong>gamma</strong><span class="classifier">float</span></dt><dd><p>Parameter for the Gaussian kernel.</p>
 </dd>
-<dt><strong>metric</strong><span class="classifier">str, optional (default=&quot;sqeuclidean&quot;)</span></dt><dd><p>The ground metric for the Wasserstein problem.</p>
+<dt><strong>reg_k</strong><span class="classifier">float, default=1e-10</span></dt><dd><p>Regularization parameter for the labels kernel matrix.</p>
 </dd>
-<dt><strong>norm</strong><span class="classifier">{'median', 'max', 'log', 'loglog'} (default=None)</span></dt><dd><p>If given, normalize the ground metric to avoid numerical errors that
-can occur with large metric values.</p>
+<dt><strong>reg_m</strong><span class="classifier">float, default=1e-10</span></dt><dd><p>Regularization parameter for the mapping parameters.</p>
 </dd>
-<dt><strong>max_iter</strong><span class="classifier">int, float, optional (default=1000)</span></dt><dd><p>The minimum number of iteration before stopping the optimization
-of the Sinkhorn algorithm if it has not converged</p>
+<dt><strong>tol</strong><span class="classifier">float, default=1e-5</span></dt><dd><p>Tolerance for the stopping criterion in the optimization.</p>
 </dd>
-<dt><strong>tol</strong><span class="classifier">float, optional (default=10e-9)</span></dt><dd><p>The precision required to stop the optimization of the Sinkhorn
-algorithm.</p>
+<dt><strong>max_iter</strong><span class="classifier">int, default=100</span></dt><dd><p>Number of maximum iteration before stopping the optimization.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>pipeline</strong><span class="classifier">Pipeline</span></dt><dd><p>Pipeline containing EntropicOTMapping adapter and base estimator.</p>
+<dt><strong>pipeline</strong><span class="classifier">Pipeline</span></dt><dd><p>Pipeline containing CORAL adapter and base estimator.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="r55a6f9af6a06-1" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,
-Optimal Transport for Domain Adaptation, in IEEE
-Transactions on Pattern Analysis and Machine Intelligence</p>
+<div class="citation" id="rfbbe3dc67993-4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">4</a><span class="fn-bracket">]</span></span>
+<p>Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift
+In ICML, 2013.</p>
 </div>
 </div>
 </dd></dl>
 
-<section id="examples-using-skada-entropicotmapping">
-<span id="sphx-glr-backreferences-skada-entropicotmapping"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.EntropicOTMapping</span></code><a class="headerlink" href="#examples-using-skada-entropicotmapping" title="Link to this heading"></a></h2>
+<section id="examples-using-skada-mmdlsconsmapping">
+<span id="sphx-glr-backreferences-skada-mmdlsconsmapping"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.MMDLSConSMapping</span></code><a class="headerlink" href="#examples-using-skada-mmdlsconsmapping" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp..."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
   <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/validation/plot_gridsearch_for_da.html#sphx-glr-auto-examples-validation-plot-gridsearch-for-da-py"><span class="std std-ref">Using GridSearchCV with skada</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such TargetAccuracyScorer with cross_val_score."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/validation/plot_cross_val_score_for_da.html#sphx-glr-auto-examples-validation-plot-cross-val-score-for-da-py"><span class="std std-ref">Using cross_val_score with skada</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
 </div></div></section>
 </section>
 
@@ -173,8 +163,8 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="skada.OTMapping.html" class="btn btn-neutral float-left" title="skada.OTMapping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="skada.ClassRegularizerOTMapping.html" class="btn btn-neutral float-right" title="skada.ClassRegularizerOTMapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="skada.LinearOTMapping.html" class="btn btn-neutral float-left" title="skada.LinearOTMapping" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.JDOTRegressor.html" class="btn btn-neutral float-right" title="skada.JDOTRegressor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

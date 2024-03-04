@@ -34,7 +34,7 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-214
+.. GENERATED FROM PYTHON SOURCE LINES 18-217
 
 
 
@@ -173,6 +173,21 @@ accuracy on the test set.
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
     JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
+    MMD Loc-Scale mapping Pipeline(steps=[('mmdlsconsmappingadapter',
+                     Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                            gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                            tol=1e-05)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
+    /home/circleci/project/skada/utils.py:688: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
+      warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -298,6 +313,19 @@ accuracy on the test set.
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
     JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
+    MMD Loc-Scale mapping Pipeline(steps=[('mmdlsconsmappingadapter',
+                     Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                            gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                            tol=1e-05)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -423,6 +451,19 @@ accuracy on the test set.
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
     JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
+    MMD Loc-Scale mapping Pipeline(steps=[('mmdlsconsmappingadapter',
+                     Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                            gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                            tol=1e-05)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
                      Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
@@ -548,6 +589,19 @@ accuracy on the test set.
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
     JDOT JDOTClassifier(base_estimator=SVC(), metric='hinge')
+    MMD Loc-Scale mapping Pipeline(steps=[('mmdlsconsmappingadapter',
+                     Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                            gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                            tol=1e-05)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 
 
 
@@ -579,7 +633,8 @@ accuracy on the test set.
         ClassRegularizerOTMapping,
         LinearOTMapping,
         CORAL,
-        JDOTClassifier
+        JDOTClassifier,
+        MMDLSConSMapping
     )
     from skada.datasets import make_shifted_datasets
 
@@ -601,7 +656,8 @@ accuracy on the test set.
         "Class Reg. OT mapping",
         "Linear OT mapping",
         "CORAL",
-        "JDOT"
+        "JDOT",
+        "MMD Loc-Scale mapping"
     ]
 
     classifiers = [
@@ -621,7 +677,8 @@ accuracy on the test set.
         ClassRegularizerOTMapping(base_estimator=SVC()),
         LinearOTMapping(base_estimator=SVC()),
         CORAL(base_estimator=SVC()),
-        JDOTClassifier(base_estimator=SVC(), metric='hinge')
+        JDOTClassifier(base_estimator=SVC(), metric='hinge'),
+        MMDLSConSMapping(base_estimator=SVC())
     ]
 
     datasets = [
@@ -758,7 +815,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 7.166 seconds)
+   **Total running time of the script:** (0 minutes 14.800 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
