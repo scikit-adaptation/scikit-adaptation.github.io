@@ -1,0 +1,11 @@
+﻿skada.deep.DeepCoral
+====================
+
+.. currentmodule:: skada.deep
+
+.. autofunction:: DeepCoral
+
+.. _sphx_glr_backreferences_skada.deep.DeepCoral:
+
+.. minigallery:: skada.deep.DeepCoral
+    :add-heading:

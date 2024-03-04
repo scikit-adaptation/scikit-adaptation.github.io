@@ -89,15 +89,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#utilities">Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-skada.feature">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DeepCORAL.html">skada.feature.DeepCORAL</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DeepJDOT.html">skada.feature.DeepJDOT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DANN.html">skada.feature.DANN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.CDAN.html">skada.feature.CDAN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.DAN.html">skada.feature.DAN</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.dan_loss.html">skada.feature.dan_loss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.deepcoral_loss.html">skada.feature.deepcoral_loss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.feature.deepjdot_loss.html">skada.feature.deepjdot_loss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.DeepCoralLoss.html">skada.deep.DeepCoralLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.DeepJDOTLoss.html">skada.deep.DeepJDOTLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.DANLoss.html">skada.deep.DANLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.CDANLoss.html">skada.deep.CDANLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.DANN.html">skada.deep.DANN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gen_modules/skada.deep.CDAN.html">skada.deep.CDAN</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a><ul>
@@ -233,38 +233,38 @@
 <h3>Utilities<a class="headerlink" href="#utilities" title="Link to this heading"></a></h3>
 </section>
 </section>
-<section id="module-skada.feature">
-<span id="deep-learning-da-skada-feature"></span><h2>Deep learning DA <a class="reference internal" href="#module-skada.feature" title="skada.feature"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a><a class="headerlink" href="#module-skada.feature" title="Link to this heading"></a></h2>
+<section id="module-skada.deep">
+<span id="deep-learning-da-skada-deep"></span><h2>Deep learning DA <a class="reference internal" href="#module-skada.deep" title="skada.deep"><code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code></a>:<a class="headerlink" href="#module-skada.deep" title="Link to this heading"></a></h2>
 <p>Some methods for deep domain adaptation.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.feature.DeepCORAL.html#skada.feature.DeepCORAL" title="skada.feature.DeepCORAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepCORAL</span></code></a>(module, criterion, layer_names[, reg])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss" title="skada.deep.DeepCoralLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepCoralLoss</span></code></a>()</p></td>
 <td><p>Loss DeepCORAL</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.feature.DeepJDOT.html#skada.feature.DeepJDOT" title="skada.feature.DeepJDOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepJDOT</span></code></a>(module, criterion, layer_names[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.deep.DeepJDOTLoss.html#skada.deep.DeepJDOTLoss" title="skada.deep.DeepJDOTLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepJDOTLoss</span></code></a>([reg_cl, target_criterion])</p></td>
 <td><p>Loss DeepJDOT.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.feature.DANN.html#skada.feature.DANN" title="skada.feature.DANN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DANN</span></code></a>(module, criterion, layer_names, ...[, ...])</p></td>
-<td><p>Domain-Adversarial Training of Neural Networks (DANN).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss" title="skada.deep.DANLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DANLoss</span></code></a>([sigmas])</p></td>
+<td><p>Loss DAN</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.feature.CDAN.html#skada.feature.CDAN" title="skada.feature.CDAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CDAN</span></code></a>(module, criterion, layer_names, ...[, ...])</p></td>
-<td><p>Conditional Domain Adversarial Networks (CDAN).</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.feature.DAN.html#skada.feature.DAN" title="skada.feature.DAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DAN</span></code></a>(module, criterion, layer_names[, reg, ...])</p></td>
-<td><p>Loss Deep Adaptation Networks (DAN).</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.deep.CDANLoss.html#skada.deep.CDANLoss" title="skada.deep.CDANLoss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CDANLoss</span></code></a>([domain_criterion])</p></td>
+<td><p>Conditional Domain Adversarial Networks (CDAN) loss.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.feature.dan_loss.html#skada.feature.dan_loss" title="skada.feature.dan_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dan_loss</span></code></a>(source_features, target_features[, ...])</p></td>
-<td><p>Define the mmd loss based on multi-kernel defined in <a class="reference internal" href="gen_modules/skada.feature.dan_loss.html#rd28a0d58de25-1" id="id1"><span>[Rd28a0d58de25-1]</span></a>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral" title="skada.deep.DeepCoral"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepCoral</span></code></a>(module, layer_name[, reg])</p></td>
+<td><p>DeepCORAL domain adaptation method.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.feature.deepcoral_loss.html#skada.feature.deepcoral_loss" title="skada.feature.deepcoral_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deepcoral_loss</span></code></a>(cov, cov_target)</p></td>
-<td><p>Estimate the Frobenius norm divide by 4*n**2</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.deep.DeepJDOT.html#skada.deep.DeepJDOT" title="skada.deep.DeepJDOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeepJDOT</span></code></a>(module, layer_name[, reg, reg_cl, ...])</p></td>
+<td><p>DeepJDOT.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.feature.deepjdot_loss.html#skada.feature.deepjdot_loss" title="skada.feature.deepjdot_loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deepjdot_loss</span></code></a>(embedd, embedd_target, y, ...)</p></td>
-<td><p>Compute the OT loss for DeepJDOT method <a class="reference internal" href="gen_modules/skada.feature.deepjdot_loss.html#rc73fa6134cab-1" id="id2"><span>[Rc73fa6134cab-1]</span></a>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.deep.DANN.html#skada.deep.DANN" title="skada.deep.DANN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DANN</span></code></a>(module, layer_name[, reg, ...])</p></td>
+<td><p>Domain-Adversarial Training of Neural Networks (DANN).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.deep.CDAN.html#skada.deep.CDAN" title="skada.deep.CDAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CDAN</span></code></a>(module, layer_name[, reg, ...])</p></td>
+<td><p>Conditional Domain Adversarial Networks (CDAN).</p></td>
 </tr>
 </tbody>
 </table>
