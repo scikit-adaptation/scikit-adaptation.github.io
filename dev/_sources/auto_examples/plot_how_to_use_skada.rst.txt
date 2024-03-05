@@ -41,26 +41,28 @@ on a simple dataset will illustration of the API choice specific to DA.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-32
+.. GENERATED FROM PYTHON SOURCE LINES 15-34
 
 .. code-block:: Python
 
-    import numpy as np
-    from sklearn.model_selection import GridSearchCV
-    from skada.metrics import PredictionEntropyScorer
-    from sklearn.model_selection import cross_val_score
-    from sklearn.linear_model import LogisticRegression
-    from skada import CORALAdapter, GaussianReweightDensityAdapter
-    from skada import make_da_pipeline
-    from skada.model_selection import SourceTargetShuffleSplit
-    from sklearn.svm import SVC
-    from sklearn.preprocessing import StandardScaler
-    from sklearn.pipeline import make_pipeline
-    from skada import CORAL
     import matplotlib.pyplot as plt
+    import numpy as np
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.model_selection import GridSearchCV, cross_val_score
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.svm import SVC
 
-    from skada import source_target_split
+    from skada import (
+        CORAL,
+        CORALAdapter,
+        GaussianReweightDensityAdapter,
+        make_da_pipeline,
+        source_target_split,
+    )
     from skada.datasets import make_shifted_datasets
+    from skada.metrics import PredictionEntropyScorer
+    from skada.model_selection import SourceTargetShuffleSplit
 
 
 
@@ -69,7 +71,7 @@ on a simple dataset will illustration of the API choice specific to DA.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-44
+.. GENERATED FROM PYTHON SOURCE LINES 35-46
 
 DA dataset
 ----------
@@ -83,14 +85,15 @@ are organized with all source and target sample as follows:
 * :code:`sample_domain` is the domain of each sample (integer <=0 for
   source and >0 for target)
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-65
+.. GENERATED FROM PYTHON SOURCE LINES 46-68
 
 .. code-block:: Python
 
 
     # Get DA dataset
     X, y, sample_domain = make_shifted_datasets(
-        20, 20, shift="concept_drift", random_state=42)
+        20, 20, shift="concept_drift", random_state=42
+    )
 
     # split source and target for visualization
     Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
@@ -99,12 +102,12 @@ are organized with all source and target sample as follows:
     plt.figure(1, (10, 5))
 
     plt.subplot(1, 2, 1)
-    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Source")
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap="tab10", vmax=9, label="Source")
     plt.title("Source data")
     ax = plt.axis()
 
     plt.subplot(1, 2, 2)
-    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Target")
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Target")
     plt.axis(ax)
     plt.title("Target data")
 
@@ -126,7 +129,7 @@ are organized with all source and target sample as follows:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-71
+.. GENERATED FROM PYTHON SOURCE LINES 69-74
 
 DA Classifier estimator
 -----------------------
@@ -134,7 +137,7 @@ DA Classifier estimator
 DA estimators are used exactly as regular estimators. The only difference is
 that the :code:`sample_domain` array must be passed (by name).
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-86
+.. GENERATED FROM PYTHON SOURCE LINES 74-89
 
 .. code-block:: Python
 
@@ -150,8 +153,8 @@ that the :code:`sample_domain` array must be passed (by name).
     yt_pred = clf.predict(Xt)
 
     # accuracy on source and target
-    print('Accuracy on source:', clf.score(Xs, ys))
-    print('Accuracy on target:', clf.score(Xt, yt))
+    print("Accuracy on source:", clf.score(Xs, ys))
+    print("Accuracy on target:", clf.score(Xt, yt))
 
 
 
@@ -167,7 +170,7 @@ that the :code:`sample_domain` array must be passed (by name).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-92
+.. GENERATED FROM PYTHON SOURCE LINES 90-95
 
 -----------------------------
 
@@ -175,7 +178,7 @@ DA estimators can be used as final estimator in the sklearn pipeline. The only
 difference is that the :code:`sample_domain` array must be passed (by name)
 during the fit.
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-100
+.. GENERATED FROM PYTHON SOURCE LINES 95-103
 
 .. code-block:: Python
 
@@ -185,7 +188,7 @@ during the fit.
     pipe = make_pipeline(StandardScaler(), CORAL(base_estimator=SVC()))
     pipe.fit(X, y, sample_domain=sample_domain)
 
-    print('Accuracy on target:', pipe.score(Xt, yt))
+    print("Accuracy on target:", pipe.score(Xt, yt))
 
 
 
@@ -200,7 +203,7 @@ during the fit.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-119
+.. GENERATED FROM PYTHON SOURCE LINES 104-122
 
 DA Adapter pipeline
 -------------------
@@ -221,7 +224,7 @@ Here is an example with the CORAL and GaussianReweight adapter.
   pipeline or DA estimator) does not
   require sample weights, the DA pipeline will raise an error.
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-135
+.. GENERATED FROM PYTHON SOURCE LINES 122-140
 
 .. code-block:: Python
 
@@ -231,15 +234,17 @@ Here is an example with the CORAL and GaussianReweight adapter.
     pipe = make_da_pipeline(StandardScaler(), CORALAdapter(), SVC())
     pipe.fit(X, y, sample_domain=sample_domain)
 
-    print('Accuracy on target:', pipe.score(Xt, yt))
+    print("Accuracy on target:", pipe.score(Xt, yt))
 
     # create a DA pipeline with GaussianReweight adapter
-    pipe = make_da_pipeline(StandardScaler(),
-                            GaussianReweightDensityAdapter(),
-                            LogisticRegression().set_fit_request(sample_weight=True))
+    pipe = make_da_pipeline(
+        StandardScaler(),
+        GaussianReweightDensityAdapter(),
+        LogisticRegression().set_fit_request(sample_weight=True),
+    )
     pipe.fit(X, y, sample_domain=sample_domain)
 
-    print('Accuracy on target:', pipe.score(Xt, yt))
+    print("Accuracy on target:", pipe.score(Xt, yt))
 
 
 
@@ -255,7 +260,7 @@ Here is an example with the CORAL and GaussianReweight adapter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-142
+.. GENERATED FROM PYTHON SOURCE LINES 141-147
 
 DA estimator with cross-validation of score
 -------------------------------------------
@@ -264,7 +269,7 @@ DA estimators can be used with cross-validation as regular estimators using
 functions from sklearn. Note that the :code:`sample_domain` array must be
 passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-158
+.. GENERATED FROM PYTHON SOURCE LINES 147-164
 
 .. code-block:: Python
 
@@ -279,10 +284,11 @@ passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
     clf = CORAL(SVC(probability=True))  # needs probability for entropy score
 
     # cross-validation
-    scores = cross_val_score(clf, X, y, params={'sample_domain': sample_domain},
-                             cv=cv, scoring=scorer)
+    scores = cross_val_score(
+        clf, X, y, params={"sample_domain": sample_domain}, cv=cv, scoring=scorer
+    )
 
-    print('Entropy score: {:1.2f} (+-{:1.2f})'.format(scores.mean(), scores.std()))
+    print(f"Entropy score: {scores.mean():1.2f} (+-{scores.std():1.2f})")
 
 
 
@@ -292,12 +298,12 @@ passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
 
  .. code-block:: none
 
-    Entropy score: -0.17 (+-0.03)
+    Entropy score: -0.17 (+-0.04)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-165
+.. GENERATED FROM PYTHON SOURCE LINES 165-171
 
 DA estimator with grid search
 -----------------------------
@@ -306,7 +312,7 @@ DA estimators can be used with grid search as regular estimators using
 functions from sklearn. Note that the :code:`sample_domain` array must be
 passed in the :code:`fit` method of the grid search.
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-183
+.. GENERATED FROM PYTHON SOURCE LINES 171-189
 
 .. code-block:: Python
 
@@ -326,8 +332,8 @@ passed in the :code:`fit` method of the grid search.
 
     grid_search.fit(X, y, sample_domain=sample_domain)
 
-    print('Best regularization parameter:', grid_search.best_params_['coraladapter__reg'])
-    print('Accuracy on target:', np.mean(grid_search.predict(Xt) == yt))
+    print("Best regularization parameter:", grid_search.best_params_["coraladapter__reg"])
+    print("Accuracy on target:", np.mean(grid_search.predict(Xt) == yt))
 
 
 
@@ -336,7 +342,7 @@ passed in the :code:`fit` method of the grid search.
 
  .. code-block:: none
 
-    Best regularization parameter: 0.1
+    Best regularization parameter: auto
     Accuracy on target: 1.0
 
 
@@ -345,7 +351,7 @@ passed in the :code:`fit` method of the grid search.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.563 seconds)
+   **Total running time of the script:** (0 minutes 1.468 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:

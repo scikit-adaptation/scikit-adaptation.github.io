@@ -40,22 +40,21 @@ on a simple image classification task.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-27
+.. GENERATED FROM PYTHON SOURCE LINES 14-26
 
 .. code-block:: Python
 
     import torch
     from skorch.dataset import Dataset
 
-    from skada.deep import DeepCoral, DeepCoralLoss
-    from skada.deep.modules import MNISTtoUSPSNet
     from skada.datasets import load_mnist_usps
-
+    from skada.deep import DeepCoral, DeepCoralLoss
     from skada.deep.base import (
-        DomainAwareModule,
         DomainAwareCriterion,
+        DomainAwareModule,
         DomainBalancedDataLoader,
     )
+    from skada.deep.modules import MNISTtoUSPSNet
 
 
 
@@ -64,12 +63,12 @@ on a simple image classification task.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-30
+.. GENERATED FROM PYTHON SOURCE LINES 27-29
 
 Load the image datasets
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-35
+.. GENERATED FROM PYTHON SOURCE LINES 29-34
 
 .. code-block:: Python
 
@@ -92,12 +91,12 @@ Load the image datasets
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-38
+.. GENERATED FROM PYTHON SOURCE LINES 35-37
 
 Training parameters
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-46
+.. GENERATED FROM PYTHON SOURCE LINES 37-45
 
 .. code-block:: Python
 
@@ -116,12 +115,12 @@ Training parameters
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-49
+.. GENERATED FROM PYTHON SOURCE LINES 46-48
 
 Training with skorch
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-62
+.. GENERATED FROM PYTHON SOURCE LINES 48-61
 
 .. code-block:: Python
 
@@ -148,8 +147,8 @@ Training with skorch
 
       epoch    train_loss      dur
     -------  ------------  -------
-          1        2.2689  19.2984
-          2        2.1638  13.8053
+          1        2.1896  11.4884
+          2        2.0590  10.0014
 
     <class 'skada.deep.base.DomainAwareNet'>[initialized](
       module_=DomainAwareModule(
@@ -170,12 +169,12 @@ Training with skorch
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-65
+.. GENERATED FROM PYTHON SOURCE LINES 62-64
 
 Training with skorch with dataset
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-82
+.. GENERATED FROM PYTHON SOURCE LINES 64-81
 
 .. code-block:: Python
 
@@ -206,8 +205,8 @@ Training with skorch with dataset
 
       epoch    train_loss      dur
     -------  ------------  -------
-          1        2.3139  13.8262
-          2        2.2462  14.1994
+          1        2.1729  13.2404
+          2        2.0644  10.5120
 
     <class 'skada.deep.base.DomainAwareNet'>[initialized](
       module_=DomainAwareModule(
@@ -228,12 +227,12 @@ Training with skorch with dataset
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-85
+.. GENERATED FROM PYTHON SOURCE LINES 82-84
 
 Training with torch
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-113
+.. GENERATED FROM PYTHON SOURCE LINES 84-112
 
 .. code-block:: Python
 
@@ -273,8 +272,8 @@ Training with torch
 
  .. code-block:: none
 
-    Loss: 0.9705553323030471
-    Loss: 0.159048929810524
+    Loss: 1.0914228916168214
+    Loss: 0.15096665918827057
 
 
 
@@ -282,7 +281,7 @@ Training with torch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (2 minutes 4.820 seconds)
+   **Total running time of the script:** (1 minutes 7.161 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_training_method.py:

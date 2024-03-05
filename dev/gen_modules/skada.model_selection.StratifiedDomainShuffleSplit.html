@@ -58,10 +58,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../all.html#main-module-skada">Main module  <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../all.html#model-selection-skada-model-selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="skada.model_selection.SourceTargetShuffleSplit.html">skada.model_selection.SourceTargetShuffleSplit</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.model_selection.DomainShuffleSplit.html">skada.model_selection.DomainShuffleSplit</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">skada.model_selection.StratifiedDomainShuffleSplit</a><ul>
@@ -72,7 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="skada.model_selection.LeaveOneDomainOut.html">skada.model_selection.LeaveOneDomainOut</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
@@ -199,40 +199,14 @@ sub-estimator of a meta-estimator, e.g. used inside a
 <dl class="py method">
 <dt class="sig sig-object py" id="skada.model_selection.StratifiedDomainShuffleSplit.split">
 <span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/model_selection.html#StratifiedDomainShuffleSplit.split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.model_selection.StratifiedDomainShuffleSplit.split" title="Link to this definition"></a></dt>
-<dd><p>Generate indices to split data into training and test set.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>X</strong><span class="classifier">array-like of shape (n_samples, n_features)</span></dt><dd><p>Training data, where <cite>n_samples</cite> is the number of samples
-and <cite>n_features</cite> is the number of features.</p>
-</dd>
-<dt><strong>y</strong><span class="classifier">array-like of shape (n_samples,)</span></dt><dd><p>The target variable for supervised learning problems.</p>
-</dd>
-<dt><strong>sample_domain</strong><span class="classifier">array-like of shape (n_samples,), default=None</span></dt><dd><p>Domain labels for the samples used while splitting the dataset into
-train/test set.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>train</strong><span class="classifier">ndarray</span></dt><dd><p>The training set indices for that split.</p>
-</dd>
-<dt><strong>test</strong><span class="classifier">ndarray</span></dt><dd><p>The testing set indices for that split.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Randomized CV splitters may return different results for each call of
-split. You can make the results identical by setting <cite>random_state</cite>
-to an integer.</p>
+<dd><p>XXX: Docstring here</p>
 </dd></dl>
 
 </dd></dl>
 
 <section id="examples-using-skada-model-selection-stratifieddomainshufflesplit">
 <span id="sphx-glr-backreferences-skada-model-selection-stratifieddomainshufflesplit"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.model_selection.StratifiedDomainShuffleSplit</span></code><a class="headerlink" href="#examples-using-skada-model-selection-stratifieddomainshufflesplit" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as  DomainShuffleSplit."><img alt="" src="../_images/sphx_glr_plot_cross_validation_for_da_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as DomainShuffleSplit."><img alt="" src="../_images/sphx_glr_plot_cross_validation_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_cross_validation_for_da.html#sphx-glr-auto-examples-validation-plot-cross-validation-for-da-py"><span class="std std-ref">Visualizing cross-validation behavior in skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Visualizing cross-validation behavior in skada</div>
 </div></div></section>

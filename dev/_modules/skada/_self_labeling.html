@@ -84,8 +84,8 @@
              
   <h1>Source code for skada._self_labeling</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    DASVM estimator</span>
-<span class="sd">==========================================</span>
+<span class="sd">DASVM estimator</span>
+<span class="sd">===============</span>
 
 <span class="sd">The DASVM method comes from [21].</span>
 
@@ -94,48 +94,49 @@
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">skada.utils</span> <span class="kn">import</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">source_target_split</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">DAEstimator</span>
-
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="kn">from</span> <span class="nn">skada.utils</span> <span class="kn">import</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">source_target_split</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">DAEstimator</span>
 
 
 <div class="viewcode-block" id="DASVMClassifier">
 <a class="viewcode-back" href="../../gen_modules/skada.DASVMClassifier.html#skada.DASVMClassifier">[docs]</a>
 <span class="k">class</span> <span class="nc">DASVMClassifier</span><span class="p">(</span><span class="n">DAEstimator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; DASVM Estimator:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;DASVM Estimator:</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        base_estimator : BaseEstimator</span>
-<span class="sd">            The estimator that will be used in the algorithm,</span>
-<span class="sd">            It is a SVC by default, but can use any classifier</span>
-<span class="sd">            equiped with a `decision_function` method</span>
-<span class="sd">        k: int&gt;0</span>
-<span class="sd">            The number of points per classes that will be discarded/added</span>
-<span class="sd">            at each steps of the algorithm</span>
-<span class="sd">        max_iter : int</span>
-<span class="sd">            The maximal number of iteration of the algorithm when using `fit`</span>
-<span class="sd">        save_estimators : Bool</span>
-<span class="sd">            True if this object should remembers all the fitted estimators</span>
-<span class="sd">        save_indices : Bool</span>
-<span class="sd">            True if this object should remembers all the values of</span>
-<span class="sd">                `index_source_deleted` and `index_target_added`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : BaseEstimator</span>
+<span class="sd">        The estimator that will be used in the algorithm,</span>
+<span class="sd">        It is a SVC by default, but can use any classifier</span>
+<span class="sd">        equipped with a `decision_function` method</span>
+<span class="sd">    k: int&gt;0</span>
+<span class="sd">        The number of points per classes that will be discarded/added</span>
+<span class="sd">        at each steps of the algorithm</span>
+<span class="sd">    max_iter : int</span>
+<span class="sd">        The maximal number of iteration of the algorithm when using `fit`</span>
+<span class="sd">    save_estimators : Bool</span>
+<span class="sd">        True if this object should remembers all the fitted estimators</span>
+<span class="sd">    save_indices : Bool</span>
+<span class="sd">        True if this object should remembers all the values of</span>
+<span class="sd">            `index_source_deleted` and `index_target_added`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-            <span class="n">max_iter</span><span class="o">=</span><span class="mi">1_000</span><span class="p">,</span>
-            <span class="n">save_estimators</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="n">save_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">kwargs</span>
-            <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">1_000</span><span class="p">,</span>
+        <span class="n">save_estimators</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">save_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span>
@@ -147,29 +148,29 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
 
     <span class="k">def</span> <span class="nf">_find_points_next_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices_list</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">cond_array</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This function allow us to find the next points to add/discard,</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function allow us to find the next points to add/discard.</span>
+
 <span class="sd">        It is an inplace method, changing indices_list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># We should take k points for each of the c classes,</span>
         <span class="c1"># depending on the values of d</span>
         <span class="n">condition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="o">~</span><span class="n">indices_list</span><span class="p">,</span> <span class="n">cond_array</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">n_class</span><span class="p">))):</span>
-            <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">condition</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span><span class="p">))):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">condition</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
             <span class="c1"># We need to get all those indices to be take into account</span>
             <span class="c1"># the fact that the some previous points weren&#39;t in the list</span>
-            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">condition</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-                <span class="k">if</span> <span class="o">~</span><span class="n">condition</span><span class="p">[</span><span class="n">l</span><span class="p">]:</span>
-                    <span class="n">I</span><span class="p">[</span><span class="n">I</span> <span class="o">&gt;=</span> <span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">condition</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="o">~</span><span class="n">condition</span><span class="p">[</span><span class="n">ll</span><span class="p">]:</span>
+                    <span class="n">idx</span><span class="p">[</span><span class="n">idx</span> <span class="o">&gt;=</span> <span class="n">ll</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
             <span class="c1"># We finally only need to change the list</span>
-            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">I</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
                 <span class="c1"># indices_list[l] is False at that point</span>
-                <span class="n">indices_list</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">indices_list</span><span class="p">[</span><span class="n">ll</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">_get_X_y</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">new_estimator</span><span class="p">,</span> <span class="n">index_target_added</span><span class="p">,</span> <span class="n">index_source_deleted</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span>
-            <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">new_estimator</span><span class="p">,</span> <span class="n">index_target_added</span><span class="p">,</span> <span class="n">index_source_deleted</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Allow to get the X and y arrays at a state of the algorithm</span>
 <span class="sd">        We take the source datapoints that have not been</span>
@@ -177,22 +178,19 @@
 <span class="sd">        that have been added</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Xs</span><span class="p">[</span><span class="o">~</span><span class="n">index_source_deleted</span><span class="p">],</span> <span class="n">Xt</span><span class="p">[</span><span class="n">index_target_added</span><span class="p">]))</span>
-        <span class="n">semi_labels</span> <span class="o">=</span> <span class="n">new_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
-            <span class="n">Xt</span><span class="p">[</span><span class="n">index_target_added</span><span class="p">])</span>
+        <span class="n">semi_labels</span> <span class="o">=</span> <span class="n">new_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xt</span><span class="p">[</span><span class="n">index_target_added</span><span class="p">])</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">ys</span><span class="p">[</span><span class="o">~</span><span class="n">index_source_deleted</span><span class="p">],</span> <span class="n">semi_labels</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
 
     <span class="k">def</span> <span class="nf">_get_decision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">indices_list</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        We look at the points that have either not been discarded or not been added</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Look at the points that have either not been discarded or not been added.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="o">~</span><span class="n">indices_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">df</span> <span class="o">=</span> <span class="n">new_estimator</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">indices_list</span><span class="p">])</span>
             <span class="c1"># df.ndim allows us to know if we are in the</span>
             <span class="c1"># `binary` case or the `multiclass` one</span>
             <span class="n">decisions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="n">decisions</span><span class="p">[</span><span class="o">~</span><span class="n">indices_list</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
-            <span class="n">decisions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">decisions</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">decisions</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">decisions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">decisions</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">decisions</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">decisions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">decisions</span>
@@ -215,9 +213,7 @@
 <span class="sd">            Returns self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
-        <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
-        <span class="p">)</span>
+        <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
         <span class="n">n</span> <span class="o">=</span> <span class="n">Xs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">Xt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -226,13 +222,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">index_source_deleted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
-        <span class="n">index_target_added</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">index_source_deleted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">index_target_added</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_indices</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">))</span>
 
         <span class="n">X_train</span> <span class="o">=</span> <span class="n">Xs</span>
         <span class="n">y_train</span> <span class="o">=</span> <span class="n">ys</span>
@@ -249,26 +243,30 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">decisions_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">decisions_target</span><span class="p">,</span> <span class="n">decisions_target</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
 
-        <span class="n">decisions_target_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">decisions_target</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">n_class</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">decisions_target_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">decisions_target</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_find_points_next_step</span><span class="p">(</span>
-            <span class="n">index_source_deleted</span><span class="p">,</span> <span class="n">decisions_source</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
-                <span class="n">index_source_deleted</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
-        <span class="n">in_margin_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
-                <span class="n">decisions_target</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">decisions_target</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span><span class="o">-</span><span class="mi">2</span>
+            <span class="n">index_source_deleted</span><span class="p">,</span>
+            <span class="n">decisions_source</span><span class="p">,</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">in_margin_target</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+                    <span class="n">decisions_target</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                    <span class="n">decisions_target</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_class</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="p">),</span>
-            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-            <span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_find_points_next_step</span><span class="p">(</span>
-            <span class="n">index_target_added</span><span class="p">,</span> <span class="n">decisions_target_</span><span class="p">,</span> <span class="n">in_margin_target</span><span class="p">)</span>
+            <span class="n">index_target_added</span><span class="p">,</span> <span class="n">decisions_target_</span><span class="p">,</span> <span class="n">in_margin_target</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_indices</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">))</span>
 
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
@@ -277,7 +275,8 @@
 
             <span class="n">old_estimator</span> <span class="o">=</span> <span class="n">new_estimator</span>
             <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_X_y</span><span class="p">(</span>
-                <span class="n">new_estimator</span><span class="p">,</span> <span class="n">index_target_added</span><span class="p">,</span> <span class="n">index_source_deleted</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
+                <span class="n">new_estimator</span><span class="p">,</span> <span class="n">index_target_added</span><span class="p">,</span> <span class="n">index_source_deleted</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span>
+            <span class="p">)</span>
 
             <span class="n">new_estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
             <span class="n">new_estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
@@ -287,37 +286,37 @@
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">)):</span>
                 <span class="k">if</span> <span class="n">index_target_added</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
                     <span class="n">x</span> <span class="o">=</span> <span class="n">Xt</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">new_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
-                            <span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="o">!=</span> <span class="n">old_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">new_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x</span><span class="p">])</span> <span class="o">!=</span> <span class="n">old_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x</span><span class="p">]):</span>
                         <span class="c1"># index_target_added[j] should be True</span>
                         <span class="n">index_target_added</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
             <span class="n">decisions_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_decision</span><span class="p">(</span>
-                <span class="n">new_estimator</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">index_source_deleted</span><span class="p">)</span>
+                <span class="n">new_estimator</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">index_source_deleted</span>
+            <span class="p">)</span>
 
             <span class="n">decisions_target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_decision</span><span class="p">(</span><span class="n">new_estimator</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">index_target_added</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">decisions_target</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">decisions_target_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">decisions_target</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">decisions_target_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">decisions_target</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_find_points_next_step</span><span class="p">(</span>
-                <span class="n">index_source_deleted</span><span class="p">,</span> <span class="n">decisions_source</span><span class="p">,</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
-            <span class="n">in_margin_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
-                    <span class="n">decisions_target</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span>
-                    <span class="n">decisions_target</span> <span class="o">&gt;</span> <span class="mi">0</span>
-                    <span class="p">),</span>
-                <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-                <span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+                <span class="n">index_source_deleted</span><span class="p">,</span>
+                <span class="n">decisions_source</span><span class="p">,</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">in_margin_target</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">decisions_target</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="n">decisions_target</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
+                <span class="p">)</span>
+                <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_find_points_next_step</span><span class="p">(</span>
-                <span class="n">index_target_added</span><span class="p">,</span> <span class="n">decisions_target</span><span class="p">,</span> <span class="n">in_margin_target</span><span class="p">)</span>
+                <span class="n">index_target_added</span><span class="p">,</span> <span class="n">decisions_target</span><span class="p">,</span> <span class="n">in_margin_target</span>
+            <span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_indices</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="p">))</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_source_deleted</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">index_target_added</span><span class="p">))</span>
 
         <span class="n">old_estimator</span> <span class="o">=</span> <span class="n">new_estimator</span>
         <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">old_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Xt</span><span class="p">)</span>
@@ -328,23 +327,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">estimators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_estimator</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_indices</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indices_source_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">indices_target_added</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span> <span class="o">=</span> <span class="n">new_estimator</span>
 
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; return predicted value by the fitted estimator for `X`</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return predicted value by the fitted estimator for `X`</span>
 <span class="sd">        `predict` method from the estimator we fitted</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">decision_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; return values of the decision function of the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return values of the decision function of the</span>
 <span class="sd">                fitted estimator for `X`</span>
 <span class="sd">        `decision_function` method from the base_estimator_ we fitted</span>
 <span class="sd">        &quot;&quot;&quot;</span>

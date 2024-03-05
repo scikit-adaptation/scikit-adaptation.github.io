@@ -32,15 +32,15 @@ See detailed description of each shift in [1]_.
        A unifying view on dataset shift in classification.
        Pattern recognition, 45(1):521-530.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-24
+.. GENERATED FROM PYTHON SOURCE LINES 17-23
 
 .. code-block:: Python
 
 
     import matplotlib.pyplot as plt
 
-    from skada.datasets import make_shifted_datasets
     from skada import source_target_split
+    from skada.datasets import make_shifted_datasets
 
 
 
@@ -49,10 +49,10 @@ See detailed description of each shift in [1]_.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 25-86
+.. GENERATED FROM PYTHON SOURCE LINES 24-86
 
 .. code-block:: Python
+
 
 
     def plot_shifted_dataset(shift, random_state=42):
@@ -175,7 +175,7 @@ See detailed description of each shift in [1]_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.524 seconds)
+   **Total running time of the script:** (0 minutes 0.518 seconds)
 
 
 .. _sphx_glr_download_auto_examples_datasets_plot_shifted_dataset.py:

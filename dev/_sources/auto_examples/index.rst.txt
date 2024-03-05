@@ -395,7 +395,7 @@ DA validation procedures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as  DomainShuffleSplit.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as DomainShuffleSplit.">
 
 .. only:: html
 

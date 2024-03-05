@@ -97,22 +97,17 @@
 <span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 
+<span class="kn">from</span> <span class="nn">._pipeline</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">Y_Type</span><span class="p">,</span> <span class="n">_estimate_covariance</span><span class="p">,</span> <span class="n">_find_y_type</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseAdapter</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">check_X_domain</span><span class="p">,</span>
     <span class="n">check_X_y_domain</span><span class="p">,</span>
     <span class="n">extract_source_indices</span><span class="p">,</span>
-    <span class="n">source_target_split</span><span class="p">,</span>
     <span class="n">source_target_merge</span><span class="p">,</span>
-    <span class="n">torch_minimize</span>
+    <span class="n">source_target_split</span><span class="p">,</span>
+    <span class="n">torch_minimize</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_estimate_covariance</span><span class="p">,</span>
-    <span class="n">_find_y_type</span><span class="p">,</span>
-    <span class="n">Y_Type</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">._pipeline</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
 
 
 <span class="k">class</span> <span class="nc">BaseOTMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
@@ -171,10 +166,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># xxx(okachaiev): implement auto-infer for sample_domain</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="p">,</span>
-            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="c1"># in case of prediction we would get only target samples here,</span>
@@ -239,12 +231,7 @@
 
 <div class="viewcode-block" id="OTMapping">
 <a class="viewcode-back" href="../../gen_modules/skada.OTMapping.html#skada.OTMapping">[docs]</a>
-<span class="k">def</span> <span class="nf">OTMapping</span><span class="p">(</span>
-    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
-    <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span>
-<span class="p">):</span>
+<span class="k">def</span> <span class="nf">OTMapping</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OTmapping pipeline with adapter and estimator.</span>
 
 <span class="sd">    see [1]_ for details.</span>
@@ -317,7 +304,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
         <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -347,7 +334,7 @@
     <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
     <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;EntropicOTMapping pipeline with adapter and estimator.</span>
@@ -388,11 +375,7 @@
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">EntropicOTMappingAdapter</span><span class="p">(</span>
-            <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span>
-            <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span>
-            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
-            <span class="n">reg_e</span><span class="o">=</span><span class="n">reg_e</span><span class="p">,</span>
-            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span>
+            <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">reg_e</span><span class="o">=</span><span class="n">reg_e</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
@@ -438,7 +421,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
         <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span>
         <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
@@ -480,7 +463,7 @@
     <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">max_inner_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">):</span>
@@ -529,7 +512,7 @@
             <span class="n">max_inner_iter</span><span class="o">=</span><span class="n">max_inner_iter</span><span class="p">,</span>
             <span class="n">reg_e</span><span class="o">=</span><span class="n">reg_e</span><span class="p">,</span>
             <span class="n">reg_cl</span><span class="o">=</span><span class="n">reg_cl</span><span class="p">,</span>
-            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span>
@@ -568,7 +551,7 @@
 <a class="viewcode-back" href="../../gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping">[docs]</a>
 <span class="k">def</span> <span class="nf">LinearOTMapping</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">reg</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a the linear OT mapping method with adapter and estimator.</span>
@@ -657,7 +640,7 @@
 <span class="sd">        Matrix inverse square root of C.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
 
 
 <span class="k">class</span> <span class="nc">CORALAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
@@ -687,7 +670,7 @@
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
 
@@ -709,10 +692,7 @@
 <span class="sd">            Returns self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="p">,</span>
-            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
@@ -744,10 +724,7 @@
 <span class="sd">            No weights are returned here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="p">,</span>
-            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
@@ -803,7 +780,7 @@
 
 
 <span class="k">class</span> <span class="nc">MMDLSConSMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Location-Scale mapping minimizing the MMD with a Gaussian kernel.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Location-Scale mapping minimizing the MMD with a Gaussian kernel.</span>
 
 <span class="sd">    MMDLSConSMapping finds a linear transformation that minimizes the Maximum Mean</span>
 <span class="sd">    Discrepancy (MMD) between the source and target domains, such that</span>
@@ -870,7 +847,8 @@
         <span class="n">X_source</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="n">X_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
         <span class="n">y_source</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
-            <span class="n">y_source</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span> <span class="k">if</span> <span class="n">discrete</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+            <span class="n">y_source</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span> <span class="k">if</span> <span class="n">discrete</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span>
+        <span class="p">)</span>
 
         <span class="c1"># get shapes</span>
         <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -903,10 +881,10 @@
 
             <span class="n">K</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
             <span class="n">K_cross</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-            <span class="n">J_cons</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">omega</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">J_cons</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">omega</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
             <span class="n">J_cons</span> <span class="o">-=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K_cross</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 
-            <span class="n">J_reg</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">W</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">B</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">J_reg</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">W</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">B</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
             <span class="k">return</span> <span class="n">J_cons</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_m</span> <span class="o">*</span> <span class="n">J_reg</span>
 
@@ -941,14 +919,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">y</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span> <span class="o">=</span> <span class="n">X_source</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">G_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapping_optimization</span><span class="p">(</span>
-            <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">)</span>
+            <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span>
 
@@ -973,10 +950,7 @@
 <span class="sd">        weights : array-like, shape (n_samples,)</span>
 <span class="sd">            The weights of the samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">sample_domain</span>
-        <span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
 
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
@@ -1013,12 +987,7 @@
 <div class="viewcode-block" id="MMDLSConSMapping">
 <a class="viewcode-back" href="../../gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping">[docs]</a>
 <span class="k">def</span> <span class="nf">MMDLSConSMapping</span><span class="p">(</span>
-    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">reg_k</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
-    <span class="n">reg_m</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span>
-    <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
-    <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span>
+    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;MMDLSConSMapping pipeline with adapter and estimator.</span>
 
@@ -1054,13 +1023,9 @@
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">MMDLSConSMappingAdapter</span><span class="p">(</span>
-            <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
-            <span class="n">reg_k</span><span class="o">=</span><span class="n">reg_k</span><span class="p">,</span>
-            <span class="n">reg_m</span><span class="o">=</span><span class="n">reg_m</span><span class="p">,</span>
-            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
-            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="n">reg_k</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="n">reg_m</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span>
         <span class="p">),</span>
-        <span class="n">base_estimator</span>
+        <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 </pre></div>

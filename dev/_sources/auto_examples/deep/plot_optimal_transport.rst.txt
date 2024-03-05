@@ -44,8 +44,8 @@ on a simple image classification task.
 
 .. code-block:: Python
 
-    from torch import nn
     from skorch import NeuralNetClassifier
+    from torch import nn
 
     from skada.datasets import load_mnist_usps
     from skada.deep import DeepJDOT
@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.5349  4.1005
-          2        0.3507  4.3992
-          3        0.1263  4.7029
-          4        0.0714  5.3989
-          5        0.0492  5.6950
+          1        1.2457  4.9932
+          2        0.1688  5.2987
+          3        0.0719  4.6028
+          4        0.0429  4.2008
+          5        0.0311  4.7949
 
-    0.8392282958199357
+    0.954983922829582
 
 
 
@@ -157,20 +157,20 @@ Train a DeepJDOT model
 
       epoch    train_loss      dur
     -------  ------------  -------
-          1        1.9936  10.9802
-          2        1.0378  11.4004
-          3        0.6496  13.3000
-          4        0.5261  12.4982
-          5        0.4706  13.9955
+          1        1.9684  10.1988
+          2        0.9662  10.3039
+          3        0.6606  13.2033
+          4        0.5344  11.1956
+          5        0.4575  11.0976
 
-    0.9421221864951769
+    0.954983922829582
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 31.720 seconds)
+   **Total running time of the script:** (1 minutes 24.195 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:

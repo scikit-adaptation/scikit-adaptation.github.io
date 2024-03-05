@@ -89,11 +89,11 @@
 <span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
 
 <span class="kn">from</span> <span class="nn">skada.deep.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DomainAwareModule</span><span class="p">,</span>
-    <span class="n">DomainAwareCriterion</span><span class="p">,</span>
-    <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
-    <span class="n">DomainAwareNet</span><span class="p">,</span>
     <span class="n">BaseDALoss</span><span class="p">,</span>
+    <span class="n">DomainAwareCriterion</span><span class="p">,</span>
+    <span class="n">DomainAwareModule</span><span class="p">,</span>
+    <span class="n">DomainAwareNet</span><span class="p">,</span>
+    <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">deepjdot_loss</span>
@@ -128,7 +128,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">DeepJDOTLoss</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg_cl</span> <span class="o">=</span> <span class="n">reg_cl</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">criterion_</span> <span class="o">=</span> <span class="n">target_criterion</span>
 
@@ -189,14 +189,13 @@
 <span class="sd">            15th European Conference on Computer Vision,</span>
 <span class="sd">            September 2018. Springer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
         <span class="n">DomainAwareModule</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">),</span>
         <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
         <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">(</span>
             <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span> <span class="n">DeepJDOTLoss</span><span class="p">(</span><span class="n">reg_cl</span><span class="p">,</span> <span class="n">target_criterion</span><span class="p">),</span> <span class="n">reg</span><span class="o">=</span><span class="n">reg</span>
         <span class="p">),</span>
-        <span class="o">**</span><span class="n">kwargs</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span></div>
 

@@ -34,7 +34,7 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-217
+.. GENERATED FROM PYTHON SOURCE LINES 18-222
 
 
 
@@ -184,9 +184,9 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:663: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-    /home/circleci/project/skada/utils.py:688: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
+    /home/circleci/project/skada/utils.py:683: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
       warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
@@ -324,7 +324,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:663: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
@@ -462,7 +462,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:663: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('reweightdensityadapter',
@@ -600,7 +600,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:668: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:663: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 
 
@@ -612,29 +612,28 @@ accuracy on the test set.
 
 .. code-block:: Python
 
+
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap
-
-    from sklearn.svm import SVC
     from sklearn.inspection import DecisionBoundaryDisplay
     from sklearn.neighbors import KernelDensity
+    from sklearn.svm import SVC
 
     from skada import (
-        ReweightDensity,
-        GaussianReweightDensity,
-        DiscriminatorReweightDensity,
-        KLIEP,
-        MMDTarSReweight
-    )
-    from skada import SubspaceAlignment, TransferComponentAnalysis
-    from skada import (
-        OTMapping,
-        EntropicOTMapping,
-        ClassRegularizerOTMapping,
-        LinearOTMapping,
         CORAL,
+        KLIEP,
+        ClassRegularizerOTMapping,
+        DiscriminatorReweightDensity,
+        EntropicOTMapping,
+        GaussianReweightDensity,
         JDOTClassifier,
-        MMDLSConSMapping
+        LinearOTMapping,
+        MMDLSConSMapping,
+        MMDTarSReweight,
+        OTMapping,
+        ReweightDensity,
+        SubspaceAlignment,
+        TransferComponentAnalysis,
     )
     from skada.datasets import make_shifted_datasets
 
@@ -657,7 +656,7 @@ accuracy on the test set.
         "Linear OT mapping",
         "CORAL",
         "JDOT",
-        "MMD Loc-Scale mapping"
+        "MMD Loc-Scale mapping",
     ]
 
     classifiers = [
@@ -677,8 +676,8 @@ accuracy on the test set.
         ClassRegularizerOTMapping(base_estimator=SVC()),
         LinearOTMapping(base_estimator=SVC()),
         CORAL(base_estimator=SVC()),
-        JDOTClassifier(base_estimator=SVC(), metric='hinge'),
-        MMDLSConSMapping(base_estimator=SVC())
+        JDOTClassifier(base_estimator=SVC(), metric="hinge"),
+        MMDLSConSMapping(base_estimator=SVC()),
     ]
 
     datasets = [
@@ -689,7 +688,7 @@ accuracy on the test set.
             label="binary",
             noise=0.4,
             random_state=RANDOM_SEED,
-            return_dataset=True
+            return_dataset=True,
         ),
         make_shifted_datasets(
             n_samples_source=20,
@@ -698,7 +697,7 @@ accuracy on the test set.
             label="binary",
             noise=0.4,
             random_state=RANDOM_SEED,
-            return_dataset=True
+            return_dataset=True,
         ),
         make_shifted_datasets(
             n_samples_source=20,
@@ -707,7 +706,7 @@ accuracy on the test set.
             label="binary",
             noise=0.4,
             random_state=RANDOM_SEED,
-            return_dataset=True
+            return_dataset=True,
         ),
         make_shifted_datasets(
             n_samples_source=20,
@@ -716,7 +715,7 @@ accuracy on the test set.
             label="binary",
             noise=0.4,
             random_state=RANDOM_SEED,
-            return_dataset=True
+            return_dataset=True,
         ),
     ]
 
@@ -724,7 +723,7 @@ accuracy on the test set.
     # iterate over datasets
     for ds_cnt, ds in enumerate(datasets):
         # preprocess dataset, split into training and test part
-        X, y, sample_domain = ds.pack_train(as_sources=['s'], as_targets=['t'])
+        X, y, sample_domain = ds.pack_train(as_sources=["s"], as_targets=["t"])
         Xs, ys = ds.get_domain("s")
         Xt, yt = ds.get_domain("t")
 
@@ -782,7 +781,13 @@ accuracy on the test set.
                 clf.fit(X, y, sample_domain=sample_domain)
             score = clf.score(Xt, yt)
             DecisionBoundaryDisplay.from_estimator(
-                clf, X, cmap=cm, alpha=0.8, ax=ax, eps=0.5, response_method="predict",
+                clf,
+                X,
+                cmap=cm,
+                alpha=0.8,
+                ax=ax,
+                eps=0.5,
+                response_method="predict",
             )
 
             # Plot the target points
@@ -815,7 +820,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 14.800 seconds)
+   **Total running time of the script:** (0 minutes 13.288 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
