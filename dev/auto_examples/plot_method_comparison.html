@@ -113,8 +113,8 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.</p>
 <img src="../_images/sphx_glr_plot_method_comparison_001.png" srcset="../_images/sphx_glr_plot_method_comparison_001.png" alt="plot method comparison" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -123,9 +123,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -133,8 +132,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -143,10 +142,24 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        p=2, weights=&#39;uniform&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -253,8 +266,8 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 /home/circleci/project/skada/utils.py:683: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
   warnings.warn(
 Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -263,9 +276,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -273,8 +285,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -283,10 +295,24 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        p=2, weights=&#39;uniform&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -391,8 +417,8 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 /home/circleci/project/skada/utils.py:663: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -401,9 +427,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -411,8 +436,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -421,10 +446,24 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        p=2, weights=&#39;uniform&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -529,8 +568,8 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 /home/circleci/project/skada/utils.py:663: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -539,9 +578,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -549,8 +587,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -559,10 +597,24 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        p=2, weights=&#39;uniform&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -679,17 +731,18 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 
 <span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="p">(</span>
     <a href="../gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORAL</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.KLIEP.html#skada.KLIEP" title="skada.KLIEP" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEP</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ClassRegularizerOTMapping</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.DiscriminatorReweightDensity.html#skada.DiscriminatorReweightDensity" title="skada.DiscriminatorReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweightDensity</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.DensityReweight.html#skada.DensityReweight" title="skada.DensityReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DensityReweight</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.DiscriminatorReweight.html#skada.DiscriminatorReweight" title="skada.DiscriminatorReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweight</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.GaussianReweightDensity.html#skada.GaussianReweightDensity" title="skada.GaussianReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweightDensity</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.GaussianReweight.html#skada.GaussianReweight" title="skada.GaussianReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweight</span></a><span class="p">,</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">JDOTClassifier</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.KLIEPReweight.html#skada.KLIEPReweight" title="skada.KLIEPReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEPReweight</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">LinearOTMapping</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping" title="skada.MMDLSConSMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDLSConSMapping</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDTarSReweight</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.NearestNeighborReweight.html#skada.NearestNeighborReweight" title="skada.NearestNeighborReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">NearestNeighborReweight</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.ReweightDensity.html#skada.ReweightDensity" title="skada.ReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ReweightDensity</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">,</span>
 <span class="p">)</span>
@@ -704,7 +757,8 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
     <span class="s2">&quot;Reweight Density&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Gaussian Reweight&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Discr. Reweight&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;KLIEP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;KLIEPReweight&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;1NN Reweight Density&quot;</span><span class="p">,</span>
     <span class="s2">&quot;MMD TarS&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Subspace Alignment&quot;</span><span class="p">,</span>
     <span class="s2">&quot;TCA&quot;</span><span class="p">,</span>
@@ -719,13 +773,14 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">classifiers</span></a> <span class="o">=</span> <span class="p">[</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span>
-    <a href="../gen_modules/skada.ReweightDensity.html#skada.ReweightDensity" title="skada.ReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ReweightDensity</span></a><span class="p">(</span>
+    <a href="../gen_modules/skada.DensityReweight.html#skada.DensityReweight" title="skada.DensityReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DensityReweight</span></a><span class="p">(</span>
         <span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="n">weight_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KernelDensity.html#sklearn.neighbors.KernelDensity" title="sklearn.neighbors.KernelDensity" class="sphx-glr-backref-module-sklearn-neighbors sphx-glr-backref-type-py-class"><span class="n">KernelDensity</span></a><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <a href="../gen_modules/skada.GaussianReweightDensity.html#skada.GaussianReweightDensity" title="skada.GaussianReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweightDensity</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-    <a href="../gen_modules/skada.DiscriminatorReweightDensity.html#skada.DiscriminatorReweightDensity" title="skada.DiscriminatorReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweightDensity</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-    <a href="../gen_modules/skada.KLIEP.html#skada.KLIEP" title="skada.KLIEP" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEP</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]),</span>
+    <a href="../gen_modules/skada.GaussianReweight.html#skada.GaussianReweight" title="skada.GaussianReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <a href="../gen_modules/skada.DiscriminatorReweight.html#skada.DiscriminatorReweight" title="skada.DiscriminatorReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <a href="../gen_modules/skada.KLIEPReweight.html#skada.KLIEPReweight" title="skada.KLIEPReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEPReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]),</span>
+    <a href="../gen_modules/skada.NearestNeighborReweight.html#skada.NearestNeighborReweight" title="skada.NearestNeighborReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">NearestNeighborReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
     <a href="../gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDTarSReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
@@ -876,7 +931,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 20.562 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 24.155 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-method-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfe66d5e49c5e18b6754c1b08a23542/plot_method_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_method_comparison.ipynb</span></code></a></p>

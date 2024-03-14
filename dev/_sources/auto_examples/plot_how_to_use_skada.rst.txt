@@ -56,7 +56,7 @@ on a simple dataset will illustration of the API choice specific to DA.
     from skada import (
         CORAL,
         CORALAdapter,
-        GaussianReweightDensityAdapter,
+        GaussianReweightAdapter,
         make_da_pipeline,
         source_target_split,
     )
@@ -239,7 +239,7 @@ Here is an example with the CORAL and GaussianReweight adapter.
     # create a DA pipeline with GaussianReweight adapter
     pipe = make_da_pipeline(
         StandardScaler(),
-        GaussianReweightDensityAdapter(),
+        GaussianReweightAdapter(),
         LogisticRegression().set_fit_request(sample_weight=True),
     )
     pipe.fit(X, y, sample_domain=sample_domain)
@@ -342,7 +342,7 @@ passed in the :code:`fit` method of the grid search.
 
  .. code-block:: none
 
-    Best regularization parameter: auto
+    Best regularization parameter: 0.1
     Accuracy on target: 1.0
 
 
@@ -351,7 +351,7 @@ passed in the :code:`fit` method of the grid search.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.589 seconds)
+   **Total running time of the script:** (0 minutes 1.902 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:

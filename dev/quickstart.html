@@ -209,10 +209,10 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">EntropicOTMappingAdapter</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LinearOTMappingAdapter</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">OTMappingAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">DiscriminatorReweightDensityAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">GaussianReweightDensityAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">KLIEPAdapter</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ReweightDensityAdapter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DiscriminatorReweightAdapter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GaussianReweightAdapter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">KLIEPReweightAdapter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DensityReweightAdapter</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SubspaceAlignmentAdapter</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TransferComponentAnalysisAdapter</span></code></p></li>
 </ul>
@@ -278,7 +278,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">SupervisedScorer</span></code> is a unique scorer that necessitates special consideration. Since it requires access to target labels, which are masked during the dataset packing process for training, this scorer mandates an additional key to be passed within the <code class="docutils literal notranslate"><span class="pre">params</span></code>. The usage is as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">da_dataset</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span>
 <span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-    <span class="n">ReweightDensityAdapter</span><span class="p">(),</span>
+    <span class="n">DensityReweightAdapter</span><span class="p">(),</span>
     <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_score_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -367,10 +367,10 @@ shift in their distributions.</p>
 </pre></div>
 </div>
 <p>Now let's define a DA estimator to evaluate on this data:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; from skada import ReweightDensity
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; from skada import DensityReweight
 &gt;&gt;&gt; from sklearn.linear_model import LogisticRegression
 &gt;&gt;&gt; base_estimator = LogisticRegression()
-&gt;&gt;&gt; estimator = ReweightDensity(base_estimator=base_estimator)
+&gt;&gt;&gt; estimator = DensityReweight(base_estimator=base_estimator)
 </pre></div>
 </div>
 <p>Having a distribution shift between the two domains means that if the

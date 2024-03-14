@@ -1,0 +1,11 @@
+﻿skada.KLIEPReweight
+===================
+
+.. currentmodule:: skada
+
+.. autofunction:: KLIEPReweight
+
+.. _sphx_glr_backreferences_skada.KLIEPReweight:
+
+.. minigallery:: skada.KLIEPReweight
+    :add-heading:

@@ -26,7 +26,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="skada.ReweightDensity" href="gen_modules/skada.ReweightDensity.html" />
+    <link rel="next" title="skada.DensityReweight" href="gen_modules/skada.DensityReweight.html" />
     <link rel="prev" title="Users Guide" href="quickstart.html" /> 
 </head>
 
@@ -60,10 +60,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API and modules</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sample-reweighting-da-methods">Sample reweighting DA methods</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.ReweightDensity.html">skada.ReweightDensity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.GaussianReweightDensity.html">skada.GaussianReweightDensity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.DiscriminatorReweightDensity.html">skada.DiscriminatorReweightDensity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.KLIEP.html">skada.KLIEP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.DensityReweight.html">skada.DensityReweight</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.GaussianReweight.html">skada.GaussianReweight</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.DiscriminatorReweight.html">skada.DiscriminatorReweight</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.KLIEPReweight.html">skada.KLIEPReweight</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.NearestNeighborReweight.html">skada.NearestNeighborReweight</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.MMDTarSReweight.html">skada.MMDTarSReweight</a></li>
 </ul>
 </li>
@@ -161,19 +162,22 @@
 <h3>Sample reweighting DA methods<a class="headerlink" href="#sample-reweighting-da-methods" title="Link to this heading"></a></h3>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.ReweightDensity.html#skada.ReweightDensity" title="skada.ReweightDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ReweightDensity</span></code></a>([base_estimator, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.DensityReweight.html#skada.DensityReweight" title="skada.DensityReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DensityReweight</span></code></a>([base_estimator, ...])</p></td>
 <td><p>Density re-weighting pipeline adapter and estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.GaussianReweightDensity.html#skada.GaussianReweightDensity" title="skada.GaussianReweightDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GaussianReweightDensity</span></code></a>([base_estimator, reg])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.GaussianReweight.html#skada.GaussianReweight" title="skada.GaussianReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GaussianReweight</span></code></a>([base_estimator, reg])</p></td>
 <td><p>Gaussian approximation re-weighting pipeline adapter and estimator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.DiscriminatorReweightDensity.html#skada.DiscriminatorReweightDensity" title="skada.DiscriminatorReweightDensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DiscriminatorReweightDensity</span></code></a>([...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.DiscriminatorReweight.html#skada.DiscriminatorReweight" title="skada.DiscriminatorReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DiscriminatorReweight</span></code></a>([base_estimator, ...])</p></td>
 <td><p>Discriminator re-weighting pipeline adapter and estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.KLIEP.html#skada.KLIEP" title="skada.KLIEP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KLIEP</span></code></a>([base_estimator, gamma, cv, ...])</p></td>
-<td><p>KLIEP pipeline adapter and estimator.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.KLIEPReweight.html#skada.KLIEPReweight" title="skada.KLIEPReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KLIEPReweight</span></code></a>([base_estimator, gamma, cv, ...])</p></td>
+<td><p>KLIEPReweight pipeline adapter and estimator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MMDTarSReweight</span></code></a>([base_estimator, gamma, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.NearestNeighborReweight.html#skada.NearestNeighborReweight" title="skada.NearestNeighborReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NearestNeighborReweight</span></code></a>([base_estimator, ...])</p></td>
+<td><p>Density re-weighting pipeline adapter and estimator.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MMDTarSReweight</span></code></a>([base_estimator, gamma, ...])</p></td>
 <td><p>Target shift reweighting using MMD.</p></td>
 </tr>
 </tbody>
@@ -344,7 +348,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="quickstart.html" class="btn btn-neutral float-left" title="Users Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="gen_modules/skada.ReweightDensity.html" class="btn btn-neutral float-right" title="skada.ReweightDensity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gen_modules/skada.DensityReweight.html" class="btn btn-neutral float-right" title="skada.DensityReweight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
