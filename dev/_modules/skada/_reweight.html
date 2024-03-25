@@ -722,7 +722,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;KLIEPReweight pipeline adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [3]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -753,7 +753,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Masashi Sugiyama et. al. Direct Importance Estimation with Model Selection</span>
+<span class="sd">    .. [3] Masashi Sugiyama et. al. Direct Importance Estimation with Model Selection</span>
 <span class="sd">           and Its Application to Covariate Shift Adaptation.</span>
 <span class="sd">           In NeurIPS, 2007.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -776,10 +776,7 @@
 <span class="k">class</span> <span class="nc">NearestNeighborReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using a 1NN,</span>
 
-<span class="sd">    See: [Loog, 2012] Loog, M. (2012).</span>
-<span class="sd">    Nearest neighbor-based importance weighting.</span>
-<span class="sd">    In 2012 IEEE International Workshop on Machine</span>
-<span class="sd">    Learning for Signal Processing, pages 1–6. IEEE.</span>
+<span class="sd">    See [22]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -794,6 +791,12 @@
 <span class="sd">        The estimator object fitted on the source data.</span>
 <span class="sd">    weight_estimator_target_ : object</span>
 <span class="sd">        The estimator object fitted on the target data.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [22] Nearest neighbor-based importance weighting.</span>
+<span class="sd">            In 2012 IEEE International Workshop on Machine</span>
+<span class="sd">            Learning for Signal Processing, pages 1–6. IEEE.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -925,6 +928,8 @@
 <span class="sd">    The last 7 parameters are the parameters from the 1NN estimator that</span>
 <span class="sd">    will be used to estimate the weights in the `adapt` method</span>
 
+<span class="sd">    See [22]_ for details.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    base_estimator : sklearn estimator, default=None</span>
@@ -1008,6 +1013,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    pipeline : sklearn pipeline</span>
 <span class="sd">        Pipeline containing the DensityReweight adapter and the base estimator.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [22] Nearest neighbor-based importance weighting.</span>
+<span class="sd">            In 2012 IEEE International Workshop on Machine</span>
+<span class="sd">            Learning for Signal Processing, pages 1–6. IEEE.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1036,7 +1047,7 @@
 <span class="sd">    input density p_target(x) and the reweighted source input density</span>
 <span class="sd">    w(x)p_source(x) is minimized.</span>
 
-<span class="sd">    See [1]_ for details.</span>
+<span class="sd">    See [23]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1069,9 +1080,9 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.</span>
-<span class="sd">           &#39;Correcting sample selection bias by unlabeled data.&#39;</span>
-<span class="sd">           In NIPS, 2007.</span>
+<span class="sd">    .. [23] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.</span>
+<span class="sd">            &#39;Correcting sample selection bias by unlabeled data.&#39;</span>
+<span class="sd">            In NIPS, 2007.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1239,7 +1250,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;KMMReweight pipeline adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [23]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1273,9 +1284,9 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.</span>
-<span class="sd">           &#39;Correcting sample selection bias by unlabeled data.&#39;</span>
-<span class="sd">           In NIPS, 2007.</span>
+<span class="sd">    .. [23] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.</span>
+<span class="sd">            &#39;Correcting sample selection bias by unlabeled data.&#39;</span>
+<span class="sd">            In NIPS, 2007.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1303,7 +1314,7 @@
 <span class="sd">    p_source(x) to its estimate p_target(x) is minimized under the assumption</span>
 <span class="sd">    of equal conditional distributions p(x|y) for both source and target domains.</span>
 
-<span class="sd">    See Section 3 of [4]_ for details.</span>
+<span class="sd">    See Section 3 of [21]_ for details.</span>
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        This adapter uses a nearest neighbors approach to compute weights when adapting</span>
@@ -1331,8 +1342,8 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [4] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
-<span class="sd">           In ICML, 2013.</span>
+<span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
+<span class="sd">            In ICML, 2013.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
@@ -1493,7 +1504,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Target shift reweighting using MMD.</span>
 
-<span class="sd">    See Section 3 of [4]_ for details.</span>
+<span class="sd">    See Section 3 of [21]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1515,8 +1526,8 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [4] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
-<span class="sd">           In ICML, 2013.</span>
+<span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
+<span class="sd">            In ICML, 2013.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

@@ -112,7 +112,7 @@
 <dt class="sig sig-object py" id="skada.deep.CDAN">
 <span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">CDAN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_classifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#CDAN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.CDAN" title="Link to this definition"></a></dt>
 <dd><p>Conditional Domain Adversarial Networks (CDAN).</p>
-<p>From <a class="reference internal" href="#r9e750c8f66d7-1" id="id1">[1]</a>.</p>
+<p>From <a class="reference internal" href="#r9e750c8f66d7-16" id="id1">[16]</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -127,10 +127,10 @@ collected during the training.</p>
 </dd>
 <dt><strong>max_features</strong><span class="classifier">int, default=4096</span></dt><dd><p>Maximum size of the input for the domain classifier.
 4096 is the largest number of units in typical deep network
-according to <a class="reference internal" href="#r9e750c8f66d7-1" id="id2">[1]</a>.</p>
+according to <a href="#id5"><span class="problematic" id="id2">[1]_</span></a>.</p>
 </dd>
 <dt><strong>domain_classifier</strong><span class="classifier">torch module, default=None</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used to classify the
-domain. If None, a domain classifier is created following <a class="reference internal" href="#r9e750c8f66d7-1" id="id3">[1]</a>.</p>
+domain. If None, a domain classifier is created following <a href="#id6"><span class="problematic" id="id3">[1]_</span></a>.</p>
 </dd>
 <dt><strong>num_features</strong><span class="classifier">int, default=None</span></dt><dd><p>Size of the input of domain classifier,
 e.g size of the last layer of
@@ -146,9 +146,8 @@ CDAN loss. If None, a BCELoss is used.</p>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="r9e750c8f66d7-1" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id3">3</a>)</span>
+<div class="citation" id="r9e750c8f66d7-16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">16</a><span class="fn-bracket">]</span></span>
 <p>Mingsheng Long et. al. Conditional Adversarial Domain Adaptation
 In NeurIPS, 2016.</p>
 </div>

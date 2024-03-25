@@ -186,6 +186,8 @@
 <span class="k">class</span> <span class="nc">OTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
+<span class="sd">    See [6]_ for details.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
@@ -205,7 +207,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -234,7 +236,7 @@
 <span class="k">def</span> <span class="nf">OTMapping</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OTmapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -256,7 +258,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -272,6 +274,8 @@
 
 <span class="k">class</span> <span class="nc">EntropicOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -297,7 +301,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -339,7 +343,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;EntropicOTMapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -366,7 +370,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -384,6 +388,8 @@
 
 <span class="k">class</span> <span class="nc">ClassRegularizerOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -414,7 +420,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -469,7 +475,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ClassRegularizedOTMapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -500,7 +506,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -556,7 +562,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a the linear OT mapping method with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -574,7 +580,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -646,6 +652,8 @@
 <span class="k">class</span> <span class="nc">CORALAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimator based on Correlation Alignment [1]_.</span>
 
+<span class="sd">    See [5]_ for details.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    reg : &#39;auto&#39; or float, default=&quot;auto&quot;</span>
@@ -665,7 +673,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
+<span class="sd">    .. [5] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
 <span class="sd">           Correlation Alignment for Unsupervised Domain Adaptation.</span>
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -744,7 +752,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CORAL pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    See [5]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -765,7 +773,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
+<span class="sd">    .. [5] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
 <span class="sd">           Correlation Alignment for Unsupervised Domain Adaptation.</span>
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -787,7 +795,7 @@
 <span class="sd">    $X^t = W(y^s) \\odot X^s + B(y^s)$, where $W(y^s)$ and $B(y^s)$ are the scaling</span>
 <span class="sd">    and bias of the linear transformation, respectively.</span>
 
-<span class="sd">    See Section 4 of [4]_ for details.</span>
+<span class="sd">    See Section 4 of [21]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -817,7 +825,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [4] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
+<span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
 <span class="sd">           In ICML, 2013.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -991,7 +999,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;MMDLSConSMapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [4]_ for details.</span>
+<span class="sd">    See [21]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1015,8 +1023,8 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [4] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
-<span class="sd">           In ICML, 2013.</span>
+<span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
+<span class="sd">            In ICML, 2013.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>

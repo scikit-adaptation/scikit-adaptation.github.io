@@ -175,7 +175,7 @@
 <span class="k">class</span> <span class="nc">ImportanceWeightedScorer</span><span class="p">(</span><span class="n">_BaseDomainAwareScorer</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Score based on source data using sample weight.</span>
 
-<span class="sd">    See [1]_ for details.</span>
+<span class="sd">    See [17]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -203,7 +203,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1]  Masashi Sugiyama. Covariate Shift Adaptation</span>
+<span class="sd">    .. [17] Masashi Sugiyama et al. Covariate Shift Adaptation</span>
 <span class="sd">            by Importance Weighted Cross Validation.</span>
 <span class="sd">            Journal of Machine Learning Research, 2007.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -279,7 +279,7 @@
 <span class="k">class</span> <span class="nc">PredictionEntropyScorer</span><span class="p">(</span><span class="n">_BaseDomainAwareScorer</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Score based on the entropy of predictions on unsupervised dataset.</span>
 
-<span class="sd">    See [1]_ for details.</span>
+<span class="sd">    See [18]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -302,7 +302,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1]  Pietro Morerio. Minimal-Entropy correlation alignment</span>
+<span class="sd">    .. [18] Pietro Morerio et al. Minimal-Entropy correlation alignment</span>
 <span class="sd">            for unsupervised deep domain adaptation.</span>
 <span class="sd">            ICLR, 2018.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -358,7 +358,7 @@
 <span class="k">class</span> <span class="nc">SoftNeighborhoodDensity</span><span class="p">(</span><span class="n">_BaseDomainAwareScorer</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Score based on the entropy of similarity between unsupervised dataset.</span>
 
-<span class="sd">    See [1]_ for details.</span>
+<span class="sd">    See [19]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -372,7 +372,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1]  Kuniaki Saito. Tune it the Right Way: Unsupervised Validation</span>
+<span class="sd">    .. [19] Kuniaki Saito et al. Tune it the Right Way: Unsupervised Validation</span>
 <span class="sd">            of Domain Adaptation via Soft Neighborhood Density.</span>
 <span class="sd">            International Conference on Computer Vision, 2021.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -410,7 +410,7 @@
 <span class="k">class</span> <span class="nc">DeepEmbeddedValidation</span><span class="p">(</span><span class="n">_BaseDomainAwareScorer</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss based on source data using features representation to weight samples.</span>
 
-<span class="sd">    See [1]_ for details.</span>
+<span class="sd">    See [20]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -431,7 +431,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1]  Kaichao You. Towards Accurate Model Selection</span>
+<span class="sd">    .. [20] Kaichao You et al. Towards Accurate Model Selection</span>
 <span class="sd">            in Deep Unsupervised Domain Adaptation.</span>
 <span class="sd">            ICML, 2019.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -514,7 +514,7 @@
 <span class="sd">    computed using the source_scorer between the true source labels and</span>
 <span class="sd">    the predicted source labels.</span>
 
-<span class="sd">    See [21]_ for details.</span>
+<span class="sd">    See [11]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -528,9 +528,9 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [21]  Bruzzone, Lorenzo &amp; Marconcini, Mattia.</span>
-<span class="sd">            Domain Adaptation Problems: A DASVM Classification Technique</span>
-<span class="sd">            and a Circular Validation Strategy. IEEE, 2010.</span>
+<span class="sd">    .. [11] Bruzzone, L., &amp; Marconcini, M. &#39;Domain adaptation problems: A DASVM</span>
+<span class="sd">            classification technique and a circular validation strategy.&#39;</span>
+<span class="sd">            IEEE transactions on pattern analysis and machine intelligence, (2009).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

@@ -110,11 +110,11 @@
 <dt class="sig sig-object py" id="skada.metrics.SoftNeighborhoodDensity">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.metrics.</span></span><span class="sig-name descname"><span class="pre">SoftNeighborhoodDensity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">greater_is_better</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/metrics.html#SoftNeighborhoodDensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.metrics.SoftNeighborhoodDensity" title="Link to this definition"></a></dt>
 <dd><p>Score based on the entropy of similarity between unsupervised dataset.</p>
-<p>See <a class="reference internal" href="#rbcae0e85e349-1" id="id1">[1]</a> for details.</p>
+<p>See <a class="reference internal" href="#rbcae0e85e349-19" id="id1">[19]</a> for details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>T</strong><span class="classifier">float</span></dt><dd><p>Temperature in the Eq. 2 in <a class="reference internal" href="#rbcae0e85e349-1" id="id2">[1]</a>.
+<dt><strong>T</strong><span class="classifier">float</span></dt><dd><p>Temperature in the Eq. 2 in <a href="#id4"><span class="problematic" id="id2">[1]_</span></a>.
 Default is set to 0.05, the value proposed in the paper.</p>
 </dd>
 <dt><strong>greater_is_better</strong><span class="classifier">bool, default=True</span></dt><dd><p>Whether <cite>scorer</cite> is a score function (default), meaning high is
@@ -126,10 +126,9 @@ scorer object will sign-flip the outcome of the <cite>scorer</cite>.</p>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="rbcae0e85e349-1" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
-<p>Kuniaki Saito. Tune it the Right Way: Unsupervised Validation
+<div class="citation" id="rbcae0e85e349-19" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">19</a><span class="fn-bracket">]</span></span>
+<p>Kuniaki Saito et al. Tune it the Right Way: Unsupervised Validation
 of Domain Adaptation via Soft Neighborhood Density.
 International Conference on Computer Vision, 2021.</p>
 </div>

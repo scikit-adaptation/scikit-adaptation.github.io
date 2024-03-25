@@ -123,8 +123,8 @@ compatible API with the following features:</p>
 <h5>Domain adaptation algorithms<a class="headerlink" href="#domain-adaptation-algorithms" title="Link to this heading"></a></h5>
 <ul class="simple">
 <li><p>Sample reweighting methods (Gaussian [1], Discriminant [2], KLIEPReweight [3],
-DensityRatio [4], TarS [22])</p></li>
-<li><p>Sample mapping methods (CORAL [5], Optimal Transport DA OTDA [6], LinearMonge [7], LS-ConS [22])</p></li>
+DensityRatio [4], TarS [21], KMMReweight [23])</p></li>
+<li><p>Sample mapping methods (CORAL [5], Optimal Transport DA OTDA [6], LinearMonge [7], LS-ConS [21])</p></li>
 <li><p>Subspace methods (SubspaceAlignment [8], TCA [9])</p></li>
 <li><p>Other methods (JDOT [10], DASVM [11])</p></li>
 </ul>
@@ -149,7 +149,7 @@ estimator and an <code class="docutils literal notranslate"><span class="pre">Ad
 <li><p>Prediction entropy [18]</p></li>
 <li><p>Soft neighborhood density [19]</p></li>
 <li><p>Deep Embedded Validation (DEV) [20]</p></li>
-<li><p>Circular Validation [21]</p></li>
+<li><p>Circular Validation [11]</p></li>
 </ul>
 </section>
 </section>
@@ -255,7 +255,7 @@ selection :</p>
 <p>[8] Fernando, B., Habrard, A., Sebban, M., &amp; Tuytelaars, T. (2013). <a class="reference external" href="https://openaccess.thecvf.com/content_iccv_2013/papers/Fernando_Unsupervised_Visual_Domain_2013_ICCV_paper.pdf">Unsupervised visual domain adaptation using subspace alignment</a>. In Proceedings of the IEEE international conference on computer vision (pp. 2960-2967).</p>
 <p>[9] Pan, S. J., Tsang, I. W., Kwok, J. T., &amp; Yang, Q. (2010). <a class="reference external" href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;amp;type=pdf&amp;amp;doi=4823e52161ec339d4d3526099a5477321f6a9a0f">Domain adaptation via transfer component analysis</a>. IEEE transactions on neural networks, 22(2), 199-210.</p>
 <p>[10] Courty, N., Flamary, R., Habrard, A., &amp; Rakotomamonjy, A. (2017). <a class="reference external" href="https://proceedings.neurips.cc/paper_files/paper/2017/file/0070d23b06b1486a538c0eaa45dd167a-Paper.pdf">Joint distribution optimal transportation for domain adaptation</a>. Advances in neural information processing systems, 30.</p>
-<p>[11] Bruzzone, L., &amp; Marconcini, M. (2009). <a class="reference external" href="https://ieeexplore.ieee.org/document/4803844">Domain adaptation problems: A DASVM classification technique and a circular validation strategy.</a> IEEE transactions on pattern analysis and machine intelligence, 32(5), 770-787.</p>
+<p>[11] Bruzzone, L., &amp; Marconcini, M. (2009). <a class="reference external" href="https://rslab.disi.unitn.it/papers/R82-PAMI.pdf">Domain adaptation problems: A DASVM classification technique and a circular validation strategy.</a> IEEE transactions on pattern analysis and machine intelligence, 32(5), 770-787.</p>
 <p>[12] Sun, B., &amp; Saenko, K. (2016). <a class="reference external" href="https://arxiv.org/pdf/1607.01719.pdf">Deep coral: Correlation alignment for deep domain adaptation</a>. In Computer Vision–ECCV 2016 Workshops: Amsterdam, The Netherlands, October 8-10 and 15-16, 2016, Proceedings, Part III 14 (pp. 443-450). Springer International Publishing.</p>
 <p>[13] Damodaran, B. B., Kellenberger, B., Flamary, R., Tuia, D., &amp; Courty, N. (2018). <a class="reference external" href="https://openaccess.thecvf.com/content_ECCV_2018/papers/Bharath_Bhushan_Damodaran_DeepJDOT_Deep_Joint_ECCV_2018_paper.pdf">Deepjdot: Deep joint distribution optimal transport for unsupervised domain adaptation</a>. In Proceedings of the European conference on computer vision (ECCV) (pp. 447-463).</p>
 <p>[14] Long, M., Cao, Y., Wang, J., &amp; Jordan, M. (2015, June). <a class="reference external" href="https://proceedings.mlr.press/v37/long15.pdf">Learning transferable features with deep adaptation networks</a>. In International conference on machine learning (pp. 97-105). PMLR.</p>
@@ -265,11 +265,9 @@ selection :</p>
 <p>[18] Morerio, P., Cavazza, J., &amp; Murino, V. (2017).<a class="reference external" href="https://arxiv.org/pdf/1711.10288.pdf"> Minimal-entropy correlation alignment for unsupervised deep domain adaptation</a>. arXiv preprint arXiv:1711.10288.</p>
 <p>[19] Saito, K., Kim, D., Teterwak, P., Sclaroff, S., Darrell, T., &amp; Saenko, K. (2021). <a class="reference external" href="https://openaccess.thecvf.com/content/ICCV2021/papers/Saito_Tune_It_the_Right_Way_Unsupervised_Validation_of_Domain_Adaptation_ICCV_2021_paper.pdf">Tune it the right way: Unsupervised validation of domain adaptation via soft neighborhood density</a>. In Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 9184-9193).</p>
 <p>[20] You, K., Wang, X., Long, M., &amp; Jordan, M. (2019, May). <a class="reference external" href="https://proceedings.mlr.press/v97/you19a/you19a.pdf">Towards accurate model selection in deep unsupervised domain adaptation</a>. In International Conference on Machine Learning (pp. 7124-7133). PMLR.</p>
-<p>[21] Bruzzone, Lorenzo &amp; Marconcini, Mattia. (2010). <a class="reference external" href="https://rslab.disi.unitn.it/papers/R82-PAMI.pdf">Domain Adaptation Problems: A DASVM Classification Technique and a Circular Validation Strategy</a>. IEEE transactions on pattern analysis and machine intelligence. 32. 770-87. 10.1109/TPAMI.2009.57.</p>
-<p>[22] Zhang, K., Schölkopf, B., Muandet, K., Wang, Z. (2013). <a class="reference external" href="http://proceedings.mlr.press/v28/zhang13d.pdf">Domain Adaptation under Target and Conditional Shift</a>. In International Conference on Machine Learning (pp. 819-827). PMLR.</p>
-<p>[23] Domain Adaptation Problems: A DASVM ClassificationTechnique and a Circular Validation StrategyLorenzo Bruzzone, Fellow, IEEE, and Mattia Marconcini, Member, IEEE (https://rslab.disi.unitn.it/papers/R82-PAMI.pdf)</p>
-<p>[24] Loog, M. (2012). Nearest neighbor-based importance weighting. In 2012 IEEE International Workshop on Machine Learning for Signal Processing, pages 1–6. IEEE (https://arxiv.org/pdf/2102.02291.pdf)</p>
-<p>[25] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola. Correcting sample selection bias by unlabeled data. In NIPS, 2007. (https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=07117994f0971b2fc2df95adb373c31c3d313442)</p>
+<p>[21] Zhang, K., Schölkopf, B., Muandet, K., Wang, Z. (2013). <a class="reference external" href="http://proceedings.mlr.press/v28/zhang13d.pdf">Domain Adaptation under Target and Conditional Shift</a>. In International Conference on Machine Learning (pp. 819-827). PMLR.</p>
+<p>[22] Loog, M. (2012). Nearest neighbor-based importance weighting. In 2012 IEEE International Workshop on Machine Learning for Signal Processing, pages 1–6. IEEE (https://arxiv.org/pdf/2102.02291.pdf)</p>
+<p>[23] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola. Correcting sample selection bias by unlabeled data. In NIPS, 2007. (https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=07117994f0971b2fc2df95adb373c31c3d313442)</p>
 </section>
 </section>
 </section>
