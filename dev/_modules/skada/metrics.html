@@ -92,17 +92,20 @@
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">balanced_accuracy_score</span><span class="p">,</span> <span class="n">check_scoring</span><span class="p">,</span> <span class="n">log_loss</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">balanced_accuracy_score</span><span class="p">,</span> <span class="n">check_scoring</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">Normalizer</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.extmath</span> <span class="kn">import</span> <span class="n">softmax</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.metadata_routing</span> <span class="kn">import</span> <span class="n">_MetadataRequester</span><span class="p">,</span> <span class="n">get_routing_for_object</span>
+
+<span class="kn">from</span> <span class="nn">skada.base</span> <span class="kn">import</span> <span class="n">AdaptationOutput</span>
 
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
@@ -454,7 +457,7 @@
     <span class="k">def</span> <span class="nf">_no_reduc_log_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="n">log_loss</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cross_entropy_loss</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
             <span class="p">]</span>
         <span class="p">)</span>
@@ -464,13 +467,42 @@
         <span class="k">if</span> <span class="n">domain_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">domain_classifier</span><span class="p">)</span>
-        <span class="n">y_domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_target</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">y_domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_target</span><span class="p">)</span> <span class="o">*</span> <span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">features</span><span class="p">,</span> <span class="n">features_target</span><span class="p">)),</span> <span class="n">y_domain</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;predict_proba&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="s2">&quot;The estimator passed should have a &#39;predict_proba&#39; method. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">has_transform_method</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">):</span>
+            <span class="c1"># The estimator is a deep model</span>
+            <span class="n">transformer</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_features</span>
+            <span class="n">has_transform_method</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We need to find the last layer of the pipeline with a transform method</span>
+            <span class="n">pipeline_steps</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">estimator</span><span class="o">.</span><span class="n">named_steps</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+            <span class="k">for</span> <span class="n">index_transformer</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">step_process</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">pipeline_steps</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">step_process</span><span class="p">,</span> <span class="s2">&quot;transform&quot;</span><span class="p">):</span>
+                    <span class="n">transformer</span> <span class="o">=</span> <span class="n">estimator</span><span class="p">[:</span> <span class="n">index_transformer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span>
+                    <span class="n">has_transform_method</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span>  <span class="c1"># Stop after the first occurrence if there are multiple</span>
+
+        <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_transform_method</span><span class="p">:</span>
+            <span class="c1"># We use the input data as features</span>
+            <span class="n">transformer</span> <span class="o">=</span> <span class="n">identity</span>
+
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
@@ -481,16 +513,39 @@
             <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">features_train</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">get_features</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
-        <span class="n">features_val</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">get_features</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
-        <span class="n">features_target</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">get_features</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
+
+        <span class="n">features_train</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="n">features_val</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
+        <span class="n">features_target</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
+
+        <span class="c1"># 3 cases:</span>
+        <span class="c1"># - features_train is an AdaptationOutput --&gt; call get(&#39;X&#39;)</span>
+        <span class="c1"># - features_train is a numpy array --&gt; Do nothing</span>
+        <span class="c1"># - features_train is a torch.Tensor --&gt; call detach().numpy()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">):</span>
+            <span class="n">features_train</span> <span class="o">=</span> <span class="n">features_train</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+            <span class="n">features_val</span> <span class="o">=</span> <span class="n">features_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+            <span class="n">features_target</span> <span class="o">=</span> <span class="n">features_target</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="c1"># The transformer comes from a deep model</span>
+            <span class="c1"># and returns a torch.Tensor</span>
+            <span class="n">features_train</span> <span class="o">=</span> <span class="n">features_train</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">features_val</span> <span class="o">=</span> <span class="n">features_val</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">features_target</span> <span class="o">=</span> <span class="n">features_target</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit_adapt</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">features_target</span><span class="p">)</span>
-        <span class="n">N</span><span class="p">,</span> <span class="n">N_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_target</span><span class="p">)</span>
-        <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">features_val</span><span class="p">)</span>
-        <span class="n">weights</span> <span class="o">=</span> <span class="n">N</span> <span class="o">/</span> <span class="n">N_target</span> <span class="o">*</span> <span class="n">predictions</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">predictions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+        <span class="n">N_train</span><span class="p">,</span> <span class="n">N_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_target</span><span class="p">)</span>
+        <span class="n">domain_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">features_val</span><span class="p">)</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">(</span><span class="n">N_train</span> <span class="o">/</span> <span class="n">N_target</span><span class="p">)</span> <span class="o">*</span> <span class="n">domain_pred</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">domain_pred</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">):</span>
+            <span class="c1"># Deep estimators dont accept allow_source parameter</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">sample_domain_val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
+                <span class="n">X_val</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain_val</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
 
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain_val</span><span class="p">)</span>
         <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loss_func</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">error</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -499,7 +554,38 @@
         <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">weights_m</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">var_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">eta</span> <span class="o">=</span> <span class="o">-</span><span class="n">cov</span> <span class="o">/</span> <span class="n">var_w</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weighted_error</span><span class="p">)</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">-</span> <span class="n">eta</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weighted_error</span><span class="p">)</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">-</span> <span class="n">eta</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DeepEmbeddedValidation.cross_entropy_loss">
+<a class="viewcode-back" href="../../gen_modules/skada.metrics.DeepEmbeddedValidation.html#skada.metrics.DeepEmbeddedValidation.cross_entropy_loss">[docs]</a>
+    <span class="k">def</span> <span class="nf">cross_entropy_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute cross-entropy loss between true labels</span>
+<span class="sd">        and predicted probability estimates.</span>
+
+<span class="sd">        This loss allows to have a changing num_classes over the validation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        - y_true: true labels (integer labels).</span>
+<span class="sd">        - y_pred: predicted probabilities</span>
+<span class="sd">        - epsilon: a small constant to avoid numerical instability (default is 1e-15).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        - Cross-entropy loss.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">num_classes</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Convert integer labels to one-hot encoding</span>
+        <span class="n">y_true_one_hot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">num_classes</span><span class="p">)[</span><span class="n">y_true</span><span class="p">]</span>
+
+        <span class="c1"># Clip predicted probabilities to avoid log(0) or log(1)</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">)</span>
+
+        <span class="n">cross_entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_true_one_hot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">cross_entropy</span></div>
+</div>
 
 
 
@@ -571,7 +657,7 @@
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
 
-        <span class="n">backward_estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
+        <span class="n">backward_estimator</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
 
         <span class="n">y_pred_target</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
 
