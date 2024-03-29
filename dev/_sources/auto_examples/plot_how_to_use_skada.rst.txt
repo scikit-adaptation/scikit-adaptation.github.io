@@ -41,12 +41,13 @@ on a simple dataset will illustration of the API choice specific to DA.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-34
+.. GENERATED FROM PYTHON SOURCE LINES 15-38
 
 .. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
+    from sklearn.decomposition import PCA
     from sklearn.linear_model import LogisticRegression
     from sklearn.model_selection import GridSearchCV, cross_val_score
     from sklearn.pipeline import make_pipeline
@@ -57,6 +58,9 @@ on a simple dataset will illustration of the API choice specific to DA.
         CORAL,
         CORALAdapter,
         GaussianReweightAdapter,
+        PerDomain,
+        SelectSource,
+        SelectSourceTarget,
         make_da_pipeline,
         source_target_split,
     )
@@ -71,7 +75,7 @@ on a simple dataset will illustration of the API choice specific to DA.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-46
+.. GENERATED FROM PYTHON SOURCE LINES 39-50
 
 DA dataset
 ----------
@@ -85,7 +89,7 @@ are organized with all source and target sample as follows:
 * :code:`sample_domain` is the domain of each sample (integer <=0 for
   source and >0 for target)
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-68
+.. GENERATED FROM PYTHON SOURCE LINES 50-74
 
 .. code-block:: Python
 
@@ -97,6 +101,8 @@ are organized with all source and target sample as follows:
 
     # split source and target for visualization
     Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
+    sample_domain_s = np.ones(Xs.shape[0])
+    sample_domain_t = -np.ones(Xt.shape[0]) * 2
 
     # plot data
     plt.figure(1, (10, 5))
@@ -129,7 +135,7 @@ are organized with all source and target sample as follows:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-74
+.. GENERATED FROM PYTHON SOURCE LINES 75-80
 
 DA Classifier estimator
 -----------------------
@@ -137,7 +143,7 @@ DA Classifier estimator
 DA estimators are used exactly as regular estimators. The only difference is
 that the :code:`sample_domain` array must be passed (by name).
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-89
+.. GENERATED FROM PYTHON SOURCE LINES 80-95
 
 .. code-block:: Python
 
@@ -170,7 +176,7 @@ that the :code:`sample_domain` array must be passed (by name).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-95
+.. GENERATED FROM PYTHON SOURCE LINES 96-101
 
 -----------------------------
 
@@ -178,7 +184,7 @@ DA estimators can be used as final estimator in the sklearn pipeline. The only
 difference is that the :code:`sample_domain` array must be passed (by name)
 during the fit.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-103
+.. GENERATED FROM PYTHON SOURCE LINES 101-109
 
 .. code-block:: Python
 
@@ -203,7 +209,7 @@ during the fit.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-122
+.. GENERATED FROM PYTHON SOURCE LINES 110-128
 
 DA Adapter pipeline
 -------------------
@@ -224,7 +230,7 @@ Here is an example with the CORAL and GaussianReweight adapter.
   pipeline or DA estimator) does not
   require sample weights, the DA pipeline will raise an error.
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-140
+.. GENERATED FROM PYTHON SOURCE LINES 128-147
 
 .. code-block:: Python
 
@@ -236,7 +242,8 @@ Here is an example with the CORAL and GaussianReweight adapter.
 
     print("Accuracy on target:", pipe.score(Xt, yt))
 
-    # create a DA pipeline with GaussianReweight adapter
+    # create a DA pipeline with GaussianReweight adapter (does not work well on
+    # concept drift).
     pipe = make_da_pipeline(
         StandardScaler(),
         GaussianReweightAdapter(),
@@ -260,7 +267,7 @@ Here is an example with the CORAL and GaussianReweight adapter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 141-147
+.. GENERATED FROM PYTHON SOURCE LINES 148-154
 
 DA estimator with cross-validation of score
 -------------------------------------------
@@ -269,7 +276,7 @@ DA estimators can be used with cross-validation as regular estimators using
 functions from sklearn. Note that the :code:`sample_domain` array must be
 passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-164
+.. GENERATED FROM PYTHON SOURCE LINES 154-171
 
 .. code-block:: Python
 
@@ -303,7 +310,7 @@ passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-171
+.. GENERATED FROM PYTHON SOURCE LINES 172-178
 
 DA estimator with grid search
 -----------------------------
@@ -312,7 +319,7 @@ DA estimators can be used with grid search as regular estimators using
 functions from sklearn. Note that the :code:`sample_domain` array must be
 passed in the :code:`fit` method of the grid search.
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-189
+.. GENERATED FROM PYTHON SOURCE LINES 178-198
 
 .. code-block:: Python
 
@@ -338,11 +345,146 @@ passed in the :code:`fit` method of the grid search.
 
 
 
+
+
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
 
-    Best regularization parameter: 0.1
+    Best regularization parameter: auto
+    Accuracy on target: 1.0
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 199-211
+
+Advanced DA pipeline
+--------------------
+
+The DA pipeline can be used with any estimator and any adapter. But more
+importantly all estimators in the pipeline are wrapped automatically in what
+we call in skada a :code:`Selector`. The selector is a wrapper that allows to
+select what is passed during fit and predict/transform.
+
+For instance in the following we train one StandardScaler per domain but then
+use a single SVC trained only on source. When predicting on target data the
+pipeline will automatically use StandardScaler trained on target and the SVC
+trained on source.
+
+.. GENERATED FROM PYTHON SOURCE LINES 211-237
+
+.. code-block:: Python
+
+
+    # create a DA pipeline with SelectSourceTarget estimators
+
+    pipe = make_da_pipeline(
+        SelectSourceTarget(StandardScaler()),
+        SelectSource(SVC()),
+    )
+
+    pipe.fit(X, y, sample_domain=sample_domain)
+
+    print("Accuracy on source:", pipe.score(Xs, ys, sample_domain=sample_domain_s))
+    print("Accuracy on target:", pipe.score(Xt, yt))  # target by default
+
+    # Similarly one can use the PerDomain selector to train a different estimator
+    # per domain. this allows to handle multiple source and target domains. In this
+    # case :code:`sample_domain` must be provided during fit and predict/transform.
+
+    pipe = make_da_pipeline(
+        PerDomain(StandardScaler()),
+        SelectSource(SVC()),
+    )
+
+    pipe.fit(X, y, sample_domain=sample_domain)
+
+    print("Accuracy on all data:", pipe.score(X, y, sample_domain=sample_domain))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Accuracy on source: 1.0
+    Accuracy on target: 1.0
+    Accuracy on all data: 1.0
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 238-240
+
+One can use a default selector on the whole pipeline  which allows for
+instance to train the whole pipeline only on the source Data  as follows:
+
+.. GENERATED FROM PYTHON SOURCE LINES 240-251
+
+.. code-block:: Python
+
+
+    pipe_train_on_source = make_da_pipeline(
+        StandardScaler(),
+        SVC(),
+        default_selector=SelectSource,
+    )
+
+    pipe_train_on_source.fit(X, y, sample_domain=sample_domain)
+    print("Accuracy on source:", pipe_train_on_source.score(Xs, ys))
+    print("Accuracy on target:", pipe_train_on_source.score(Xt, yt))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Accuracy on source: 1.0
+    Accuracy on target: 0.5
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 252-255
+
+One can also use a default selector on the whole pipeline but overwrite it for
+the last estimator. The example below estimate a StandardScaler and PCA per
+domain but train the final SVC on source Data only.
+
+.. GENERATED FROM PYTHON SOURCE LINES 255-270
+
+.. code-block:: Python
+
+
+    pipe_perdomain = make_da_pipeline(
+        StandardScaler(),
+        PCA(n_components=2),
+        SelectSource(SVC()),
+        default_selector=SelectSourceTarget,
+    )
+
+    pipe_perdomain.fit(X, y, sample_domain=sample_domain)
+    print(
+        "Accuracy on source:", pipe_perdomain.score(Xs, ys, sample_domain=sample_domain_s)
+    )
+    print(
+        "Accuracy on target:", pipe_perdomain.score(Xt, yt, sample_domain=sample_domain_t)
+    )
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    Accuracy on source: 1.0
     Accuracy on target: 1.0
 
 
@@ -351,7 +493,7 @@ passed in the :code:`fit` method of the grid search.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.627 seconds)
+   **Total running time of the script:** (0 minutes 1.846 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:

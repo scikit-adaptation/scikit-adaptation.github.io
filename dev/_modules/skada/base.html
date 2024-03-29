@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.base &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5467c19a"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SKADA
+              <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">skada.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for skada.base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
+<span class="c1">#         Remi Flamary &lt;remi.flamary@polytechnique.edu&gt;</span>
+<span class="c1">#         Oleksii Kachaiev &lt;kachayev@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3-Clause</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">clone</span>
+<span class="kn">from</span> <span class="nn">sklearn.exceptions</span> <span class="kn">import</span> <span class="n">UnsetMetadataPassedError</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">Bunch</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.metadata_routing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MetadataRouter</span><span class="p">,</span>
+    <span class="n">MethodMapping</span><span class="p">,</span>
+    <span class="n">_MetadataRequester</span><span class="p">,</span>
+    <span class="n">get_routing_for_object</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.metaestimators</span> <span class="kn">import</span> <span class="n">available_if</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
+
+<span class="kn">from</span> <span class="nn">skada._utils</span> <span class="kn">import</span> <span class="n">_apply_domain_masks</span><span class="p">,</span> <span class="n">_remove_masked</span>
+<span class="kn">from</span> <span class="nn">skada.utils</span> <span class="kn">import</span> <span class="n">check_X_domain</span><span class="p">,</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">extract_source_indices</span>
+
+
+<span class="k">def</span> <span class="nf">_estimator_has</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;base_estimator&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if we can delegate a method to the underlying estimator.</span>
+
+<span class="sd">    First, we check the first fitted classifier if available, otherwise we</span>
+<span class="sd">    check the unfitted classifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">has_base_estimator</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="p">),</span>
+            <span class="n">attr</span>
+        <span class="p">)</span>
+
+    <span class="c1"># xxx(okachaiev): there should be a simple way to access selector base estimator</span>
+    <span class="k">def</span> <span class="nf">has_estimator_selector</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;estimators_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
+            <span class="n">estimator</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">attr</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">estimator</span><span class="p">:</span> <span class="p">(</span><span class="n">has_base_estimator</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span> <span class="ow">or</span>
+                              <span class="n">has_estimator_selector</span><span class="p">(</span><span class="n">estimator</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">AdaptationOutput</span><span class="p">(</span><span class="n">Bunch</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container object for multi-key adaptation output.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">IncompatibleMetadataError</span><span class="p">(</span><span class="n">UnsetMetadataPassedError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The exception is designated to report the situation when the adapter output</span>
+<span class="sd">    the key, like &#39;sample_weight&#39;, that is not explicitly consumed by the following</span>
+<span class="sd">    estimator in the pipeline.</span>
+
+<span class="sd">    The exception overrides :class:`~sklearn.exceptions.UnsetMetadataPassedError`</span>
+<span class="sd">    when there is a reason to believe that the original exception was thrown because</span>
+<span class="sd">    of the adapter output rather than being caused by the input to a specific function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">unrequested_params</span><span class="o">=</span><span class="p">{},</span> <span class="n">routed_params</span><span class="o">=</span><span class="p">{})</span>
+
+
+<span class="k">class</span> <span class="nc">BaseAdapter</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
+
+    <span class="n">__metadata_request__fit</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__transform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;allow_source&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Transform samples, labels, and weights into the space in which</span>
+<span class="sd">        the estimator is trained.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit to data, then transform it.</span>
+<span class="sd">        In this case, the fitting and the transformation are performed on</span>
+<span class="sd">        the target and source domains by default (allow_source=True).</span>
+
+<span class="sd">        It should be used only for fitting the estimator, and not for</span>
+<span class="sd">        generating the adaptation output.</span>
+<span class="sd">        For the latter, use the `transform` method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="c1"># assume &#39;fit_transform&#39; is called to fit the estimator,</span>
+        <span class="c1"># thus we allow for the source domain to be adapted</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">params</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">]:</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">params</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_DAMetadataRequesterMixin</span><span class="p">(</span><span class="n">_MetadataRequester</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin class for adding metadata related to the domain adaptation</span>
+<span class="sd">    functionality. The mixin is primarily designed for the internal API</span>
+<span class="sd">    and is expected to be rarely, if at all, required by end users.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__metadata_request__fit</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__partial_fit</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__predict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;allow_source&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__predict_proba</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;allow_source&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__predict_log_proba</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;allow_source&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+    <span class="n">__metadata_request__score</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;allow_source&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__decision_function</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;allow_source&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+
+
+<span class="k">class</span> <span class="nc">DAEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">_DAMetadataRequesterMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic DA estimator class.&quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict using the model&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">BaseSelector</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">_DAMetadataRequesterMixin</span><span class="p">):</span>
+
+    <span class="n">__metadata_request__transform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">base_estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_metadata_routing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">MetadataRouter</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add_self_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">,</span> <span class="n">method_mapping</span><span class="o">=</span><span class="n">MethodMapping</span><span class="p">()</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;partial_fit&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;partial_fit&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">))</span>
+        <span class="p">)</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseEstimator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns estimator associated with `params`.</span>
+
+<span class="sd">        The set of available estimators and access to them has to be provided</span>
+<span class="sd">        by specific implementations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get parameters for this estimator.</span>
+
+<span class="sd">        Returns the parameters of the base estimator provided in the constructor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        deep : bool, default=True</span>
+<span class="sd">            If True, will return the parameters for this estimator and</span>
+<span class="sd">            contained sub-objects that are estimators.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        params : mapping of string to any</span>
+<span class="sd">            Parameter names mapped to their values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="n">deep</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;base_estimator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span>
+        <span class="k">return</span> <span class="n">params</span>
+
+    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the parameters of this estimator.</span>
+
+<span class="sd">        Valid parameter keys can be listed with ``get_params()``. Note that</span>
+<span class="sd">        you can directly set the parameters of the estimator using `base_estimator`</span>
+<span class="sd">        attribute.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs : dict</span>
+<span class="sd">            Parameters of of the base estimator.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : object</span>
+<span class="sd">            Selector class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">base_estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_route_to_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Abstract method for calling method of a base estimator based on</span>
+<span class="sd">        the input and the routing logic associated with domain labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;predict&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">predict_log_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;decision_function&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">decision_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_route_and_merge_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routing_request</span><span class="p">,</span> <span class="n">X_input</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X_input</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">):</span>
+            <span class="n">X_out</span> <span class="o">=</span> <span class="n">X_input</span><span class="o">.</span><span class="n">X</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">X_input</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_out</span> <span class="o">=</span> <span class="n">X_input</span>
+
+        <span class="n">X_out</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
+            <span class="n">X_out</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_domain</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">routed_params</span> <span class="o">=</span> <span class="n">routing_request</span><span class="o">.</span><span class="n">_route_params</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">UnsetMetadataPassedError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># check if every parameter given by `AdaptationOutput` object</span>
+            <span class="c1"># was accepted by the downstream (base) estimator</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X_input</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">X_input</span><span class="p">:</span>
+                    <span class="n">marker</span> <span class="o">=</span> <span class="n">routing_request</span><span class="o">.</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">marker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">method</span> <span class="o">=</span> <span class="n">routing_request</span><span class="o">.</span><span class="n">method</span>
+                        <span class="k">raise</span> <span class="n">IncompatibleMetadataError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;The adapter provided &#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&#39; parameter which is not explicitly set as &quot;</span>  <span class="c1"># noqa</span>
+                            <span class="sa">f</span><span class="s2">&quot;requested or not for &#39;</span><span class="si">{</span><span class="n">routing_request</span><span class="o">.</span><span class="n">owner</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;.</span><span class="se">\n</span><span class="s2">&quot;</span>  <span class="c1"># noqa</span>
+                            <span class="sa">f</span><span class="s2">&quot;Make sure that metadata routing is properly setup, e.g. by calling &#39;set_</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">_request()&#39;. &quot;</span>  <span class="c1"># noqa</span>
+                            <span class="s2">&quot;See documentation at https://scikit-learn.org/stable/metadata_routing.html&quot;</span>  <span class="c1"># noqa</span>
+                        <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+            <span class="c1"># re-raise exception if the problem was not caused by the adapter</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">return</span> <span class="n">X_out</span><span class="p">,</span> <span class="n">routed_params</span>
+
+    <span class="k">def</span> <span class="nf">_remove_masked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes masked inputs before passing them to a downstream (base) estimator,</span>
+<span class="sd">        ensuring their compatibility with the DA pipeline, particularly for estimators</span>
+<span class="sd">        that do not natively support DA setups, such as those from scikit-learn.</span>
+
+<span class="sd">        Masked inputs are removed under the following conditions:</span>
+<span class="sd">        - Labels `y` are provided (necessary for mask detection).</span>
+<span class="sd">        - The estimator is not a transformer (i.e., does not define a</span>
+<span class="sd">          &#39;transform&#39; function).</span>
+<span class="sd">        - The estimator does not accept a `sample_domain` parameter</span>
+<span class="sd">          through routing.</span>
+
+<span class="sd">        In scenarios not meeting these criteria, masked input samples are retained.</span>
+
+<span class="sd">        Note: This API is intended for internal use.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">            Input data</span>
+<span class="sd">        y : array-like of shape (n_samples,)</span>
+<span class="sd">            Labels for the data</span>
+<span class="sd">        params : dict</span>
+<span class="sd">            Additional parameters declared in the routing</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">            Input data</span>
+<span class="sd">        y : array-like of shape (n_samples,)</span>
+<span class="sd">            Labels for the data</span>
+<span class="sd">        params : dict</span>
+<span class="sd">            Additional parameters declared in the routing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="s1">&#39;sample_domain&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">routed_params</span><span class="p">):</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="n">_remove_masked</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span>
+
+
+<div class="viewcode-block" id="Shared">
+<a class="viewcode-back" href="../../gen_modules/skada.Shared.html#skada.Shared">[docs]</a>
+<span class="k">class</span> <span class="nc">Shared</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Shared.get_estimator">
+<a class="viewcode-back" href="../../gen_modules/skada.Shared.html#skada.Shared.get_estimator">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseEstimator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to the fitted estimator.&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span></div>
+
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">routing</span> <span class="o">=</span> <span class="n">get_routing_for_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_and_merge_params</span><span class="p">(</span><span class="n">routing</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_masked</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">)</span>
+        <span class="n">estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
+        <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span> <span class="o">=</span> <span class="n">estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">routing_</span> <span class="o">=</span> <span class="n">routing</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># xxx(okachaiev): check if underlying estimator supports &#39;fit_transform&#39;</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">fit_transform</span><span class="o">.</span><span class="n">_route_params</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="c1"># &#39;fit_transform&#39; allows transformation for source domains</span>
+        <span class="c1"># as well, that&#39;s why it calls &#39;adapt&#39; directly</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span><span class="p">,</span> <span class="n">BaseAdapter</span><span class="p">):</span>
+            <span class="c1"># xxx(okachaiev): adapt should take &#39;y&#39; as well, as in many cases</span>
+            <span class="c1"># we need to bound estimator fitting to a sub-group of the input</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="c1"># xxx(okachaiev): fail if unknown domain is given</span>
+    <span class="k">def</span> <span class="nf">_route_to_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_and_merge_params</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator_</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">method</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+
+<div class="viewcode-block" id="PerDomain">
+<a class="viewcode-back" href="../../gen_modules/skada.PerDomain.html#skada.PerDomain">[docs]</a>
+<span class="k">class</span> <span class="nc">PerDomain</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">):</span>
+
+<div class="viewcode-block" id="PerDomain.get_estimator">
+<a class="viewcode-back" href="../../gen_modules/skada.PerDomain.html#skada.PerDomain.get_estimator">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_label</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseEstimator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to the fitted estimator based on the domain label.&quot;&quot;&quot;</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="n">domain_label</span><span class="p">]</span></div>
+
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span>
+        <span class="n">routing</span> <span class="o">=</span> <span class="n">get_routing_for_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_and_merge_params</span><span class="p">(</span><span class="n">routing</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_masked</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">)</span>
+        <span class="n">estimators</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">domain_label</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
+            <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sample_domain</span> <span class="o">==</span> <span class="n">domain_label</span><span class="p">)</span>
+            <span class="n">estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
+            <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">routed_params</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="p">)</span>
+            <span class="n">estimators</span><span class="p">[</span><span class="n">domain_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span> <span class="o">=</span> <span class="n">estimators</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">routing_</span> <span class="o">=</span> <span class="n">routing</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_route_to_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_and_merge_params</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="c1"># xxx(okachaiev): use check_*_domain to derive default domain labels</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">lst_domains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="c1"># test if default target domain and unique target during fit and replace label</span>
+        <span class="k">for</span> <span class="n">domain_label</span> <span class="ow">in</span> <span class="n">lst_domains</span><span class="p">:</span>
+            <span class="c1"># xxx(okachaiev): fail if unknown domain is given</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="n">domain_label</span><span class="p">],</span> <span class="n">method_name</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Domain label </span><span class="si">{</span><span class="n">domain_label</span><span class="si">}</span><span class="s2"> is not present in the &quot;</span>
+                    <span class="s2">&quot;fitted estimators.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">idx</span><span class="p">,</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sample_domain</span> <span class="o">==</span> <span class="n">domain_label</span><span class="p">)</span>
+            <span class="n">X_domain</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">y_domain</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">domain_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">routed_params</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">domain_output</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">X_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">domain_params</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">domain_output</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">X_domain</span><span class="p">,</span> <span class="n">y_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">domain_params</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">domain_output</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">domain_output</span><span class="o">.</span><span class="n">dtype</span>
+                <span class="p">)</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_output</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">_BaseSelectDomain</span><span class="p">(</span><span class="n">Shared</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract class to implement selectors that are intended</span>
+<span class="sd">    for picking specific subset of samples from the input for</span>
+<span class="sd">    fitting the base estimator, e.g. only source, only targets,</span>
+<span class="sd">    specific domain by its index or name, and more.</span>
+
+<span class="sd">    Specific functionality is given by providing implementation</span>
+<span class="sd">    for the `_select_indices` abstract method that receives an</span>
+<span class="sd">    array with domain indices (i.e. `sample_domain`) and returns</span>
+<span class="sd">    masks that should be used to filter out necessary samples</span>
+<span class="sd">    from the input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_select_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates masks for input samples.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        filter_masks : array-like, shape (n_samples,)</span>
+<span class="sd">            Array of boolean masks.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">))</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_domain</span>
+        <span class="n">filter_masks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">_apply_domain_masks</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">masks</span><span class="o">=</span><span class="n">filter_masks</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SelectSource</span><span class="p">(</span><span class="n">_BaseSelectDomain</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Selects only source domains for fitting base estimator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_select_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SelectTarget</span><span class="p">(</span><span class="n">_BaseSelectDomain</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Selects only target domains for fitting base estimator.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_select_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">~</span><span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SelectSourceTarget</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">target_estimator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">target_estimator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
+                <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">source_estimator</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">)</span> \
+                <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">target_estimator</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The provided source and target estimators must &quot;</span>
+                            <span class="s2">&quot;both be transformers, or neither should be.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_estimator</span> <span class="o">=</span> <span class="n">source_estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_estimator</span> <span class="o">=</span> <span class="n">target_estimator</span>
+
+    <span class="k">def</span> <span class="nf">get_metadata_routing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">routing</span> <span class="o">=</span> <span class="n">MetadataRouter</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">add_self_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">routing</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source_estimator</span><span class="p">,</span> <span class="n">method_mapping</span><span class="o">=</span><span class="n">MethodMapping</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;partial_fit&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;partial_fit&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_estimator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">routing</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">target_estimator</span><span class="p">,</span> <span class="n">method_mapping</span><span class="o">=</span><span class="n">MethodMapping</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;fit&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;partial_fit&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;partial_fit&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">routing</span>
+
+    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get parameters for this estimator.</span>
+
+<span class="sd">        Returns the parameters of the base estimator provided in the constructor.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        deep : bool, default=True</span>
+<span class="sd">            If True, will return the parameters for this estimator and</span>
+<span class="sd">            contained sub-objects that are estimators.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        params : mapping of string to any</span>
+<span class="sd">            Parameter names mapped to their values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="n">deep</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the parameters of this estimator.</span>
+
+<span class="sd">        Valid parameter keys can be listed with ``get_params()``. Note that</span>
+<span class="sd">        you can directly set the parameters of the estimator using `base_estimator`</span>
+<span class="sd">        attribute.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs : dict</span>
+<span class="sd">            Parameters of of the base estimator.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : object</span>
+<span class="sd">            Selector class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">get_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">BaseEstimator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to the fitted estimator based on the domain type.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">domain</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="c1"># xxx(okachaiev): seems like we have this block of code rather often</span>
+        <span class="c1">#                 maybe should be a helper</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">))</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_domain</span>
+        <span class="n">source_masks</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">estimators</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">target_estimator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_estimator</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_estimator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_estimator</span>
+        <span class="k">for</span> <span class="n">domain_type</span><span class="p">,</span> <span class="n">base_estimator</span><span class="p">,</span> <span class="n">domain_masks</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_estimator</span><span class="p">,</span> <span class="n">source_masks</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="n">target_estimator</span><span class="p">,</span> <span class="o">~</span><span class="n">source_masks</span><span class="p">)</span>
+        <span class="p">]:</span>
+            <span class="k">if</span> <span class="n">domain_masks</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># if we don&#39;t have either source or target, we should conclude that fitting</span>
+                <span class="c1"># was not successful, otherwise prediction might be not possible</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;`SelectSourceTarget` requires both source and target samples for fitting. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">domain_type</span><span class="si">}</span><span class="s2">&#39; samples are missing in the input provided.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">X_masked</span><span class="p">,</span> <span class="n">y_masked</span><span class="p">,</span> <span class="n">params_masked</span> <span class="o">=</span> <span class="n">_apply_domain_masks</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">masks</span><span class="o">=</span><span class="n">domain_masks</span><span class="p">)</span>
+            <span class="n">routing</span> <span class="o">=</span> <span class="n">get_routing_for_object</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">)</span>
+            <span class="n">X_masked</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_and_merge_params</span><span class="p">(</span><span class="n">routing</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="n">X_masked</span><span class="p">,</span> <span class="n">params_masked</span><span class="p">)</span>
+            <span class="n">X_masked</span><span class="p">,</span> <span class="n">y_masked</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_masked</span><span class="p">(</span><span class="n">X_masked</span><span class="p">,</span> <span class="n">y_masked</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">)</span>
+            <span class="n">estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">)</span>
+            <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_masked</span><span class="p">,</span> <span class="n">y_masked</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span>
+            <span class="n">estimators</span><span class="p">[</span><span class="n">domain_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">estimator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span> <span class="o">=</span> <span class="n">estimators</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_route_to_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">))</span>
+        <span class="n">source_masks</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_domain</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">domain_estimator</span><span class="p">,</span> <span class="n">domain_masks</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span> <span class="n">source_masks</span><span class="p">),</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="o">~</span><span class="n">source_masks</span><span class="p">),</span>
+        <span class="p">]:</span>
+            <span class="k">if</span> <span class="n">domain_masks</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># if domain type is not present, just skip</span>
+                <span class="k">continue</span>
+            <span class="n">X_domain</span><span class="p">,</span> <span class="n">y_domain</span><span class="p">,</span> <span class="n">params_domain</span> <span class="o">=</span> <span class="n">_apply_domain_masks</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">masks</span><span class="o">=</span><span class="n">domain_masks</span><span class="p">)</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">get_routing_for_object</span><span class="p">(</span><span class="n">domain_estimator</span><span class="p">),</span> <span class="n">method_name</span><span class="p">)</span>
+            <span class="n">X_domain</span><span class="p">,</span> <span class="n">routed_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_and_merge_params</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">X_domain</span><span class="p">,</span> <span class="n">params_domain</span><span class="p">)</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">domain_estimator</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">y_domain</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">domain_output</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">X_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">domain_output</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">X_domain</span><span class="p">,</span> <span class="n">y_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">domain_output</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">domain_output</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">domain_masks</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_output</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;source_estimator&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="c1"># xxx(okachaiev): i guess this should return &#39;True&#39; only if both</span>
+    <span class="c1"># estimators have the same method. though practical advantage is,</span>
+    <span class="c1"># surely, questionable</span>
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;source_estimator&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;predict_proba&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;source_estimator&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">predict_log_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;source_estimator&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">decision_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;source_estimator&#39;</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
