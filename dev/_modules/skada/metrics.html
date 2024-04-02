@@ -523,9 +523,9 @@
         <span class="c1"># - features_train is a numpy array --&gt; Do nothing</span>
         <span class="c1"># - features_train is a torch.Tensor --&gt; call detach().numpy()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">):</span>
-            <span class="n">features_train</span> <span class="o">=</span> <span class="n">features_train</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-            <span class="n">features_val</span> <span class="o">=</span> <span class="n">features_val</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
-            <span class="n">features_target</span> <span class="o">=</span> <span class="n">features_target</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+            <span class="n">features_train</span> <span class="o">=</span> <span class="n">features_train</span><span class="o">.</span><span class="n">X</span>
+            <span class="n">features_val</span> <span class="o">=</span> <span class="n">features_val</span><span class="o">.</span><span class="n">X</span>
+            <span class="n">features_target</span> <span class="o">=</span> <span class="n">features_target</span><span class="o">.</span><span class="n">X</span>
 
         <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="c1"># The transformer comes from a deep model</span>
