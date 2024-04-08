@@ -71,6 +71,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#sample-mapping-and-alignment-da-methods">Sample mapping and alignment DA methods</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.SubspaceAlignment.html">skada.SubspaceAlignment</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.TransferJointMatching.html">skada.TransferJointMatching</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.CORAL.html">skada.CORAL</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.OTMapping.html">skada.OTMapping</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html">skada.EntropicOTMapping</a></li>
@@ -195,22 +196,29 @@
 <tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransferComponentAnalysis</span></code></a>([base_estimator, ...])</p></td>
 <td><p>Domain Adaptation Using Transfer Component Analysis.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CORAL</span></code></a>([base_estimator, reg])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.TransferJointMatching.html#skada.TransferJointMatching" title="skada.TransferJointMatching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransferJointMatching</span></code></a>([base_estimator, ...])</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CORAL</span></code></a>([base_estimator, reg])</p></td>
 <td><p>CORAL pipeline with adapter and estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OTMapping</span></code></a>([base_estimator, metric, norm, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OTMapping</span></code></a>([base_estimator, metric, norm, ...])</p></td>
 <td><p>OTmapping pipeline with adapter and estimator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EntropicOTMapping</span></code></a>([base_estimator, metric, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EntropicOTMapping</span></code></a>([base_estimator, metric, ...])</p></td>
 <td><p>EntropicOTMapping pipeline with adapter and estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassRegularizerOTMapping</span></code></a>([base_estimator, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassRegularizerOTMapping</span></code></a>([base_estimator, ...])</p></td>
 <td><p>ClassRegularizedOTMapping pipeline with adapter and estimator.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearOTMapping</span></code></a>([base_estimator, reg, bias])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearOTMapping</span></code></a>([base_estimator, reg, bias])</p></td>
 <td><p>Returns a the linear OT mapping method with adapter and estimator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping" title="skada.MMDLSConSMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MMDLSConSMapping</span></code></a>([base_estimator, gamma, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping" title="skada.MMDLSConSMapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MMDLSConSMapping</span></code></a>([base_estimator, gamma, ...])</p></td>
 <td><p>MMDLSConSMapping pipeline with adapter and estimator.</p></td>
 </tr>
 </tbody>

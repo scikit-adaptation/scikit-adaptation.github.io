@@ -287,6 +287,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="An example of the subspace methods on a dataset subject to subspace shift">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_subspace_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_subspace.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Subspace method example on subspace shift dataset</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to...">
 
 .. only:: html
@@ -345,6 +362,7 @@ DA methods
    :hidden:
 
    /auto_examples/methods/plot_dasvm
+   /auto_examples/methods/plot_subspace
    /auto_examples/methods/plot_jdot_da
    /auto_examples/methods/plot_reweighting
    /auto_examples/methods/plot_optimal_transport_da

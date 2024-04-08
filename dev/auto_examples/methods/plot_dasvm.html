@@ -26,7 +26,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="JDOT Regressor and Classifier examples" href="plot_jdot_da.html" />
+    <link rel="next" title="Subspace method example on subspace shift dataset" href="plot_subspace.html" />
     <link rel="prev" title="Training setup for deep DA method." href="../deep/plot_training_method.html" /> 
 </head>
 
@@ -72,6 +72,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#labeling-the-target-dataset">Labeling the target dataset</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="plot_subspace.html">Subspace method example on subspace shift dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_jdot_da.html">JDOT Regressor and Classifier examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_reweighting.html">Reweighting method example on covariate shift dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_optimal_transport_da.html">Optimal Transport Domain Adaptation (OTDA)</a></li>
@@ -335,7 +336,7 @@ algorithm.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axis</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D" title="matplotlib.lines.Line2D" class="sphx-glr-backref-module-matplotlib-lines sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">margin_line</span></a><span class="p">,</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D" title="matplotlib.lines.Line2D" class="sphx-glr-backref-module-matplotlib-lines sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decision_boundary</span></a><span class="p">])</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_dasvm_002.png" srcset="../../_images/sphx_glr_plot_dasvm_002.png" alt="evolutions of the predictions, predictions at step 0, predictions at step 14, predictions at step 28, predictions at step 42" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7f32202f5c60&gt;
+<img src="../../_images/sphx_glr_plot_dasvm_002.png" srcset="../../_images/sphx_glr_plot_dasvm_002.png" alt="evolutions of the predictions, predictions at step 0, predictions at step 14, predictions at step 28, predictions at step 42" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7f2cd1ab0a30&gt;
 </pre></div>
 </div>
 </section>
@@ -366,7 +367,7 @@ source datapoints (circles) are removed from the training set.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_dasvm_003.png" srcset="../../_images/sphx_glr_plot_dasvm_003.png" alt="predictions, Score without da methods: 40.0%, Score with DASVM: 100.0%" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.992 seconds)</p>
+<img src="../../_images/sphx_glr_plot_dasvm_003.png" srcset="../../_images/sphx_glr_plot_dasvm_003.png" alt="predictions, Score without da methods: 40.0%, Score with DASVM: 100.0%" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.907 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-dasvm-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b8bc2707546ac5ba74ad9cd665e4580c/plot_dasvm.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dasvm.ipynb</span></code></a></p>
@@ -384,7 +385,7 @@ source datapoints (circles) are removed from the training set.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../deep/plot_training_method.html" class="btn btn-neutral float-left" title="Training setup for deep DA method." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plot_jdot_da.html" class="btn btn-neutral float-right" title="JDOT Regressor and Classifier examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plot_subspace.html" class="btn btn-neutral float-right" title="Subspace method example on subspace shift dataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
