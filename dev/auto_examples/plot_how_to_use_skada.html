@@ -269,7 +269,7 @@ passed in the <code class="code docutils literal notranslate"><span class="pre">
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Entropy score: </span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2"> (+-</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Entropy score: -0.17 (+-0.03)
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Entropy score: -0.18 (+-0.04)
 </pre></div>
 </div>
 </section>
@@ -296,7 +296,7 @@ passed in the <code class="code docutils literal notranslate"><span class="pre">
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on target:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV.predict" title="sklearn.model_selection.GridSearchCV.predict" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-method"><span class="n">grid_search</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">)</span> <span class="o">==</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a><span class="p">))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Best regularization parameter: auto
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Best regularization parameter: 0.1
 Accuracy on target: 1.0
 </pre></div>
 </div>
@@ -382,7 +382,7 @@ domain but train the final SVC on source Data only.</p>
 Accuracy on target: 1.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.607 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.841 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-how-to-use-skada-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/c9c38a658b92d5112ddf9d9f4d9eaa82/plot_how_to_use_skada.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_how_to_use_skada.ipynb</span></code></a></p>
