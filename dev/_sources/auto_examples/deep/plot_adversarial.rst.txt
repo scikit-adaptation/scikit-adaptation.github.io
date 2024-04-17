@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.6647  4.2367
-          2        0.4069  4.1008
-          3        0.1401  3.5988
-          4        0.0724  4.0978
-          5        0.0498  4.1059
+          1        1.3043  4.1985
+          2        0.1797  4.2966
+          3        0.0729  4.1001
+          4        0.0465  5.3017
+          5        0.0368  4.6963
 
-    0.9067524115755627
+    0.9581993569131833
 
 
 
@@ -173,9 +173,9 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        2.5774  10.4935
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        2.5842  9.9823
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -194,7 +194,7 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-          2        1.3129  12.3999
+          2        1.4059  8.3038
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -213,7 +213,7 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-          3        1.1053  14.7965
+          3        1.1601  10.4959
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -232,7 +232,7 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-          4        1.0569  28.8006
+          4        1.0763  9.0981
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -251,16 +251,16 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-          5        1.0425  18.9940
+          5        1.0552  9.2996
 
-    0.9260450160771704
+    0.887459807073955
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 49.654 seconds)
+   **Total running time of the script:** (1 minutes 13.561 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:

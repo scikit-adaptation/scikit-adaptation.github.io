@@ -551,7 +551,7 @@ See [25] for details.
 .. [25] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.
        Correcting sample selection bias by unlabeled data. In NIPS, 2007.
 
-.. GENERATED FROM PYTHON SOURCE LINES 348-385
+.. GENERATED FROM PYTHON SOURCE LINES 348-409
 
 .. code-block:: Python
 
@@ -592,6 +592,30 @@ See [25] for details.
         suptitle="Illustration of KMMReweight with weights smoothing",
     )
 
+    # We define our classifier, `clf` is a da pipeline
+    clf = KMMReweight(
+        base_classifier,
+        gamma=10.0,
+        max_iter=1000,
+        smooth_weights=True,
+        solver="frank-wolfe",
+    )
+    clf.fit(X, y, sample_domain=sample_domain)
+
+    # We get the weights:
+
+    # we first get the adapter which is estimating the weights
+    weight_estimator = clf[0].base_estimator_
+    idx = extract_source_indices(sample_domain)
+    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+
+    plot_weights_and_classifier(
+        clf,
+        weights=weights,
+        name="Kernel Mean Matching",
+        suptitle="Illustration of KMMReweight with Frank-Wolfe solver",
+    )
+
 
 
 
@@ -612,16 +636,23 @@ See [25] for details.
          :srcset: /auto_examples/methods/images/sphx_glr_plot_reweighting_009.png
          :class: sphx-glr-multi-img
 
+    *
+
+      .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_reweighting_010.png
+         :alt: Illustration of KMMReweight with Frank-Wolfe solver, Training with reweighted data, Accuracy on target
+         :srcset: /auto_examples/methods/images/sphx_glr_plot_reweighting_010.png
+         :class: sphx-glr-multi-img
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 386-388
+
+.. GENERATED FROM PYTHON SOURCE LINES 410-412
 
 Comparison of score between reweighting methods:
 ------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 388-402
+.. GENERATED FROM PYTHON SOURCE LINES 412-426
 
 .. code-block:: Python
 
@@ -661,7 +692,7 @@ Comparison of score between reweighting methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.325 seconds)
+   **Total running time of the script:** (0 minutes 1.718 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_reweighting.py:

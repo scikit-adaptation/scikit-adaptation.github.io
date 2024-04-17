@@ -7,7 +7,7 @@
   <title>Comparison of DA classification methods &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -21,7 +21,7 @@
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../_static/documentation_options.js?v=5467c19a"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -261,9 +261,9 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:664: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-/home/circleci/project/skada/utils.py:684: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
+/home/circleci/project/skada/utils.py:932: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
   warnings.warn(
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -414,7 +414,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:664: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -565,7 +565,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:664: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -716,7 +716,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:664: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 </pre></div>
 </div>
@@ -931,7 +931,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 38.906 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 16.637 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-method-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfe66d5e49c5e18b6754c1b08a23542/plot_method_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_method_comparison.ipynb</span></code></a></p>

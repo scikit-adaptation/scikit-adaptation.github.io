@@ -7,7 +7,7 @@
   <title>Adversarial domain adaptation methods. &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -21,7 +21,7 @@
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../../_static/documentation_options.js?v=5467c19a"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -157,13 +157,13 @@ on a simple image classification task.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.6647  4.2367
-      2        0.4069  4.1008
-      3        0.1401  3.5988
-      4        0.0724  4.0978
-      5        0.0498  4.1059
+      1        1.3043  4.1985
+      2        0.1797  4.2966
+      3        0.0729  4.1001
+      4        0.0465  5.3017
+      5        0.0368  4.6963
 
-0.9067524115755627
+0.9581993569131833
 </pre></div>
 </div>
 </section>
@@ -201,9 +201,9 @@ on a simple image classification task.</p>
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
-  epoch    train_loss      dur
--------  ------------  -------
-      1        2.5774  10.4935
+  epoch    train_loss     dur
+-------  ------------  ------
+      1        2.5842  9.9823
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -222,7 +222,7 @@ on a simple image classification task.</p>
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
-      2        1.3129  12.3999
+      2        1.4059  8.3038
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -241,7 +241,7 @@ on a simple image classification task.</p>
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
-      3        1.1053  14.7965
+      3        1.1601  10.4959
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -260,7 +260,7 @@ on a simple image classification task.</p>
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
-      4        1.0569  28.8006
+      4        1.0763  9.0981
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
@@ -279,12 +279,12 @@ on a simple image classification task.</p>
   return self._call_impl(*args, **kwargs)
 /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1511: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
   return self._call_impl(*args, **kwargs)
-      5        1.0425  18.9940
+      5        1.0552  9.2996
 
-0.9260450160771704
+0.887459807073955
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 49.654 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 13.561 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-adversarial-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/71d9e88a6cd2052883560d248a803df1/plot_adversarial.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_adversarial.ipynb</span></code></a></p>
