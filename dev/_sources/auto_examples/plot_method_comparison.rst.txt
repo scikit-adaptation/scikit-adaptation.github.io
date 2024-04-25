@@ -197,9 +197,9 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:915: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-    /home/circleci/project/skada/utils.py:932: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
+    /home/circleci/project/skada/utils.py:935: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
       warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -350,7 +350,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:915: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -501,7 +501,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:915: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -652,7 +652,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:912: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:915: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 
 
@@ -875,7 +875,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 13.720 seconds)
+   **Total running time of the script:** (0 minutes 13.908 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
