@@ -11,6 +11,7 @@ This is a gallery of all the SKADA example files.
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -63,6 +64,8 @@ This is a gallery of all the SKADA example files.
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -85,6 +88,7 @@ Domain Adaptation Datasets
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -154,6 +158,8 @@ Domain Adaptation Datasets
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -176,6 +182,7 @@ Deep learning DA methods
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -245,6 +252,8 @@ Deep learning DA methods
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -267,6 +276,7 @@ DA methods
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -353,6 +363,8 @@ DA methods
     </div>
 
 
+.. thumbnail-parent-div-close
+
 .. raw:: html
 
     </div>
@@ -376,6 +388,7 @@ DA validation procedures
 
     <div class="sphx-glr-thumbnails">
 
+.. thumbnail-parent-div-open
 
 .. raw:: html
 
@@ -427,6 +440,8 @@ DA validation procedures
       <div class="sphx-glr-thumbnail-title">Visualizing cross-validation behavior in skada</div>
     </div>
 
+
+.. thumbnail-parent-div-close
 
 .. raw:: html
 

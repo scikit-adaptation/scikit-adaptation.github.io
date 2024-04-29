@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_plot_how_to_use_skada.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -86,8 +86,8 @@ are organized with all source and target sample as follows:
 * :code:`X` is the input data
 * :code:`y` is the output data to be predicted (labels on target samples are not
   used)
-* :code:`sample_domain` is the domain of each sample (integer <=0 for
-  source and >0 for target)
+* :code:`sample_domain` is the domain of each sample (integer >=0 for
+  source and <0 for target)
 
 .. GENERATED FROM PYTHON SOURCE LINES 50-74
 
@@ -305,7 +305,7 @@ passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
 
  .. code-block:: none
 
-    Entropy score: -0.17 (+-0.03)
+    Entropy score: -0.17 (+-0.04)
 
 
 
@@ -351,7 +351,7 @@ passed in the :code:`fit` method of the grid search.
 
  .. code-block:: none
 
-    Best regularization parameter: 0.1
+    Best regularization parameter: auto
     Accuracy on target: 1.0
 
 
@@ -391,7 +391,7 @@ trained on source.
 
     # Similarly one can use the PerDomain selector to train a different estimator
     # per domain. this allows to handle multiple source and target domains. In this
-    # case :code:`sample_domain` must be provided during fit and predict/transform.
+    # case `sample_domain` must be provided during fit and predict/transform.
 
     pipe = make_da_pipeline(
         PerDomain(StandardScaler()),
@@ -454,8 +454,8 @@ instance to train the whole pipeline only on the source Data  as follows:
 .. GENERATED FROM PYTHON SOURCE LINES 252-255
 
 One can also use a default selector on the whole pipeline but overwrite it for
-the last estimator. The example below estimate a StandardScaler and PCA per
-domain but train the final SVC on source Data only.
+the last estimator. The example below estimate a :code:`StandardScaler` and
+:code:`PCA` per domain but train the final SVC on source Data only.
 
 .. GENERATED FROM PYTHON SOURCE LINES 255-270
 

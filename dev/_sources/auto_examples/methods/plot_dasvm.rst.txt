@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_methods_plot_dasvm.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -323,7 +323,7 @@ algorithm.
  .. code-block:: none
 
 
-    <matplotlib.legend.Legend object at 0x7f277c7ab6d0>
+    <matplotlib.legend.Legend object at 0x7f1868338670>
 
 
 
@@ -377,7 +377,7 @@ source datapoints (circles) are removed from the training set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.073 seconds)
+   **Total running time of the script:** (0 minutes 5.005 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_dasvm.py:
