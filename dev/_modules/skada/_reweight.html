@@ -118,6 +118,8 @@
 <span class="n">EPS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
 
 
+<div class="viewcode-block" id="DensityReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.DensityReweightAdapter.html#skada.DensityReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">DensityReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using density estimation.</span>
 
@@ -139,6 +141,8 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator</span> <span class="o">=</span> <span class="n">weight_estimator</span> <span class="ow">or</span> <span class="n">KernelDensity</span><span class="p">()</span>
 
+<div class="viewcode-block" id="DensityReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.DensityReweightAdapter.html#skada.DensityReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -165,8 +169,11 @@
         <span class="n">target_estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_target</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_source_</span> <span class="o">=</span> <span class="n">source_estimator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_target_</span> <span class="o">=</span> <span class="n">target_estimator</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
+
+<div class="viewcode-block" id="DensityReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.DensityReweightAdapter.html#skada.DensityReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -205,7 +212,9 @@
             <span class="n">weights</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_weights</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="DensityReweight">
@@ -239,6 +248,8 @@
 
 
 
+<div class="viewcode-block" id="GaussianReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">GaussianReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian approximation re-weighting method.</span>
 
@@ -276,6 +287,8 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
 
+<div class="viewcode-block" id="GaussianReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -300,8 +313,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_target_</span> <span class="o">=</span> <span class="n">X_target</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
+
+<div class="viewcode-block" id="GaussianReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -342,7 +358,9 @@
             <span class="n">weights</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_weights</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="GaussianReweight">
@@ -389,6 +407,8 @@
 
 
 
+<div class="viewcode-block" id="DiscriminatorReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.DiscriminatorReweightAdapter.html#skada.DiscriminatorReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">DiscriminatorReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian approximation re-weighting method.</span>
 
@@ -416,6 +436,8 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">domain_classifier</span> <span class="ow">or</span> <span class="n">LogisticRegression</span><span class="p">()</span>
 
+<div class="viewcode-block" id="DiscriminatorReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.DiscriminatorReweightAdapter.html#skada.DiscriminatorReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -441,8 +463,11 @@
         <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier</span><span class="p">)</span>
         <span class="n">domain_classifier</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y_domain</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span> <span class="o">=</span> <span class="n">domain_classifier</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
+
+<div class="viewcode-block" id="DiscriminatorReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.DiscriminatorReweightAdapter.html#skada.DiscriminatorReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -480,7 +505,9 @@
             <span class="n">weights</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_weights</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="DiscriminatorReweight">
@@ -520,6 +547,8 @@
 
 
 
+<div class="viewcode-block" id="KLIEPReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.KLIEPReweightAdapter.html#skada.KLIEPReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">KLIEPReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Kullback-Leibler Importance Estimation Procedure (KLIEPReweight).</span>
 
@@ -583,6 +612,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
 
+<div class="viewcode-block" id="KLIEPReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.KLIEPReweightAdapter.html#skada.KLIEPReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -615,7 +646,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">centers_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights_optimization</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">best_gamma_</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
 
     <span class="k">def</span> <span class="nf">_weights_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimization loop.&quot;&quot;&quot;</span>
@@ -673,6 +705,8 @@
 
         <span class="k">return</span> <span class="n">best_gamma_</span>
 
+<div class="viewcode-block" id="KLIEPReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.KLIEPReweightAdapter.html#skada.KLIEPReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -709,7 +743,8 @@
             <span class="n">weights</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_weights</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="nf">_auto_scale_gammas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -723,7 +758,8 @@
                 <span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
-        <span class="k">return</span> <span class="n">gamma</span>
+        <span class="k">return</span> <span class="n">gamma</span></div>
+
 
 
 <div class="viewcode-block" id="KLIEPReweight">
@@ -790,6 +826,8 @@
 
 
 
+<div class="viewcode-block" id="NearestNeighborReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">NearestNeighborReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using a 1NN,</span>
 
@@ -847,6 +885,8 @@
             <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
         <span class="p">)</span>
 
+<div class="viewcode-block" id="NearestNeighborReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -872,7 +912,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">indices_source</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
 
     <span class="k">def</span> <span class="nf">get_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">):</span>
         <span class="n">indices_source</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">Xs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -885,6 +926,8 @@
         <span class="n">weights</span><span class="p">[</span><span class="n">unique</span><span class="p">]</span> <span class="o">+=</span> <span class="n">counts</span>
         <span class="k">return</span> <span class="n">weights</span>
 
+<div class="viewcode-block" id="NearestNeighborReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -924,7 +967,9 @@
             <span class="n">weights</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_weights</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="NearestNeighborReweight">
@@ -1056,6 +1101,8 @@
 
 
 
+<div class="viewcode-block" id="KMMReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.KMMReweightAdapter.html#skada.KMMReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">KMMReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Kernel Mean Matching (KMMReweight).</span>
 
@@ -1136,6 +1183,8 @@
                 <span class="s2">&quot; got &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">kernel_list</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">kernel</span><span class="p">))</span>
             <span class="p">)</span>
 
+<div class="viewcode-block" id="KMMReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.KMMReweightAdapter.html#skada.KMMReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -1161,7 +1210,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">source_weights_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights_optimization</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span> <span class="o">=</span> <span class="n">X_source</span>
 
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
 
     <span class="k">def</span> <span class="nf">_weights_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Weight optimization&quot;&quot;&quot;</span>
@@ -1208,6 +1258,8 @@
         <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">weights</span>
 
+<div class="viewcode-block" id="KMMReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.KMMReweightAdapter.html#skada.KMMReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -1255,9 +1307,13 @@
             <span class="n">weights</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_weights</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+</div>
 
 
+
+<div class="viewcode-block" id="KMMReweight">
+<a class="viewcode-back" href="../../gen_modules/skada.KMMReweight.html#skada.KMMReweight">[docs]</a>
 <span class="k">def</span> <span class="nf">KMMReweight</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span>
@@ -1329,9 +1385,12 @@
             <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
 
 
+
+<div class="viewcode-block" id="MMDTarSReweightAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.MMDTarSReweightAdapter.html#skada.MMDTarSReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">MMDTarSReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Target shift reweighting using MMD.</span>
 
@@ -1436,6 +1495,8 @@
 
         <span class="k">return</span> <span class="n">weights</span><span class="p">,</span> <span class="n">alpha</span>
 
+<div class="viewcode-block" id="MMDTarSReweightAdapter.fit">
+<a class="viewcode-back" href="../../gen_modules/skada.MMDTarSReweightAdapter.html#skada.MMDTarSReweightAdapter.fit">[docs]</a>
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -1463,8 +1524,11 @@
             <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span>
         <span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
+
+<div class="viewcode-block" id="MMDTarSReweightAdapter.adapt">
+<a class="viewcode-back" href="../../gen_modules/skada.MMDTarSReweightAdapter.html#skada.MMDTarSReweightAdapter.adapt">[docs]</a>
     <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
@@ -1516,7 +1580,9 @@
             <span class="n">weights</span> <span class="o">+=</span> <span class="mf">1e-13</span>  <span class="c1"># avoid negative weights</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AdaptationOutput</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="MMDTarSReweight">

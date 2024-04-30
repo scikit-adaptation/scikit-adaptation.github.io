@@ -183,6 +183,8 @@
         <span class="k">pass</span>
 
 
+<div class="viewcode-block" id="OTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.OTMappingAdapter.html#skada.OTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">OTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
@@ -228,7 +230,8 @@
             <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
             <span class="n">norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="OTMapping">
@@ -272,6 +275,8 @@
 
 
 
+<div class="viewcode-block" id="EntropicOTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.EntropicOTMappingAdapter.html#skada.EntropicOTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">EntropicOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
@@ -328,7 +333,8 @@
             <span class="n">norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="EntropicOTMapping">
@@ -386,6 +392,8 @@
 
 
 
+<div class="viewcode-block" id="ClassRegularizerOTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.ClassRegularizerOTMappingAdapter.html#skada.ClassRegularizerOTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">ClassRegularizerOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
@@ -458,7 +466,8 @@
             <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
             <span class="n">max_inner_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_inner_iter</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="ClassRegularizerOTMapping">
@@ -526,6 +535,8 @@
 
 
 
+<div class="viewcode-block" id="LinearOTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">LinearOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
@@ -550,7 +561,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
 
     <span class="k">def</span> <span class="nf">_create_transport_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">da</span><span class="o">.</span><span class="n">LinearTransport</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">da</span><span class="o">.</span><span class="n">LinearTransport</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="LinearOTMapping">
@@ -649,6 +661,8 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
 
 
+<div class="viewcode-block" id="CORALAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.CORALAdapter.html#skada.CORALAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">CORALAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimator based on Correlation Alignment [1]_.</span>
 
@@ -741,7 +755,8 @@
         <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
             <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">X_adapt</span>
+        <span class="k">return</span> <span class="n">X_adapt</span></div>
+
 
 
 <div class="viewcode-block" id="CORAL">
@@ -787,6 +802,8 @@
 
 
 
+<div class="viewcode-block" id="MMDLSConSMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.MMDLSConSMappingAdapter.html#skada.MMDLSConSMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">MMDLSConSMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Location-Scale mapping minimizing the MMD with a Gaussian kernel.</span>
 
@@ -989,7 +1006,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">X_adapt</span> <span class="o">=</span> <span class="n">X</span>
 
-        <span class="k">return</span> <span class="n">X_adapt</span>
+        <span class="k">return</span> <span class="n">X_adapt</span></div>
+
 
 
 <div class="viewcode-block" id="MMDLSConSMapping">

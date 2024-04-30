@@ -15,7 +15,7 @@ This is a gallery of all the SKADA example files.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This is a short example of how to use SKADA to perform domain adaptation on a simple dataset wi...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat...">
 
 .. only:: html
 

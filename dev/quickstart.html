@@ -146,7 +146,7 @@
 </section>
 <section id="dataset">
 <h2>Dataset<a class="headerlink" href="#dataset" title="Link to this heading"></a></h2>
-<p>New <code class="docutils literal notranslate"><span class="pre">skada.datasets.DomainAwareDataset</span></code> class to act as a container for all domains with the API built around <code class="docutils literal notranslate"><span class="pre">add_domain</span></code> and <code class="docutils literal notranslate"><span class="pre">pack</span></code> methods:</p>
+<p>The new skada.datasets.DomainAwareDataset class acts as a container for all domains. Its API is built around the add_domain and pack methods, see example below.:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="n">DomainAwareDataset</span><span class="p">()</span>
 <span class="n">datasets</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_subj1</span><span class="p">,</span> <span class="n">y_subj1</span><span class="p">,</span> <span class="n">domain_name</span><span class="o">=</span><span class="s2">&quot;subj_1&quot;</span><span class="p">)</span>
 <span class="n">datasets</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_subj3</span><span class="p">,</span> <span class="n">y_subj3</span><span class="p">,</span> <span class="n">domain_name</span><span class="o">=</span><span class="s2">&quot;subj_3&quot;</span><span class="p">)</span>

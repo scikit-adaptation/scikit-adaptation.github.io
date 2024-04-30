@@ -58,8 +58,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to use SKADA</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#da-dataset">DA dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#da-classifier-estimator">DA Classifier estimator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#da-estimator-in-a-pipeline">DA estimator in a pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#da-adapter-pipeline">DA Adapter pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#da-estimator-with-cross-validation-of-score">DA estimator with cross-validation of score</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#da-estimators-with-score-cross-validation">DA estimators with score cross-validation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#da-estimator-with-grid-search">DA estimator with grid search</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-da-pipeline">Advanced DA pipeline</a></li>
 </ul>
@@ -100,8 +101,8 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="how-to-use-skada">
 <span id="sphx-glr-auto-examples-plot-how-to-use-skada-py"></span><h1>How to use SKADA<a class="headerlink" href="#how-to-use-skada" title="Link to this heading"></a></h1>
-<p>This is a short example of how to use SKADA to perform domain adaptation
-on a simple dataset will illustration of the API choice specific to DA.</p>
+<p>This is a short example to get started with SKADA and perform domain adaptation
+on a simple dataset. It illustrates the API choice specific to DA.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Remi Flamary</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
@@ -119,8 +120,8 @@ on a simple dataset will illustration of the API choice specific to DA.</p>
 
 <span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="p">(</span>
     <a href="../gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORAL</span></a><span class="p">,</span>
-    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">CORALAdapter</span></a><span class="p">,</span>
-    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">GaussianReweightAdapter</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.CORALAdapter.html#skada.CORALAdapter" title="skada.CORALAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORALAdapter</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter" title="skada.GaussianReweightAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-class"><span class="n">GaussianReweightAdapter</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.PerDomain.html#skada.PerDomain" title="skada.PerDomain" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-class"><span class="n">PerDomain</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.Shared.html#skada.Shared" title="skada.Shared" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-class"><span class="n">SelectSource</span></a><span class="p">,</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">SelectSourceTarget</span></a><span class="p">,</span>
@@ -134,13 +135,13 @@ on a simple dataset will illustration of the API choice specific to DA.</p>
 </div>
 <section id="da-dataset">
 <h2>DA dataset<a class="headerlink" href="#da-dataset" title="Link to this heading"></a></h2>
-<p>We generate a simple 2D DA dataset. Note that DA data
-are organized with all source and target sample as follows:</p>
+<p>We generate a simple 2D DA dataset. Note that DA datasets provided by SKADA
+are organized as follows:</p>
 <ul class="simple">
-<li><p><code class="code docutils literal notranslate"><span class="pre">X</span></code> is the input data</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">X</span></code> is the input data, including the source and the target samples</p></li>
 <li><p><code class="code docutils literal notranslate"><span class="pre">y</span></code> is the output data to be predicted (labels on target samples are not
-used)</p></li>
-<li><p><code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> is the domain of each sample (integer &gt;=0 for
+used when fitting the DA estimator)</p></li>
+<li><p><code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> encodes the domain of each sample (integer &gt;=0 for
 source and &lt;0 for target)</p></li>
 </ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get DA dataset</span>
@@ -173,8 +174,9 @@ source and &lt;0 for target)</p></li>
 </section>
 <section id="da-classifier-estimator">
 <h2>DA Classifier estimator<a class="headerlink" href="#da-classifier-estimator" title="Link to this heading"></a></h2>
-<p>DA estimators are used exactly as regular estimators. The only difference is
-that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be passed (by name).</p>
+<p>SKADA estimators are used like scikit-learn estimators. The only difference is
+that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be passed by name when fitting the
+estimator.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a DA estimator</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a> <span class="o">=</span> <a href="../gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORAL</span></a><span class="p">()</span>
 
@@ -193,10 +195,12 @@ that the <code class="code docutils literal notranslate"><span class="pre">sampl
 Accuracy on target: 0.94375
 </pre></div>
 </div>
-<hr class="docutils" />
-<p>DA estimators can be used as final estimator in the sklearn pipeline. The only
-difference is that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be passed (by name)
-during the fit.</p>
+</section>
+<section id="da-estimator-in-a-pipeline">
+<h2>DA estimator in a pipeline<a class="headerlink" href="#da-estimator-in-a-pipeline" title="Link to this heading"></a></h2>
+<p>SKADA estimators can be used as the final estimator of a scikit-learn pipeline.
+Again, the only difference is that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be
+passed by name during in fit.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a DA pipeline</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="../gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORAL</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()))</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
@@ -210,23 +214,22 @@ during the fit.</p>
 </section>
 <section id="da-adapter-pipeline">
 <h2>DA Adapter pipeline<a class="headerlink" href="#da-adapter-pipeline" title="Link to this heading"></a></h2>
-<p>Many DA method correspond to a data adapter that can be used to transform
-data such that a regular estimator can be used. For those methods, skada
+<p>Several SKADA estimators include a data adapter that transforms the input data
+so that a scikit-learn estimator can be used. For those methods, SKADA
 provides a <code class="code docutils literal notranslate"><span class="pre">Adapter</span></code> class that can be used in a DA pipeline from
-:code: .</p>
-<p>Here is an example with the CORAL and GaussianReweight adapter.</p>
+<code class="code docutils literal notranslate"><span class="pre">make_da_pipeline</span></code>.</p>
+<p>Here is an example with the CORAL and GaussianReweight adapters.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Note that as illustrated below for
-adapters that reweight the data, one needs a subsequent estimator that
-requires the weighs as input. This can be done with <code class="code docutils literal notranslate"><span class="pre">set_fit_request</span></code>
-method of the estimator by executing
-<code class="code docutils literal notranslate"><span class="pre">.set_fit_request(sample_weight=True)</span></code>). If the estimator (for
-pipeline or DA estimator) does not
+<p>Note that as illustrated below for reweighting adapters, one needs a
+subsequent estimator that takes <code class="code docutils literal notranslate"><span class="pre">sample_weight</span></code> as an input parameter.
+This can be done using the <code class="code docutils literal notranslate"><span class="pre">set_fit_request</span></code> method of the estimator
+by calling <code class="code docutils literal notranslate"><span class="pre">.set_fit_request(sample_weight=True)</span></code>.
+If the estimator (for pipeline or DA estimator) does not
 require sample weights, the DA pipeline will raise an error.</p>
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a DA pipeline with CORAL adapter</span>
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">CORALAdapter</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">())</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="../gen_modules/skada.CORALAdapter.html#skada.CORALAdapter" title="skada.CORALAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORALAdapter</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">())</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on target:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.score" title="sklearn.pipeline.Pipeline.score" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a><span class="p">))</span>
@@ -235,7 +238,7 @@ require sample weights, the DA pipeline will raise an error.</p>
 <span class="c1"># concept drift).</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span>
-    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">GaussianReweightAdapter</span></a><span class="p">(),</span>
+    <a href="../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter" title="skada.GaussianReweightAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-class"><span class="n">GaussianReweightAdapter</span></a><span class="p">(),</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
 <span class="p">)</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
@@ -248,11 +251,11 @@ Accuracy on target: 0.5
 </pre></div>
 </div>
 </section>
-<section id="da-estimator-with-cross-validation-of-score">
-<h2>DA estimator with cross-validation of score<a class="headerlink" href="#da-estimator-with-cross-validation-of-score" title="Link to this heading"></a></h2>
-<p>DA estimators can be used with cross-validation as regular estimators using
-functions from sklearn. Note that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be
-passed in the <code class="code docutils literal notranslate"><span class="pre">params</span></code> dictionary of the <code class="code docutils literal notranslate"><span class="pre">cross_val_score</span></code> function.</p>
+<section id="da-estimators-with-score-cross-validation">
+<h2>DA estimators with score cross-validation<a class="headerlink" href="#da-estimators-with-score-cross-validation" title="Link to this heading"></a></h2>
+<p>DA estimators are compatible with scikit-learn cross-validation functions.
+Note that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be passed in the <code class="code docutils literal notranslate"><span class="pre">params</span></code>
+dictionary of the <code class="code docutils literal notranslate"><span class="pre">cross_val_score</span></code> function.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># splitter for cross-validation of score</span>
 <a href="../gen_modules/skada.model_selection.SourceTargetShuffleSplit.html#skada.model_selection.SourceTargetShuffleSplit" title="skada.model_selection.SourceTargetShuffleSplit" class="sphx-glr-backref-module-skada-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cv</span></a> <span class="o">=</span> <a href="../gen_modules/skada.model_selection.SourceTargetShuffleSplit.html#skada.model_selection.SourceTargetShuffleSplit" title="skada.model_selection.SourceTargetShuffleSplit" class="sphx-glr-backref-module-skada-model_selection sphx-glr-backref-type-py-class"><span class="n">SourceTargetShuffleSplit</span></a><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
@@ -269,18 +272,18 @@ passed in the <code class="code docutils literal notranslate"><span class="pre">
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Entropy score: </span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2"> (+-</span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">scores</span></a><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">1.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Entropy score: -0.17 (+-0.04)
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Entropy score: -0.17 (+-0.03)
 </pre></div>
 </div>
 </section>
 <section id="da-estimator-with-grid-search">
 <h2>DA estimator with grid search<a class="headerlink" href="#da-estimator-with-grid-search" title="Link to this heading"></a></h2>
-<p>DA estimators can be used with grid search as regular estimators using
-functions from sklearn. Note that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be
-passed in the <code class="code docutils literal notranslate"><span class="pre">fit</span></code> method of the grid search.</p>
+<p>DA estimators are also compatible with scikit-learn grid search functions.
+Note that the <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> array must be passed in the <code class="code docutils literal notranslate"><span class="pre">fit</span></code>
+method of the grid search.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">reg_coral</span></a> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">]</span>
 
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">CORALAdapter</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="../gen_modules/skada.CORALAdapter.html#skada.CORALAdapter" title="skada.CORALAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORALAdapter</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
 <span class="c1"># grid search</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_search</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class"><span class="n">GridSearchCV</span></a><span class="p">(</span>
@@ -296,7 +299,7 @@ passed in the <code class="code docutils literal notranslate"><span class="pre">
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on target:&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.mean.html#numpy.mean" title="numpy.mean" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV.predict" title="sklearn.model_selection.GridSearchCV.predict" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-method"><span class="n">grid_search</span><span class="o">.</span><span class="n">predict</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">)</span> <span class="o">==</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a><span class="p">))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Best regularization parameter: auto
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Best regularization parameter: 0.1
 Accuracy on target: 1.0
 </pre></div>
 </div>
@@ -304,12 +307,12 @@ Accuracy on target: 1.0
 <section id="advanced-da-pipeline">
 <h2>Advanced DA pipeline<a class="headerlink" href="#advanced-da-pipeline" title="Link to this heading"></a></h2>
 <p>The DA pipeline can be used with any estimator and any adapter. But more
-importantly all estimators in the pipeline are wrapped automatically in what
-we call in skada a <code class="code docutils literal notranslate"><span class="pre">Selector</span></code>. The selector is a wrapper that allows to
-select what is passed during fit and predict/transform.</p>
-<p>For instance in the following we train one StandardScaler per domain but then
-use a single SVC trained only on source. When predicting on target data the
-pipeline will automatically use StandardScaler trained on target and the SVC
+importantly all estimators in the pipeline are automatically wrapped in what
+we call in skada a <cite>Selector</cite>. The selector is a wrapper that allows you to
+choose which data is passed during fit and predict/transform.</p>
+<p>In the following example, one StandardScaler is trained per domain. Then
+a single SVC is trained on source data only. When predicting on target data the
+pipeline will automatically use the StandardScaler trained on target and the SVC
 trained on source.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a DA pipeline with SelectSourceTarget estimators</span>
 
@@ -322,12 +325,16 @@ trained on source.</p>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on source:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.score" title="sklearn.pipeline.Pipeline.score" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xs</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ys</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_s</span></a><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on target:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.score" title="sklearn.pipeline.Pipeline.score" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a><span class="p">))</span>  <span class="c1"># target by default</span>
-
-<span class="c1"># Similarly one can use the PerDomain selector to train a different estimator</span>
-<span class="c1"># per domain. this allows to handle multiple source and target domains. In this</span>
-<span class="c1"># case `sample_domain` must be provided during fit and predict/transform.</span>
-
-<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Accuracy on source: 1.0
+Accuracy on target: 1.0
+</pre></div>
+</div>
+<p>Similarly one can use the PerDomain selector to train a different estimator
+per domain. This allows to handle multiple source and target domains. In this
+case <code class="code docutils literal notranslate"><span class="pre">sample_domain</span></code> must be provided to fit and predict/transform.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span>
     <a href="../gen_modules/skada.PerDomain.html#skada.PerDomain" title="skada.PerDomain" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-class"><span class="n">PerDomain</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.Shared.html#skada.Shared" title="skada.Shared" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-class"><span class="n">SelectSource</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
 <span class="p">)</span>
@@ -337,13 +344,11 @@ trained on source.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on all data:&quot;</span><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.score" title="sklearn.pipeline.Pipeline.score" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">pipe</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Accuracy on source: 1.0
-Accuracy on target: 1.0
-Accuracy on all data: 1.0
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Accuracy on all data: 1.0
 </pre></div>
 </div>
-<p>One can use a default selector on the whole pipeline  which allows for
-instance to train the whole pipeline only on the source Data  as follows:</p>
+<p>One can use a default selector on the whole pipeline which allows for
+instance to train the whole pipeline only on the source data as follows:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe_train_on_source</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span>
@@ -360,8 +365,8 @@ Accuracy on target: 0.5
 </pre></div>
 </div>
 <p>One can also use a default selector on the whole pipeline but overwrite it for
-the last estimator. The example below estimate a <code class="code docutils literal notranslate"><span class="pre">StandardScaler</span></code> and
-<code class="code docutils literal notranslate"><span class="pre">PCA</span></code> per domain but train the final SVC on source Data only.</p>
+the last estimator. In the example below a <code class="code docutils literal notranslate"><span class="pre">StandardScaler</span></code> and a
+<code class="code docutils literal notranslate"><span class="pre">PCA</span></code> are estimated per domain but the final SVC is trained on source data only.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe_perdomain</span></a> <span class="o">=</span> <a href="../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">(</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA" title="sklearn.decomposition.PCA" class="sphx-glr-backref-module-sklearn-decomposition sphx-glr-backref-type-py-class"><span class="n">PCA</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
@@ -382,7 +387,7 @@ the last estimator. The example below estimate a <code class="code docutils lite
 Accuracy on target: 1.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.935 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.634 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-how-to-use-skada-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/c9c38a658b92d5112ddf9d9f4d9eaa82/plot_how_to_use_skada.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_how_to_use_skada.ipynb</span></code></a></p>

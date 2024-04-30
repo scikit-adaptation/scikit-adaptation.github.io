@@ -111,6 +111,8 @@
 <span class="p">)</span>
 
 
+<div class="viewcode-block" id="SubspaceAlignmentAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.SubspaceAlignmentAdapter.html#skada.SubspaceAlignmentAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">SubspaceAlignmentAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Subspace Alignment.</span>
 
@@ -230,7 +232,8 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pca_source_</span><span class="o">.</span><span class="n">components_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pca_target_</span><span class="o">.</span><span class="n">components_</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
 
 
 <div class="viewcode-block" id="SubspaceAlignment">
@@ -281,6 +284,8 @@
 
 
 
+<div class="viewcode-block" id="TransferComponentAnalysisAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.TransferComponentAnalysisAdapter.html#skada.TransferComponentAnalysisAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">TransferComponentAnalysisAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Transfer Component Analysis.</span>
 
@@ -419,7 +424,8 @@
             <span class="n">Kt</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_target_</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">)</span>
             <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">Ks</span><span class="p">,</span> <span class="n">Kt</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="n">X_</span> <span class="o">=</span> <span class="p">(</span><span class="n">K</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">eigvects_</span><span class="p">)[:</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-        <span class="k">return</span> <span class="n">X_</span>
+        <span class="k">return</span> <span class="n">X_</span></div>
+
 
 
 <div class="viewcode-block" id="TransferComponentAnalysis">
@@ -468,6 +474,8 @@
 
 
 
+<div class="viewcode-block" id="TransferJointMatchingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.TransferJointMatchingAdapter.html#skada.TransferJointMatchingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">TransferJointMatchingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using TJM: Transfer Joint Matching.</span>
 
@@ -674,7 +682,8 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">A_</span> <span class="o">=</span> <span class="n">A</span>
 
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
 
 
 <div class="viewcode-block" id="TransferJointMatching">

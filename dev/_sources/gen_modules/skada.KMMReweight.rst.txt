@@ -1,0 +1,11 @@
+﻿skada.KMMReweight
+=================
+
+.. currentmodule:: skada
+
+.. autofunction:: KMMReweight
+
+.. _sphx_glr_backreferences_skada.KMMReweight:
+
+.. minigallery:: skada.KMMReweight
+    :add-heading:
