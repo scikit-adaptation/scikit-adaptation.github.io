@@ -305,7 +305,7 @@ passed in the :code:`params` dictionary of the :code:`cross_val_score` function.
 
  .. code-block:: none
 
-    Entropy score: -0.17 (+-0.04)
+    Entropy score: -0.16 (+-0.04)
 
 
 
@@ -351,7 +351,7 @@ passed in the :code:`fit` method of the grid search.
 
  .. code-block:: none
 
-    Best regularization parameter: auto
+    Best regularization parameter: 0.1
     Accuracy on target: 1.0
 
 
@@ -493,7 +493,7 @@ the last estimator. The example below estimate a :code:`StandardScaler` and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.665 seconds)
+   **Total running time of the script:** (0 minutes 1.603 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:
