@@ -654,9 +654,15 @@
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
 
-        <span class="n">backward_estimator</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
+        <span class="c1"># TODO: Check if skorch works with deepcopy/clone</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">backward_estimator</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="n">backward_estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
 
-        <span class="n">y_pred_target</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
+        <span class="n">y_pred_target</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_pred_target</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="c1"># Otherwise, we can get ValueError exceptions</span>
@@ -693,7 +699,9 @@
                 <span class="n">backward_y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span>
 
             <span class="n">backward_estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">backward_y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">backward_sample_domain</span><span class="p">)</span>
-            <span class="n">y_pred_source</span> <span class="o">=</span> <span class="n">backward_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">])</span>
+            <span class="n">y_pred_source</span> <span class="o">=</span> <span class="n">backward_estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+                <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">backward_sample_domain</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span>
+            <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">y_type</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span><span class="p">:</span>
                 <span class="c1"># We go back to the original labels</span>
