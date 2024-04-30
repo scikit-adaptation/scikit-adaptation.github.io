@@ -182,7 +182,7 @@ See detailed description of each shift in [1]_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.631 seconds)
+   **Total running time of the script:** (0 minutes 0.666 seconds)
 
 
 .. _sphx_glr_download_auto_examples_datasets_plot_shifted_dataset_regression.py:

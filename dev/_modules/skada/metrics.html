@@ -327,7 +327,6 @@
                 <span class="s2">&quot;The estimator passed should have a &#39;predict_proba&#39; method. &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
-
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">proba</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
@@ -339,9 +338,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">log_proba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">proba</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
-
         <span class="n">entropy_per_sample</span> <span class="o">=</span> <span class="o">-</span><span class="n">proba</span> <span class="o">*</span> <span class="n">log_proba</span>
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">entropy_per_sample</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">==</span> <span class="s2">&quot;sum&quot;</span><span class="p">:</span>

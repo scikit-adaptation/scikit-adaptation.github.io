@@ -173,14 +173,14 @@ on a simple image classification task.</p>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
--------  ------------  ------
-      1        2.2358  9.2920
-      2        2.0874  11.1080
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
+-------  ------------  -------
+      1        2.2161  11.3926
+      2        2.0732  11.9020
 
 &lt;class &#39;skada.deep.base.DomainAwareNet&#39;&gt;[initialized](
   module_=DomainAwareModule(
-    (module_): MNISTtoUSPSNet(
+    (base_module_): MNISTtoUSPSNet(
       (conv1): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
       (relu1): ReLU()
       (conv2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
@@ -219,12 +219,12 @@ on a simple image classification task.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
 -------  ------------  -------
-      1        2.3059  10.1591
-      2        2.2425  10.5052
+      1        2.2152  12.2734
+      2        2.0969  12.1057
 
 &lt;class &#39;skada.deep.base.DomainAwareNet&#39;&gt;[initialized](
   module_=DomainAwareModule(
-    (module_): MNISTtoUSPSNet(
+    (base_module_): MNISTtoUSPSNet(
       (conv1): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
       (relu1): ReLU()
       (conv2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
@@ -272,11 +272,11 @@ on a simple image classification task.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loss:&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">running_loss</span></a> <span class="o">/</span> <span class="nb">iter</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loss: 1.104788851737976
-Loss: 0.20321685075759888
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loss: 1.1431343480944633
+Loss: 0.18548939004540443
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 3.225 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 15.424 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-training-method-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0a1031daef8de6949bff505828d49e0e/plot_training_method.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_training_method.ipynb</span></code></a></p>
