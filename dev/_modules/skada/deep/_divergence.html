@@ -135,9 +135,7 @@
         <span class="n">features_t</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
-        <span class="n">cov_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">features_s</span><span class="p">)</span>
-        <span class="n">cov_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">features_t</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">cov_s</span><span class="p">,</span> <span class="n">cov_t</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
 
