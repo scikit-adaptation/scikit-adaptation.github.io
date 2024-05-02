@@ -24,12 +24,13 @@ Subspace method example on subspace shift dataset
 An example of the subspace methods on a dataset subject
 to subspace shift
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-14
+.. GENERATED FROM PYTHON SOURCE LINES 8-15
 
 .. code-block:: Python
 
 
     # Author:   Ruben Bueno <ruben.bueno@polytechnique.edu>
+    #           Oleksii Kachaiev <kachayev@gmail.com>
     #
     # License: BSD 3-Clause
     # sphinx_gallery_thumbnail_number = 4
@@ -41,7 +42,7 @@ to subspace shift
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-29
+.. GENERATED FROM PYTHON SOURCE LINES 16-30
 
 .. code-block:: Python
 
@@ -66,7 +67,7 @@ to subspace shift
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-46
+.. GENERATED FROM PYTHON SOURCE LINES 31-47
 
 The subspaces methods
 ------------------------------------------
@@ -85,7 +86,7 @@ The Subspace methods implemented and illustrated are the following:
     Analysis method>`
   * :ref:`Transfer Joint Matching<Illustration of the Transfer Joint Matching method>`
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-52
+.. GENERATED FROM PYTHON SOURCE LINES 47-53
 
 .. code-block:: Python
 
@@ -109,28 +110,38 @@ The Subspace methods implemented and illustrated are the following:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-57
+.. GENERATED FROM PYTHON SOURCE LINES 54-58
 
 We generate our 2D dataset with 2 classes
 ------------------------------------------
 
 We generate a simple 2D dataset with subspace shift.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-70
+.. GENERATED FROM PYTHON SOURCE LINES 58-81
 
 .. code-block:: Python
 
 
     RANDOM_SEED = 42
 
-    X, y, sample_domain = make_shifted_datasets(
+    dataset = make_shifted_datasets(
         n_samples_source=20,
         n_samples_target=20,
         noise=0.1,
         random_state=RANDOM_SEED,
         shift="subspace",
+        return_dataset=True,
     )
 
+    X_train, y_train, sample_domain_train = dataset.pack_train(
+        as_sources=["s"],
+        as_targets=["t"],
+    )
+    X, y, sample_domain = dataset.pack(
+        as_sources=["s"],
+        as_targets=["t"],
+        train=False,
+    )
     Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
 
 
@@ -140,12 +151,12 @@ We generate a simple 2D dataset with subspace shift.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-73
+.. GENERATED FROM PYTHON SOURCE LINES 82-84
 
 Plot of the dataset:
 ------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-105
+.. GENERATED FROM PYTHON SOURCE LINES 84-116
 
 .. code-block:: Python
 
@@ -199,7 +210,7 @@ Plot of the dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-112
+.. GENERATED FROM PYTHON SOURCE LINES 117-123
 
 Illustration of the problem with no domain adaptation
 ------------------------------------------
@@ -208,7 +219,7 @@ When not using domain adaptation, the classifier won't train on
 data that is distributed as the target sample domain, it will thus
 not be performing optimaly.
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-282
+.. GENERATED FROM PYTHON SOURCE LINES 123-297
 
 .. code-block:: Python
 
@@ -256,15 +267,19 @@ not be performing optimaly.
         )
         scores_dict[name] = score
         if name != "Without DA":
-            keys = list(clf.named_steps.keys())
-            subspace_estimator = clf.named_steps[keys[0]].base_estimator_
-            clf_on_subspace = clf.named_steps[keys[1]].base_estimator_
+            subspace_estimator = clf.steps[-2][1].get_estimator()
+            clf_on_subspace = clf.steps[-1][1].get_estimator()
 
             ax = axes[0]
 
             # Plot the source points:
-            Xs_subspace = subspace_estimator.adapt(Xs)
-            Xt_subspace = subspace_estimator.adapt(Xt)
+            Xs_subspace = subspace_estimator.transform(
+                Xs,
+                # mark all samples as sources
+                sample_domain=np.ones(Xs.shape[0]),
+                allow_source=True,
+            )
+            Xt_subspace = subspace_estimator.transform(Xt)
             ax.scatter(
                 Xs_subspace,
                 [1] * Xs.shape[0],
@@ -289,7 +304,7 @@ not be performing optimaly.
             ax.set_title("Full dataset projected on the subspace", fontsize=12)
 
             ax = axes[1]
-            Xt_adapted = subspace_estimator.adapt(Xt)
+            Xt_adapted = subspace_estimator.transform(Xt)
             ax.scatter(
                 Xt_adapted,
                 [0] * Xt.shape[0],
@@ -394,7 +409,7 @@ not be performing optimaly.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 283-296
+.. GENERATED FROM PYTHON SOURCE LINES 298-311
 
 Illustration of the Subspace Alignment method
 ------------------------------------------
@@ -410,13 +425,13 @@ See [8] for details:
        Domain Adaptation Using Subspace Alignment.
        In IEEE International Conference on Computer Vision, 2013.
 
-.. GENERATED FROM PYTHON SOURCE LINES 296-301
+.. GENERATED FROM PYTHON SOURCE LINES 311-316
 
 .. code-block:: Python
 
 
     clf = SubspaceAlignment(base_classifier, n_components=1)
-    clf.fit(X, y, sample_domain=sample_domain)
+    clf.fit(X_train, y_train, sample_domain=sample_domain_train)
     plot_subspace_and_classifier(clf, "Subspace Alignment")
 
 
@@ -431,7 +446,7 @@ See [8] for details:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 302-314
+.. GENERATED FROM PYTHON SOURCE LINES 317-329
 
 Illustration of the Transfer Component Analysis method
 ------------------------------------------
@@ -446,13 +461,13 @@ See [9] for details:
        Transfer Component Analysis. In IEEE Transactions
        on Neural Networks, 2011.
 
-.. GENERATED FROM PYTHON SOURCE LINES 314-319
+.. GENERATED FROM PYTHON SOURCE LINES 329-334
 
 .. code-block:: Python
 
 
     clf = TransferComponentAnalysis(base_classifier, n_components=1, mu=2)
-    clf.fit(X, y, sample_domain=sample_domain)
+    clf.fit(X_train, y_train, sample_domain=sample_domain_train)
     plot_subspace_and_classifier(clf, "TCA")
 
 
@@ -467,7 +482,7 @@ See [9] for details:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 320-332
+.. GENERATED FROM PYTHON SOURCE LINES 335-347
 
 Illustration of the Transfer Joint Matching method
 ------------------------------------------
@@ -482,13 +497,13 @@ See [26] for details:
         Transfer joint matching for unsupervised domain adaptation. In IEEE Conference
         on Computer Vision and Pattern Recognition (CVPR), pages 1410–1417.
 
-.. GENERATED FROM PYTHON SOURCE LINES 332-341
+.. GENERATED FROM PYTHON SOURCE LINES 347-356
 
 .. code-block:: Python
 
 
     clf = TransferJointMatching(base_classifier, tradeoff=0.1, n_components=1)
-    clf.fit(X, y, sample_domain=sample_domain)
+    clf.fit(X_train, y_train, sample_domain=sample_domain_train)
     plot_subspace_and_classifier(
         clf,
         "TransferJointMatching with rbf kernel",
@@ -507,24 +522,22 @@ See [26] for details:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 342-344
+.. GENERATED FROM PYTHON SOURCE LINES 357-359
 
 Comparison of score between subspace methods:
 ------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 344-358
+.. GENERATED FROM PYTHON SOURCE LINES 359-371
 
 .. code-block:: Python
 
 
 
     def print_scores_as_table(scores):
-        keys = list(scores.keys())
-        lengths = [len(k) for k in keys]
-        max_lenght = max(lengths)
-        for k in keys:
-            print(f"{k}{' '*(max_lenght - len(k))} | ", end="")
-            print(f"{scores[k]*100}{' '*(6-len(str(scores[k]*100)))}%")
+        max_len = max(len(k) for k in scores.keys())
+        for k, v in scores.items():
+            print(f"{k}{' '*(max_len - len(k))} | ", end="")
+            print(f"{v*100}{' '*(6-len(str(v*100)))}%")
 
 
     print_scores_as_table(scores_dict)
@@ -539,9 +552,9 @@ Comparison of score between subspace methods:
  .. code-block:: none
 
     Without DA                            | 6.25  %
-    Subspace Alignment                    | 87.5  %
-    TCA                                   | 82.5  %
-    TransferJointMatching with rbf kernel | 92.5  %
+    Subspace Alignment                    | 1.25  %
+    TCA                                   | 80.0  %
+    TransferJointMatching with rbf kernel | 90.0  %
 
 
 
@@ -549,7 +562,7 @@ Comparison of score between subspace methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.320 seconds)
+   **Total running time of the script:** (0 minutes 1.770 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_subspace.py:

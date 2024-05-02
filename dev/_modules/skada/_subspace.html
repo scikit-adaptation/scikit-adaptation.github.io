@@ -152,48 +152,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
-<span class="sd">            The source data.</span>
-<span class="sd">        y : array-like, shape (n_samples,)</span>
-<span class="sd">            The source labels.</span>
-<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
-<span class="sd">            The domain labels (same as sample_domain).</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
-<span class="sd">            The data transformed to the target subspace.</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
-<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
-<span class="sd">            The domain labels transformed to the target subspace</span>
-<span class="sd">            (same as sample_domain).</span>
-<span class="sd">        weights : None</span>
-<span class="sd">            No weights are returned here.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="p">,</span>
-            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="n">X_source</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pca_source_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_source</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">M_</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="n">X_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pca_target_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">M_</span><span class="p">)</span>
-        <span class="c1"># xxx(okachaiev): this could be done through a more high-level API</span>
-        <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
-            <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">X_adapt</span>
-
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
@@ -232,7 +190,65 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components_</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">M_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pca_source_</span><span class="o">.</span><span class="n">components_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pca_target_</span><span class="o">.</span><span class="n">components_</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform adaptation on given samples (weights, sample or labels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
+<span class="sd">            The data transformed to the target subspace.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
+            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">X_source</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pca_source_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_source</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">M_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">X_target</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pca_target_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_target</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">M_</span><span class="p">)</span>
+        <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
+            <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_adapt</span>
+
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
+<span class="sd">            The data transformed to the target subspace.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;allow_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
 
 
@@ -329,7 +345,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
@@ -385,7 +401,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">eigvects_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigvects</span><span class="p">[:,</span> <span class="n">selected_components</span><span class="p">])</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -401,15 +417,34 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data transformed to the target subspace.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;allow_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform adaptation on given samples (weights, sample or labels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
 <span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
-<span class="sd">            The domain labels transformed to the target subspace</span>
-<span class="sd">            (same as sample_domain).</span>
-<span class="sd">        weights : None</span>
-<span class="sd">            No weights are returned here.</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
+<span class="sd">            The data transformed to the target subspace.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span>
             <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
             <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
@@ -532,7 +567,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -548,17 +583,34 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data transformed to the target subspace.</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">params</span><span class="p">[</span><span class="s2">&quot;allow_source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform adaptation on given samples (weights, sample or labels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
 <span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
-<span class="sd">            The domain labels transformed to the target subspace</span>
-<span class="sd">            (same as sample_domain).</span>
-<span class="sd">        weights : None</span>
-<span class="sd">            No weights are returned here.</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
+<span class="sd">            The data transformed to the target subspace.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span>
             <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
             <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
@@ -590,7 +642,7 @@
         <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">block</span><span class="p">([[</span><span class="n">Kss</span><span class="p">,</span> <span class="n">Kst</span><span class="p">],</span> <span class="p">[</span><span class="n">Kst</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Ktt</span><span class="p">]])</span>
         <span class="k">return</span> <span class="n">K</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>

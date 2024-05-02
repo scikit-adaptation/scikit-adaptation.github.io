@@ -24,13 +24,14 @@ Reweighting method example on covariate shift dataset
 An example of the reweighting methods on a dataset subject
 to covariate shift
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-15
+.. GENERATED FROM PYTHON SOURCE LINES 8-16
 
 .. code-block:: Python
 
 
     # Author:   Ruben Bueno <ruben.bueno@polytechnique.edu>
     #           Antoine de Mathelin
+    #           Oleksii Kachaiev <kachayev@gmail.com>
     #
     # License: BSD 3-Clause
     # sphinx_gallery_thumbnail_number = 7
@@ -42,7 +43,7 @@ to covariate shift
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-35
+.. GENERATED FROM PYTHON SOURCE LINES 17-36
 
 .. code-block:: Python
 
@@ -72,7 +73,7 @@ to covariate shift
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-59
+.. GENERATED FROM PYTHON SOURCE LINES 37-60
 
 The reweighting methods
 ------------------------------------------
@@ -98,7 +99,7 @@ For more details, look at [3].
        Mathematics, 60(4):699–746.
        https://www.ism.ac.jp/editsec/aism/pdf/060_4_0699.pdf
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-66
+.. GENERATED FROM PYTHON SOURCE LINES 61-67
 
 .. code-block:: Python
 
@@ -122,14 +123,14 @@ For more details, look at [3].
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-71
+.. GENERATED FROM PYTHON SOURCE LINES 68-72
 
 We generate our 2D dataset with 2 classes
 ------------------------------------------
 
 We generate a simple 2D dataset with covariate shift
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-80
+.. GENERATED FROM PYTHON SOURCE LINES 72-81
 
 .. code-block:: Python
 
@@ -149,12 +150,12 @@ We generate a simple 2D dataset with covariate shift
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-83
+.. GENERATED FROM PYTHON SOURCE LINES 82-84
 
 Plot of the dataset:
 ------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-111
+.. GENERATED FROM PYTHON SOURCE LINES 84-112
 
 .. code-block:: Python
 
@@ -204,7 +205,7 @@ Plot of the dataset:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-118
+.. GENERATED FROM PYTHON SOURCE LINES 113-119
 
 Illustration of the problem with no domain adaptation
 ------------------------------------------
@@ -213,7 +214,7 @@ When not using domain adaptation, the classifier won't train on
 data that is distributed as the target sample domain, it will thus
 not be performing optimaly.
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-203
+.. GENERATED FROM PYTHON SOURCE LINES 119-204
 
 .. code-block:: Python
 
@@ -314,7 +315,7 @@ not be performing optimaly.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-209
+.. GENERATED FROM PYTHON SOURCE LINES 205-210
 
 Illustration of the Density Reweighting method
 ------------------------------------------
@@ -322,7 +323,7 @@ Illustration of the Density Reweighting method
 This method is trying to compute the optimal weights as a ratio of two probability
 functions, by default, it is the ratio of two kernel densities estimations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-226
+.. GENERATED FROM PYTHON SOURCE LINES 210-227
 
 .. code-block:: Python
 
@@ -337,9 +338,9 @@ functions, by default, it is the ratio of two kernel densities estimations.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(clf, weights=weights, name="Density Reweighting")
 
@@ -355,7 +356,7 @@ functions, by default, it is the ratio of two kernel densities estimations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 227-238
+.. GENERATED FROM PYTHON SOURCE LINES 228-239
 
 Illustration of the Gaussian reweighting method
 ------------------------------------------
@@ -369,7 +370,7 @@ See [1] for details.
         covariate shift by weighting the log-likelihood function.
         In Journal of Statistical Planning and Inference, 2000.
 
-.. GENERATED FROM PYTHON SOURCE LINES 238-249
+.. GENERATED FROM PYTHON SOURCE LINES 239-250
 
 .. code-block:: Python
 
@@ -378,9 +379,9 @@ See [1] for details.
     clf = GaussianReweight(base_classifier)
     clf.fit(X, y, sample_domain=sample_domain)
     # We get the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(clf, weights=weights, name="Gaussian Reweighting")
 
@@ -396,7 +397,7 @@ See [1] for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 250-262
+.. GENERATED FROM PYTHON SOURCE LINES 251-263
 
 Illustration of the Discr. reweighting method
 ------------------------------------------
@@ -411,7 +412,7 @@ See [1] for details.
           covariate shift by weighting the log-likelihood function.
           In Journal of Statistical Planning and Inference, 2000.
 
-.. GENERATED FROM PYTHON SOURCE LINES 262-276
+.. GENERATED FROM PYTHON SOURCE LINES 263-277
 
 .. code-block:: Python
 
@@ -423,9 +424,9 @@ See [1] for details.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(clf, weights=weights, name="Discr. Reweighting")
 
@@ -441,7 +442,7 @@ See [1] for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 277-290
+.. GENERATED FROM PYTHON SOURCE LINES 278-291
 
 Illustration of the KLIEPReweight method
 ------------------------------------------
@@ -457,7 +458,7 @@ See [3] for details.
        and Its Application to Covariate Shift Adaptation.
        In NeurIPS, 2007.
 
-.. GENERATED FROM PYTHON SOURCE LINES 290-306
+.. GENERATED FROM PYTHON SOURCE LINES 291-307
 
 .. code-block:: Python
 
@@ -471,9 +472,9 @@ See [3] for details.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(clf, weights=weights, name="KLIEPReweight")
 
@@ -489,7 +490,7 @@ See [3] for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 307-321
+.. GENERATED FROM PYTHON SOURCE LINES 308-322
 
 Illustration of the Nearest Neighbor reweighting method
 ------------------------------------------
@@ -506,7 +507,7 @@ See [24] for details.
        In 2012 IEEE International Workshop on Machine
        Learning for Signal Processing, pages 1–6. IEEE
 
-.. GENERATED FROM PYTHON SOURCE LINES 321-335
+.. GENERATED FROM PYTHON SOURCE LINES 322-336
 
 .. code-block:: Python
 
@@ -518,9 +519,9 @@ See [24] for details.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(clf, weights=weights, name="1NN Reweighting")
 
@@ -536,7 +537,7 @@ See [24] for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-348
+.. GENERATED FROM PYTHON SOURCE LINES 337-349
 
 Illustration of the Kernel Mean Matching method
 ------------------------------------------
@@ -551,7 +552,7 @@ See [25] for details.
 .. [25] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.
        Correcting sample selection bias by unlabeled data. In NIPS, 2007.
 
-.. GENERATED FROM PYTHON SOURCE LINES 348-409
+.. GENERATED FROM PYTHON SOURCE LINES 349-410
 
 .. code-block:: Python
 
@@ -563,9 +564,9 @@ See [25] for details.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(
         clf,
@@ -581,9 +582,9 @@ See [25] for details.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(
         clf,
@@ -605,9 +606,9 @@ See [25] for details.
     # We get the weights:
 
     # we first get the adapter which is estimating the weights
-    weight_estimator = clf[0].base_estimator_
+    weight_estimator = clf[0].get_estimator()
     idx = extract_source_indices(sample_domain)
-    weights = weight_estimator.adapt(X, sample_domain=sample_domain).sample_weight[idx]
+    weights = weight_estimator.compute_weights(X, sample_domain=sample_domain)[idx]
 
     plot_weights_and_classifier(
         clf,
@@ -647,24 +648,22 @@ See [25] for details.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 410-412
+.. GENERATED FROM PYTHON SOURCE LINES 411-413
 
 Comparison of score between reweighting methods:
 ------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 412-426
+.. GENERATED FROM PYTHON SOURCE LINES 413-425
 
 .. code-block:: Python
 
 
 
     def print_scores_as_table(scores):
-        keys = list(scores.keys())
-        lengths = [len(k) for k in keys]
-        max_lenght = max(lengths)
-        for k in keys:
-            print(f"{k}{' '*(max_lenght - len(k))} | ", end="")
-            print(f"{scores[k]*100}{' '*(6-len(str(scores[k]*100)))}%")
+        max_len = max(len(k) for k in scores.keys())
+        for k, v in scores.items():
+            print(f"{k}{' '*(max_len - len(k))} | ", end="")
+            print(f"{v*100}{' '*(6-len(str(v*100)))}%")
 
 
     print_scores_as_table(scores_dict)
@@ -692,7 +691,7 @@ Comparison of score between reweighting methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.717 seconds)
+   **Total running time of the script:** (0 minutes 1.493 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_reweighting.py:

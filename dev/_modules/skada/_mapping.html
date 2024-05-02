@@ -102,7 +102,6 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseAdapter</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">check_X_domain</span><span class="p">,</span>
-    <span class="n">check_X_y_domain</span><span class="p">,</span>
     <span class="n">extract_source_indices</span><span class="p">,</span>
     <span class="n">source_target_merge</span><span class="p">,</span>
     <span class="n">source_target_split</span><span class="p">,</span>
@@ -117,7 +116,7 @@
 <span class="sd">    to create OT object using parameters saved in the constructor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
@@ -134,7 +133,7 @@
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
@@ -143,7 +142,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ot_transport_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">Xt</span><span class="o">=</span><span class="n">X_target</span><span class="p">,</span> <span class="n">yt</span><span class="o">=</span><span class="n">y_target</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -159,14 +158,20 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data transformed to the target subspace.</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
-<span class="sd">        weights : array-like, shape (n_samples,)</span>
-<span class="sd">            The weights of the samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="c1"># xxx(okachaiev): implement auto-infer for sample_domain</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
+            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="c1"># in case of prediction we would get only target samples here,</span>
@@ -724,7 +729,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span> <span class="o">=</span> <span class="n">_sqrtm</span><span class="p">(</span><span class="n">cov_target_</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -740,18 +745,27 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_features)</span>
 <span class="sd">            The data transformed to the target space.</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
-<span class="sd">        weights : None</span>
-<span class="sd">            No weights are returned here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
+            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
-        <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span><span class="p">)</span>
-        <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span><span class="p">)</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">X_source</span>
         <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
             <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
@@ -802,6 +816,8 @@
 
 
 
+<span class="c1"># xxx(okachaiev): we should move this to &#39;skada.deep.*&#39; I guess</span>
+<span class="c1"># to avoid defining things that won&#39;t work anyways</span>
 <div class="viewcode-block" id="MMDLSConSMappingAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.MMDLSConSMappingAdapter.html#skada.MMDLSConSMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">MMDLSConSMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
@@ -925,7 +941,7 @@
 
         <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">H</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
@@ -942,7 +958,10 @@
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="c1"># xxx(okachaiev): we can&#39;t test X_y here because y might</span>
+        <span class="c1"># have NaNs, thought it might be better to keep this as an</span>
+        <span class="c1"># argument of a checker</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
@@ -954,7 +973,7 @@
 
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -970,23 +989,26 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data (same as X).</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
-<span class="sd">        weights : array-like, shape (n_samples,)</span>
-<span class="sd">            The weights of the samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">)</span>
 
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
-
-        <span class="k">if</span> <span class="n">source_idx</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">X_source</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]):</span>
                 <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discrete_</span><span class="p">:</span>
                     <span class="c1"># recompute the mapping</span>
-                    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+                    <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
                     <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
                     <span class="n">y_source</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span>
                     <span class="n">classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span>
@@ -1000,12 +1022,9 @@
                     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                     <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
             <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">W</span> <span class="o">*</span> <span class="n">X_source</span> <span class="o">+</span> <span class="n">B</span>
-            <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
-                <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">X_adapt</span> <span class="o">=</span> <span class="n">X</span>
-
+        <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
+            <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">X_adapt</span></div>
 
 

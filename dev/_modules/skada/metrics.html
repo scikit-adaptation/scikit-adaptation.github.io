@@ -105,8 +105,6 @@
 <span class="kn">from</span> <span class="nn">sklearn.utils.extmath</span> <span class="kn">import</span> <span class="n">softmax</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.metadata_routing</span> <span class="kn">import</span> <span class="n">_MetadataRequester</span><span class="p">,</span> <span class="n">get_routing_for_object</span>
 
-<span class="kn">from</span> <span class="nn">skada.base</span> <span class="kn">import</span> <span class="n">AdaptationOutput</span>
-
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
     <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="p">,</span>
@@ -248,8 +246,6 @@
 
     <span class="k">def</span> <span class="nf">_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="n">scorer</span> <span class="o">=</span> <span class="n">check_scoring</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
-        <span class="c1"># xxx(okachaiev): similar should be done</span>
-        <span class="c1"># for the pipeline with re-weight adapters</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">get_routing_for_object</span><span class="p">(</span><span class="n">scorer</span><span class="p">)</span><span class="o">.</span><span class="n">consumes</span><span class="p">(</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">]):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;The estimator passed should accept &#39;sample_weight&#39; parameter. &quot;</span>
@@ -515,16 +511,10 @@
         <span class="n">features_val</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span>
         <span class="n">features_target</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
 
-        <span class="c1"># 3 cases:</span>
-        <span class="c1"># - features_train is an AdaptationOutput --&gt; call get(&#39;X&#39;)</span>
+        <span class="c1"># 2 cases:</span>
         <span class="c1"># - features_train is a numpy array --&gt; Do nothing</span>
         <span class="c1"># - features_train is a torch.Tensor --&gt; call detach().numpy()</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">AdaptationOutput</span><span class="p">):</span>
-            <span class="n">features_train</span> <span class="o">=</span> <span class="n">features_train</span><span class="o">.</span><span class="n">X</span>
-            <span class="n">features_val</span> <span class="o">=</span> <span class="n">features_val</span><span class="o">.</span><span class="n">X</span>
-            <span class="n">features_target</span> <span class="o">=</span> <span class="n">features_target</span><span class="o">.</span><span class="n">X</span>
-
-        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">features_train</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="c1"># The transformer comes from a deep model</span>
             <span class="c1"># and returns a torch.Tensor</span>
             <span class="n">features_train</span> <span class="o">=</span> <span class="n">features_train</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
