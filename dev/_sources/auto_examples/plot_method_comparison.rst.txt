@@ -34,7 +34,7 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-225
+.. GENERATED FROM PYTHON SOURCE LINES 18-228
 
 
 
@@ -134,6 +134,20 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    TSL Pipeline(steps=[('transfersubspacelearningadapter',
+                     Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                            base_method='flda', length_scale=2, max_iter=100,
+                            mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                            verbose=False)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                             metric='sqeuclidean', norm=None)),
@@ -197,9 +211,9 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-    /home/circleci/project/skada/utils.py:938: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
+    /home/circleci/project/skada/utils.py:943: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
       warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -287,6 +301,20 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    TSL Pipeline(steps=[('transfersubspacelearningadapter',
+                     Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                            base_method='flda', length_scale=2, max_iter=100,
+                            mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                            verbose=False)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                             metric='sqeuclidean', norm=None)),
@@ -350,7 +378,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -438,6 +466,20 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    TSL Pipeline(steps=[('transfersubspacelearningadapter',
+                     Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                            base_method='flda', length_scale=2, max_iter=100,
+                            mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                            verbose=False)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                             metric='sqeuclidean', norm=None)),
@@ -501,7 +543,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -589,6 +631,20 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    TSL Pipeline(steps=[('transfersubspacelearningadapter',
+                     Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                            base_method='flda', length_scale=2, max_iter=100,
+                            mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                            verbose=False)),
+                    ('svc',
+                     Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                            cache_size=200, class_weight=None, coef0=0.0,
+                            decision_function_shape='ovr', degree=3, gamma='scale',
+                            kernel='rbf', max_iter=-1, probability=False,
+                            random_state=None, shrinking=True, tol=0.001,
+                            verbose=False))])
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                             metric='sqeuclidean', norm=None)),
@@ -652,7 +708,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 
 
@@ -687,6 +743,7 @@ accuracy on the test set.
         OTMapping,
         SubspaceAlignment,
         TransferComponentAnalysis,
+        TransferSubspaceLearning,
     )
     from skada.datasets import make_shifted_datasets
 
@@ -704,6 +761,7 @@ accuracy on the test set.
         "MMD TarS",
         "Subspace Alignment",
         "TCA",
+        "TSL",
         "OT mapping",
         "Entropic OT mapping",
         "Class Reg. OT mapping",
@@ -726,6 +784,7 @@ accuracy on the test set.
         MMDTarSReweight(SVC().set_fit_request(sample_weight=True), gamma=1),
         SubspaceAlignment(base_estimator=SVC(), n_components=1),
         TransferComponentAnalysis(base_estimator=SVC(), n_components=1, mu=0.5),
+        TransferSubspaceLearning(base_estimator=SVC(), n_components=1),
         OTMapping(base_estimator=SVC()),
         EntropicOTMapping(base_estimator=SVC()),
         ClassRegularizerOTMapping(base_estimator=SVC()),
@@ -875,7 +934,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 12.553 seconds)
+   **Total running time of the script:** (0 minutes 16.136 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:

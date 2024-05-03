@@ -198,6 +198,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -261,9 +275,9 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-/home/circleci/project/skada/utils.py:938: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
+/home/circleci/project/skada/utils.py:943: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
   warnings.warn(
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -351,6 +365,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -414,7 +442,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -502,6 +530,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -565,7 +607,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -653,6 +695,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -716,7 +772,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:918: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 </pre></div>
 </div>
@@ -745,6 +801,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
     <a href="../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferSubspaceLearning</span></a><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 
@@ -762,6 +819,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
     <span class="s2">&quot;MMD TarS&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Subspace Alignment&quot;</span><span class="p">,</span>
     <span class="s2">&quot;TCA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSL&quot;</span><span class="p">,</span>
     <span class="s2">&quot;OT mapping&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Entropic OT mapping&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Class Reg. OT mapping&quot;</span><span class="p">,</span>
@@ -784,6 +842,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
     <a href="../gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDTarSReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+    <a href="../gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferSubspaceLearning</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ClassRegularizerOTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
@@ -931,7 +990,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.553 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 16.136 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-method-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfe66d5e49c5e18b6754c1b08a23542/plot_method_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_method_comparison.ipynb</span></code></a></p>

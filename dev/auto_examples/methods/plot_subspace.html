@@ -75,6 +75,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-subspace-alignment-method">Illustration of the Subspace Alignment method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-transfer-component-analysis-method">Illustration of the Transfer Component Analysis method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-transfer-joint-matching-method">Illustration of the Transfer Joint Matching method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-transfer-subspace-learning-method">Illustration of the Transfer Subspace Learning method</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#comparison-of-score-between-subspace-methods">Comparison of score between subspace methods:</a></li>
 </ul>
 </li>
@@ -122,6 +123,7 @@ to download the full example code.</p>
 <p>An example of the subspace methods on a dataset subject
 to subspace shift</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author:   Ruben Bueno &lt;ruben.bueno@polytechnique.edu&gt;</span>
+<span class="c1">#           Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
 <span class="c1">#           Oleksii Kachaiev &lt;kachayev@gmail.com&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
@@ -138,6 +140,7 @@ to subspace shift</p>
     <a href="../../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.TransferJointMatching.html#skada.TransferJointMatching" title="skada.TransferJointMatching" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferJointMatching</span></a><span class="p">,</span>
+    <a href="../../gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferSubspaceLearning</span></a><span class="p">,</span>
     <span class="n">source_target_split</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
@@ -477,6 +480,32 @@ on Computer Vision and Pattern Recognition (CVPR), pages 1410–1417.</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_plot_subspace_005.png" srcset="../../_images/sphx_glr_plot_subspace_005.png" alt="Illustration of the TransferJointMatching with rbf kernel method, Full dataset projected on the subspace, Accuracy on target projected on the subspace, Accuracy on target" class = "sphx-glr-single-img"/></section>
+<section id="illustration-of-the-transfer-subspace-learning-method">
+<h2>Illustration of the Transfer Subspace Learning method<a class="headerlink" href="#illustration-of-the-transfer-subspace-learning-method" title="Link to this heading"></a></h2>
+<p>Transfer Subspace Learning (TSL) is a method that aims to learn a subspace using
+classical loss functions (e.g. PCA, Fisher LDA) but regularized so that
+the source and target data have the same distribution once projected on the subspace.</p>
+<p>See [27] for details:</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>27<span class="fn-bracket">]</span></span>
+<p>[Si et al., 2010] Si, S., Tao, D. and Geng, B.
+Bregman Divergence-Based Regularization
+for Transfer Subspace Learning.
+In IEEE Transactions on Knowledge and Data Engineering.
+pages 929-942</p>
+</aside>
+</aside>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferSubspaceLearning</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_classifier</span></a><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
+<span class="n">plot_subspace_and_classifier</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a><span class="p">,</span> <span class="s2">&quot;TransferSubspaceLearning&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_subspace_006.png" srcset="../../_images/sphx_glr_plot_subspace_006.png" alt="Illustration of the TransferSubspaceLearning method, Full dataset projected on the subspace, Accuracy on target projected on the subspace, Accuracy on target" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
+</pre></div>
+</div>
+</section>
 <section id="comparison-of-score-between-subspace-methods">
 <h2>Comparison of score between subspace methods:<a class="headerlink" href="#comparison-of-score-between-subspace-methods" title="Link to this heading"></a></h2>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_scores_as_table</span><span class="p">(</span><span class="n">scores</span><span class="p">):</span>
@@ -495,9 +524,10 @@ on Computer Vision and Pattern Recognition (CVPR), pages 1410–1417.</p>
 Subspace Alignment                    | 1.25  %
 TCA                                   | 80.0  %
 TransferJointMatching with rbf kernel | 90.0  %
+TransferSubspaceLearning              | 96.25 %
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.770 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.560 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-subspace-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9de97e089e40f3aec07b2b527b85b3d6/plot_subspace.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_subspace.ipynb</span></code></a></p>

@@ -89,6 +89,7 @@
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.SubspaceAlignmentAdapter.html">skada.SubspaceAlignmentAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.TransferComponentAnalysisAdapter.html">skada.TransferComponentAnalysisAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.TransferJointMatchingAdapter.html">skada.TransferJointMatchingAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.TransferSubspaceLearning.html">skada.TransferSubspaceLearning</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.CORALAdapter.html">skada.CORALAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.OTMappingAdapter.html">skada.OTMappingAdapter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="gen_modules/skada.EntropicOTMappingAdapter.html">skada.EntropicOTMappingAdapter</a></li>
@@ -285,22 +286,25 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.TransferJointMatchingAdapter.html#skada.TransferJointMatchingAdapter" title="skada.TransferJointMatchingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransferJointMatchingAdapter</span></code></a>([n_components, ...])</p></td>
 <td><p>Domain Adaptation Using TJM: Transfer Joint Matching.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.CORALAdapter.html#skada.CORALAdapter" title="skada.CORALAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CORALAdapter</span></code></a>([reg])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransferSubspaceLearning</span></code></a>([base_estimator, ...])</p></td>
+<td><p>Domain Adaptation Using Transfer Subspace Learning.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.CORALAdapter.html#skada.CORALAdapter" title="skada.CORALAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CORALAdapter</span></code></a>([reg])</p></td>
 <td><p>Estimator based on Correlation Alignment <a href="#id2"><span class="problematic" id="id1">[1]_</span></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.OTMappingAdapter.html#skada.OTMappingAdapter" title="skada.OTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OTMappingAdapter</span></code></a>([metric, norm, max_iter])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.OTMappingAdapter.html#skada.OTMappingAdapter" title="skada.OTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OTMappingAdapter</span></code></a>([metric, norm, max_iter])</p></td>
 <td><p>Domain Adaptation Using Optimal Transport.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.EntropicOTMappingAdapter.html#skada.EntropicOTMappingAdapter" title="skada.EntropicOTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EntropicOTMappingAdapter</span></code></a>([reg_e, metric, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.EntropicOTMappingAdapter.html#skada.EntropicOTMappingAdapter" title="skada.EntropicOTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EntropicOTMappingAdapter</span></code></a>([reg_e, metric, ...])</p></td>
 <td><p>Domain Adaptation Using Optimal Transport.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMappingAdapter.html#skada.ClassRegularizerOTMappingAdapter" title="skada.ClassRegularizerOTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassRegularizerOTMappingAdapter</span></code></a>([reg_e, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.ClassRegularizerOTMappingAdapter.html#skada.ClassRegularizerOTMappingAdapter" title="skada.ClassRegularizerOTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassRegularizerOTMappingAdapter</span></code></a>([reg_e, ...])</p></td>
 <td><p>Domain Adaptation Using Optimal Transport.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter" title="skada.LinearOTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearOTMappingAdapter</span></code></a>([reg, bias])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter" title="skada.LinearOTMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearOTMappingAdapter</span></code></a>([reg, bias])</p></td>
 <td><p>Domain Adaptation Using Optimal Transport.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="gen_modules/skada.MMDLSConSMappingAdapter.html#skada.MMDLSConSMappingAdapter" title="skada.MMDLSConSMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MMDLSConSMappingAdapter</span></code></a>(gamma[, reg_k, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="gen_modules/skada.MMDLSConSMappingAdapter.html#skada.MMDLSConSMappingAdapter" title="skada.MMDLSConSMappingAdapter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MMDLSConSMappingAdapter</span></code></a>(gamma[, reg_k, ...])</p></td>
 <td><p>Location-Scale mapping minimizing the MMD with a Gaussian kernel.</p></td>
 </tr>
 </tbody>
