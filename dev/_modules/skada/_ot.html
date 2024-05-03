@@ -95,11 +95,14 @@
 <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.metaestimators</span> <span class="kn">import</span> <span class="n">available_if</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">DAEstimator</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">source_target_split</span>
+<span class="kn">from</span> <span class="nn">._pipeline</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">Y_Type</span><span class="p">,</span> <span class="n">_find_y_type</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseAdapter</span><span class="p">,</span> <span class="n">DAEstimator</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">source_target_split</span>
 
 
 <span class="k">def</span> <span class="nf">get_jdot_class_cost_matrix</span><span class="p">(</span><span class="n">Ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;multinomial&quot;</span><span class="p">):</span>
@@ -845,6 +848,139 @@
                 <span class="s2">&quot;and score might be biased.&quot;</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">OTLabelPropAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Label propagation using optimal transport plan.</span>
+
+<span class="sd">    This adapter uses the optimal transport plan to propagate labels from</span>
+<span class="sd">    source to target domain. This was proposed originally in [28] for</span>
+<span class="sd">    semi-supervised learning and can be used for domain adaptation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    metric : str, default=&#39;sqeuclidean&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;sqeuclidean&#39; for</span>
+<span class="sd">        squared euclidean distance, &#39;euclidean&#39; for euclidean distance,</span>
+<span class="sd">    reg : float, default=None</span>
+<span class="sd">        The entropic  regularization parameter for the optimal transport</span>
+<span class="sd">        problem. If None, the exact OT is solved, else it is used to weight</span>
+<span class="sd">        the entropy regularizationof the coupling matrix.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    G_ : array-like of shape (n_samples, m_samples)</span>
+<span class="sd">        The optimal transport plan.</span>
+<span class="sd">    Xt_ : array-like of shape (m_samples, n_features)</span>
+<span class="sd">        The target domain samples.</span>
+<span class="sd">    yht_ : array-like of shape (m_samples,)</span>
+<span class="sd">        The transported source domain labels.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [28] Solomon, J., Rustamov, R., Guibas, L., &amp; Butscher, A. (2014, January).</span>
+<span class="sd">     Wasserstein propagation for semi-supervised learning. In International</span>
+<span class="sd">     Conference on Machine Learning (pp. 306-314). PMLR.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__metadata_request__fit</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__fit_transform</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters&quot;&quot;&quot;</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sample_weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">yt</span><span class="p">,</span> <span class="n">ws</span><span class="p">,</span> <span class="n">wt</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+                <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+            <span class="p">)</span>
+            <span class="n">ws</span> <span class="o">=</span> <span class="n">ws</span> <span class="o">/</span> <span class="n">ws</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">wt</span> <span class="o">=</span> <span class="n">wt</span> <span class="o">/</span> <span class="n">wt</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+            <span class="n">ws</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">unif</span><span class="p">(</span><span class="n">Xs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">wt</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">unif</span><span class="p">(</span><span class="n">Xt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">M</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">)</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">ws</span><span class="p">,</span> <span class="n">wt</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span><span class="o">.</span><span class="n">plan</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">discrete_</span> <span class="o">=</span> <span class="n">discrete</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span>
+        <span class="k">if</span> <span class="n">discrete</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Xs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">classes</span><span class="p">):</span>
+                <span class="n">Y</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">ys</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">yht</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yht_continuous_</span> <span class="o">=</span> <span class="n">yht</span>
+            <span class="n">yht</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">yht</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">yht</span> <span class="o">=</span> <span class="n">classes</span><span class="p">[</span><span class="n">yht</span><span class="p">]</span>
+            <span class="n">yout</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Y</span> <span class="o">=</span> <span class="n">ys</span>
+            <span class="n">yht</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">/</span> <span class="n">wt</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">yht_continuous_</span> <span class="o">=</span> <span class="n">yht</span>
+            <span class="n">yout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">G_</span> <span class="o">=</span> <span class="n">G</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Xt_</span> <span class="o">=</span> <span class="n">Xt</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yht_</span> <span class="o">=</span> <span class="n">yht</span>
+
+        <span class="c1"># set estimated labels</span>
+        <span class="n">yout</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">yht</span>
+
+        <span class="c1"># return sample weight only if it was provided</span>
+        <span class="n">dico</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sample_weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dico</span><span class="p">[</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_weight</span>
+
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">dico</span>
+
+
+<span class="k">def</span> <span class="nf">OTLabelProp</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Label propagation using optimal transport plan.</span>
+
+<span class="sd">    This adapter uses the optimal transport plan to propagate labels from</span>
+<span class="sd">    source to target domain. This was proposed originally in [28] for</span>
+<span class="sd">    semi-supervised learning and can be used for domain adaptation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : object</span>
+<span class="sd">        The base estimator to be used for the classification task. This</span>
+<span class="sd">        estimator should optimize a classification loss corresponding to the</span>
+<span class="sd">        given metric and provide compatible predict method (decision_function of</span>
+<span class="sd">        predict_proba).</span>
+<span class="sd">    reg : float, default=0</span>
+<span class="sd">        The entropic  regularization parameter for the optimal transport</span>
+<span class="sd">        problem. If None, the exact OT is solved, else it is used to weight</span>
+<span class="sd">        the entropy regularizationof the coupling matrix.</span>
+<span class="sd">    metric : str, default=&#39;sqeuclidean&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;sqeuclidean&#39; for</span>
+<span class="sd">        squared euclidean distance, &#39;euclidean&#39; for euclidean distance,</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    adapter : OTLabelPropAdapter</span>
+<span class="sd">        The optimal transport label propagation adapter.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [28] Solomon, J., Rustamov, R., Guibas, L., &amp; Butscher, A. (2014, January).</span>
+<span class="sd">     Wasserstein propagation for semi-supervised learning. In International</span>
+<span class="sd">     Conference on Machine Learning (pp. 306-314). PMLR.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
+        <span class="n">OTLabelPropAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">),</span>
+        <span class="n">base_estimator</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 
            </div>
