@@ -120,38 +120,89 @@
 <h1>skada.NearestNeighborReweightAdapter<a class="headerlink" href="#skada-nearestneighborreweightadapter" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="skada.NearestNeighborReweightAdapter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">NearestNeighborReweightAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minkowski'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplace_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_reweight.html#NearestNeighborReweightAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.NearestNeighborReweightAdapter" title="Link to this definition"></a></dt>
-<dd><p>Adapter based on re-weighting samples using a 1NN,</p>
-<p>See <a class="reference internal" href="#rc22483bf1779-22" id="id1">[22]</a> for details.</p>
-<dl class="field-list simple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">NearestNeighborReweightAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'uniform'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">leaf_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minkowski'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplace_smoothing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_reweight.html#NearestNeighborReweightAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.NearestNeighborReweightAdapter" title="Link to this definition"></a></dt>
+<dd><p>Adapter based on re-weighting samples using a KNN,</p>
+<p>See <a class="reference internal" href="#rc22483bf1779-24" id="id1">[24]</a> for details.</p>
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>base_estimator</strong><span class="classifier">estimator object, optional</span></dt><dd><p>The estimator to use to estimate the densities of source and target
-observations. If None, a KNeighborsClassifier(n_neighbors=1) estimator
-is used.</p>
+<dd class="field-odd"><dl>
+<dt><strong>n_neighbors</strong><span class="classifier">int, default=1</span></dt><dd><p>Number of neighbors to use for the KNN</p>
+</dd>
+<dt><strong>laplace_smoothing</strong><span class="classifier">bool, default=False, optional</span></dt><dd><p>True if we want to use laplace smoothing, and
+thus adding 1 to all our weights (to prevent some
+of them to be 0)</p>
+</dd>
+<dt><strong>weights</strong><span class="classifier">{'uniform', 'distance'}, callable or None, default='uniform'</span></dt><dd><p>Weight function used in prediction.  Possible values:</p>
+<ul class="simple">
+<li><p>'uniform' : uniform weights.  All points in each neighborhood
+are weighted equally.</p></li>
+<li><p>'distance' : weight points by the inverse of their distance.
+in this case, closer neighbors of a query point will have a
+greater influence than neighbors which are further away.</p></li>
+<li><p>[callable] : a user-defined function which accepts an
+array of distances, and returns an array of the same shape
+containing the weights.</p></li>
+</ul>
+<p>Refer to the example entitled
+<a class="reference external" href="https://scikit-learn.org/stable/auto_examples/neighbors/plot_classification.html#sphx-glr-auto-examples-neighbors-plot-classification-py" title="(in scikit-learn v1.4)"><span>Nearest Neighbors Classification</span></a>
+showing the impact of the <cite>weights</cite> parameter on the decision
+boundary.</p>
+</dd>
+<dt><strong>algorithm</strong><span class="classifier">{'auto', 'ball_tree', 'kd_tree', 'brute'}, default='auto'</span></dt><dd><p>Algorithm used to compute the nearest neighbors:</p>
+<ul class="simple">
+<li><p>'ball_tree' will use <code class="xref py py-class docutils literal notranslate"><span class="pre">BallTree</span></code></p></li>
+<li><p>'kd_tree' will use <code class="xref py py-class docutils literal notranslate"><span class="pre">KDTree</span></code></p></li>
+<li><p>'brute' will use a brute-force search.</p></li>
+<li><p>'auto' will attempt to decide the most appropriate algorithm
+based on the values passed to <a class="reference internal" href="#skada.NearestNeighborReweightAdapter.fit" title="skada.NearestNeighborReweightAdapter.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></a> method.</p></li>
+</ul>
+<p>Note: fitting on sparse input will override the setting of
+this parameter, using brute force.</p>
+</dd>
+<dt><strong>leaf_size</strong><span class="classifier">int, default=30</span></dt><dd><p>Leaf size passed to BallTree or KDTree.  This can affect the
+speed of the construction and query, as well as the memory
+required to store the tree.  The optimal value depends on the
+nature of the problem.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">float, default=2</span></dt><dd><p>Power parameter for the Minkowski metric. When p = 1, this is equivalent
+to using manhattan_distance (l1), and euclidean_distance (l2) for p = 2.
+For arbitrary p, minkowski_distance (l_p) is used. This parameter is expected
+to be positive.</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">str or callable, default='minkowski'</span></dt><dd><p>Metric to use for distance computation. Default is &quot;minkowski&quot;, which
+results in the standard Euclidean distance when p = 2. See the
+documentation of <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/spatial.distance.html">scipy.spatial.distance</a> and
+the metrics listed in
+<code class="xref py py-class docutils literal notranslate"><span class="pre">distance_metrics</span></code> for valid metric
+values.</p>
+<p>If metric is &quot;precomputed&quot;, X is assumed to be a distance matrix and
+must be square during fit. X may be a <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-sparse-graph" title="(in scikit-learn v1.4)"><span class="xref std std-term">sparse graph</span></a>, in which
+case only &quot;nonzero&quot; elements may be considered neighbors.</p>
+<p>If metric is a callable function, it takes two arrays representing 1D
+vectors as inputs and must return one value indicating the distance
+between those vectors. This works for Scipy's metrics, but is less
+efficient than passing the metric name as a string.</p>
+</dd>
+<dt><strong>metric_params</strong><span class="classifier">dict, default=None</span></dt><dd><p>Additional keyword arguments for the metric function.</p>
+</dd>
+<dt><strong>n_jobs</strong><span class="classifier">int, default=None</span></dt><dd><p>The number of parallel jobs to run for neighbors search.
+<code class="docutils literal notranslate"><span class="pre">None</span></code> means 1 unless in a <code class="xref py py-obj docutils literal notranslate"><span class="pre">joblib.parallel_backend</span></code> context.
+<code class="docutils literal notranslate"><span class="pre">-1</span></code> means using all processors. See <a class="reference external" href="https://scikit-learn.org/stable/glossary.html#term-n_jobs" title="(in scikit-learn v1.4)"><span class="xref std std-term">Glossary</span></a>
+for more details.
+Doesn't affect <a class="reference internal" href="#skada.NearestNeighborReweightAdapter.fit" title="skada.NearestNeighborReweightAdapter.fit"><code class="xref py py-meth docutils literal notranslate"><span class="pre">fit()</span></code></a> method.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="rc22483bf1779-22" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">22</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="rc22483bf1779-24" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">24</a><span class="fn-bracket">]</span></span>
 <p>Nearest neighbor-based importance weighting.
 In 2012 IEEE International Workshop on Machine
 Learning for Signal Processing, pages 1–6. IEEE.</p>
 </div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>weight_estimator_source_</strong><span class="classifier">object</span></dt><dd><p>The estimator object fitted on the source data.</p>
-</dd>
-<dt><strong>weight_estimator_target_</strong><span class="classifier">object</span></dt><dd><p>The estimator object fitted on the target data.</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="skada.NearestNeighborReweightAdapter.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_reweight.html#NearestNeighborReweightAdapter.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.NearestNeighborReweightAdapter.fit" title="Link to this definition"></a></dt>

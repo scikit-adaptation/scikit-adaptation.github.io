@@ -88,6 +88,7 @@
 <span class="c1">#         Oleksii Kachaiev &lt;kachayev@gmail.com&gt;</span>
 <span class="c1">#         Bueno Ruben &lt;ruben.bueno@polytechnique.edu&gt;</span>
 <span class="c1">#         Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
+<span class="c1">#         Yanis Lalou &lt;yanis.lalou@polytechnique.edu&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
 
@@ -757,33 +758,99 @@
 <div class="viewcode-block" id="NearestNeighborReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">NearestNeighborReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using a 1NN,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using a KNN,</span>
 
-<span class="sd">    See [22]_ for details.</span>
+<span class="sd">    See [24]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    base_estimator : estimator object, optional</span>
-<span class="sd">        The estimator to use to estimate the densities of source and target</span>
-<span class="sd">        observations. If None, a KNeighborsClassifier(n_neighbors=1) estimator</span>
-<span class="sd">        is used.</span>
+<span class="sd">    n_neighbors : int, default=1</span>
+<span class="sd">        Number of neighbors to use for the KNN</span>
 
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    weight_estimator_source_ : object</span>
-<span class="sd">        The estimator object fitted on the source data.</span>
-<span class="sd">    weight_estimator_target_ : object</span>
-<span class="sd">        The estimator object fitted on the target data.</span>
+<span class="sd">    laplace_smoothing : bool, default=False, optional</span>
+<span class="sd">        True if we want to use laplace smoothing, and</span>
+<span class="sd">        thus adding 1 to all our weights (to prevent some</span>
+<span class="sd">        of them to be 0)</span>
+
+<span class="sd">    weights : {&#39;uniform&#39;, &#39;distance&#39;}, callable or None, default=&#39;uniform&#39;</span>
+<span class="sd">        Weight function used in prediction.  Possible values:</span>
+
+<span class="sd">        - &#39;uniform&#39; : uniform weights.  All points in each neighborhood</span>
+<span class="sd">          are weighted equally.</span>
+<span class="sd">        - &#39;distance&#39; : weight points by the inverse of their distance.</span>
+<span class="sd">          in this case, closer neighbors of a query point will have a</span>
+<span class="sd">          greater influence than neighbors which are further away.</span>
+<span class="sd">        - [callable] : a user-defined function which accepts an</span>
+<span class="sd">          array of distances, and returns an array of the same shape</span>
+<span class="sd">          containing the weights.</span>
+
+<span class="sd">        Refer to the example entitled</span>
+<span class="sd">        :ref:`sphx_glr_auto_examples_neighbors_plot_classification.py`</span>
+<span class="sd">        showing the impact of the `weights` parameter on the decision</span>
+<span class="sd">        boundary.</span>
+
+<span class="sd">    algorithm : {&#39;auto&#39;, &#39;ball_tree&#39;, &#39;kd_tree&#39;, &#39;brute&#39;}, default=&#39;auto&#39;</span>
+<span class="sd">        Algorithm used to compute the nearest neighbors:</span>
+
+<span class="sd">        - &#39;ball_tree&#39; will use :class:`BallTree`</span>
+<span class="sd">        - &#39;kd_tree&#39; will use :class:`KDTree`</span>
+<span class="sd">        - &#39;brute&#39; will use a brute-force search.</span>
+<span class="sd">        - &#39;auto&#39; will attempt to decide the most appropriate algorithm</span>
+<span class="sd">          based on the values passed to :meth:`fit` method.</span>
+
+<span class="sd">        Note: fitting on sparse input will override the setting of</span>
+<span class="sd">        this parameter, using brute force.</span>
+
+<span class="sd">    leaf_size : int, default=30</span>
+<span class="sd">        Leaf size passed to BallTree or KDTree.  This can affect the</span>
+<span class="sd">        speed of the construction and query, as well as the memory</span>
+<span class="sd">        required to store the tree.  The optimal value depends on the</span>
+<span class="sd">        nature of the problem.</span>
+
+<span class="sd">    p : float, default=2</span>
+<span class="sd">        Power parameter for the Minkowski metric. When p = 1, this is equivalent</span>
+<span class="sd">        to using manhattan_distance (l1), and euclidean_distance (l2) for p = 2.</span>
+<span class="sd">        For arbitrary p, minkowski_distance (l_p) is used. This parameter is expected</span>
+<span class="sd">        to be positive.</span>
+
+<span class="sd">    metric : str or callable, default=&#39;minkowski&#39;</span>
+<span class="sd">        Metric to use for distance computation. Default is &quot;minkowski&quot;, which</span>
+<span class="sd">        results in the standard Euclidean distance when p = 2. See the</span>
+<span class="sd">        documentation of `scipy.spatial.distance</span>
+<span class="sd">        &lt;https://docs.scipy.org/doc/scipy/reference/spatial.distance.html&gt;`_ and</span>
+<span class="sd">        the metrics listed in</span>
+<span class="sd">        :class:`~sklearn.metrics.pairwise.distance_metrics` for valid metric</span>
+<span class="sd">        values.</span>
+
+<span class="sd">        If metric is &quot;precomputed&quot;, X is assumed to be a distance matrix and</span>
+<span class="sd">        must be square during fit. X may be a :term:`sparse graph`, in which</span>
+<span class="sd">        case only &quot;nonzero&quot; elements may be considered neighbors.</span>
+
+<span class="sd">        If metric is a callable function, it takes two arrays representing 1D</span>
+<span class="sd">        vectors as inputs and must return one value indicating the distance</span>
+<span class="sd">        between those vectors. This works for Scipy&#39;s metrics, but is less</span>
+<span class="sd">        efficient than passing the metric name as a string.</span>
+
+<span class="sd">    metric_params : dict, default=None</span>
+<span class="sd">        Additional keyword arguments for the metric function.</span>
+
+<span class="sd">    n_jobs : int, default=None</span>
+<span class="sd">        The number of parallel jobs to run for neighbors search.</span>
+<span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
+<span class="sd">        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`</span>
+<span class="sd">        for more details.</span>
+<span class="sd">        Doesn&#39;t affect :meth:`fit` method.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [22] Nearest neighbor-based importance weighting.</span>
+<span class="sd">    .. [24] Nearest neighbor-based importance weighting.</span>
 <span class="sd">            In 2012 IEEE International Workshop on Machine</span>
 <span class="sd">            Learning for Signal Processing, pages 1–6. IEEE.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
         <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
         <span class="n">leaf_size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
@@ -794,6 +861,7 @@
         <span class="n">laplace_smoothing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="n">n_neighbors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">leaf_size</span> <span class="o">=</span> <span class="n">leaf_size</span>
@@ -803,7 +871,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">laplace_smoothing</span> <span class="o">=</span> <span class="n">laplace_smoothing</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span>
-            <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">n_neighbors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_neighbors</span><span class="p">,</span>
             <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
             <span class="n">algorithm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span><span class="p">,</span>
             <span class="n">leaf_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">leaf_size</span><span class="p">,</span>
@@ -875,7 +943,7 @@
 <a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweight.html#skada.NearestNeighborReweight">[docs]</a>
 <span class="k">def</span> <span class="nf">NearestNeighborReweight</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">laplace_smoothing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
     <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
     <span class="n">leaf_size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
@@ -883,16 +951,20 @@
     <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;minkowski&quot;</span><span class="p">,</span>
     <span class="n">metric_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">laplace_smoothing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Density re-weighting pipeline adapter and estimator.</span>
 
-<span class="sd">    The last 7 parameters are the parameters from the 1NN estimator that</span>
+<span class="sd">    The last 7 parameters are the parameters from the KNN estimator that</span>
 <span class="sd">    will be used to estimate the weights in the `adapt` method</span>
 
-<span class="sd">    See [22]_ for details.</span>
+<span class="sd">    See [24]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    n_neighbors : int, default=1</span>
+<span class="sd">        Number of neighbors to use for the KNN</span>
+
 <span class="sd">    base_estimator : sklearn estimator, default=None</span>
 <span class="sd">        estimator used for fitting and prediction</span>
 
@@ -977,7 +1049,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [22] Nearest neighbor-based importance weighting.</span>
+<span class="sd">    .. [24] Nearest neighbor-based importance weighting.</span>
 <span class="sd">            In 2012 IEEE International Workshop on Machine</span>
 <span class="sd">            Learning for Signal Processing, pages 1–6. IEEE.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -986,7 +1058,7 @@
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">NearestNeighborReweightAdapter</span><span class="p">(</span>
-            <span class="n">laplace_smoothing</span><span class="o">=</span><span class="n">laplace_smoothing</span><span class="p">,</span>
+            <span class="n">n_neighbors</span><span class="o">=</span><span class="n">n_neighbors</span><span class="p">,</span>
             <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
             <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">,</span>
             <span class="n">leaf_size</span><span class="o">=</span><span class="n">leaf_size</span><span class="p">,</span>
@@ -994,6 +1066,7 @@
             <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span>
             <span class="n">metric_params</span><span class="o">=</span><span class="n">metric_params</span><span class="p">,</span>
             <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span>
+            <span class="n">laplace_smoothing</span><span class="o">=</span><span class="n">laplace_smoothing</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
