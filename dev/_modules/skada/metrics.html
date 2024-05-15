@@ -109,6 +109,7 @@
     <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
     <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="p">,</span>
     <span class="n">Y_Type</span><span class="p">,</span>
+    <span class="n">_check_y_masking</span><span class="p">,</span>
     <span class="n">_find_y_type</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">extract_source_indices</span><span class="p">,</span> <span class="n">source_target_split</span>
@@ -642,6 +643,15 @@
 <span class="sd">            The computed score.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_check_y_masking</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;The labels should be masked before calling the scorer. &quot;</span>
+                <span class="s2">&quot;CircularValidation doesn&#39;t support semi-supervised DA&quot;</span>
+            <span class="p">)</span>
+
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
 
         <span class="c1"># TODO: Check if skorch works with deepcopy/clone</span>
