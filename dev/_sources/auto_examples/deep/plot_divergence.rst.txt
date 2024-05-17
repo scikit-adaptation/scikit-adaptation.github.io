@@ -90,7 +90,7 @@ Load the image datasets
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw/train-images-idx3-ubyte.gz
-      0%|          | 0/9912422 [00:00<?, ?it/s]    100%|██████████| 9912422/9912422 [00:00<00:00, 141489541.16it/s]
+      0%|          | 0/9912422 [00:00<?, ?it/s]    100%|██████████| 9912422/9912422 [00:00<00:00, 135947417.92it/s]
     Extracting ./datasets/MNIST/raw/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
     Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
@@ -99,7 +99,7 @@ Load the image datasets
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz
-      0%|          | 0/28881 [00:00<?, ?it/s]    100%|██████████| 28881/28881 [00:00<00:00, 85246793.68it/s]
+      0%|          | 0/28881 [00:00<?, ?it/s]    100%|██████████| 28881/28881 [00:00<00:00, 41713393.19it/s]
     Extracting ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
     Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
@@ -108,7 +108,7 @@ Load the image datasets
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz
-      0%|          | 0/1648877 [00:00<?, ?it/s]    100%|██████████| 1648877/1648877 [00:00<00:00, 276293052.48it/s]
+      0%|          | 0/1648877 [00:00<?, ?it/s]    100%|██████████| 1648877/1648877 [00:00<00:00, 280177094.34it/s]
     Extracting ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
     Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
@@ -117,13 +117,13 @@ Load the image datasets
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz
-      0%|          | 0/4542 [00:00<?, ?it/s]    100%|██████████| 4542/4542 [00:00<00:00, 15191809.22it/s]
+      0%|          | 0/4542 [00:00<?, ?it/s]    100%|██████████| 4542/4542 [00:00<00:00, 14860006.84it/s]
     Extracting ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
     /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       mnist_target = torch.tensor(mnist_dataset.targets)
     Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2 to ./datasets/usps.t.bz2
-      0%|          | 0/1831726 [00:00<?, ?it/s]      2%|▏         | 32768/1831726 [00:00<00:11, 161041.90it/s]      4%|▎         | 65536/1831726 [00:00<00:10, 161161.09it/s]      5%|▌         | 98304/1831726 [00:00<00:10, 161331.94it/s]     11%|█         | 196608/1831726 [00:00<00:05, 288535.60it/s]     20%|█▉        | 360448/1831726 [00:01<00:03, 475059.97it/s]     39%|███▉      | 720896/1831726 [00:01<00:01, 915928.33it/s]     79%|███████▊  | 1441792/1831726 [00:01<00:00, 1775875.40it/s]    100%|██████████| 1831726/1831726 [00:01<00:00, 1283846.65it/s]
+      0%|          | 0/1831726 [00:00<?, ?it/s]      2%|▏         | 32768/1831726 [00:00<00:10, 165453.95it/s]      4%|▎         | 65536/1831726 [00:00<00:10, 165873.52it/s]      5%|▌         | 98304/1831726 [00:00<00:10, 165737.78it/s]     13%|█▎        | 229376/1831726 [00:00<00:04, 361713.01it/s]     23%|██▎       | 425984/1831726 [00:00<00:02, 589906.93it/s]     48%|████▊     | 884736/1831726 [00:01<00:00, 1177167.37it/s]     95%|█████████▍| 1736704/1831726 [00:01<00:00, 2200414.91it/s]    100%|██████████| 1831726/1831726 [00:01<00:00, 1321835.46it/s]
 
 
 
@@ -158,13 +158,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.4676  4.7992
-          2        0.3009  4.4066
-          3        0.1203  5.2900
-          4        0.0663  4.6006
-          5        0.0464  4.4992
+          1        1.5341  4.0880
+          2        0.3414  3.6007
+          3        0.1190  4.3985
+          4        0.0678  4.7930
+          5        0.0426  4.4020
 
-    0.8906752411575563
+    0.9196141479099679
 
 
 
@@ -198,20 +198,20 @@ Train a DeepCoral model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.6766  9.7759
-          2        0.4991  9.0993
-          3        0.2174  9.8103
-          4        0.1412  9.3980
-          5        0.1142  9.3909
+          1        1.5531  9.9890
+          2        0.4216  10.2991
+          3        0.1882  8.7041
+          4        0.1250  9.8990
+          5        0.0959  9.0950
 
-    0.8713826366559485
+    0.9196141479099679
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 19.639 seconds)
+   **Total running time of the script:** (1 minutes 18.256 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_divergence.py:
