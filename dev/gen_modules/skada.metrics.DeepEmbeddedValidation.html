@@ -143,21 +143,25 @@ ICML, 2019.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="skada.metrics.DeepEmbeddedValidation.cross_entropy_loss">
 <span class="sig-name descname"><span class="pre">cross_entropy_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-15</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/metrics.html#DeepEmbeddedValidation.cross_entropy_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.metrics.DeepEmbeddedValidation.cross_entropy_loss" title="Link to this definition"></a></dt>
-<dd><p>Compute cross-entropy loss between true labels
-and predicted probability estimates.</p>
-<p>This loss allows to have a changing num_classes over the validation.</p>
+<dd><p>Compute cross-entropy loss for a single sample between the true label
+and the predicted probability estimates.</p>
+<p>This loss allows for a changing number of classes over the validation process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>- y_true: true labels (integer labels).</strong></dt><dd></dd>
-<dt><strong>- y_pred: predicted probabilities</strong></dt><dd></dd>
-<dt><strong>- epsilon: a small constant to avoid numerical instability (default is 1e-15).</strong></dt><dd></dd>
+<dt><strong>- y_true: int</strong></dt><dd><p>True label (integer label).</p>
+</dd>
+<dt><strong>- y_pred: array-like</strong></dt><dd><p>Predicted probabilities for each class.</p>
+</dd>
+<dt><strong>- epsilon: float, optional (default=1e-15)</strong></dt><dd><p>A small constant to avoid numerical instability.</p>
+</dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><dl class="simple">
-<dt>Cross-entropy loss.</dt><dd></dd>
+<dt>float</dt><dd><p>Cross-entropy loss for the single sample.</p>
+</dd>
 </dl>
 </li>
 </ul>
