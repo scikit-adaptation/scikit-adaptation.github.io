@@ -105,7 +105,12 @@
 <span class="kn">from</span> <span class="nn">sklearn.utils.metaestimators</span> <span class="kn">import</span> <span class="n">available_if</span>
 <span class="kn">from</span> <span class="nn">sklearn.utils.validation</span> <span class="kn">import</span> <span class="n">check_is_fitted</span>
 
-<span class="kn">from</span> <span class="nn">skada._utils</span> <span class="kn">import</span> <span class="n">_apply_domain_masks</span><span class="p">,</span> <span class="n">_remove_masked</span><span class="p">,</span> <span class="n">_merge_domain_outputs</span>
+<span class="kn">from</span> <span class="nn">skada._utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_apply_domain_masks</span><span class="p">,</span>
+    <span class="n">_merge_domain_outputs</span><span class="p">,</span>
+    <span class="n">_remove_masked</span><span class="p">,</span>
+    <span class="n">_route_params</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">skada.utils</span> <span class="kn">import</span> <span class="n">check_X_domain</span><span class="p">,</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">extract_source_indices</span>
 
 
@@ -395,7 +400,7 @@
     <span class="k">def</span> <span class="nf">_prepare_routing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routing_request</span><span class="p">,</span> <span class="n">metadata_container</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_final</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_transformer</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">routed_params</span> <span class="o">=</span> <span class="n">routing_request</span><span class="o">.</span><span class="n">_route_params</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+                <span class="n">routed_params</span> <span class="o">=</span> <span class="n">_route_params</span><span class="p">(</span><span class="n">routing_request</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">UnsetMetadataPassedError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="c1"># check if every parameter given from the metadata container</span>
                 <span class="c1"># was accepted by the downstream (base) estimator</span>
@@ -488,7 +493,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="s1">&#39;fit&#39;</span><span class="p">,</span> <span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">method_params</span> <span class="o">=</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_out</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
-            <span class="n">transform_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">_route_params</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">method_params</span><span class="p">)</span>
+            <span class="n">transform_params</span> <span class="o">=</span> <span class="n">_route_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">method_params</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">transform_params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_in</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
@@ -566,7 +571,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">method_params</span> <span class="o">=</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_out</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
-            <span class="n">transform_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">_route_params</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">method_params</span><span class="p">)</span>
+            <span class="n">transform_params</span> <span class="o">=</span> <span class="n">_route_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">method_params</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="c1"># the output of the transform call is already merged into a single ndarray</span>
             <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">transform_params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_in</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
@@ -788,7 +793,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">method_params</span> <span class="o">=</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_out</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
-            <span class="n">transform_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">_route_params</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">method_params</span><span class="p">)</span>
+            <span class="n">transform_params</span> <span class="o">=</span> <span class="n">_route_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">method_params</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
             <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">transform_params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_in</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 

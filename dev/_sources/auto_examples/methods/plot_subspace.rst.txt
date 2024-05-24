@@ -599,7 +599,7 @@ Comparison of score between subspace methods:
  .. code-block:: none
 
     Without DA                            | 6.25  %
-    Subspace Alignment                    | 1.25  %
+    Subspace Alignment                    | 96.25 %
     TCA                                   | 80.0  %
     TransferJointMatching with rbf kernel | 90.0  %
     TransferSubspaceLearning              | 96.25 %
@@ -610,7 +610,7 @@ Comparison of score between subspace methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.687 seconds)
+   **Total running time of the script:** (0 minutes 2.775 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_subspace.py:
