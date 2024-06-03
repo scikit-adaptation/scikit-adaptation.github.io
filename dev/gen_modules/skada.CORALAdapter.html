@@ -125,7 +125,7 @@
 <h1>skada.CORALAdapter<a class="headerlink" href="#skada-coraladapter" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.CORALAdapter">
-<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">CORALAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#CORALAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.CORALAdapter" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">CORALAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assume_centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#CORALAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.CORALAdapter" title="Link to this definition"></a></dt>
 <dd><p>Estimator based on Correlation Alignment <a href="#id4"><span class="problematic" id="id1">[1]_</span></a>.</p>
 <p>See <a class="reference internal" href="#rf6a9a1265257-5" id="id2">[5]</a> for details.</p>
 <dl class="field-list">
@@ -140,6 +140,8 @@ Possible values:</p>
 <li><p>float between 0 and 1: fixed shrinkage parameter.</p></li>
 </ul>
 </div></blockquote>
+</dd>
+<dt><strong>assume_centered: bool, default=False</strong></dt><dd><p>If True, data are not centered before computation.</p>
 </dd>
 </dl>
 </dd>
@@ -156,6 +158,8 @@ In Advances in Computer Vision and Pattern Recognition, 2017.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
+<dt><strong>mean_source_: array, shape (n_features,)</strong></dt><dd></dd>
+<dt><strong>mean_target_: array, shape (n_features,)</strong></dt><dd></dd>
 <dt><strong>cov_source_inv_sqrt_: array, shape (n_features, n_features)</strong></dt><dd><p>Inverse of the square root of covariance of the source data with regularization.</p>
 </dd>
 <dt><strong>cov_target_sqrt_: array, shape (n_features, n_features)</strong></dt><dd><p>Square root of covariance of the target data with regularization.</p>

@@ -682,9 +682,13 @@
 <span class="sd">          - None: no shrinkage).</span>
 <span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
+<span class="sd">    mean_source_: array, shape (n_features,)</span>
+<span class="sd">    mean_target_: array, shape (n_features,)</span>
 <span class="sd">    cov_source_inv_sqrt_: array, shape (n_features, n_features)</span>
 <span class="sd">        Inverse of the square root of covariance of the source data with regularization.</span>
 <span class="sd">    cov_target_sqrt_: array, shape (n_features, n_features)</span>
@@ -697,9 +701,10 @@
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span> <span class="o">=</span> <span class="n">assume_centered</span>
 
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
@@ -723,8 +728,14 @@
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
-        <span class="n">cov_source_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span>
-        <span class="n">cov_target_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_source_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_target_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">cov_source_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span>
+            <span class="n">X_source</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span>
+        <span class="p">)</span>
+        <span class="n">cov_target_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span>
+            <span class="n">X_target</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span> <span class="o">=</span> <span class="n">_invsqrtm</span><span class="p">(</span><span class="n">cov_source_</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span> <span class="o">=</span> <span class="n">_sqrtm</span><span class="p">(</span><span class="n">cov_target_</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -759,15 +770,26 @@
             <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target_adapt</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+        <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span><span class="p">)</span>
+        <span class="c1"># Adapt the source data</span>
+        <span class="k">if</span> <span class="n">X_source_adapt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Center data</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">:</span>
+                <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">X_source_adapt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_source_</span>
+
+            <span class="c1"># Whitening and coloring source data</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span><span class="p">)</span>
             <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">X_source</span>
+
+        <span class="c1"># Adapt the target data</span>
+        <span class="k">if</span> <span class="n">X_target_adapt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">:</span>
+            <span class="n">X_target_adapt</span> <span class="o">=</span> <span class="n">X_target_adapt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_target_</span>
+
         <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
-            <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+            <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target_adapt</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">X_adapt</span></div>
 
@@ -778,6 +800,7 @@
 <span class="k">def</span> <span class="nf">CORAL</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CORAL pipeline with adapter and estimator.</span>
 
@@ -794,6 +817,8 @@
 <span class="sd">          - None: no shrinkage).</span>
 <span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -810,7 +835,7 @@
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-        <span class="n">CORALAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">),</span>
+        <span class="n">CORALAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="n">assume_centered</span><span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
 

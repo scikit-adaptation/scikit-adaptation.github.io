@@ -265,7 +265,8 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -442,7 +443,8 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -617,7 +619,8 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -792,7 +795,8 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -1033,7 +1037,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 23.362 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 15.386 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-method-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfe66d5e49c5e18b6754c1b08a23542/plot_method_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_method_comparison.ipynb</span></code></a></p>
