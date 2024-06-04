@@ -192,7 +192,7 @@ accuracy on the test set.
                             verbose=False))])
     OT Label Propagation Pipeline(steps=[('otlabelpropadapter',
                      Shared(base_estimator=OTLabelPropAdapter(reg=0),
-                            metric='sqeuclidean', reg=0)),
+                            metric='sqeuclidean', n_iter_max=200, reg=0)),
                     ('svc',
                      Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                             cache_size=200, class_weight=None, coef0=0.0,
@@ -200,6 +200,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+      result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
                             reg='auto')),
@@ -370,7 +372,7 @@ accuracy on the test set.
                             verbose=False))])
     OT Label Propagation Pipeline(steps=[('otlabelpropadapter',
                      Shared(base_estimator=OTLabelPropAdapter(reg=0),
-                            metric='sqeuclidean', reg=0)),
+                            metric='sqeuclidean', n_iter_max=200, reg=0)),
                     ('svc',
                      Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                             cache_size=200, class_weight=None, coef0=0.0,
@@ -378,6 +380,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+      result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
                             reg='auto')),
@@ -546,7 +550,7 @@ accuracy on the test set.
                             verbose=False))])
     OT Label Propagation Pipeline(steps=[('otlabelpropadapter',
                      Shared(base_estimator=OTLabelPropAdapter(reg=0),
-                            metric='sqeuclidean', reg=0)),
+                            metric='sqeuclidean', n_iter_max=200, reg=0)),
                     ('svc',
                      Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                             cache_size=200, class_weight=None, coef0=0.0,
@@ -554,6 +558,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+      result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
                             reg='auto')),
@@ -722,7 +728,7 @@ accuracy on the test set.
                             verbose=False))])
     OT Label Propagation Pipeline(steps=[('otlabelpropadapter',
                      Shared(base_estimator=OTLabelPropAdapter(reg=0),
-                            metric='sqeuclidean', reg=0)),
+                            metric='sqeuclidean', n_iter_max=200, reg=0)),
                     ('svc',
                      Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                             cache_size=200, class_weight=None, coef0=0.0,
@@ -730,6 +736,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+      result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
                             reg='auto')),
@@ -981,7 +989,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 15.386 seconds)
+   **Total running time of the script:** (0 minutes 15.934 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:

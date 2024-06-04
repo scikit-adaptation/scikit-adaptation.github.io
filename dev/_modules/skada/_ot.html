@@ -868,6 +868,8 @@
 <span class="sd">        The entropic  regularization parameter for the optimal transport</span>
 <span class="sd">        problem. If None, the exact OT is solved, else it is used to weight</span>
 <span class="sd">        the entropy regularizationof the coupling matrix.</span>
+<span class="sd">    n_iter_max: int</span>
+<span class="sd">        Maximum number of iterations for the OT solver.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -888,10 +890,11 @@
     <span class="n">__metadata_request__fit</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
     <span class="n">__metadata_request__fit_transform</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sample_weight&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_iter_max</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_iter_max</span> <span class="o">=</span> <span class="n">n_iter_max</span>
 
     <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters&quot;&quot;&quot;</span>
@@ -908,7 +911,7 @@
             <span class="n">wt</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">unif</span><span class="p">(</span><span class="n">Xt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
         <span class="n">M</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">)</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">ws</span><span class="p">,</span> <span class="n">wt</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span><span class="o">.</span><span class="n">plan</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">ws</span><span class="p">,</span> <span class="n">wt</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_iter_max</span><span class="p">)</span><span class="o">.</span><span class="n">plan</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">discrete_</span> <span class="o">=</span> <span class="n">discrete</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span>
         <span class="k">if</span> <span class="n">discrete</span><span class="p">:</span>
@@ -942,7 +945,7 @@
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">dico</span>
 
 
-<span class="k">def</span> <span class="nf">OTLabelProp</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">OTLabelProp</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">n_iter_max</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Label propagation using optimal transport plan.</span>
 
 <span class="sd">    This adapter uses the optimal transport plan to propagate labels from</span>
@@ -963,6 +966,8 @@
 <span class="sd">    metric : str, default=&#39;sqeuclidean&#39;</span>
 <span class="sd">        The metric to use for the cost matrix. Can be &#39;sqeuclidean&#39; for</span>
 <span class="sd">        squared euclidean distance, &#39;euclidean&#39; for euclidean distance,</span>
+<span class="sd">    n_iter_max: int</span>
+<span class="sd">        Maximum number of iterations for the OT solver.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -980,7 +985,7 @@
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-        <span class="n">OTLabelPropAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">),</span>
+        <span class="n">OTLabelPropAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">n_iter_max</span><span class="o">=</span><span class="n">n_iter_max</span><span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></div>
