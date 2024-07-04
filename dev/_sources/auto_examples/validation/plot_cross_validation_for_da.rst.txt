@@ -21,7 +21,7 @@
 Visualizing cross-validation behavior in skada
 ==============================================
 
-This illustrates the use of DA cross-validation object such as
+This example illustrates the use of DA cross-validation object such as
 :class:`~skada.model_selection.DomainShuffleSplit`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 9-10
@@ -67,7 +67,7 @@ Let's prepare the imports:
     cmap_domain = plt.cm.RdBu
     cmap_cv = plt.cm.coolwarm
     n_splits = 4
-    # Since we'll be using a dataset with 2 source and 2 target source,
+    # Since we'll be using a dataset with 2 source and 2 target domains,
     # the lodo splitter will generate only at most 4 splits
     n_splits_lodo = 4
 
@@ -80,11 +80,11 @@ Let's prepare the imports:
 
 .. GENERATED FROM PYTHON SOURCE LINES 40-45
 
-First we generate our datapoints. They are drawn from 4 different
-distributions, 2 source and 2 target distributions. The target
-distributions are shifted with respect to the source distributions.
-Thus we will have a domain adaptation problem with 2 source domains
-and 2 target domains.
+First we generate a dataset with 4 different domains.
+The domains are drawn from 4 different distributions: 2 source
+and 2 target distributions. The target distributions are shifted
+versions of the source distributions. Thus we will have a domain
+adaptation problem with 2 source domains and 2 target domains.
 
 .. GENERATED FROM PYTHON SOURCE LINES 45-89
 
@@ -143,11 +143,11 @@ and 2 target domains.
 
 .. GENERATED FROM PYTHON SOURCE LINES 90-95
 
-We’ll define a function that lets us visualize the behavior of
-each cross-validation object.
-We’ll perform 4 splits (or 2 for the lodo method) of the data.
-On each split, we’ll visualize the indices chosen for
-the training set (in blue) and the test set (in orange).
+We define functions to visualize the behavior of each
+cross-validation object. The number of splits is set to 4
+(2 for the lodo method). For each split, we visualize the
+indices selected for the training set (in blue) and the
+test set (in orange).
 
 .. GENERATED FROM PYTHON SOURCE LINES 95-275
 
@@ -510,7 +510,7 @@ As we can see each splitter has a very different behavior:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.511 seconds)
+   **Total running time of the script:** (0 minutes 0.610 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_cross_validation_for_da.py:

@@ -21,14 +21,16 @@
 Using cross_val_score with skada
 ================================
 
-This illustrates the use of DA scorer such :class:`~skada.metrics.TargetAccuracyScorer`
+This example illustrates the use of DA scorer such as :class:`~skada.metrics.TargetAccuracyScorer`
 with `cross_val_score <https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score>`_.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-10
+.. GENERATED FROM PYTHON SOURCE LINES 9-12
 
-Prepare dataset and estimators
+We first create a shifted dataset. Then we prepare the pipeline including a
+base estimator doing the classification and the DA estimator. We use
+:code:`ShuffleSplit` as cross-validation strategy.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-40
+.. GENERATED FROM PYTHON SOURCE LINES 12-42
 
 .. code-block:: Python
 
@@ -38,7 +40,7 @@ Prepare dataset and estimators
     from sklearn.model_selection import ShuffleSplit, cross_val_score
     from sklearn.svm import SVC
 
-    from skada import EntropicOTMapping, source_target_split
+    from skada import EntropicOTMapping, make_da_pipeline, source_target_split
     from skada.datasets import make_shifted_datasets
     from skada.metrics import SupervisedScorer
 
@@ -60,7 +62,7 @@ Prepare dataset and estimators
     X_source, X_target, y_source, y_target = source_target_split(
         X, y, sample_domain=sample_domain
     )
-    cv = ShuffleSplit(n_splits=5, test_size=0.3, random_state=0)
+    cv = ShuffleSplit(n_splits=5, test_size=0.3, random_state=RANDOM_SEED)
 
 
 
@@ -69,14 +71,17 @@ Prepare dataset and estimators
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-45
+.. GENERATED FROM PYTHON SOURCE LINES 43-50
 
-Cross Validate using supervised labels from the target domain
+The DA estimator pipeline is ready to be used with :code:`cross_val_score`.
+Source data from the training splits is first adapted with the target
+data from the same splits and then used to fit the base estimator.
+The target data from the test split is used to compute the score.
+The separation between source and target data is done automatically
+by the DA pipeline thanks to :code:`sample_domain`. The :code:`target_labels`
+are only used by the :code:`SupervisedScorer`.
 
-Supervised scoring requires target labels to be passed into the pipeline
-separately, so they are only available for the scoring.
-
-.. GENERATED FROM PYTHON SOURCE LINES 45-61
+.. GENERATED FROM PYTHON SOURCE LINES 50-66
 
 .. code-block:: Python
 
@@ -109,26 +114,29 @@ separately, so they are only available for the scoring.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-63
+.. GENERATED FROM PYTHON SOURCE LINES 67-73
 
-Compare scores with the simple estimator with no adaptation
+To evaluate the performance of the DA estimator, we compare it with the
+performance of the base estimator without DA. We use the same cross-validation
+strategy and the same data splits. We create a DA pipeline with
+:code:`make_da_pipeline` including the base estimator only. The
+:code:`sample_domain` and :code:`target_labels` are also passed to the pipeline
+to separate the source and target data and to compute the score.
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-82
+.. GENERATED FROM PYTHON SOURCE LINES 73-90
 
 .. code-block:: Python
 
 
-
-    def _scorer(estimator, X, y):
-        return estimator.score(X_target, y_target)
-
+    estimator_no_da = make_da_pipeline(base_estimator)
 
     scores_no_da = cross_val_score(
-        base_estimator,
-        X_source,
-        y_source,
+        estimator_no_da,
+        X,
+        y,
         cv=cv,
-        scoring=_scorer,
+        params={"sample_domain": sample_domain, "target_labels": target_labels},
+        scoring=SupervisedScorer(),
     )
 
     print(
@@ -144,12 +152,12 @@ Compare scores with the simple estimator with no adaptation
 
  .. code-block:: none
 
-    Cross-validation score without DA: 0.00 (+/- 0.00)
+    Cross-validation score without DA: 0.58 (+/- 0.04)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-96
+.. GENERATED FROM PYTHON SOURCE LINES 91-104
 
 .. code-block:: Python
 
@@ -181,7 +189,7 @@ Compare scores with the simple estimator with no adaptation
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.183 seconds)
+   **Total running time of the script:** (0 minutes 0.250 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_cross_val_score_for_da.py:

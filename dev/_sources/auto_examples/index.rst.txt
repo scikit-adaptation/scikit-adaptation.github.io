@@ -410,7 +410,7 @@ DA validation procedures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchC...">
 
 .. only:: html
 
@@ -427,7 +427,7 @@ DA validation procedures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such TargetAccuracyScorer with cross_val_score.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score...">
 
 .. only:: html
 
@@ -444,7 +444,7 @@ DA validation procedures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA cross-validation object such as DomainShuffleSplit.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA cross-validation object such as DomainShuffleSplit.">
 
 .. only:: html
 

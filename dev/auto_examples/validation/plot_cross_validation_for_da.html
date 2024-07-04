@@ -106,7 +106,7 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="visualizing-cross-validation-behavior-in-skada">
 <span id="sphx-glr-auto-examples-validation-plot-cross-validation-for-da-py"></span><h1>Visualizing cross-validation behavior in skada<a class="headerlink" href="#visualizing-cross-validation-behavior-in-skada" title="Link to this heading"></a></h1>
-<p>This illustrates the use of DA cross-validation object such as
+<p>This example illustrates the use of DA cross-validation object such as
 <a class="reference internal" href="../../gen_modules/skada.model_selection.DomainShuffleSplit.html#skada.model_selection.DomainShuffleSplit" title="skada.model_selection.DomainShuffleSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">DomainShuffleSplit</span></code></a>.</p>
 <p>Let's prepare the imports:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Yanis Lalou</span>
@@ -132,16 +132,16 @@ to download the full example code.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap" title="matplotlib.colors.LinearSegmentedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cmap_domain</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap" title="matplotlib.colors.LinearSegmentedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">RdBu</span></a>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap" title="matplotlib.colors.LinearSegmentedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cmap_cv</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap" title="matplotlib.colors.LinearSegmentedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span></a>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">n_splits</span></a> <span class="o">=</span> <span class="mi">4</span>
-<span class="c1"># Since we&#39;ll be using a dataset with 2 source and 2 target source,</span>
+<span class="c1"># Since we&#39;ll be using a dataset with 2 source and 2 target domains,</span>
 <span class="c1"># the lodo splitter will generate only at most 4 splits</span>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">n_splits_lodo</span></a> <span class="o">=</span> <span class="mi">4</span>
 </pre></div>
 </div>
-<p>First we generate our datapoints. They are drawn from 4 different
-distributions, 2 source and 2 target distributions. The target
-distributions are shifted with respect to the source distributions.
-Thus we will have a domain adaptation problem with 2 source domains
-and 2 target domains.</p>
+<p>First we generate a dataset with 4 different domains.
+The domains are drawn from 4 different distributions: 2 source
+and 2 target distributions. The target distributions are shifted
+versions of the source distributions. Thus we will have a domain
+adaptation problem with 2 source domains and 2 target domains.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -185,11 +185,11 @@ and 2 target domains.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_lodo</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_lodo</span></a><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">indx_sort</span></a><span class="p">]</span>
 </pre></div>
 </div>
-<p>We’ll define a function that lets us visualize the behavior of
-each cross-validation object.
-We’ll perform 4 splits (or 2 for the lodo method) of the data.
-On each split, we’ll visualize the indices chosen for
-the training set (in blue) and the test set (in orange).</p>
+<p>We define functions to visualize the behavior of each
+cross-validation object. The number of splits is set to 4
+(2 for the lodo method). For each split, we visualize the
+indices selected for the training set (in blue) and the
+test set (in orange).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code source: scikit-learn documentation</span>
 <span class="c1"># Modified for documentation by Yanis Lalou</span>
 <span class="c1"># License: BSD 3 clause</span>
@@ -469,7 +469,7 @@ from the others sample_domain for the source domain (Can be used only with
 </ul>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.511 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.610 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-validation-plot-cross-validation-for-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/df2e820e1c8040b63460ca86568836ed/plot_cross_validation_for_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cross_validation_for_da.ipynb</span></code></a></p>
