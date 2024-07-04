@@ -182,7 +182,7 @@ Conference on Machine Learning (pp. 306-314). PMLR.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_label_prop_da_001.png" srcset="../../_images/sphx_glr_plot_label_prop_da_001.png" alt="Source data, Target data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+<img src="../../_images/sphx_glr_plot_label_prop_da_001.png" srcset="../../_images/sphx_glr_plot_label_prop_da_001.png" alt="Source data, Target data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 </pre></div>
 </div>
 </section>
@@ -226,7 +226,7 @@ boundary learned by the KRR.</p>
 <img src="../../_images/sphx_glr_plot_label_prop_da_002.png" srcset="../../_images/sphx_glr_plot_label_prop_da_002.png" alt="KRR Prediction on source (MSE=0.06), KRR Prediction on target (MSE=0.77)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>MSE on source: 0.06
 MSE on target: 0.77
 
-(-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+(np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 </pre></div>
 </div>
 </section>
@@ -260,12 +260,12 @@ MSE on target: 0.77
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_label_prop_da_003.png" srcset="../../_images/sphx_glr_plot_label_prop_da_003.png" alt="LabelProp Prediction on source (MSE=0.28), LabelProp Prediction on target (MSE=0.50)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+<img src="../../_images/sphx_glr_plot_label_prop_da_003.png" srcset="../../_images/sphx_glr_plot_label_prop_da_003.png" alt="LabelProp Prediction on source (MSE=0.28), LabelProp Prediction on target (MSE=0.50)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 LabelProp MSE on source: 0.28
 LabelProp MSE on target: 0.50
 
-(-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+(np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 </pre></div>
 </div>
 </section>
@@ -296,10 +296,10 @@ labels are propagated from the source domain to the target domain.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_label_prop_da_004.png" srcset="../../_images/sphx_glr_plot_label_prop_da_004.png" alt="Source and Target data, Propagated labels data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+<img src="../../_images/sphx_glr_plot_label_prop_da_004.png" srcset="../../_images/sphx_glr_plot_label_prop_da_004.png" alt="Source and Target data, Propagated labels data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 
-(-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+(np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 </pre></div>
 </div>
 </section>
@@ -331,7 +331,7 @@ labels are propagated from the source domain to the target domain.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_label_prop_da_005.png" srcset="../../_images/sphx_glr_plot_label_prop_da_005.png" alt="Source data, Target data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+<img src="../../_images/sphx_glr_plot_label_prop_da_005.png" srcset="../../_images/sphx_glr_plot_label_prop_da_005.png" alt="Source data, Target data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 </pre></div>
 </div>
 </section>
@@ -387,7 +387,7 @@ the target domain due to the shift. We also plot the decision boundary</p>
 <img src="../../_images/sphx_glr_plot_label_prop_da_006.png" srcset="../../_images/sphx_glr_plot_label_prop_da_006.png" alt="LogReg Prediction on source (ACC=0.99), LogReg Prediction on target (ACC=0.50)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Accuracy on source: 0.99
 Accuracy on target: 0.50
 
-(-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+(np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 </pre></div>
 </div>
 </section>
@@ -437,12 +437,12 @@ Accuracy on target: 0.50
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_label_prop_da_007.png" srcset="../../_images/sphx_glr_plot_label_prop_da_007.png" alt="LabelProp reglog on source (ACC=0.76), LabelProp reglog on target (ACC=0.57)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+<img src="../../_images/sphx_glr_plot_label_prop_da_007.png" srcset="../../_images/sphx_glr_plot_label_prop_da_007.png" alt="LabelProp reglog on source (ACC=0.76), LabelProp reglog on target (ACC=0.57)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 LabelProp Accuracy on source: 0.76
 LabelProp Accuracy on target: 0.57
 
-(-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+(np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 </pre></div>
 </div>
 </section>
@@ -472,13 +472,13 @@ labels are propagated from the source domain to the target domain.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.axis.html#matplotlib.pyplot.axis" title="matplotlib.pyplot.axis" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">axis</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_label_prop_da_008.png" srcset="../../_images/sphx_glr_plot_label_prop_da_008.png" alt="Source and Target data, Propagated labels data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:526: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+<img src="../../_images/sphx_glr_plot_label_prop_da_008.png" srcset="../../_images/sphx_glr_plot_label_prop_da_008.png" alt="Source and Target data, Propagated labels data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 
-(-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+(np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.552 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.366 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-label-prop-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6310d710f8befad8b309fe7530811943/plot_label_prop_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_label_prop_da.ipynb</span></code></a></p>

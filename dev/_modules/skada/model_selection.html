@@ -450,11 +450,11 @@
 <span class="sd">    ... ):</span>
 <span class="sd">    ...     print(f&quot;Fold {i}:&quot;)</span>
 <span class="sd">    ...     print(f&quot;  Train: index={train_index}, &quot;</span>
-<span class="sd">    ...     f&#39;&#39;&#39;group={[[b, a]</span>
+<span class="sd">    ...     f&#39;&#39;&#39;group={[[b.item(), a.item()]</span>
 <span class="sd">    ...     for a, b in zip(y[train_index], sample_domain[train_index])</span>
 <span class="sd">    ...     ]}&#39;&#39;&#39;)</span>
 <span class="sd">    ...     print(f&quot;  Test: index={test_index}, &quot;</span>
-<span class="sd">    ...     f&#39;&#39;&#39;group={[[b, a]</span>
+<span class="sd">    ...     f&#39;&#39;&#39;group={[[b.item(), a.item()]</span>
 <span class="sd">    ...     for a, b in zip(y[test_index], sample_domain[test_index])</span>
 <span class="sd">    ...     ]}&#39;&#39;&#39;)</span>
 <span class="sd">    Fold 0:</span>
@@ -506,6 +506,7 @@
         <span class="n">groups</span><span class="p">,</span> <span class="n">group_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">groups_array</span><span class="p">,</span> <span class="n">return_inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">n_groups</span> <span class="o">=</span> <span class="n">groups</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+        <span class="n">group_indices</span> <span class="o">=</span> <span class="n">group_indices</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
         <span class="n">group_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">group_indices</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">group_counts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>

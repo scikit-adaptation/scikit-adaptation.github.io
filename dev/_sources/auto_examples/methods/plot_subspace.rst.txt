@@ -520,6 +520,13 @@ See [26] for details:
    :class: sphx-glr-single-img
 
 
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/circleci/project/skada/_subspace.py:603: UserWarning: The solution of the generalized eigenvalue problem is not accurate.
+      warnings.warn(
+
 
 
 
@@ -610,7 +617,7 @@ Comparison of score between subspace methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.561 seconds)
+   **Total running time of the script:** (0 minutes 2.426 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_subspace.py:

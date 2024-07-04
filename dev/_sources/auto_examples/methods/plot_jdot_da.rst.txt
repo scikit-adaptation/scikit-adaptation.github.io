@@ -122,7 +122,7 @@ We generate a simple 2D concept drift dataset.
  .. code-block:: none
 
 
-    (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+    (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
@@ -189,7 +189,7 @@ boundary learned by the KRR.
     MSE on source: 0.06
     MSE on target: 0.77
 
-    (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+    (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
@@ -254,7 +254,7 @@ domain than with the KRR trained on source.
     JDOT MSE on source: 0.51
     JDOT MSE on target: 0.15
 
-    (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+    (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
@@ -358,7 +358,7 @@ We generate a simple 2D concept drift dataset.
  .. code-block:: none
 
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
@@ -437,7 +437,7 @@ the target domain due to the shift. We also plot the decision boundary
     Accuracy on source: 0.99
     Accuracy on target: 0.50
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
@@ -516,12 +516,12 @@ domain than with the SVC trained on source.
  .. code-block:: none
 
     iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.22983129554592746
-    iter=1, loss_ot=0.18530735809550575, loss_tgt_labels=0.21420445266620783
-    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620783
+    iter=1, loss_ot=0.18530735809550572, loss_tgt_labels=0.21420445266620786
+    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620786
     JDOT Accuracy on source: 0.84
     JDOT Accuracy on target: 0.97
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
@@ -598,14 +598,14 @@ Note that in this case it is necessary to change the metric from the default
     JDOT Accuracy on source: 0.82
     JDOT Accuracy on target: 0.97
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.725 seconds)
+   **Total running time of the script:** (0 minutes 1.475 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_jdot_da.py:
