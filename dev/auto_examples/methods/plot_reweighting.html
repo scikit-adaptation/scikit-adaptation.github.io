@@ -60,8 +60,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
@@ -71,7 +71,7 @@
 <li class="toctree-l3"><a class="reference internal" href="plot_jdot_da.html">JDOT Regressor and Classifier examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_subspace.html">Subspace method example on subspace shift dataset</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Reweighting method example on covariate shift dataset</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#the-reweighting-methods">The reweighting methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reweighting-methods">Reweighting Methods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#we-generate-our-2d-dataset-with-2-classes">We generate our 2D dataset with 2 classes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#plot-of-the-dataset">Plot of the dataset:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-problem-with-no-domain-adaptation">Illustration of the problem with no domain adaptation</a></li>
@@ -154,12 +154,12 @@ to covariate shift</p>
 <span class="kn">from</span> <span class="nn">skada.utils</span> <span class="kn">import</span> <span class="n">extract_source_indices</span>
 </pre></div>
 </div>
-<section id="the-reweighting-methods">
-<h2>The reweighting methods<a class="headerlink" href="#the-reweighting-methods" title="Link to this heading"></a></h2>
-<p>The goal of reweighting methods is to estimate some weights for the
-source dataset in order to then fit a estimator on the source dataset,
-while taking those weights into account, so that the fitted estimator is
-well suited to predicting labels from points drawn from the target distribution.</p>
+<section id="reweighting-methods">
+<h2>Reweighting Methods<a class="headerlink" href="#reweighting-methods" title="Link to this heading"></a></h2>
+<p>The purpose of reweighting methods is to estimate weights for the source dataset.
+These weights are then used to fit an estimator on the source dataset, taking the
+weights into account. The goal is to ensure that the fitted estimator is suitable
+for predicting labels from the target distribution.</p>
 <dl class="simple">
 <dt>Reweighting methods implemented and illustrated are the following:</dt><dd><ul class="simple">
 <li><p><a class="reference internal" href="#illustration-of-the-density-reweighting-method"><span class="std std-ref">Density Reweighting</span></a></p></li>
@@ -571,7 +571,7 @@ KLIEPReweight        | 100.0 %
 Kernel Mean Matching | 100.0 %
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.989 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.997 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-reweighting-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/91b8668f578e74f20576be66daffb5ec/plot_reweighting.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_reweighting.ipynb</span></code></a></p>

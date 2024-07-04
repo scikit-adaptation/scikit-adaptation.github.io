@@ -59,8 +59,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
@@ -149,22 +149,22 @@ to subspace shift</p>
 </div>
 <section id="the-subspaces-methods">
 <h2>The subspaces methods<a class="headerlink" href="#the-subspaces-methods" title="Link to this heading"></a></h2>
-<p>Firstly we are in the case of unsupervised domain adaptation, it means that
-we know the labels of the source data but not from the target data.
-The goal of subspace is to project data from a d dimensional space
-into a d' dimensional space with d'&lt;d.
-This kind of da method is especially good when we work with subspace
-shift, meaning that there is a subspace on which, when projected on it,
-the source and target data have the same distributions.</p>
-<dl class="simple">
-<dt>The Subspace methods implemented and illustrated are the following:</dt><dd><ul class="simple">
-<li><p><a class="reference internal" href="#illustration-of-the-subspace-alignment-method"><span class="std std-ref">Subspace Alignment</span></a></p></li>
-<li><p><a class="reference internal" href="#illustration-of-the-transfer-component-analysis-method"><span class="std std-ref">Transfer Component Analysis</span></a></p></li>
-<li><p><a class="reference internal" href="#illustration-of-the-transfer-joint-matching-method"><span class="std std-ref">Transfer Joint Matching</span></a></p></li>
-</ul>
-</dd>
-</dl>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_classifier</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span>
+<p>Supspace methods are used in unsupervised domain adaptation.
+In this case, we have labeled data for the source domain but not for the target
+domain.
+The goal of subspace methods is to project data from a d-dimensional space
+into a lower-dimensional space with d' &lt; d.
+Subspace methods are particularly effective when dealing with subspace shift,
+where the source and target data have the same distributions when projected onto a
+subspace.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The Subspace methods implemented and illustrated are the following:</span>
+<span class="c1">#   * :ref:`Subspace Alignment&lt;Illustration of the Subspace Alignment method&gt;`</span>
+<span class="c1">#   * :ref:`Transfer Component Analysis&lt;Illustration of the Transfer Component</span>
+<span class="c1">#     Analysis method&gt;`</span>
+<span class="c1">#   * :ref:`Transfer Joint Matching&lt;Illustration of the Transfer Joint Matching method&gt;`</span>
+
+
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_classifier</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Will be using </span><span class="si">{</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_classifier</span></a><span class="si">}</span><span class="s2"> as base classifier&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -462,7 +462,7 @@ on Neural Networks, 2011.</p>
 <h2>Illustration of the Transfer Joint Matching method<a class="headerlink" href="#illustration-of-the-transfer-joint-matching-method" title="Link to this heading"></a></h2>
 <p>In most of the previous works, we explored two learning strategies independently for
 domain adaptation: feature matching and instance reweighting. Transfer Joint Matching
-(TJM) aims to use both, by adding a constant to tradeoff between to two.</p>
+(TJM) aims to use both, by adding a constant to tradeoff between the two.</p>
 <p>See [26] for details:</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id3" role="doc-footnote">
@@ -532,7 +532,7 @@ TransferJointMatching with rbf kernel | 90.0  %
 TransferSubspaceLearning              | 96.25 %
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 3.066 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.454 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-subspace-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9de97e089e40f3aec07b2b527b85b3d6/plot_subspace.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_subspace.ipynb</span></code></a></p>

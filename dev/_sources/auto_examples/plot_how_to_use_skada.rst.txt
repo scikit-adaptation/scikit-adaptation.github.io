@@ -177,19 +177,20 @@ estimator.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-103
+.. GENERATED FROM PYTHON SOURCE LINES 97-100
 
 DA estimator in a pipeline
 -----------------------------
 
-SKADA estimators can be used as the final estimator of a scikit-learn pipeline.
-Again, the only difference is that the :code:`sample_domain` array must be
-passed by name during in fit.
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-111
+.. GENERATED FROM PYTHON SOURCE LINES 100-112
 
 .. code-block:: Python
 
+
+    # SKADA estimators can be used as the final estimator of a scikit-learn pipeline.
+    # Again, the only difference is that the :code:`sample_domain` array must be passed
+    # by name during in fit.
 
 
     # create a DA pipeline
@@ -211,7 +212,7 @@ passed by name during in fit.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-129
+.. GENERATED FROM PYTHON SOURCE LINES 113-124
 
 DA Adapter pipeline
 -------------------
@@ -224,17 +225,18 @@ provides a :code:`Adapter` class that can be used in a DA pipeline from
 Here is an example with the CORAL and GaussianReweight adapters.
 
 .. WARNING::
-  Note that as illustrated below for reweighting adapters, one needs a
-  subsequent estimator that takes :code:`sample_weight` as an input parameter.
-  This can be done using the :code:`set_fit_request` method of the estimator
-  by calling :code:`.set_fit_request(sample_weight=True)`.
-  If the estimator (for pipeline or DA estimator) does not
-  require sample weights, the DA pipeline will raise an error.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-148
+.. GENERATED FROM PYTHON SOURCE LINES 124-150
 
 .. code-block:: Python
 
+
+    #   Note that as illustrated below for reweighting adapters, one needs a
+    #   subsequent estimator that takes :code:`sample_weight` as an input parameter.
+    #   This can be done using the :code:`set_fit_request` method of the estimator
+    #   by calling :code:`.set_fit_request(sample_weight=True)`.
+    #   If the estimator (for pipeline or DA estimator) does not
+    #   require sample weights, the DA pipeline will raise an error.
 
 
     # create a DA pipeline with CORAL adapter
@@ -268,7 +270,7 @@ Here is an example with the CORAL and GaussianReweight adapters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-155
+.. GENERATED FROM PYTHON SOURCE LINES 151-157
 
 DA estimators with score cross-validation
 -------------------------------------------
@@ -277,7 +279,7 @@ DA estimators are compatible with scikit-learn cross-validation functions.
 Note that the :code:`sample_domain` array must be passed in the :code:`params`
 dictionary of the :code:`cross_val_score` function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-172
+.. GENERATED FROM PYTHON SOURCE LINES 157-174
 
 .. code-block:: Python
 
@@ -311,7 +313,7 @@ dictionary of the :code:`cross_val_score` function.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-179
+.. GENERATED FROM PYTHON SOURCE LINES 175-181
 
 DA estimator with grid search
 -----------------------------
@@ -320,7 +322,7 @@ DA estimators are also compatible with scikit-learn grid search functions.
 Note that the :code:`sample_domain` array must be passed in the :code:`fit`
 method of the grid search.
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-199
+.. GENERATED FROM PYTHON SOURCE LINES 181-201
 
 .. code-block:: Python
 
@@ -358,7 +360,7 @@ method of the grid search.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 200-212
+.. GENERATED FROM PYTHON SOURCE LINES 202-214
 
 Advanced DA pipeline
 --------------------
@@ -373,7 +375,7 @@ a single SVC is trained on source data only. When predicting on target data the
 pipeline will automatically use the StandardScaler trained on target and the SVC
 trained on source.
 
-.. GENERATED FROM PYTHON SOURCE LINES 212-225
+.. GENERATED FROM PYTHON SOURCE LINES 214-228
 
 .. code-block:: Python
 
@@ -394,6 +396,7 @@ trained on source.
 
 
 
+
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
@@ -404,13 +407,13 @@ trained on source.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-229
+.. GENERATED FROM PYTHON SOURCE LINES 229-232
 
 Similarly one can use the PerDomain selector to train a different estimator
 per domain. This allows to handle multiple source and target domains. In this
 case :code:`sample_domain` must be provided to fit and predict/transform.
 
-.. GENERATED FROM PYTHON SOURCE LINES 229-239
+.. GENERATED FROM PYTHON SOURCE LINES 232-242
 
 .. code-block:: Python
 
@@ -437,12 +440,12 @@ case :code:`sample_domain` must be provided to fit and predict/transform.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 240-242
+.. GENERATED FROM PYTHON SOURCE LINES 243-245
 
 One can use a default selector on the whole pipeline which allows for
 instance to train the whole pipeline only on the source data as follows:
 
-.. GENERATED FROM PYTHON SOURCE LINES 242-253
+.. GENERATED FROM PYTHON SOURCE LINES 245-256
 
 .. code-block:: Python
 
@@ -471,13 +474,13 @@ instance to train the whole pipeline only on the source data as follows:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 254-257
+.. GENERATED FROM PYTHON SOURCE LINES 257-260
 
 One can also use a default selector on the whole pipeline but overwrite it for
 the last estimator. In the example below a :code:`StandardScaler` and a
 :code:`PCA` are estimated per domain but the final SVC is trained on source data only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 257-272
+.. GENERATED FROM PYTHON SOURCE LINES 260-275
 
 .. code-block:: Python
 
@@ -513,7 +516,7 @@ the last estimator. In the example below a :code:`StandardScaler` and a
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.411 seconds)
+   **Total running time of the script:** (0 minutes 1.475 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:

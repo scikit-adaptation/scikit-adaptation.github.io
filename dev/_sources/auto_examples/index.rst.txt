@@ -15,23 +15,6 @@ This is a gallery of all the SKADA example files.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat...">
-
-.. only:: html
-
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_how_to_use_skada_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
-    </div>
-
-
-.. raw:: html
-
     <div class="sphx-glr-thumbcontainer" tooltip=" In this example we plot the logos of the SKADA toolbox.">
 
 .. only:: html
@@ -44,6 +27,23 @@ This is a gallery of all the SKADA example files.
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">SKADA logo generation</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat...">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_how_to_use_skada_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
     </div>
 
 
@@ -74,8 +74,8 @@ This is a gallery of all the SKADA example files.
 .. toctree::
    :hidden:
 
-   /auto_examples/plot_how_to_use_skada
    /auto_examples/plot_skada_logo
+   /auto_examples/plot_how_to_use_skada
    /auto_examples/plot_method_comparison
 
 

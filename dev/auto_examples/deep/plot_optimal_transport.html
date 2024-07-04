@@ -59,8 +59,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a><ul class="current">
@@ -155,15 +155,15 @@ on a simple image classification task.</p>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin.score" title="sklearn.base.ClassifierMixin.score" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">model</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
--------  ------------  ------
-      1        1.6661  4.6974
-      2        0.3682  4.3018
-      3        0.1101  4.4027
-      4        0.0595  4.8020
-      5        0.0430  4.7928
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
+-------  ------------  -------
+      1        1.5581  10.9886
+      2        0.2970  4.4973
+      3        0.1029  4.6967
+      4        0.0598  18.8030
+      5        0.0448  7.9966
 
-0.8778135048231511
+0.9196141479099679
 </pre></div>
 </div>
 </section>
@@ -183,18 +183,18 @@ on a simple image classification task.</p>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin.score" title="sklearn.base.ClassifierMixin.score" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">model</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
--------  ------------  ------
-      1        1.8670  9.5861
-      2        1.0601  11.4051
-      3        0.7246  19.9013
-      4        0.5902  26.8984
-      5        0.5106  61.9994
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
+-------  ------------  -------
+      1        1.8636  23.6968
+      2        0.9792  18.4995
+      3        0.6724  10.9079
+      4        0.5427  10.2024
+      5        0.4645  9.5981
 
-0.8778135048231511
+0.9517684887459807
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 38.491 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 4.089 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-optimal-transport-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b06e4ac81b0d73bc919c616b067bbd29/plot_optimal_transport.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_optimal_transport.ipynb</span></code></a></p>

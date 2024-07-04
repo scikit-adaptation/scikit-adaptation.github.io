@@ -59,8 +59,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
@@ -148,8 +148,8 @@ to download the full example code.</p>
 </div>
 <section id="we-generate-our-2d-dataset-with-2-classes">
 <h2>We generate our 2D dataset with 2 classes<a class="headerlink" href="#we-generate-our-2d-dataset-with-2-classes" title="Link to this heading"></a></h2>
-<p>We generate a simple 2D dataset from moon distribution, where source and target
-are not taken from the same location in the moons. This dataset thus present
+<p>We generate a simple 2D dataset from a moon distribution, where source and target
+are not taken from the same location in the moons. This dataset thus presents a
 covariate shift.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_dataset_from_moons_distribution.html#skada.datasets.make_dataset_from_moons_distribution" title="skada.datasets.make_dataset_from_moons_distribution" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_dataset_from_moons_distribution</span></a><span class="p">(</span>
     <span class="n">pos_source</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">],</span>
@@ -194,7 +194,7 @@ We are then in the case of covariate shift.</p>
 <p>The main problem here is that we only know the distribution of the points
 from the target dataset, our goal is to label it.</p>
 <dl class="simple">
-<dt>The algorithm of the DASVM consist in fitting multiple base_estimator (SVC) by:</dt><dd><ul class="simple">
+<dt>The DASVM method consist in fitting multiple base_estimator (SVC) by:</dt><dd><ul class="simple">
 <li><p>Removing from the training dataset (if possible)
 <cite>k</cite> points from the source dataset for which the current
 estimator is doing well</p></li>
@@ -337,7 +337,7 @@ algorithm.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axis</span></a><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="p">[</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D" title="matplotlib.lines.Line2D" class="sphx-glr-backref-module-matplotlib-lines sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">margin_line</span></a><span class="p">,</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.lines.Line2D.html#matplotlib.lines.Line2D" title="matplotlib.lines.Line2D" class="sphx-glr-backref-module-matplotlib-lines sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decision_boundary</span></a><span class="p">])</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_dasvm_002.png" srcset="../../_images/sphx_glr_plot_dasvm_002.png" alt="evolutions of the predictions, predictions at step 0, predictions at step 14, predictions at step 28, predictions at step 42" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7f0c1bce0e50&gt;
+<img src="../../_images/sphx_glr_plot_dasvm_002.png" srcset="../../_images/sphx_glr_plot_dasvm_002.png" alt="evolutions of the predictions, predictions at step 0, predictions at step 14, predictions at step 28, predictions at step 42" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend object at 0x7f27213bf400&gt;
 </pre></div>
 </div>
 </section>
@@ -368,7 +368,7 @@ source datapoints (circles) are removed from the training set.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_dasvm_003.png" srcset="../../_images/sphx_glr_plot_dasvm_003.png" alt="predictions, Score without da methods: 40.0%, Score with DASVM: 100.0%" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.871 seconds)</p>
+<img src="../../_images/sphx_glr_plot_dasvm_003.png" srcset="../../_images/sphx_glr_plot_dasvm_003.png" alt="predictions, Score without da methods: 40.0%, Score with DASVM: 100.0%" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.996 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-dasvm-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b8bc2707546ac5ba74ad9cd665e4580c/plot_dasvm.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dasvm.ipynb</span></code></a></p>

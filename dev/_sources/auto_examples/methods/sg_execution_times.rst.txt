@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:13.216** total execution time for 6 files **from auto_examples/methods**:
+**00:12.796** total execution time for 6 files **from auto_examples/methods**:
 
 .. container::
 
@@ -33,20 +33,20 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_methods_plot_dasvm.py` (``plot_dasvm.py``)
-     - 00:04.871
+     - 00:04.996
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_subspace.py` (``plot_subspace.py``)
-     - 00:03.066
+     - 00:02.454
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py` (``plot_optimal_transport_da.py``)
-     - 00:01.546
+     - 00:01.530
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py` (``plot_jdot_da.py``)
-     - 00:01.427
+     - 00:01.437
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py` (``plot_label_prop_da.py``)
-     - 00:01.317
+     - 00:01.382
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_reweighting.py` (``plot_reweighting.py``)
-     - 00:00.989
+     - 00:00.997
      - 0.0
