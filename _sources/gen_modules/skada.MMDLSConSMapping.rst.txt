@@ -1,0 +1,11 @@
+﻿skada.MMDLSConSMapping
+======================
+
+.. currentmodule:: skada
+
+.. autofunction:: MMDLSConSMapping
+
+.. _sphx_glr_backreferences_skada.MMDLSConSMapping:
+
+.. minigallery:: skada.MMDLSConSMapping
+    :add-heading:

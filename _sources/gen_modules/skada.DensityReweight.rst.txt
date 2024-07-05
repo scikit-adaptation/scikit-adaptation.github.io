@@ -1,0 +1,11 @@
+﻿skada.DensityReweight
+=====================
+
+.. currentmodule:: skada
+
+.. autofunction:: DensityReweight
+
+.. _sphx_glr_backreferences_skada.DensityReweight:
+
+.. minigallery:: skada.DensityReweight
+    :add-heading:

@@ -1,0 +1,11 @@
+﻿skada.GaussianReweight
+======================
+
+.. currentmodule:: skada
+
+.. autofunction:: GaussianReweight
+
+.. _sphx_glr_backreferences_skada.GaussianReweight:
+
+.. minigallery:: skada.GaussianReweight
+    :add-heading:

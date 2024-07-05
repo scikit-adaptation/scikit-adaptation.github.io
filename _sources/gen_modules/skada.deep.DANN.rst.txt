@@ -1,0 +1,11 @@
+﻿skada.deep.DANN
+===============
+
+.. currentmodule:: skada.deep
+
+.. autofunction:: DANN
+
+.. _sphx_glr_backreferences_skada.deep.DANN:
+
+.. minigallery:: skada.deep.DANN
+    :add-heading:

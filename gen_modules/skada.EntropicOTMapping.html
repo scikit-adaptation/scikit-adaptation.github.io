@@ -7,7 +7,7 @@
   <title>skada.EntropicOTMapping &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -20,8 +20,8 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5467c19a"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -43,7 +43,7 @@
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0.2
+                0.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -58,16 +58,28 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../all.html#main-module-skada">Main module  <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../all.html#sample-reweighting-da-methods">Sample reweighting DA methods</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../all.html#sample-mapping-and-alignment-da-methods">Sample mapping and alignment DA methods</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="skada.SubspaceAlignment.html">skada.SubspaceAlignment</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.TransferComponentAnalysis.html">skada.TransferComponentAnalysis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.TransferJointMatching.html">skada.TransferJointMatching</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.CORAL.html">skada.CORAL</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.OTMapping.html">skada.OTMapping</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">skada.EntropicOTMapping</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.ClassRegularizerOTMapping.html">skada.ClassRegularizerOTMapping</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.LinearOTMapping.html">skada.LinearOTMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.MMDLSConSMapping.html">skada.MMDLSConSMapping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.SubspaceAlignmentAdapter.html">skada.SubspaceAlignmentAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.TransferComponentAnalysisAdapter.html">skada.TransferComponentAnalysisAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.TransferJointMatchingAdapter.html">skada.TransferJointMatchingAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.TransferSubspaceLearning.html">skada.TransferSubspaceLearning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.CORALAdapter.html">skada.CORALAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.OTMappingAdapter.html">skada.OTMappingAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.EntropicOTMappingAdapter.html">skada.EntropicOTMappingAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.ClassRegularizerOTMappingAdapter.html">skada.ClassRegularizerOTMappingAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.LinearOTMappingAdapter.html">skada.LinearOTMappingAdapter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.MMDLSConSMappingAdapter.html">skada.MMDLSConSMappingAdapter</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#other-da-methods">Other DA methods</a></li>
@@ -75,10 +87,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../all.html#utilities">Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.feature">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#model-selection-skada-model-selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
@@ -115,7 +127,7 @@
 <dt class="sig sig-object py" id="skada.EntropicOTMapping">
 <span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">EntropicOTMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqeuclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_e</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#EntropicOTMapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.EntropicOTMapping" title="Link to this definition"></a></dt>
 <dd><p>EntropicOTMapping pipeline with adapter and estimator.</p>
-<p>see <a class="reference internal" href="#r55a6f9af6a06-1" id="id1">[1]</a> for details.</p>
+<p>see <a class="reference internal" href="#r55a6f9af6a06-6" id="id1">[6]</a> for details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -145,8 +157,8 @@ algorithm.</p>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="r55a6f9af6a06-1" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<div class="citation" id="r55a6f9af6a06-6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">6</a><span class="fn-bracket">]</span></span>
 <p>N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,
 Optimal Transport for Domain Adaptation, in IEEE
 Transactions on Pattern Analysis and Machine Intelligence</p>
@@ -159,10 +171,10 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp..."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
   <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchC..."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_gridsearch_for_da.html#sphx-glr-auto-examples-validation-plot-gridsearch-for-da-py"><span class="std std-ref">Using GridSearchCV with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the use of DA scorer such TargetAccuracyScorer with cross_val_score."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score..."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_cross_val_score_for_da.html#sphx-glr-auto-examples-validation-plot-cross-val-score-for-da-py"><span class="std std-ref">Using cross_val_score with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
 </div></div></section>

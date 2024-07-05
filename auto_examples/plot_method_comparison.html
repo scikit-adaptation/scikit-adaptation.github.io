@@ -7,7 +7,7 @@
   <title>Comparison of DA classification methods &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -20,8 +20,8 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5467c19a"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -43,7 +43,7 @@
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0.2
+                0.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -59,10 +59,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_skada_logo.html">SKADA logo generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#da-methods">DA methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#da-validation-procedures">DA validation procedures</a></li>
 </ul>
@@ -97,7 +98,7 @@
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-plot-method-comparison-py"><span class="std std-ref">Go to the end</span></a>
-to download the full example code</p>
+to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="comparison-of-da-classification-methods">
 <span id="sphx-glr-auto-examples-plot-method-comparison-py"></span><h1>Comparison of DA classification methods<a class="headerlink" href="#comparison-of-da-classification-methods" title="Link to this heading"></a></h1>
@@ -112,8 +113,8 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.</p>
 <img src="../_images/sphx_glr_plot_method_comparison_001.png" srcset="../_images/sphx_glr_plot_method_comparison_001.png" alt="plot method comparison" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -122,9 +123,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -132,8 +132,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -142,10 +142,34 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        n_neighbors=1, p=2, weights=&#39;uniform&#39;)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+MMD TarS Pipeline(steps=[(&#39;mmdtarsreweightadapter&#39;,
+                 Shared(base_estimator=MMDTarSReweightAdapter(gamma=1), gamma=1,
+                        max_iter=1000, reg=1e-10, tol=1e-06)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -174,6 +198,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -216,8 +254,21 @@ Linear OT mapping Pipeline(steps=[(&#39;linearotmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
+                 Shared(base_estimator=OTLabelPropAdapter(reg=0),
+                        metric=&#39;sqeuclidean&#39;, n_iter_max=200, reg=0)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+  result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -226,9 +277,24 @@ CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
+MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
+                 Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                        gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                        tol=1e-05)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
+/home/circleci/project/skada/utils.py:943: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
+  warnings.warn(
 Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -237,9 +303,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -247,8 +312,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -257,10 +322,34 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        n_neighbors=1, p=2, weights=&#39;uniform&#39;)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+MMD TarS Pipeline(steps=[(&#39;mmdtarsreweightadapter&#39;,
+                 Shared(base_estimator=MMDTarSReweightAdapter(gamma=1), gamma=1,
+                        max_iter=1000, reg=1e-10, tol=1e-06)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -289,6 +378,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -331,8 +434,21 @@ Linear OT mapping Pipeline(steps=[(&#39;linearotmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
+                 Shared(base_estimator=OTLabelPropAdapter(reg=0),
+                        metric=&#39;sqeuclidean&#39;, n_iter_max=200, reg=0)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+  result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -341,9 +457,22 @@ CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
+MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
+                 Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                        gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                        tol=1e-05)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -352,9 +481,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -362,8 +490,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -372,10 +500,34 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        n_neighbors=1, p=2, weights=&#39;uniform&#39;)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+MMD TarS Pipeline(steps=[(&#39;mmdtarsreweightadapter&#39;,
+                 Shared(base_estimator=MMDTarSReweightAdapter(gamma=1), gamma=1,
+                        max_iter=1000, reg=1e-10, tol=1e-06)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -404,6 +556,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -446,8 +612,21 @@ Linear OT mapping Pipeline(steps=[(&#39;linearotmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
+                 Shared(base_estimator=OTLabelPropAdapter(reg=0),
+                        metric=&#39;sqeuclidean&#39;, n_iter_max=200, reg=0)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+  result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -456,9 +635,22 @@ CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
+MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
+                 Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                        gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                        tol=1e-05)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
-Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
-                 Shared(base_estimator=ReweightDensityAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
+Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
+                 Shared(base_estimator=DensityReweightAdapter(weight_estimator=KernelDensity(bandwidth=0.5)),
                         weight_estimator=KernelDensity(bandwidth=0.5))),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -467,9 +659,8 @@ Reweight Density Pipeline(steps=[(&#39;reweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
-                 Shared(base_estimator=GaussianReweightDensityAdapter(),
-                        reg=&#39;auto&#39;)),
+Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightadapter&#39;,
+                 Shared(base_estimator=GaussianReweightAdapter(), reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -477,8 +668,8 @@ Gaussian Reweight Pipeline(steps=[(&#39;gaussianreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
-                 Shared(base_estimator=DiscriminatorReweightDensityAdapter(domain_classifier=LogisticRegression()),
+Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightadapter&#39;,
+                 Shared(base_estimator=DiscriminatorReweightAdapter(domain_classifier=LogisticRegression()),
                         domain_classifier=LogisticRegression())),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
@@ -487,10 +678,34 @@ Discr. Reweight Pipeline(steps=[(&#39;discriminatorreweightdensityadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-KLIEP Pipeline(steps=[(&#39;kliepadapter&#39;,
-                 Shared(base_estimator=KLIEPAdapter(gamma=[1, 0.1, 0.001]),
+KLIEPReweight Pipeline(steps=[(&#39;kliepreweightadapter&#39;,
+                 Shared(base_estimator=KLIEPReweightAdapter(gamma=[1, 0.1,
+                                                                   0.001]),
                         cv=5, gamma=[1, 0.1, 0.001], max_iter=1000,
                         n_centers=100, random_state=None, tol=1e-06)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+1NN Reweight Density Pipeline(steps=[(&#39;nearestneighborreweightadapter&#39;,
+                 Shared(algorithm=&#39;auto&#39;,
+                        base_estimator=NearestNeighborReweightAdapter(),
+                        laplace_smoothing=False, leaf_size=30,
+                        metric=&#39;minkowski&#39;, metric_params=None, n_jobs=None,
+                        n_neighbors=1, p=2, weights=&#39;uniform&#39;)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+MMD TarS Pipeline(steps=[(&#39;mmdtarsreweightadapter&#39;,
+                 Shared(base_estimator=MMDTarSReweightAdapter(gamma=1), gamma=1,
+                        max_iter=1000, reg=1e-10, tol=1e-06)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -519,6 +734,20 @@ TCA Pipeline(steps=[(&#39;transfercomponentanalysisadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
+                 Shared(base_estimator=TransferSubspaceLearningAdapter(n_components=1),
+                        base_method=&#39;flda&#39;, length_scale=2, max_iter=100,
+                        mu=0.1, n_components=1, reg=0.01, tol=0.01,
+                        verbose=False)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
                         metric=&#39;sqeuclidean&#39;, norm=None)),
@@ -561,8 +790,21 @@ Linear OT mapping Pipeline(steps=[(&#39;linearotmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
+OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
+                 Shared(base_estimator=OTLabelPropAdapter(reg=0),
+                        metric=&#39;sqeuclidean&#39;, n_iter_max=200, reg=0)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+  result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
-                 Shared(base_estimator=CORALAdapter(), reg=&#39;auto&#39;)),
+                 Shared(assume_centered=False, base_estimator=CORALAdapter(),
+                        reg=&#39;auto&#39;)),
                 (&#39;svc&#39;,
                  Shared(C=1.0, base_estimator=SVC(), break_ties=False,
                         cache_size=200, class_weight=None, coef0=0.0,
@@ -571,6 +813,19 @@ CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
 JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
+MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
+                 Shared(base_estimator=MMDLSConSMappingAdapter(gamma=1.0),
+                        gamma=1.0, max_iter=100, reg_k=1e-10, reg_m=1e-10,
+                        tol=1e-05)),
+                (&#39;svc&#39;,
+                 Shared(C=1.0, base_estimator=SVC(), break_ties=False,
+                        cache_size=200, class_weight=None, coef0=0.0,
+                        decision_function_shape=&#39;ovr&#39;, degree=3, gamma=&#39;scale&#39;,
+                        kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
+                        random_state=None, shrinking=True, tol=0.001,
+                        verbose=False))])
+/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+  x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 </pre></div>
 </div>
 <div class="line-block">
@@ -578,25 +833,28 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
 </div>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.ListedColormap.html#matplotlib.colors.ListedColormap" title="matplotlib.colors.ListedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class"><span class="n">ListedColormap</span></a>
-
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">DecisionBoundaryDisplay</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KernelDensity.html#sklearn.neighbors.KernelDensity" title="sklearn.neighbors.KernelDensity" class="sphx-glr-backref-module-sklearn-neighbors sphx-glr-backref-type-py-class"><span class="n">KernelDensity</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a>
 
 <span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="p">(</span>
-    <a href="../gen_modules/skada.ReweightDensity.html#skada.ReweightDensity" title="skada.ReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ReweightDensity</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.GaussianReweightDensity.html#skada.GaussianReweightDensity" title="skada.GaussianReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweightDensity</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.DiscriminatorReweightDensity.html#skada.DiscriminatorReweightDensity" title="skada.DiscriminatorReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweightDensity</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.KLIEP.html#skada.KLIEP" title="skada.KLIEP" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEP</span></a>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">,</span> <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a>
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="p">(</span>
-    <a href="../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ClassRegularizerOTMapping</span></a><span class="p">,</span>
-    <a href="../gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">LinearOTMapping</span></a><span class="p">,</span>
     <a href="../gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORAL</span></a><span class="p">,</span>
-    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">JDOTClassifier</span></a>
+    <a href="../gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ClassRegularizerOTMapping</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.DensityReweight.html#skada.DensityReweight" title="skada.DensityReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DensityReweight</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.DiscriminatorReweight.html#skada.DiscriminatorReweight" title="skada.DiscriminatorReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweight</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.GaussianReweight.html#skada.GaussianReweight" title="skada.GaussianReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweight</span></a><span class="p">,</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">JDOTClassifier</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.KLIEPReweight.html#skada.KLIEPReweight" title="skada.KLIEPReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEPReweight</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">LinearOTMapping</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping" title="skada.MMDLSConSMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDLSConSMapping</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDTarSReweight</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.NearestNeighborReweight.html#skada.NearestNeighborReweight" title="skada.NearestNeighborReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">NearestNeighborReweight</span></a><span class="p">,</span>
+    <span class="n">OTLabelProp</span><span class="p">,</span>
+    <a href="../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">,</span>
+    <a href="../gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferSubspaceLearning</span></a><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 
@@ -609,34 +867,44 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
     <span class="s2">&quot;Reweight Density&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Gaussian Reweight&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Discr. Reweight&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;KLIEP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;KLIEPReweight&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;1NN Reweight Density&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MMD TarS&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Subspace Alignment&quot;</span><span class="p">,</span>
     <span class="s2">&quot;TCA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSL&quot;</span><span class="p">,</span>
     <span class="s2">&quot;OT mapping&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Entropic OT mapping&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Class Reg. OT mapping&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Linear OT mapping&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OT Label Propagation&quot;</span><span class="p">,</span>
     <span class="s2">&quot;CORAL&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;JDOT&quot;</span>
+    <span class="s2">&quot;JDOT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MMD Loc-Scale mapping&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">classifiers</span></a> <span class="o">=</span> <span class="p">[</span>
     <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span>
-    <a href="../gen_modules/skada.ReweightDensity.html#skada.ReweightDensity" title="skada.ReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ReweightDensity</span></a><span class="p">(</span>
+    <a href="../gen_modules/skada.DensityReweight.html#skada.DensityReweight" title="skada.DensityReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DensityReweight</span></a><span class="p">(</span>
         <span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
         <span class="n">weight_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KernelDensity.html#sklearn.neighbors.KernelDensity" title="sklearn.neighbors.KernelDensity" class="sphx-glr-backref-module-sklearn-neighbors sphx-glr-backref-type-py-class"><span class="n">KernelDensity</span></a><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <a href="../gen_modules/skada.GaussianReweightDensity.html#skada.GaussianReweightDensity" title="skada.GaussianReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweightDensity</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-    <a href="../gen_modules/skada.DiscriminatorReweightDensity.html#skada.DiscriminatorReweightDensity" title="skada.DiscriminatorReweightDensity" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweightDensity</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
-    <a href="../gen_modules/skada.KLIEP.html#skada.KLIEP" title="skada.KLIEP" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEP</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]),</span>
+    <a href="../gen_modules/skada.GaussianReweight.html#skada.GaussianReweight" title="skada.GaussianReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">GaussianReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <a href="../gen_modules/skada.DiscriminatorReweight.html#skada.DiscriminatorReweight" title="skada.DiscriminatorReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">DiscriminatorReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <a href="../gen_modules/skada.KLIEPReweight.html#skada.KLIEPReweight" title="skada.KLIEPReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">KLIEPReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">]),</span>
+    <a href="../gen_modules/skada.NearestNeighborReweight.html#skada.NearestNeighborReweight" title="skada.NearestNeighborReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">NearestNeighborReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)),</span>
+    <a href="../gen_modules/skada.MMDTarSReweight.html#skada.MMDTarSReweight" title="skada.MMDTarSReweight" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDTarSReweight</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.SubspaceAlignment.html#skada.SubspaceAlignment" title="skada.SubspaceAlignment" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">SubspaceAlignment</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.TransferComponentAnalysis.html#skada.TransferComponentAnalysis" title="skada.TransferComponentAnalysis" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferComponentAnalysis</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+    <a href="../gen_modules/skada.TransferSubspaceLearning.html#skada.TransferSubspaceLearning" title="skada.TransferSubspaceLearning" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">TransferSubspaceLearning</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
     <a href="../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping" title="skada.ClassRegularizerOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ClassRegularizerOTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping" title="skada.LinearOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">LinearOTMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
+    <span class="n">OTLabelProp</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
     <a href="../gen_modules/skada.CORAL.html#skada.CORAL" title="skada.CORAL" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">CORAL</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
-    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">JDOTClassifier</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;hinge&#39;</span><span class="p">)</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">JDOTClassifier</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(),</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;hinge&quot;</span><span class="p">),</span>
+    <a href="../gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping" title="skada.MMDLSConSMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">MMDLSConSMapping</span></a><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">()),</span>
 <span class="p">]</span>
 
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a> <span class="o">=</span> <span class="p">[</span>
@@ -647,7 +915,7 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
         <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">,</span>
-        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">),</span>
     <a href="../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
         <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -656,7 +924,7 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
         <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">,</span>
-        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">),</span>
     <a href="../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
         <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -665,7 +933,7 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
         <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">,</span>
-        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">),</span>
     <a href="../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
         <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -674,15 +942,15 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
         <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">,</span>
-        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span>
+        <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">),</span>
 <span class="p">]</span>
 
-<a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">figure</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">classifiers</span></a><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">27</span><span class="p">))</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">figure</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">classifiers</span></a><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">27</span><span class="p">))</span>
 <span class="c1"># iterate over datasets</span>
 <span class="k">for</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ds_cnt</span></a><span class="p">,</span> <span class="n">ds</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">):</span>
     <span class="c1"># preprocess dataset, split into training and test part</span>
-    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span>
+    <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">])</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xs</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ys</span></a> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
 
@@ -729,18 +997,24 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
     <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a> <span class="o">=</span> <span class="mi">2</span>
 
     <span class="c1"># iterate over classifiers</span>
-    <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">name</span></a><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">names</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">classifiers</span></a><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">name</span></a><span class="p">,</span> <span class="n">clf</span><span class="p">)</span>
+    <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">name</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">names</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">classifiers</span></a><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">name</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a><span class="p">)</span>
         <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a><span class="p">[</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">i</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ds_cnt</span></a><span class="p">]</span>
         <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlim.html#matplotlib.axes.Axes.set_xlim" title="matplotlib.axes.Axes.set_xlim" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x_min</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">x_max</span></a><span class="p">)</span>
         <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylim.html#matplotlib.axes.Axes.set_ylim" title="matplotlib.axes.Axes.set_ylim" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">y_min</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">y_max</span></a><span class="p">)</span>
         <span class="k">if</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">name</span></a> <span class="o">==</span> <span class="s2">&quot;Without da&quot;</span><span class="p">:</span>
-            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xs</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ys</span></a><span class="p">)</span>
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xs</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ys</span></a><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
-        <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">score</span></a> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a><span class="p">)</span>
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.fit" title="sklearn.pipeline.Pipeline.fit" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">clf</span><span class="o">.</span><span class="n">fit</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
+        <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">score</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline.score" title="sklearn.pipeline.Pipeline.score" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-method"><span class="n">clf</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">Xt</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">yt</span></a><span class="p">)</span>
         <a href="https://scikit-learn.org/stable/modules/generated/sklearn.inspection.DecisionBoundaryDisplay.html#sklearn.inspection.DecisionBoundaryDisplay.from_estimator" title="sklearn.inspection.DecisionBoundaryDisplay.from_estimator" class="sphx-glr-backref-module-sklearn-inspection sphx-glr-backref-type-py-method"><span class="n">DecisionBoundaryDisplay</span><span class="o">.</span><span class="n">from_estimator</span></a><span class="p">(</span>
-            <span class="n">clf</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap" title="matplotlib.colors.LinearSegmentedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cm</span></a><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">response_method</span><span class="o">=</span><span class="s2">&quot;predict&quot;</span><span class="p">,</span>
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a><span class="p">,</span>
+            <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span>
+            <span class="n">cmap</span><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.colors.LinearSegmentedColormap.html#matplotlib.colors.LinearSegmentedColormap" title="matplotlib.colors.LinearSegmentedColormap" class="sphx-glr-backref-module-matplotlib-colors sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cm</span></a><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+            <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="o">=</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span></a><span class="p">,</span>
+            <span class="n">eps</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">response_method</span><span class="o">=</span><span class="s2">&quot;predict&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Plot the target points</span>
@@ -771,7 +1045,7 @@ JDOT JDOTClassifier(base_estimator=SVC(), metric=&#39;hinge&#39;)
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.196 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.888 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-method-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfe66d5e49c5e18b6754c1b08a23542/plot_method_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_method_comparison.ipynb</span></code></a></p>

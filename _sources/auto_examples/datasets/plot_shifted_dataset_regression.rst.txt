@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_datasets_plot_shifted_dataset_regression.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -48,15 +48,15 @@ See detailed description of each shift in [1]_.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-29
+.. GENERATED FROM PYTHON SOURCE LINES 22-28
 
 .. code-block:: Python
 
 
     import matplotlib.pyplot as plt
 
-    from skada.datasets import make_shifted_datasets
     from skada import source_target_split
+    from skada.datasets import make_shifted_datasets
 
 
 
@@ -65,10 +65,10 @@ See detailed description of each shift in [1]_.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 30-86
+.. GENERATED FROM PYTHON SOURCE LINES 29-87
 
 .. code-block:: Python
+
 
 
     def plot_shifted_dataset(shift, random_state=42):
@@ -89,7 +89,8 @@ See detailed description of each shift in [1]_.
             random_state=random_state,
         )
         X_source, X_target, y_source, y_target = source_target_split(
-            X, y, sample_domain=sample_domain)
+            X, y, sample_domain=sample_domain
+        )
 
         fig, (ax1, ax2) = plt.subplots(1, 2, sharex="row", sharey="row", figsize=(8, 4))
         fig.suptitle(shift.replace("_", " ").title(), fontsize=14)
@@ -100,7 +101,7 @@ See detailed description of each shift in [1]_.
             c=y_source,
             vmax=max(y),
             alpha=0.5,
-            cmap="autumn"
+            cmap="autumn",
         )
         ax1.set_title("Source data")
         ax1.set_xlabel("Feature 1")
@@ -112,7 +113,7 @@ See detailed description of each shift in [1]_.
             c=y_target,
             vmax=max(y),
             alpha=0.5,
-            cmap="autumn"
+            cmap="autumn",
         )
         ax2.set_title("Target data")
         ax2.set_xlabel("Feature 1")
@@ -133,17 +134,12 @@ See detailed description of each shift in [1]_.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-95
+.. GENERATED FROM PYTHON SOURCE LINES 88-91
 
 .. code-block:: Python
 
 
-    for shift in [
-        "covariate_shift",
-        "target_shift",
-        "concept_drift",
-        "subspace"
-    ]:
+    for shift in ["covariate_shift", "target_shift", "concept_drift", "subspace"]:
         plot_shifted_dataset(shift)
 
 
@@ -186,7 +182,7 @@ See detailed description of each shift in [1]_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.652 seconds)
+   **Total running time of the script:** (0 minutes 0.574 seconds)
 
 
 .. _sphx_glr_download_auto_examples_datasets_plot_shifted_dataset_regression.py:

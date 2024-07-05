@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_plot_skada_logo.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -28,7 +28,7 @@ In this example we plot the logos of the SKADA toolbox.
 This logo is that it is done 100% in Python and generated using
 matplotlib and plotting the solution of the EMD solver from POT.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-18
+.. GENERATED FROM PYTHON SOURCE LINES 12-17
 
 .. code-block:: Python
 
@@ -44,47 +44,45 @@ matplotlib and plotting the solution of the EMD solver from POT.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-48
+.. GENERATED FROM PYTHON SOURCE LINES 18-45
 
 .. code-block:: Python
 
 
+    import matplotlib.pyplot as plt
     import numpy as np
     import pylab as pl
 
-    import matplotlib.pyplot as plt
-    plt.rcParams.update({
-        "text.usetex": True,
-        "font.family": "Computer Modern"})
+    plt.rcParams.update({"text.usetex": True, "font.family": "Computer Modern"})
 
 
     def get_lda_interp(xs, xt, alpha, len_=1):
         """Compute the LDA interpolation between two domains"""
+        # compute means (classes assumed to be balanced)
+        m1 = (1 - alpha) * xs[: n // 2, :].mean(0) + (alpha) * xt[: n // 2, :].mean(0)
+        m2 = (1 - alpha) * xs[n // 2 :, :].mean(0) + (alpha) * xt[n // 2 :, :].mean(0)
 
-        # compute means (clases assumed to be balanced)
-        m1 = (1-alpha)*xs[:n//2, :].mean(0)+(alpha)*xt[:n//2, :].mean(0)
-        m2 = (1-alpha)*xs[n//2:, :].mean(0)+(alpha)*xt[n//2:, :].mean(0)
-
-        vo = m2-m1
+        vo = m2 - m1
         vo = vo / np.linalg.norm(vo)
 
-        theta = np.pi/2
+        theta = np.pi / 2
         rot = np.array([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])
 
         vor = rot.dot(vo)
 
-        mm = 0.5*m1+0.5*m2
+        mm = 0.5 * m1 + 0.5 * m2
 
-        return np.vstack((mm-len_*vor, mm+len_*vor))
-
-
+        return np.vstack((mm - len_ * vor, mm + len_ * vor))
 
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-78
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 46-75
 
 .. code-block:: Python
 
@@ -94,27 +92,27 @@ matplotlib and plotting the solution of the EMD solver from POT.
 
     np.random.seed(42)
 
-    xs = 0.2*np.random.randn(n, 2)
+    xs = 0.2 * np.random.randn(n, 2)
 
     # class  specific change
-    xs[n//2:, 0] += 0.5
-    xs[n//2:, 1] -= 1
+    xs[n // 2 :, 0] += 0.5
+    xs[n // 2 :, 1] -= 1
 
     # classes 0 an 3 for blue/red colors
     ys = np.zeros(n)
-    ys[n//2:] = 3
+    ys[n // 2 :] = 3
 
     # global changes
-    xt = 0.15*np.random.randn(n, 2)
+    xt = 0.15 * np.random.randn(n, 2)
     xt[:, 0] += 0.7
     xt[:, 1] -= 0
 
     # class specific change
-    xt[n//2:, 0] += 1
-    xt[n//2:, 1] -= 0.2
+    xt[n // 2 :, 0] += 1
+    xt[n // 2 :, 1] -= 0.2
 
     # class 7 for gray color (target without label)
-    yt = np.ones(n)*7
+    yt = np.ones(n) * 7
 
 
 
@@ -124,12 +122,12 @@ matplotlib and plotting the solution of the EMD solver from POT.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-81
+.. GENERATED FROM PYTHON SOURCE LINES 76-78
 
 Plot the small logo
 ===================
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-116
+.. GENERATED FROM PYTHON SOURCE LINES 78-151
 
 .. code-block:: Python
 
@@ -145,27 +143,65 @@ Plot the small logo
     alpha = 0.7
 
     # plot samples
-    pl.scatter(xs[ys == 0, 0], xs[ys == 0, 1], c='C0', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='o')
-    pl.scatter(xs[ys == 3, 0], xs[ys == 3, 1], c='C3', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='s')
-    pl.scatter(xt[ys == 0, 0], xt[ys == 0, 1], c='C7', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='o')
-    pl.scatter(xt[ys == 3, 0], xt[ys == 3, 1], c='C7', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='s')
+    pl.scatter(
+        xs[ys == 0, 0],
+        xs[ys == 0, 1],
+        c="C0",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="o",
+    )
+    pl.scatter(
+        xs[ys == 3, 0],
+        xs[ys == 3, 1],
+        c="C3",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="s",
+    )
+    pl.scatter(
+        xt[ys == 0, 0],
+        xt[ys == 0, 1],
+        c="C7",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="o",
+    )
+    pl.scatter(
+        xt[ys == 3, 0],
+        xt[ys == 3, 1],
+        c="C7",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="s",
+    )
 
     # plot classifiers
     ax = pl.axis()
     for i in range(nb):
         xclass = get_lda_interp(xs, xt, alphalist[i], 2)
-        pl.plot(xclass[:, 0], xclass[:, 1], color='C2', alpha=alpha0 +
-                (1-alpha0)*alphalist[i], zorder=0, linewidth=2)
+        pl.plot(
+            xclass[:, 0],
+            xclass[:, 1],
+            color="C2",
+            alpha=alpha0 + (1 - alpha0) * alphalist[i],
+            zorder=0,
+            linewidth=2,
+        )
     pl.axis(ax)
-    pl.axis('off')
+    pl.axis("off")
 
     # save to file
-    pl.savefig('skada_logo.svg', bbox_inches='tight', dpi=400)
-    pl.savefig('skada_logo.png', bbox_inches='tight', dpi=400)
+    pl.savefig("skada_logo.svg", bbox_inches="tight", dpi=400)
+    pl.savefig("skada_logo.png", bbox_inches="tight", dpi=400)
 
 
 
@@ -181,24 +217,24 @@ Plot the small logo
 
  .. code-block:: none
 
-    /home/circleci/project/examples/plot_skada_logo.py:93: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xs[ys == 0, 0], xs[ys == 0, 1], c='C0', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:95: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xs[ys == 3, 0], xs[ys == 3, 1], c='C3', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:97: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xt[ys == 0, 0], xt[ys == 0, 1], c='C7', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:99: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xt[ys == 3, 0], xt[ys == 3, 1], c='C7', cmap='tab10',
+    /home/circleci/project/examples/plot_skada_logo.py:90: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:100: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:110: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:120: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 117-119
+.. GENERATED FROM PYTHON SOURCE LINES 152-154
 
 Plot the full logo
 ==================
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-158
+.. GENERATED FROM PYTHON SOURCE LINES 154-238
 
 .. code-block:: Python
 
@@ -217,29 +253,74 @@ Plot the full logo
     alpha = 0.7
 
     # plot samples
-    pl.scatter(xs[ys == 0, 0], xs[ys == 0, 1], c='C0', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='o')
-    pl.scatter(xs[ys == 3, 0], xs[ys == 3, 1], c='C3', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='s')
-    pl.scatter(xt2[ys == 0, 0], xt2[ys == 0, 1], c='C7', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='o')
-    pl.scatter(xt2[ys == 3, 0], xt2[ys == 3, 1], c='C7', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='s')
+    pl.scatter(
+        xs[ys == 0, 0],
+        xs[ys == 0, 1],
+        c="C0",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="o",
+    )
+    pl.scatter(
+        xs[ys == 3, 0],
+        xs[ys == 3, 1],
+        c="C3",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="s",
+    )
+    pl.scatter(
+        xt2[ys == 0, 0],
+        xt2[ys == 0, 1],
+        c="C7",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="o",
+    )
+    pl.scatter(
+        xt2[ys == 3, 0],
+        xt2[ys == 3, 1],
+        c="C7",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="s",
+    )
 
     # plot classifiers
     ax = pl.axis()
     for i in range(nb):
         xclass = get_lda_interp(xs, xt2, alphalist[i], 2)
-        pl.plot(xclass[:, 0], xclass[:, 1], color='C2', alpha=alpha0 +
-                (1-alpha0)*alphalist[i], zorder=0, linewidth=2)
-    pl.text(1.3, -1.18, r'\bf\textsf{SKADA}', fontsize=80,
-            usetex=True, zorder=0.5, color=(0.2, 0.2, 0.2))
+        pl.plot(
+            xclass[:, 0],
+            xclass[:, 1],
+            color="C2",
+            alpha=alpha0 + (1 - alpha0) * alphalist[i],
+            zorder=0,
+            linewidth=2,
+        )
+    pl.text(
+        1.3,
+        -1.18,
+        r"\bf\textsf{SKADA}",
+        fontsize=80,
+        usetex=True,
+        zorder=0.5,
+        color=(0.2, 0.2, 0.2),
+    )
 
     pl.axis(ax)
-    pl.axis('off')
+    pl.axis("off")
 
-    pl.savefig('skada_logo_full.svg', bbox_inches='tight', dpi=400)
-    pl.savefig('skada_logo_full.png', bbox_inches='tight', dpi=400)
+    pl.savefig("skada_logo_full.svg", bbox_inches="tight", dpi=400)
+    pl.savefig("skada_logo_full.png", bbox_inches="tight", dpi=400)
 
 
 
@@ -254,24 +335,24 @@ Plot the full logo
 
  .. code-block:: none
 
-    /home/circleci/project/examples/plot_skada_logo.py:134: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xs[ys == 0, 0], xs[ys == 0, 1], c='C0', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:136: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xs[ys == 3, 0], xs[ys == 3, 1], c='C3', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:138: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xt2[ys == 0, 0], xt2[ys == 0, 1], c='C7', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:140: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xt2[ys == 3, 0], xt2[ys == 3, 1], c='C7', cmap='tab10',
+    /home/circleci/project/examples/plot_skada_logo.py:169: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:179: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:189: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:199: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-161
+.. GENERATED FROM PYTHON SOURCE LINES 239-241
 
 Plot the full logo in white
 ===========================
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-199
+.. GENERATED FROM PYTHON SOURCE LINES 241-325
 
 .. code-block:: Python
 
@@ -290,29 +371,75 @@ Plot the full logo in white
     alpha = 0.7
 
     # plot samples
-    pl.scatter(xs[ys == 0, 0], xs[ys == 0, 1], c='w', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='o')
-    pl.scatter(xs[ys == 3, 0], xs[ys == 3, 1], c='w', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='s')
-    pl.scatter(xt2[ys == 0, 0], xt2[ys == 0, 1], c='w', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='o')
-    pl.scatter(xt2[ys == 3, 0], xt2[ys == 3, 1], c='w', cmap='tab10',
-               vmax=10, alpha=alpha, label='Source data', marker='s')
+    pl.scatter(
+        xs[ys == 0, 0],
+        xs[ys == 0, 1],
+        c="w",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="o",
+    )
+    pl.scatter(
+        xs[ys == 3, 0],
+        xs[ys == 3, 1],
+        c="w",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="s",
+    )
+    pl.scatter(
+        xt2[ys == 0, 0],
+        xt2[ys == 0, 1],
+        c="w",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="o",
+    )
+    pl.scatter(
+        xt2[ys == 3, 0],
+        xt2[ys == 3, 1],
+        c="w",
+        cmap="tab10",
+        vmax=10,
+        alpha=alpha,
+        label="Source data",
+        marker="s",
+    )
 
     # plot classifiers
     ax = pl.axis()
     for i in range(nb):
         xclass = get_lda_interp(xs, xt2, alphalist[i], 2)
-        pl.plot(xclass[:, 0], xclass[:, 1], color='w', alpha=alpha0 +
-                (1-alpha0)*alphalist[i], zorder=0, linewidth=2)
-    pl.text(1.3, -1.18, r'\bf\textsf{SKADA}', fontsize=80,
-            usetex=True, zorder=0.5, color="w", alpha=0.9)
+        pl.plot(
+            xclass[:, 0],
+            xclass[:, 1],
+            color="w",
+            alpha=alpha0 + (1 - alpha0) * alphalist[i],
+            zorder=0,
+            linewidth=2,
+        )
+    pl.text(
+        1.3,
+        -1.18,
+        r"\bf\textsf{SKADA}",
+        fontsize=80,
+        usetex=True,
+        zorder=0.5,
+        color="w",
+        alpha=0.9,
+    )
 
     pl.axis(ax)
-    pl.axis('off')
+    pl.axis("off")
 
-    pl.savefig('skada_logo_full_white.png', transparent=True, bbox_inches='tight', dpi=400)
-    pl.savefig('skada_logo_full_white.svg', transparent=True, bbox_inches='tight', dpi=400)
+    pl.savefig("skada_logo_full_white.png", transparent=True, bbox_inches="tight", dpi=400)
+    pl.savefig("skada_logo_full_white.svg", transparent=True, bbox_inches="tight", dpi=400)
 
 
 
@@ -326,14 +453,14 @@ Plot the full logo in white
 
  .. code-block:: none
 
-    /home/circleci/project/examples/plot_skada_logo.py:176: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xs[ys == 0, 0], xs[ys == 0, 1], c='w', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:178: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xs[ys == 3, 0], xs[ys == 3, 1], c='w', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:180: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xt2[ys == 0, 0], xt2[ys == 0, 1], c='w', cmap='tab10',
-    /home/circleci/project/examples/plot_skada_logo.py:182: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
-      pl.scatter(xt2[ys == 3, 0], xt2[ys == 3, 1], c='w', cmap='tab10',
+    /home/circleci/project/examples/plot_skada_logo.py:256: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:266: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:276: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
+    /home/circleci/project/examples/plot_skada_logo.py:286: UserWarning: No data for colormapping provided via 'c'. Parameters 'cmap', 'vmax' will be ignored
+      pl.scatter(
 
 
 
@@ -341,7 +468,7 @@ Plot the full logo in white
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.616 seconds)
+   **Total running time of the script:** (0 minutes 0.948 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_skada_logo.py:

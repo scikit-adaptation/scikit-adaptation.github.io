@@ -2,7 +2,7 @@
 Visualizing cross-validation behavior in skada
 ==============================================
 
-This illustrates the use of DA cross-validation object such as 
+This example illustrates the use of DA cross-validation object such as
 :class:`~skada.model_selection.DomainShuffleSplit`.
 """  # noqa
 # %%
@@ -19,29 +19,29 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Patch
 
+from skada.datasets import make_shifted_datasets
 from skada.model_selection import (
-    SourceTargetShuffleSplit,
-    LeaveOneDomainOut,
     DomainShuffleSplit,
+    LeaveOneDomainOut,
+    SourceTargetShuffleSplit,
     StratifiedDomainShuffleSplit,
 )
-from skada.datasets import make_shifted_datasets
 
 RANDOM_SEED = 0
 cmap_data = plt.cm.PRGn
 cmap_domain = plt.cm.RdBu
 cmap_cv = plt.cm.coolwarm
 n_splits = 4
-# Since we'll be using a dataset with 2 source and 2 target source,
+# Since we'll be using a dataset with 2 source and 2 target domains,
 # the lodo splitter will generate only at most 4 splits
 n_splits_lodo = 4
 
 # %%
-# First we generate our datapoints. They are drawn from 4 different
-# distributions, 2 source and 2 target distributions. The target
-# distributions are shifted with respect to the source distributions.
-# Thus we will have a domain adaptation problem with 2 source domains
-# and 2 target domains.
+# First we generate a dataset with 4 different domains.
+# The domains are drawn from 4 different distributions: 2 source
+# and 2 target distributions. The target distributions are shifted
+# versions of the source distributions. Thus we will have a domain
+# adaptation problem with 2 source domains and 2 target domains.
 
 dataset = make_shifted_datasets(
     n_samples_source=3,
@@ -50,7 +50,7 @@ dataset = make_shifted_datasets(
     label="binary",
     noise=0.4,
     random_state=RANDOM_SEED,
-    return_dataset=True
+    return_dataset=True,
 )
 
 dataset2 = make_shifted_datasets(
@@ -59,16 +59,14 @@ dataset2 = make_shifted_datasets(
     shift="concept_drift",
     label="binary",
     noise=0.4,
-    random_state=RANDOM_SEED+1,
-    return_dataset=True
+    random_state=RANDOM_SEED + 1,
+    return_dataset=True,
 )
-dataset.merge(dataset2, names_mapping={'s': 's2', 't': 't2'})
+dataset.merge(dataset2, names_mapping={"s": "s2", "t": "t2"})
 
-X, y, sample_domain = dataset.pack_train(
-    as_sources=['s', 's2'], as_targets=['t', 't2']
-)
+X, y, sample_domain = dataset.pack_train(as_sources=["s", "s2"], as_targets=["t", "t2"])
 _, target_labels, _ = dataset.pack(
-    as_sources=['s', 's2'], as_targets=['t', 't2'], train=False
+    as_sources=["s", "s2"], as_targets=["t", "t2"], train=False
 )
 
 # Sort by sample_domain first then by target_labels
@@ -89,11 +87,11 @@ sample_domain_lodo = sample_domain_lodo[indx_sort]
 
 
 # %%
-# We’ll define a function that lets us visualize the behavior of
-# each cross-validation object.
-# We’ll perform 4 splits (or 2 for the lodo method) of the data.
-# On each split, we’ll visualize the indices chosen for
-# the training set (in blue) and the test set (in orange).
+# We define functions to visualize the behavior of each
+# cross-validation object. The number of splits is set to 4
+# (2 for the lodo method). For each split, we visualize the
+# indices selected for the training set (in blue) and the
+# test set (in orange).
 
 
 # Code source: scikit-learn documentation
@@ -101,9 +99,8 @@ sample_domain_lodo = sample_domain_lodo[indx_sort]
 # License: BSD 3 clause
 def plot_cv_indices(cv, X, y, sample_domain, ax, n_splits, lw=10):
     """Create a sample plot for indices of a cross-validation object."""
-
     # Generate the training/testing visualizations for each CV split
-    cv_args = {'X': X, 'y': y, 'sample_domain': sample_domain}
+    cv_args = {"X": X, "y": y, "sample_domain": sample_domain}
 
     for ii, (tr, tt) in enumerate(cv.split(**cv_args)):
         # Fill in indices with the training/test sample_domain
@@ -113,7 +110,7 @@ def plot_cv_indices(cv, X, y, sample_domain, ax, n_splits, lw=10):
 
         # Visualize the results
         ax.scatter(
-            [i/2 for i in range(1, len(indices)*2+1, 2)],
+            [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
             [ii + 0.5] * len(indices),
             c=indices,
             marker="_",
@@ -125,15 +122,25 @@ def plot_cv_indices(cv, X, y, sample_domain, ax, n_splits, lw=10):
 
     # Plot the data classes and sample_domain at the end
     ax.scatter(
-        [i/2 for i in range(1, len(indices)*2+1, 2)],
-        [ii + 1.5] * len(X), c=y, marker="_", lw=lw,
-        cmap=cmap_data, vmin=-1.2, vmax=0.2,
+        [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
+        [ii + 1.5] * len(X),
+        c=y,
+        marker="_",
+        lw=lw,
+        cmap=cmap_data,
+        vmin=-1.2,
+        vmax=0.2,
     )
 
     ax.scatter(
-        [i/2 for i in range(1, len(indices)*2+1, 2)],
-        [ii + 2.5] * len(X), c=sample_domain, marker="_",
-        lw=lw, cmap=cmap_domain, vmin=-3.2, vmax=3.2,
+        [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
+        [ii + 2.5] * len(X),
+        c=sample_domain,
+        marker="_",
+        lw=lw,
+        cmap=cmap_domain,
+        vmin=-3.2,
+        vmax=3.2,
     )
 
     # Formatting
@@ -144,15 +151,14 @@ def plot_cv_indices(cv, X, y, sample_domain, ax, n_splits, lw=10):
         ylim=[n_splits + 2.2, -0.2],
         xlim=[0, len(X)],
     )
-    ax.set_title("{}".format(type(cv).__name__), fontsize=15)
+    ax.set_title(f"{type(cv).__name__}", fontsize=15)
     return ax
 
 
 def plot_lodo_indices(cv, X, y, sample_domain, ax, lw=10):
     """Create a sample plot for indices of a cross-validation object."""
-
     # Generate the training/testing visualizations for each CV split
-    cv_args = {'X': X, 'y': y, 'sample_domain': sample_domain}
+    cv_args = {"X": X, "y": y, "sample_domain": sample_domain}
 
     for ii, (tr, tt) in enumerate(cv.split(**cv_args)):
         # Fill in indices with the training/test sample_domain
@@ -162,7 +168,7 @@ def plot_lodo_indices(cv, X, y, sample_domain, ax, lw=10):
 
         # Visualize the results
         ax.scatter(
-            [i/2 for i in range(1, len(indices)*2+1, 2)],
+            [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
             [ii + 0.5] * len(indices),
             c=indices,
             marker="_",
@@ -170,20 +176,30 @@ def plot_lodo_indices(cv, X, y, sample_domain, ax, lw=10):
             cmap=cmap_cv,
             vmin=-0.2,
             vmax=1.2,
-            s=1.8
+            s=1.8,
         )
 
     # Plot the data classes and sample_domain at the end
     ax.scatter(
-        [i/2 for i in range(1, len(indices)*2+1, 2)],
-        [ii + 1.5] * len(X), c=y, marker="_", lw=lw,
-        cmap=cmap_data, vmin=-1.2, vmax=0.2,
+        [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
+        [ii + 1.5] * len(X),
+        c=y,
+        marker="_",
+        lw=lw,
+        cmap=cmap_data,
+        vmin=-1.2,
+        vmax=0.2,
     )
 
     ax.scatter(
-        [i/2 for i in range(1, len(indices)*2+1, 2)],
-        [ii + 2.5] * len(X), c=sample_domain, marker="_",
-        lw=lw, cmap=cmap_domain, vmin=-3.2, vmax=3.2,
+        [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
+        [ii + 2.5] * len(X),
+        c=sample_domain,
+        marker="_",
+        lw=lw,
+        cmap=cmap_domain,
+        vmin=-3.2,
+        vmax=3.2,
     )
 
     # Formatting
@@ -194,16 +210,15 @@ def plot_lodo_indices(cv, X, y, sample_domain, ax, lw=10):
         ylim=[n_splits + 2.2, -0.2],
         xlim=[0, len(X)],
     )
-    ax.set_title("{}".format(type(cv).__name__), fontsize=15)
+    ax.set_title(f"{type(cv).__name__}", fontsize=15)
     return ax
 
 
 def plot_st_shuffle_indices(cv, X, y, target_labels, sample_domain, ax, n_splits, lw):
     """Create a sample plot for indices of a cross-validation object."""
-
     for n, labels in enumerate([y, target_labels]):
         # Generate the training/testing visualizations for each CV split
-        cv_args = {'X': X, 'y': labels, 'sample_domain': sample_domain}
+        cv_args = {"X": X, "y": labels, "sample_domain": sample_domain}
         for ii, (tr, tt) in enumerate(cv.split(**cv_args)):
             # Fill in indices with the training/test sample_domain
             indices = np.array([np.nan] * len(X))
@@ -212,7 +227,7 @@ def plot_st_shuffle_indices(cv, X, y, target_labels, sample_domain, ax, n_splits
 
             # Visualize the results
             ax[n].scatter(
-                [i/2 for i in range(1, len(indices)*2+1, 2)],
+                [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
                 [ii + 0.5] * len(indices),
                 c=indices,
                 marker="_",
@@ -224,15 +239,25 @@ def plot_st_shuffle_indices(cv, X, y, target_labels, sample_domain, ax, n_splits
 
         # Plot the data classes and sample_domain at the end
         ax[n].scatter(
-            [i/2 for i in range(1, len(indices)*2+1, 2)],
-            [ii + 1.5] * len(X), c=labels, marker="_", lw=lw,
-            cmap=cmap_data, vmin=-1.2, vmax=0.2,
+            [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
+            [ii + 1.5] * len(X),
+            c=labels,
+            marker="_",
+            lw=lw,
+            cmap=cmap_data,
+            vmin=-1.2,
+            vmax=0.2,
         )
 
         ax[n].scatter(
-            [i/2 for i in range(1, len(indices)*2+1, 2)],
-            [ii + 2.5] * len(X), c=sample_domain, marker="_",
-            lw=lw, cmap=cmap_domain, vmin=-3.2, vmax=3.2,
+            [i / 2 for i in range(1, len(indices) * 2 + 1, 2)],
+            [ii + 2.5] * len(X),
+            c=sample_domain,
+            marker="_",
+            lw=lw,
+            cmap=cmap_domain,
+            vmin=-3.2,
+            vmax=3.2,
         )
 
         # Formatting
@@ -262,7 +287,7 @@ def plot_st_shuffle_indices(cv, X, y, target_labels, sample_domain, ax, n_splits
 cvs = [SourceTargetShuffleSplit]
 for cv in cvs:
     fig, ax = plt.subplots(1, 2, figsize=(7, 3), sharey=True)
-    fig.suptitle("{}".format(cv.__name__), fontsize=15)
+    fig.suptitle(f"{cv.__name__}", fontsize=15)
     plot_st_shuffle_indices(
         cv(n_splits), X, y, target_labels, sample_domain, ax, n_splits, 10
     )
@@ -273,7 +298,7 @@ for cv in cvs:
         loc="center right",
     )
     fig.text(0.48, 0.01, "Sample index", ha="center")
-    fig.text(0.001, 0.5, "CV iteration", va='center', rotation='vertical')
+    fig.text(0.001, 0.5, "CV iteration", va="center", rotation="vertical")
 
     # Make the legend fit
     plt.tight_layout()
@@ -290,9 +315,7 @@ for cv in cvs:
 cvs = [LeaveOneDomainOut]
 for cv in cvs:
     fig, ax = plt.subplots(figsize=(6, 3))
-    plot_lodo_indices(
-        cv(n_splits_lodo), X_lodo, y_lodo, sample_domain_lodo, ax
-    )
+    plot_lodo_indices(cv(n_splits_lodo), X_lodo, y_lodo, sample_domain_lodo, ax)
 
     fig.legend(
         [Patch(color=cmap_cv(0.8)), Patch(color=cmap_cv(0.02))],
@@ -300,7 +323,7 @@ for cv in cvs:
         loc="center right",
     )
     fig.text(0.48, 0.01, "Sample index", ha="center")
-    fig.text(0.001, 0.5, "CV iteration", va='center', rotation='vertical')
+    fig.text(0.001, 0.5, "CV iteration", va="center", rotation="vertical")
 
     # Make the legend fit
     plt.tight_layout()
@@ -310,15 +333,14 @@ for cv in cvs:
 # %%
 # Now let's see how the other
 # cross-validation objects behave on our dataset.
-cvs = [DomainShuffleSplit,
-       StratifiedDomainShuffleSplit,
-       ]
+cvs = [
+    DomainShuffleSplit,
+    StratifiedDomainShuffleSplit,
+]
 
 for cv in cvs:
     fig, ax = plt.subplots(figsize=(6, 3))
-    plot_cv_indices(
-        cv(n_splits), X, y, sample_domain, ax, n_splits
-    )
+    plot_cv_indices(cv(n_splits), X, y, sample_domain, ax, n_splits)
 
     fig.legend(
         [Patch(color=cmap_cv(0.8)), Patch(color=cmap_cv(0.02))],
@@ -326,7 +348,7 @@ for cv in cvs:
         loc="center right",
     )
     fig.text(0.48, 0.01, "Sample index", ha="center")
-    fig.text(0.001, 0.5, "CV iteration", va='center', rotation='vertical')
+    fig.text(0.001, 0.5, "CV iteration", va="center", rotation="vertical")
 
     # Make the legend fit
     plt.tight_layout()

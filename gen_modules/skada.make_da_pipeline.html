@@ -7,7 +7,7 @@
   <title>skada.make_da_pipeline &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -20,13 +20,13 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5467c19a"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="skada.feature.DeepCORAL" href="skada.feature.DeepCORAL.html" />
+    <link rel="next" title="skada.Shared" href="skada.Shared.html" />
     <link rel="prev" title="skada.DASVMClassifier" href="skada.DASVMClassifier.html" /> 
 </head>
 
@@ -43,7 +43,7 @@
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0.2
+                0.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -58,21 +58,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../all.html#main-module-skada">Main module  <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../all.html#sample-reweighting-da-methods">Sample reweighting DA methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#sample-mapping-and-alignment-da-methods">Sample mapping and alignment DA methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#other-da-methods">Other DA methods</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../all.html#da-pipeline">DA pipeline</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">skada.make_da_pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.Shared.html">skada.Shared</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.PerDomain.html">skada.PerDomain</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#utilities">Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.feature">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.feature</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#model-selection-skada-model-selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../all.html#datasets-skada-datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
@@ -107,9 +109,9 @@
 <h1>skada.make_da_pipeline<a class="headerlink" href="#skada-make-da-pipeline" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.make_da_pipeline">
-<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">make_da_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Memory</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_selector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.4)"><span class="pre">BaseEstimator</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BaseSelector</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'shared'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.4)"><span class="pre">Pipeline</span></a></span></span><a class="reference internal" href="../_modules/skada/_pipeline.html#make_da_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.make_da_pipeline" title="Link to this definition"></a></dt>
-<dd><p>Construct a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> from the given estimators.</p>
-<p>This is a shorthand for the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.pipeline.Pipeline</span></code></a> constructor;
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">make_da_pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Memory</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_selector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><span class="pre">Callable</span></a><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.5)"><span class="pre">BaseEstimator</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">BaseSelector</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'shared'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.5)"><span class="pre">Pipeline</span></a></span></span><a class="reference internal" href="../_modules/skada/_pipeline.html#make_da_pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.make_da_pipeline" title="Link to this definition"></a></dt>
+<dd><p>Construct a <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> from the given estimators.</p>
+<p>This is a shorthand for the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.pipeline.Pipeline</span></code></a> constructor;
 it does not require, and does not permit, naming the estimators. Instead,
 their names will be set to the lowercase of their types automatically.</p>
 <dl class="field-list simple">
@@ -133,14 +135,14 @@ is completed.</p>
 wrapped. Refer to <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSelector</span></code> for an understanding of
 selector functionalities. The available options include 'shared' and
 'per_domain'. For integrating a custom selector as the default, pass a
-callable that accepts <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></a> and returns
+callable that accepts <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code></a> and returns
 the estimator encapsulated within a domain selector.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>p</strong><span class="classifier">Pipeline</span></dt><dd><p>Returns a scikit-learn <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> object.</p>
+<dt><strong>p</strong><span class="classifier">Pipeline</span></dt><dd><p>Returns a scikit-learn <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a> object.</p>
 </dd>
 </dl>
 </dd>
@@ -162,12 +164,18 @@ the estimator encapsulated within a domain selector.</p>
 
 <section id="examples-using-skada-make-da-pipeline">
 <span id="sphx-glr-backreferences-skada-make-da-pipeline"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.make_da_pipeline</span></code><a class="headerlink" href="#examples-using-skada-make-da-pipeline" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example of how to use SKADA to perform domain adaptation on a simple dataset wi..."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat..."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html#sphx-glr-auto-examples-plot-how-to-use-skada-py"><span class="std std-ref">How to use SKADA</span></a></p>
   <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation..."><img alt="" src="../_images/sphx_glr_plot_label_prop_da_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/methods/plot_label_prop_da.html#sphx-glr-auto-examples-methods-plot-label-prop-da-py"><span class="std std-ref">Label Propagation methods</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task."><img alt="" src="../_images/sphx_glr_plot_optimal_transport_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_optimal_transport_da.html#sphx-glr-auto-examples-methods-plot-optimal-transport-da-py"><span class="std std-ref">Optimal Transport Domain Adaptation (OTDA)</span></a></p>
   <div class="sphx-glr-thumbnail-title">Optimal Transport Domain Adaptation (OTDA)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score..."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/validation/plot_cross_val_score_for_da.html#sphx-glr-auto-examples-validation-plot-cross-val-score-for-da-py"><span class="std std-ref">Using cross_val_score with skada</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
 </div></div></section>
 </section>
 
@@ -176,7 +184,7 @@ the estimator encapsulated within a domain selector.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="skada.DASVMClassifier.html" class="btn btn-neutral float-left" title="skada.DASVMClassifier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="skada.feature.DeepCORAL.html" class="btn btn-neutral float-right" title="skada.feature.DeepCORAL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="skada.Shared.html" class="btn btn-neutral float-right" title="skada.Shared" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

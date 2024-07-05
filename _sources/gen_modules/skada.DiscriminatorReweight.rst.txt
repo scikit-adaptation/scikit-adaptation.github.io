@@ -1,0 +1,11 @@
+﻿skada.DiscriminatorReweight
+===========================
+
+.. currentmodule:: skada
+
+.. autofunction:: DiscriminatorReweight
+
+.. _sphx_glr_backreferences_skada.DiscriminatorReweight:
+
+.. minigallery:: skada.DiscriminatorReweight
+    :add-heading:

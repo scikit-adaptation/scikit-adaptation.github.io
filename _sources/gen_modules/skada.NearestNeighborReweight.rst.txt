@@ -1,0 +1,11 @@
+﻿skada.NearestNeighborReweight
+=============================
+
+.. currentmodule:: skada
+
+.. autofunction:: NearestNeighborReweight
+
+.. _sphx_glr_backreferences_skada.NearestNeighborReweight:
+
+.. minigallery:: skada.NearestNeighborReweight
+    :add-heading:

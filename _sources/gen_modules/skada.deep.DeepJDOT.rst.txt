@@ -1,0 +1,11 @@
+﻿skada.deep.DeepJDOT
+===================
+
+.. currentmodule:: skada.deep
+
+.. autofunction:: DeepJDOT
+
+.. _sphx_glr_backreferences_skada.deep.DeepJDOT:
+
+.. minigallery:: skada.deep.DeepJDOT
+    :add-heading:

@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_auto_examples_methods_plot_jdot_da.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -22,7 +22,7 @@ JDOT Regressor and Classifier examples
 ======================================
 
 This example shows how to use the JDOTRegressor [10] to learn a regression model
-from source to target domain on a simple concept drift 2D exemple. We use a
+from source to target domain on a simple concept drift 2D example. We use a
 simple Kernel Ridge Regression (KRR) as base estimator.
 
 We compare the performance of the KRR on the source and target domain, and the
@@ -33,7 +33,7 @@ the OT plan between samples estimated by JDOT.
         distribution optimal transportation for domain adaptation. Advances in
         neural information processing systems, 30.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-25
+.. GENERATED FROM PYTHON SOURCE LINES 18-24
 
 .. code-block:: Python
 
@@ -50,22 +50,19 @@ the OT plan between samples estimated by JDOT.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 26-39
+.. GENERATED FROM PYTHON SOURCE LINES 25-35
 
 .. code-block:: Python
 
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.svm import SVC
-    import numpy as np
     import matplotlib.pyplot as plt
-
-    from sklearn.metrics import mean_squared_error
+    import numpy as np
     from sklearn.kernel_ridge import KernelRidge
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import mean_squared_error
+    from sklearn.svm import SVC
 
-    from skada import JDOTRegressor, JDOTClassifier
+    from skada import JDOTClassifier, JDOTRegressor, source_target_split
     from skada.datasets import make_shifted_datasets
-    from skada import source_target_split
 
 
 
@@ -74,29 +71,28 @@ the OT plan between samples estimated by JDOT.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 40-44
+.. GENERATED FROM PYTHON SOURCE LINES 36-40
 
 Generate concept drift regression dataset and plot it
 -----------------------------------------------------
 
 We generate a simple 2D concept drift dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-70
+.. GENERATED FROM PYTHON SOURCE LINES 40-66
 
 .. code-block:: Python
 
 
     X, y, sample_domain = make_shifted_datasets(
-            n_samples_source=20,
-            n_samples_target=20,
-            shift="concept_drift",
-            noise=0.3,
-            label="regression",
-            random_state=42,
-        )
+        n_samples_source=20,
+        n_samples_target=20,
+        shift="concept_drift",
+        noise=0.3,
+        label="regression",
+        random_state=42,
+    )
 
-    y = (y-y.mean())/y.std()
+    y = (y - y.mean()) / y.std()
 
     Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
 
@@ -126,11 +122,11 @@ We generate a simple 2D concept drift dataset.
  .. code-block:: none
 
 
-    (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+    (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-78
+.. GENERATED FROM PYTHON SOURCE LINES 67-74
 
 Train a regressor on source data
 --------------------------------
@@ -140,13 +136,13 @@ evaluate its performance on the source and target domain. Performance is
 much lower on the target domain due to the shift. We also plot the decision
 boundary learned by the KRR.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-111
+.. GENERATED FROM PYTHON SOURCE LINES 74-107
 
 .. code-block:: Python
 
 
 
-    clf = KernelRidge(kernel='rbf', alpha=0.5)
+    clf = KernelRidge(kernel="rbf", alpha=0.5)
     clf.fit(Xs, ys)
 
     # Compute accuracy on source and target
@@ -166,13 +162,13 @@ boundary learned by the KRR.
     plt.figure(2, (10, 5))
     plt.subplot(1, 2, 1)
     plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, label="Prediction")
-    plt.imshow(Z, extent=(ax[0], ax[1], ax[2], ax[3]), origin='lower', alpha=0.5)
+    plt.imshow(Z, extent=(ax[0], ax[1], ax[2], ax[3]), origin="lower", alpha=0.5)
     plt.title(f"KRR Prediction on source (MSE={mse_s:.2f})")
     plt.axis(ax)
 
     plt.subplot(1, 2, 2)
     plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, label="Prediction")
-    plt.imshow(Z, extent=(ax[0], ax[1], ax[2], ax[3]), origin='lower', alpha=0.5)
+    plt.imshow(Z, extent=(ax[0], ax[1], ax[2], ax[3]), origin="lower", alpha=0.5)
     plt.title(f"KRR Prediction on target (MSE={mse_t:.2f})")
     plt.axis(ax)
 
@@ -193,11 +189,11 @@ boundary learned by the KRR.
     MSE on source: 0.06
     MSE on target: 0.77
 
-    (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+    (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-120
+.. GENERATED FROM PYTHON SOURCE LINES 108-116
 
 Train with JDOT regressor
 -------------------------
@@ -208,13 +204,13 @@ performance of JDOT on the source and target domain, and illustrate the
 learned decision boundary of JDOT. Performance is much better on the target
 domain than with the KRR trained on source.
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-150
+.. GENERATED FROM PYTHON SOURCE LINES 116-146
 
 .. code-block:: Python
 
 
 
-    jdot = JDOTRegressor(base_estimator=KernelRidge(kernel='rbf', alpha=0.5), alpha=0.01)
+    jdot = JDOTRegressor(base_estimator=KernelRidge(kernel="rbf", alpha=0.5), alpha=0.01)
 
     jdot.fit(X, y, sample_domain=sample_domain)
 
@@ -232,13 +228,13 @@ domain than with the KRR trained on source.
     plt.figure(3, (10, 5))
     plt.subplot(1, 2, 1)
     plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, label="Prediction")
-    plt.imshow(Zjdot, extent=(ax[0], ax[1], ax[2], ax[3]), origin='lower', alpha=0.5)
+    plt.imshow(Zjdot, extent=(ax[0], ax[1], ax[2], ax[3]), origin="lower", alpha=0.5)
     plt.title(f"JDOT Prediction on source (MSE={mse_s:.2f})")
     plt.axis(ax)
 
     plt.subplot(1, 2, 2)
     plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, label="Prediction")
-    plt.imshow(Zjdot, extent=(ax[0], ax[1], ax[2], ax[3]), origin='lower', alpha=0.5)
+    plt.imshow(Zjdot, extent=(ax[0], ax[1], ax[2], ax[3]), origin="lower", alpha=0.5)
     plt.title(f"JDOT Prediction on target (MSE={mse_t:.2f})")
     plt.axis(ax)
 
@@ -258,11 +254,11 @@ domain than with the KRR trained on source.
     JDOT MSE on source: 0.51
     JDOT MSE on target: 0.15
 
-    (-2.570318895725525, 4.744989537549497, -1.9610814126500358, 4.45933195939893)
+    (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-157
+.. GENERATED FROM PYTHON SOURCE LINES 147-153
 
 Illustration of the OT plan
 ---------------------------
@@ -271,23 +267,25 @@ We illustrate the OT plan between samples estimated by JDOT. We plot the
 OT plan between the source and target samples. We can see that the OT plan
 is able to align the source and target samples while preserving the label.
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-174
+.. GENERATED FROM PYTHON SOURCE LINES 153-172
 
 .. code-block:: Python
 
 
     T = jdot.sol_.plan
-    T = T/T.max()
+    T = T / T.max()
 
     plt.figure(4, (5, 5))
 
-    plt.scatter(Xs[:, 0], Xs[:, 1], c='C0', label="Source", alpha=0.7)
-    plt.scatter(Xt[:, 0], Xt[:, 1], c='C1', label="Target", alpha=0.7)
+    plt.scatter(Xs[:, 0], Xs[:, 1], c="C0", label="Source", alpha=0.7)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c="C1", label="Target", alpha=0.7)
 
     for i in range(Xs.shape[0]):
         for j in range(Xt.shape[0]):
             if T[i, j] > 0.01:
-                plt.plot([Xs[i, 0], Xt[j, 0]], [Xs[i, 1], Xt[j, 1]], 'k', alpha=T[i, j]*0.8)
+                plt.plot(
+                    [Xs[i, 0], Xt[j, 0]], [Xs[i, 1], Xt[j, 1]], "k", alpha=T[i, j] * 0.8
+                )
     plt.legend()
     plt.title("OT plan between source and target")
 
@@ -310,26 +308,26 @@ is able to align the source and target samples while preserving the label.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-179
+.. GENERATED FROM PYTHON SOURCE LINES 173-177
 
 Generate concept drift classification dataset and plot it
 -----------------------------------------------------
 
 We generate a simple 2D concept drift dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-204
+.. GENERATED FROM PYTHON SOURCE LINES 177-202
 
 .. code-block:: Python
 
 
     X, y, sample_domain = make_shifted_datasets(
-            n_samples_source=20,
-            n_samples_target=20,
-            shift="concept_drift",
-            noise=0.2,
-            label="multiclass",
-            random_state=42,
-        )
+        n_samples_source=20,
+        n_samples_target=20,
+        shift="concept_drift",
+        noise=0.2,
+        label="multiclass",
+        random_state=42,
+    )
 
 
     Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
@@ -337,12 +335,12 @@ We generate a simple 2D concept drift dataset.
 
     plt.figure(5, (10, 5))
     plt.subplot(1, 2, 1)
-    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Source")
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap="tab10", vmax=9, label="Source")
     plt.title("Source data")
     ax = plt.axis()
 
     plt.subplot(1, 2, 2)
-    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Target")
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Target")
     plt.title("Target data")
     plt.axis(ax)
 
@@ -360,11 +358,11 @@ We generate a simple 2D concept drift dataset.
  .. code-block:: none
 
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 205-211
+.. GENERATED FROM PYTHON SOURCE LINES 203-209
 
 Train a classifier on source data
 --------------------------------
@@ -373,7 +371,7 @@ We train a simple SVC classifier on the source domain and evaluate its
 performance on the source and target domain. Performance is much lower on
 the target domain due to the shift. We also plot the decision boundary
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-265
+.. GENERATED FROM PYTHON SOURCE LINES 209-255
 
 .. code-block:: Python
 
@@ -398,35 +396,27 @@ the target domain due to the shift. We also plot the decision boundary
 
     plt.figure(6, (10, 5))
     plt.subplot(1, 2, 1)
-    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Prediction")
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap="tab10", vmax=9, label="Prediction")
     plt.imshow(
         Z,
-        extent=(
-            ax[0],
-            ax[1],
-            ax[2],
-            ax[3]),
-        origin='lower',
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
         alpha=0.5,
-        cmap='tab10',
+        cmap="tab10",
         vmax=9,
-            )
+    )
     plt.title(f"SVC Prediction on source (ACC={acc_s:.2f})")
 
     plt.subplot(1, 2, 2)
-    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Prediction")
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Prediction")
     plt.imshow(
         Z,
-        extent=(
-            ax[0],
-            ax[1],
-            ax[2],
-            ax[3]),
-        origin='lower',
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
         alpha=0.5,
-        cmap='tab10',
+        cmap="tab10",
         vmax=9,
-            )
+    )
     plt.title(f"SVC Prediction on target (ACC={acc_t:.2f})")
     plt.axis(ax)
 
@@ -447,11 +437,11 @@ the target domain due to the shift. We also plot the decision boundary
     Accuracy on source: 0.99
     Accuracy on target: 0.50
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 266-274
+.. GENERATED FROM PYTHON SOURCE LINES 256-264
 
 Train with JDOT classifier
 -------------------------
@@ -462,7 +452,7 @@ performance of JDOT on the source and target domain, and illustrate the
 learned decision boundary of JDOT. Performance is much better on the target
 domain than with the SVC trained on source.
 
-.. GENERATED FROM PYTHON SOURCE LINES 274-328
+.. GENERATED FROM PYTHON SOURCE LINES 264-310
 
 .. code-block:: Python
 
@@ -487,35 +477,27 @@ domain than with the SVC trained on source.
 
     plt.figure(7, (10, 5))
     plt.subplot(1, 2, 1)
-    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Prediction")
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap="tab10", vmax=9, label="Prediction")
     plt.imshow(
         Z,
-        extent=(
-            ax[0],
-            ax[1],
-            ax[2],
-            ax[3]),
-        origin='lower',
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
         alpha=0.5,
-        cmap='tab10',
+        cmap="tab10",
         vmax=9,
-            )
+    )
     plt.title(f"JDOT reglog on source (ACC={acc_s:.2f})")
 
     plt.subplot(1, 2, 2)
-    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Prediction")
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Prediction")
     plt.imshow(
         Z,
-        extent=(
-            ax[0],
-            ax[1],
-            ax[2],
-            ax[3]),
-        origin='lower',
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
         alpha=0.5,
-        cmap='tab10',
+        cmap="tab10",
         vmax=9,
-            )
+    )
     plt.title(f"JDOT reglog on target (ACC={acc_t:.2f})")
     plt.axis(ax)
 
@@ -534,16 +516,16 @@ domain than with the SVC trained on source.
  .. code-block:: none
 
     iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.22983129554592746
-    iter=1, loss_ot=0.18530735809550575, loss_tgt_labels=0.21420445266620783
-    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620783
+    iter=1, loss_ot=0.18530735809550572, loss_tgt_labels=0.21420445266620786
+    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620786
     JDOT Accuracy on source: 0.84
     JDOT Accuracy on target: 0.97
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 329-336
+.. GENERATED FROM PYTHON SOURCE LINES 311-318
 
 Train with JDOT classifier with SVC
 -------------------------
@@ -553,12 +535,12 @@ estimator to learn a classification model from source to target domain.
 Note that in this case it is necessary to change the metric from the default
 'multinomial' to 'hinge' to match the hinge loss used by the SVC.
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-387
+.. GENERATED FROM PYTHON SOURCE LINES 318-361
 
 .. code-block:: Python
 
 
-    jdot = JDOTClassifier(SVC(kernel='rbf', C=1), metric='hinge')
+    jdot = JDOTClassifier(SVC(kernel="rbf", C=1), metric="hinge")
 
     jdot.fit(X, y, sample_domain=sample_domain)
 
@@ -577,35 +559,27 @@ Note that in this case it is necessary to change the metric from the default
 
     plt.figure(8, (10, 5))
     plt.subplot(1, 2, 1)
-    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap='tab10', vmax=9, label="Prediction")
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap="tab10", vmax=9, label="Prediction")
     plt.imshow(
         Z,
-        extent=(
-            ax[0],
-            ax[1],
-            ax[2],
-            ax[3]),
-        origin='lower',
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
         alpha=0.5,
-        cmap='tab10',
+        cmap="tab10",
         vmax=9,
-            )
+    )
     plt.title(f"JDOT SVC on source (ACC={acc_s:.2f})")
 
     plt.subplot(1, 2, 2)
-    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap='tab10', vmax=9, label="Prediction")
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Prediction")
     plt.imshow(
         Z,
-        extent=(
-            ax[0],
-            ax[1],
-            ax[2],
-            ax[3]),
-        origin='lower',
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
         alpha=0.5,
-        cmap='tab10',
+        cmap="tab10",
         vmax=9,
-            )
+    )
     plt.title(f"JDOT SVC on target (ACC={acc_t:.2f})")
     plt.axis(ax)
 
@@ -624,14 +598,14 @@ Note that in this case it is necessary to change the metric from the default
     JDOT Accuracy on source: 0.82
     JDOT Accuracy on target: 0.97
 
-    (-2.3676169789533272, 4.53817259426296, -1.7964573229829714, 4.336863129384494)
+    (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.773 seconds)
+   **Total running time of the script:** (0 minutes 1.519 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_jdot_da.py:

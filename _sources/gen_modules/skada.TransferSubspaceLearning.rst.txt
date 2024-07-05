@@ -1,0 +1,11 @@
+﻿skada.TransferSubspaceLearning
+==============================
+
+.. currentmodule:: skada
+
+.. autofunction:: TransferSubspaceLearning
+
+.. _sphx_glr_backreferences_skada.TransferSubspaceLearning:
+
+.. minigallery:: skada.TransferSubspaceLearning
+    :add-heading:

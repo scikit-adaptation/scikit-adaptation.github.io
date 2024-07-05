@@ -6,7 +6,7 @@
   <title>skada._mapping &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -19,8 +19,8 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=5467c19a"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -40,7 +40,7 @@
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
               <div class="version">
-                0.2
+                0.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -86,6 +86,7 @@
 <span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
 <span class="c1">#         Remi Flamary &lt;remi.flamary@polytechnique.edu&gt;</span>
 <span class="c1">#         Oleksii Kachaiev &lt;kachayev@gmail.com&gt;</span>
+<span class="c1">#         Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
 
@@ -93,20 +94,19 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ot</span> <span class="kn">import</span> <span class="n">da</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 
+<span class="kn">from</span> <span class="nn">._pipeline</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">Y_Type</span><span class="p">,</span> <span class="n">_estimate_covariance</span><span class="p">,</span> <span class="n">_find_y_type</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseAdapter</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">check_X_domain</span><span class="p">,</span>
-    <span class="n">check_X_y_domain</span><span class="p">,</span>
+    <span class="n">extract_source_indices</span><span class="p">,</span>
+    <span class="n">source_target_merge</span><span class="p">,</span>
     <span class="n">source_target_split</span><span class="p">,</span>
-    <span class="n">source_target_merge</span>
+    <span class="n">torch_minimize</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">_estimate_covariance</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">._pipeline</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 
 
 <span class="k">class</span> <span class="nc">BaseOTMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
@@ -116,7 +116,7 @@
 <span class="sd">    to create OT object using parameters saved in the constructor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
@@ -133,7 +133,7 @@
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
@@ -142,7 +142,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ot_transport_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">Xt</span><span class="o">=</span><span class="n">X_target</span><span class="p">,</span> <span class="n">yt</span><span class="o">=</span><span class="n">y_target</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -158,17 +158,20 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data transformed to the target subspace.</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
-<span class="sd">        weights : array-like, shape (n_samples,)</span>
-<span class="sd">            The weights of the samples.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="c1"># xxx(okachaiev): implement auto-infer for sample_domain</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span>
             <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
             <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="c1"># in case of prediction we would get only target samples here,</span>
@@ -185,8 +188,12 @@
         <span class="k">pass</span>
 
 
+<div class="viewcode-block" id="OTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.OTMappingAdapter.html#skada.OTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">OTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -207,7 +214,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -228,20 +235,16 @@
             <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
             <span class="n">norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="OTMapping">
 <a class="viewcode-back" href="../../gen_modules/skada.OTMapping.html#skada.OTMapping">[docs]</a>
-<span class="k">def</span> <span class="nf">OTMapping</span><span class="p">(</span>
-    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
-    <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span>
-<span class="p">):</span>
+<span class="k">def</span> <span class="nf">OTMapping</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;OTmapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -263,7 +266,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -277,8 +280,12 @@
 
 
 
+<div class="viewcode-block" id="EntropicOTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.EntropicOTMappingAdapter.html#skada.EntropicOTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">EntropicOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -304,14 +311,14 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
         <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -331,7 +338,8 @@
             <span class="n">norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">norm</span><span class="p">,</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="EntropicOTMapping">
@@ -341,12 +349,12 @@
     <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
     <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;EntropicOTMapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -373,7 +381,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -382,19 +390,19 @@
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">EntropicOTMappingAdapter</span><span class="p">(</span>
-            <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span>
-            <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span>
-            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
-            <span class="n">reg_e</span><span class="o">=</span><span class="n">reg_e</span><span class="p">,</span>
-            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span>
+            <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">reg_e</span><span class="o">=</span><span class="n">reg_e</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 
+<div class="viewcode-block" id="ClassRegularizerOTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.ClassRegularizerOTMappingAdapter.html#skada.ClassRegularizerOTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">ClassRegularizerOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+
+<span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -425,14 +433,14 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+        <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
         <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span>
         <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
@@ -463,7 +471,8 @@
             <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
             <span class="n">max_inner_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_inner_iter</span><span class="p">,</span>
             <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="ClassRegularizerOTMapping">
@@ -474,13 +483,13 @@
     <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">max_inner_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;ClassRegularizedOTMapping pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -511,7 +520,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -523,7 +532,7 @@
             <span class="n">max_inner_iter</span><span class="o">=</span><span class="n">max_inner_iter</span><span class="p">,</span>
             <span class="n">reg_e</span><span class="o">=</span><span class="n">reg_e</span><span class="p">,</span>
             <span class="n">reg_cl</span><span class="o">=</span><span class="n">reg_cl</span><span class="p">,</span>
-            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span>
@@ -531,6 +540,8 @@
 
 
 
+<div class="viewcode-block" id="LinearOTMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">LinearOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
@@ -555,19 +566,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
 
     <span class="k">def</span> <span class="nf">_create_transport_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">da</span><span class="o">.</span><span class="n">LinearTransport</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">da</span><span class="o">.</span><span class="n">LinearTransport</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="LinearOTMapping">
 <a class="viewcode-back" href="../../gen_modules/skada.LinearOTMapping.html#skada.LinearOTMapping">[docs]</a>
 <span class="k">def</span> <span class="nf">LinearOTMapping</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">reg</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a the linear OT mapping method with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -585,7 +597,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
+<span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -651,11 +663,15 @@
 <span class="sd">        Matrix inverse square root of C.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
 
 
+<div class="viewcode-block" id="CORALAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.CORALAdapter.html#skada.CORALAdapter">[docs]</a>
 <span class="k">class</span> <span class="nc">CORALAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimator based on Correlation Alignment [1]_.</span>
+
+<span class="sd">    See [5]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -666,9 +682,13 @@
 <span class="sd">          - None: no shrinkage).</span>
 <span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
+<span class="sd">    mean_source_: array, shape (n_features,)</span>
+<span class="sd">    mean_target_: array, shape (n_features,)</span>
 <span class="sd">    cov_source_inv_sqrt_: array, shape (n_features, n_features)</span>
 <span class="sd">        Inverse of the square root of covariance of the source data with regularization.</span>
 <span class="sd">    cov_target_sqrt_: array, shape (n_features, n_features)</span>
@@ -676,14 +696,15 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
+<span class="sd">    .. [5] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
 <span class="sd">           Correlation Alignment for Unsupervised Domain Adaptation.</span>
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span> <span class="o">=</span> <span class="n">assume_centered</span>
 
     <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
@@ -703,20 +724,23 @@
 <span class="sd">            Returns self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="p">,</span>
-            <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
-        <span class="n">cov_source_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span>
-        <span class="n">cov_target_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_source_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_target_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">cov_source_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span>
+            <span class="n">X_source</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span>
+        <span class="p">)</span>
+        <span class="n">cov_target_</span> <span class="o">=</span> <span class="n">_estimate_covariance</span><span class="p">(</span>
+            <span class="n">X_target</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span> <span class="o">=</span> <span class="n">_invsqrtm</span><span class="p">(</span><span class="n">cov_source_</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span> <span class="o">=</span> <span class="n">_sqrtm</span><span class="p">(</span><span class="n">cov_target_</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">adapt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
@@ -732,25 +756,43 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_features)</span>
 <span class="sd">            The data transformed to the target space.</span>
-<span class="sd">        y_t : array-like, shape (n_samples,)</span>
-<span class="sd">            The labels (same as y).</span>
-<span class="sd">        weights : None</span>
-<span class="sd">            No weights are returned here.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span>
             <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">,</span>
             <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target_adapt</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+        <span class="p">)</span>
 
-        <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span><span class="p">)</span>
-        <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span><span class="p">)</span>
+        <span class="c1"># Adapt the source data</span>
+        <span class="k">if</span> <span class="n">X_source_adapt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Center data</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">:</span>
+                <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">X_source_adapt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_source_</span>
+
+            <span class="c1"># Whitening and coloring source data</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_source_inv_sqrt_</span><span class="p">)</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_source_adapt</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_target_sqrt_</span><span class="p">)</span>
+
+        <span class="c1"># Adapt the target data</span>
+        <span class="k">if</span> <span class="n">X_target_adapt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">:</span>
+            <span class="n">X_target_adapt</span> <span class="o">=</span> <span class="n">X_target_adapt</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_target_</span>
+
         <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
-            <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+            <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target_adapt</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">X_adapt</span>
+        <span class="k">return</span> <span class="n">X_adapt</span></div>
+
 
 
 <div class="viewcode-block" id="CORAL">
@@ -758,10 +800,11 @@
 <span class="k">def</span> <span class="nf">CORAL</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CORAL pipeline with adapter and estimator.</span>
 
-<span class="sd">    see [1]_ for details.</span>
+<span class="sd">    See [5]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -774,6 +817,8 @@
 <span class="sd">          - None: no shrinkage).</span>
 <span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -782,7 +827,7 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-<span class="sd">    .. [1] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
+<span class="sd">    .. [5] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
 <span class="sd">           Correlation Alignment for Unsupervised Domain Adaptation.</span>
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -790,7 +835,266 @@
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
-        <span class="n">CORALAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">),</span>
+        <span class="n">CORALAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="n">assume_centered</span><span class="p">),</span>
+        <span class="n">base_estimator</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="c1"># xxx(okachaiev): we should move this to &#39;skada.deep.*&#39; I guess</span>
+<span class="c1"># to avoid defining things that won&#39;t work anyways</span>
+<div class="viewcode-block" id="MMDLSConSMappingAdapter">
+<a class="viewcode-back" href="../../gen_modules/skada.MMDLSConSMappingAdapter.html#skada.MMDLSConSMappingAdapter">[docs]</a>
+<span class="k">class</span> <span class="nc">MMDLSConSMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Location-Scale mapping minimizing the MMD with a Gaussian kernel.</span>
+
+<span class="sd">    MMDLSConSMapping finds a linear transformation that minimizes the Maximum Mean</span>
+<span class="sd">    Discrepancy (MMD) between the source and target domains, such that</span>
+<span class="sd">    $X^t = W(y^s) \\odot X^s + B(y^s)$, where $W(y^s)$ and $B(y^s)$ are the scaling</span>
+<span class="sd">    and bias of the linear transformation, respectively.</span>
+
+<span class="sd">    See Section 4 of [21]_ for details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    gamma : float</span>
+<span class="sd">        Parameter for the Gaussian kernel.</span>
+<span class="sd">    reg_k : float, default=1e-10</span>
+<span class="sd">        Regularization parameter for the labels kernel matrix.</span>
+<span class="sd">    reg_m : float, default=1e-10</span>
+<span class="sd">        Regularization parameter for the mapping parameters.</span>
+<span class="sd">    tol : float, default=1e-5</span>
+<span class="sd">        Tolerance for the stopping criterion in the optimization.</span>
+<span class="sd">    max_iter : int, default=100</span>
+<span class="sd">        Number of maximum iteration before stopping the optimization.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    `W_` : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        The scaling matrix.</span>
+<span class="sd">    `B_` : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        The bias matrix.</span>
+<span class="sd">    `G_` : array-like, shape (n_classes, n_features) or (n_samples, n_features)</span>
+<span class="sd">        The learned kernel scaling matrix.</span>
+<span class="sd">    `H_` : array-like, shape (n_classes, n_features) or (n_samples, n_features)</span>
+<span class="sd">        The learned kernel bias matrix.</span>
+<span class="sd">    `X_source_` : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        The source data.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
+<span class="sd">           In ICML, 2013.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_k</span> <span class="o">=</span> <span class="n">reg_k</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_m</span> <span class="o">=</span> <span class="n">reg_m</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">B_</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_mapping_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mapping optimization&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">torch</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">&quot;MMDLSConSMappingAdapter requires pytorch to be installed.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># check y is discrete or continuous</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">discrete_</span> <span class="o">=</span> <span class="n">discrete</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y_source</span><span class="p">)</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span>
+
+        <span class="c1"># convert to pytorch tensors</span>
+        <span class="n">X_source</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">X_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="n">y_source</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="n">y_source</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span> <span class="k">if</span> <span class="n">discrete</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">float64</span>
+        <span class="p">)</span>
+
+        <span class="c1"># get shapes</span>
+        <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># compute omega</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">omega</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_k</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+        <span class="c1"># compute R</span>
+        <span class="k">if</span> <span class="n">discrete</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">classes</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_source</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">classes</span><span class="p">):</span>
+                <span class="n">R</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_source</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">int</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_k</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+        <span class="c1"># solve the optimization problem</span>
+        <span class="c1"># min_{G, H} MMD(W \odot X^s + B, X^t)</span>
+        <span class="c1"># s.t. W = RG, B = RH</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">):</span>
+            <span class="n">W</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">G</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">H</span>
+
+            <span class="n">X_new</span> <span class="o">=</span> <span class="n">W</span> <span class="o">*</span> <span class="n">X_source</span> <span class="o">+</span> <span class="n">B</span>
+
+            <span class="n">K</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X_new</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">K_cross</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">X_new</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">J_cons</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">omega</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="n">J_cons</span> <span class="o">-=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K_cross</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+            <span class="n">J_reg</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">W</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">B</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">return</span> <span class="n">J_cons</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_m</span> <span class="o">*</span> <span class="n">J_reg</span>
+
+        <span class="c1"># optimize using torch solver</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">d</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torch_minimize</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">H</span><span class="p">),</span> <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">)</span>
+
+        <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">G</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="n">H</span>
+
+        <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">H</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : object</span>
+<span class="sd">            Returns self.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># xxx(okachaiev): we can&#39;t test X_y here because y might</span>
+        <span class="c1"># have NaNs, thought it might be better to keep this as an</span>
+        <span class="c1"># argument of a checker</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span> <span class="o">=</span> <span class="n">X_source</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">G_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mapping_optimization</span><span class="p">(</span>
+            <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
+<span class="sd">            The data (same as X).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="n">allow_source</span><span class="p">)</span>
+
+        <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">X_source</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]):</span>
+                <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">discrete_</span> <span class="ow">and</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># recompute the mapping</span>
+                    <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+                    <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+                    <span class="n">y_source</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span>
+                    <span class="n">classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span>
+                    <span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">source_idx</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)))</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">classes</span><span class="p">):</span>
+                        <span class="n">R</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_source</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                    <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">G_</span><span class="p">,</span> <span class="n">R</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># assign the nearest neighbor&#39;s mapping to the source samples</span>
+                    <span class="n">C</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span><span class="p">)</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="n">X_source_adapt</span> <span class="o">=</span> <span class="n">W</span> <span class="o">*</span> <span class="n">X_source</span> <span class="o">+</span> <span class="n">B</span>
+        <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
+            <span class="n">X_source_adapt</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_adapt</span></div>
+
+
+
+<div class="viewcode-block" id="MMDLSConSMapping">
+<a class="viewcode-back" href="../../gen_modules/skada.MMDLSConSMapping.html#skada.MMDLSConSMapping">[docs]</a>
+<span class="k">def</span> <span class="nf">MMDLSConSMapping</span><span class="p">(</span>
+    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;MMDLSConSMapping pipeline with adapter and estimator.</span>
+
+<span class="sd">    See [21]_ for details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : object, optional (default=None)</span>
+<span class="sd">        The base estimator to fit on the target dataset.</span>
+<span class="sd">    gamma : float</span>
+<span class="sd">        Parameter for the Gaussian kernel.</span>
+<span class="sd">    reg_k : float, default=1e-10</span>
+<span class="sd">        Regularization parameter for the labels kernel matrix.</span>
+<span class="sd">    reg_m : float, default=1e-10</span>
+<span class="sd">        Regularization parameter for the mapping parameters.</span>
+<span class="sd">    tol : float, default=1e-5</span>
+<span class="sd">        Tolerance for the stopping criterion in the optimization.</span>
+<span class="sd">    max_iter : int, default=100</span>
+<span class="sd">        Number of maximum iteration before stopping the optimization.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pipeline : Pipeline</span>
+<span class="sd">        Pipeline containing CORAL adapter and base estimator.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
+<span class="sd">            In ICML, 2013.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
+        <span class="n">MMDLSConSMappingAdapter</span><span class="p">(</span>
+            <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="n">reg_k</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="n">reg_m</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span>
+        <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
 

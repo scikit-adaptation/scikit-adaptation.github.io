@@ -1,0 +1,13 @@
+﻿skada.deep.DeepJDOTLoss
+=======================
+
+.. currentmodule:: skada.deep
+
+.. autoclass:: DeepJDOTLoss
+   :special-members: __contains__,__getitem__,__iter__,__len__,__add__,__sub__,__mul__,__div__,__neg__
+   :members:
+
+.. _sphx_glr_backreferences_skada.deep.DeepJDOTLoss:
+
+.. minigallery:: skada.deep.DeepJDOTLoss
+    :add-heading:

@@ -1,0 +1,11 @@
+﻿skada.TransferJointMatchingAdapter
+==================================
+
+.. currentmodule:: skada
+
+.. autofunction:: TransferJointMatchingAdapter
+
+.. _sphx_glr_backreferences_skada.TransferJointMatchingAdapter:
+
+.. minigallery:: skada.TransferJointMatchingAdapter
+    :add-heading:
