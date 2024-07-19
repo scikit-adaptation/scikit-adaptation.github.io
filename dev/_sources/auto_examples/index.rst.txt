@@ -280,6 +280,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_monge_alignment_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_monge_alignment_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-domain Linear Monge Alignment</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the DASVM method from [21].">
 
 .. only:: html
@@ -292,23 +309,6 @@ DA methods
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">DASVM classifier example</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation...">
-
-.. only:: html
-
-  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_label_prop_da_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
     </div>
 
 
@@ -365,6 +365,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation...">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_label_prop_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task.">
 
 .. only:: html
@@ -390,11 +407,12 @@ DA methods
 .. toctree::
    :hidden:
 
+   /auto_examples/methods/plot_monge_alignment_da
    /auto_examples/methods/plot_dasvm
-   /auto_examples/methods/plot_label_prop_da
    /auto_examples/methods/plot_jdot_da
    /auto_examples/methods/plot_subspace
    /auto_examples/methods/plot_reweighting
+   /auto_examples/methods/plot_label_prop_da
    /auto_examples/methods/plot_optimal_transport_da
 
 

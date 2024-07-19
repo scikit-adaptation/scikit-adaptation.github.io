@@ -65,8 +65,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#da-methods">DA methods</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_monge_alignment_da.html">Multi-domain Linear Monge Alignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_dasvm.html">DASVM classifier example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_label_prop_da.html">Label Propagation methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_jdot_da.html">JDOT Regressor and Classifier examples</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Subspace method example on subspace shift dataset</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#the-subspaces-methods">The subspaces methods</a></li>
@@ -81,6 +81,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="plot_reweighting.html">Reweighting method example on covariate shift dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_label_prop_da.html">Label Propagation methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_optimal_transport_da.html">Optimal Transport Domain Adaptation (OTDA)</a></li>
 </ul>
 </li>
@@ -506,7 +507,7 @@ pages 929-942</p>
 <span class="n">plot_subspace_and_classifier</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a><span class="p">,</span> <span class="s2">&quot;TransferSubspaceLearning&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_subspace_006.png" srcset="../../_images/sphx_glr_plot_subspace_006.png" alt="Illustration of the TransferSubspaceLearning method, Full dataset projected on the subspace, Accuracy on target projected on the subspace, Accuracy on target" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+<img src="../../_images/sphx_glr_plot_subspace_006.png" srcset="../../_images/sphx_glr_plot_subspace_006.png" alt="Illustration of the TransferSubspaceLearning method, Full dataset projected on the subspace, Accuracy on target projected on the subspace, Accuracy on target" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/skada/utils.py:968: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 </pre></div>
 </div>
@@ -532,7 +533,7 @@ TransferJointMatching with rbf kernel | 90.0  %
 TransferSubspaceLearning              | 96.25 %
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.310 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.283 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-subspace-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9de97e089e40f3aec07b2b527b85b3d6/plot_subspace.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_subspace.ipynb</span></code></a></p>

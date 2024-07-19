@@ -127,7 +127,8 @@
 <dt class="sig sig-object py" id="skada.LinearOTMapping">
 <span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">LinearOTMapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#LinearOTMapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.LinearOTMapping" title="Link to this definition"></a></dt>
 <dd><p>Returns a the linear OT mapping method with adapter and estimator.</p>
-<p>see <a class="reference internal" href="#r425108ba4fcc-6" id="id1">[6]</a> for details.</p>
+<p>Uses Gaussian Monge mapping to align source and target domains as proposed
+in [7].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -149,7 +150,7 @@
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
 <div class="citation" id="r425108ba4fcc-6" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">6</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></span>
 <p>N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,
 Optimal Transport for Domain Adaptation, in IEEE
 Transactions on Pattern Analysis and Machine Intelligence</p>

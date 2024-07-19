@@ -26,7 +26,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="DASVM classifier example" href="../methods/plot_dasvm.html" />
+    <link rel="next" title="Multi-domain Linear Monge Alignment" href="../methods/plot_monge_alignment_da.html" />
     <link rel="prev" title="Optimal transport domain adaptation methods." href="plot_optimal_transport.html" /> 
 </head>
 
@@ -173,10 +173,10 @@ on a simple image classification task.</p>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
--------  ------------  ------
-      1        2.3156  8.1906
-      2        2.2606  7.6993
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
+-------  ------------  -------
+      1        2.2512  10.4007
+      2        2.1574  8.4978
 
 &lt;class &#39;skada.deep.base.DomainAwareNet&#39;&gt;[initialized](
   module_=DomainAwareModule(
@@ -219,8 +219,8 @@ on a simple image classification task.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        2.2491  8.7524
-      2        2.1386  8.9002
+      1        2.2898  8.9566
+      2        2.2121  10.0992
 
 &lt;class &#39;skada.deep.base.DomainAwareNet&#39;&gt;[initialized](
   module_=DomainAwareModule(
@@ -272,11 +272,11 @@ on a simple image classification task.</p>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loss:&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">running_loss</span></a> <span class="o">/</span> <span class="nb">iter</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loss: 1.019654467701912
-Loss: 0.17319265753030777
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loss: 1.0630863010883331
+Loss: 0.18651005625724792
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 1.170 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 0.606 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-training-method-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0a1031daef8de6949bff505828d49e0e/plot_training_method.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_training_method.ipynb</span></code></a></p>
@@ -294,7 +294,7 @@ Loss: 0.17319265753030777
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="plot_optimal_transport.html" class="btn btn-neutral float-left" title="Optimal transport domain adaptation methods." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../methods/plot_dasvm.html" class="btn btn-neutral float-right" title="DASVM classifier example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../methods/plot_monge_alignment_da.html" class="btn btn-neutral float-right" title="Multi-domain Linear Monge Alignment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
