@@ -169,6 +169,7 @@
     <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">domain_classifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">num_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
@@ -196,6 +197,9 @@
 <span class="sd">        the feature extractor.</span>
 <span class="sd">        If domain_classifier is None, num_features has to be</span>
 <span class="sd">        provided.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
 <span class="sd">    domain_criterion : torch criterion (class)</span>
 <span class="sd">        The criterion (loss) used to compute the</span>
 <span class="sd">        DANN loss. If None, a BCELoss is used.</span>
@@ -214,6 +218,9 @@
             <span class="p">)</span>
         <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
     <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
         <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
         <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
@@ -221,7 +228,7 @@
         <span class="n">module__domain_classifier</span><span class="o">=</span><span class="n">domain_classifier</span><span class="p">,</span>
         <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
         <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
-        <span class="n">criterion__criterion</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
         <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
         <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DANNLoss</span><span class="p">(</span><span class="n">domain_criterion</span><span class="o">=</span><span class="n">domain_criterion</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -415,6 +422,7 @@
     <span class="n">domain_classifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">num_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
@@ -447,6 +455,9 @@
 <span class="sd">    n_classes : int, default None</span>
 <span class="sd">        Number of output classes.</span>
 <span class="sd">        If domain_classifier is None, n_classes has to be provided.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
 <span class="sd">    domain_criterion : torch criterion (class)</span>
 <span class="sd">        The criterion (loss) used to compute the</span>
 <span class="sd">        CDAN loss. If None, a BCELoss is used.</span>
@@ -468,6 +479,9 @@
         <span class="n">num_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">num_features</span> <span class="o">*</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">max_features</span><span class="p">])</span>
         <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
     <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
         <span class="n">module</span><span class="o">=</span><span class="n">CDANModule</span><span class="p">,</span>
         <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
@@ -476,7 +490,7 @@
         <span class="n">module__max_features</span><span class="o">=</span><span class="n">max_features</span><span class="p">,</span>
         <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
         <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
-        <span class="n">criterion__criterion</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
         <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
         <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">CDANLoss</span><span class="p">(</span><span class="n">domain_criterion</span><span class="o">=</span><span class="n">domain_criterion</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
