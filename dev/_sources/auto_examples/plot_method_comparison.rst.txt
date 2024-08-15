@@ -989,7 +989,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 17.409 seconds)
+   **Total running time of the script:** (0 minutes 14.569 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
@@ -1005,6 +1005,10 @@ accuracy on the test set.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_method_comparison.py <plot_method_comparison.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_method_comparison.zip <plot_method_comparison.zip>`
 
 
 .. only:: html

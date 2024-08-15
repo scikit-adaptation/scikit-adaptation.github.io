@@ -8,7 +8,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -153,6 +153,14 @@ w(x)p_source(x) is minimized.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>`source_weights_`</strong><span class="classifier">array-like, shape (n_samples,)</span></dt><dd><p>The learned source weights.</p>
+</dd>
+<dt><strong>`X_source_`</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>The source data.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
@@ -163,16 +171,6 @@ w(x)p_source(x) is minimized.</p>
 In NIPS, 2007.</p>
 </div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>`source_weights_`</strong><span class="classifier">array-like, shape (n_samples,)</span></dt><dd><p>The learned source weights.</p>
-</dd>
-<dt><strong>`X_source_`</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>The source data.</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="skada.KMMReweightAdapter.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_reweight.html#KMMReweightAdapter.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.KMMReweightAdapter.fit" title="Link to this definition"></a></dt>

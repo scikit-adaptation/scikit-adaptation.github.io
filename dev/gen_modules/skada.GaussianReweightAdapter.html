@@ -8,7 +8,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -138,19 +138,8 @@ Possible values:</p>
 </dd>
 </dl>
 </dd>
-</dl>
-<p class="rubric">References</p>
-<div role="list" class="citation-list">
-<div class="citation" id="r1c44649761dc-1" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Hidetoshi Shimodaira. Improving predictive inference under
-covariate shift by weighting the log-likelihood function.
-In Journal of Statistical Planning and Inference, 2000.</p>
-</div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt><strong>`mean_source_`</strong><span class="classifier">array-like, shape (n_features,)</span></dt><dd><p>Mean of the source data.</p>
 </dd>
 <dt><strong>`cov_source_`</strong><span class="classifier">array-like, shape (n_features, n_features)</span></dt><dd><p>Mean of the source data.</p>
@@ -162,6 +151,15 @@ In Journal of Statistical Planning and Inference, 2000.</p>
 </dl>
 </dd>
 </dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r1c44649761dc-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Hidetoshi Shimodaira. Improving predictive inference under
+covariate shift by weighting the log-likelihood function.
+In Journal of Statistical Planning and Inference, 2000.</p>
+</div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="skada.GaussianReweightAdapter.fit">
 <span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_reweight.html#GaussianReweightAdapter.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.GaussianReweightAdapter.fit" title="Link to this definition"></a></dt>
@@ -278,7 +276,7 @@ sub-estimator of a meta-estimator, e.g. used inside a
 
 <section id="examples-using-skada-gaussianreweightadapter">
 <span id="sphx-glr-backreferences-skada-gaussianreweightadapter"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.GaussianReweightAdapter</span></code><a class="headerlink" href="#examples-using-skada-gaussianreweightadapter" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat..."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dataset. It illustrates the API choice specific to DA."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html#sphx-glr-auto-examples-plot-how-to-use-skada-py"><span class="std std-ref">How to use SKADA</span></a></p>
   <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
 </div></div></section>

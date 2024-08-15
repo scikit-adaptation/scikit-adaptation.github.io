@@ -468,7 +468,7 @@ Plot the full logo in white
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.020 seconds)
+   **Total running time of the script:** (0 minutes 0.954 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_skada_logo.py:
@@ -484,6 +484,10 @@ Plot the full logo in white
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_skada_logo.py <plot_skada_logo.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_skada_logo.zip <plot_skada_logo.zip>`
 
 
 .. only:: html

@@ -7,7 +7,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -724,6 +724,150 @@
             <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_scorer</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">y_pred_source</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">score</span></div>
+
+
+
+<div class="viewcode-block" id="MixValScorer">
+<a class="viewcode-back" href="../../gen_modules/skada.metrics.MixValScorer.html#skada.metrics.MixValScorer">[docs]</a>
+<span class="k">class</span> <span class="nc">MixValScorer</span><span class="p">(</span><span class="n">_BaseDomainAwareScorer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    MixVal scorer for unsupervised domain adaptation.</span>
+
+<span class="sd">    This scorer uses mixup to create mixed samples from the target domain,</span>
+<span class="sd">    and evaluates the model&#39;s consistency on these mixed samples.</span>
+
+<span class="sd">    See [32]_ for details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    alpha : float, default=0.55</span>
+<span class="sd">        Mixing parameter for mixup.</span>
+<span class="sd">    ice_type : {&#39;both&#39;, &#39;intra&#39;, &#39;inter&#39;}, default=&#39;both&#39;</span>
+<span class="sd">        Type of ICE score to compute:</span>
+<span class="sd">        - &#39;both&#39;: Compute both intra-cluster and inter-cluster ICE scores (average).</span>
+<span class="sd">        - &#39;intra&#39;: Compute only intra-cluster ICE score.</span>
+<span class="sd">        - &#39;inter&#39;: Compute only inter-cluster ICE score.</span>
+<span class="sd">    scoring : str or callable, default=None</span>
+<span class="sd">        A string (see model evaluation documentation) or</span>
+<span class="sd">        a scorer callable object / function with signature</span>
+<span class="sd">        ``scorer(estimator, X, y)``.</span>
+<span class="sd">        If None, the provided estimator object&#39;s `score` method is used.</span>
+<span class="sd">    greater_is_better : bool, default=True</span>
+<span class="sd">        Whether higher scores are better.</span>
+<span class="sd">    random_state : int, RandomState instance or None, default=None</span>
+<span class="sd">        Controls the randomness of the mixing process.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    alpha : float</span>
+<span class="sd">        Mixing parameter.</span>
+<span class="sd">    random_state : RandomState</span>
+<span class="sd">        Random number generator.</span>
+<span class="sd">    _sign : int</span>
+<span class="sd">        1 if greater_is_better is True, -1 otherwise.</span>
+<span class="sd">    ice_type : str</span>
+<span class="sd">        Type of ICE score to compute.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [32] Dapeng Hu et al. Mixed Samples as Probes for Unsupervised Model</span>
+<span class="sd">            Selection in Domain Adaptation.</span>
+<span class="sd">            NeurIPS, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+        <span class="n">ice_type</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
+        <span class="n">scoring</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">greater_is_better</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">=</span> <span class="n">ice_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span> <span class="o">=</span> <span class="n">scoring</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">greater_is_better</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;intra&quot;</span><span class="p">,</span> <span class="s2">&quot;inter&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ice_type must be &#39;both&#39;, &#39;intra&#39;, or &#39;inter&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the Interpolation Consistency Evaluation (ICE) score.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        estimator : object</span>
+<span class="sd">            The fitted estimator to evaluate.</span>
+<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">            The input samples.</span>
+<span class="sd">        y : Ignored</span>
+<span class="sd">            Not used, present for API consistency by convention.</span>
+<span class="sd">        sample_domain : array-like, default=None</span>
+<span class="sd">            Domain labels for each sample.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        score : float</span>
+<span class="sd">            The ICE score.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scorer</span> <span class="o">=</span> <span class="n">check_scoring</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
+
+        <span class="n">X</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_target</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
+
+        <span class="c1"># Check from y values if it is a classification problem</span>
+        <span class="n">y_type</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y_type</span> <span class="o">!=</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;MixVal scorer only supports classification problems.&quot;</span><span class="p">)</span>
+
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="n">rand_idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Get predictions for target samples</span>
+        <span class="n">labels_a</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
+        <span class="n">labels_b</span> <span class="o">=</span> <span class="n">labels_a</span><span class="p">[</span><span class="n">rand_idx</span><span class="p">]</span>
+
+        <span class="c1"># Intra-cluster and inter-cluster mixup</span>
+        <span class="n">same_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_a</span> <span class="o">==</span> <span class="n">labels_b</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">diff_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_a</span> <span class="o">!=</span> <span class="n">labels_b</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Mixup with X_target and hard pseudo labels</span>
+        <span class="n">mix_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">X_target</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X_target</span><span class="p">[</span><span class="n">rand_idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">mix_labels</span> <span class="o">=</span> <span class="n">labels_a</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mix_labels</span> <span class="o">=</span> <span class="n">labels_b</span>
+
+        <span class="c1"># Calculate ICE scores based on ice_type</span>
+        <span class="c1"># TODO: handle multiple target domains</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;intra&quot;</span><span class="p">]:</span>
+            <span class="n">ice_same</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
+                <span class="n">estimator</span><span class="p">,</span>
+                <span class="n">mix_inputs</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
+                <span class="n">mix_labels</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
+                <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">same_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;inter&quot;</span><span class="p">]:</span>
+            <span class="n">ice_diff</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
+                <span class="n">estimator</span><span class="p">,</span>
+                <span class="n">mix_inputs</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
+                <span class="n">mix_labels</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
+                <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">diff_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">:</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="p">(</span><span class="n">ice_same</span> <span class="o">+</span> <span class="n">ice_diff</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">==</span> <span class="s2">&quot;intra&quot;</span><span class="p">:</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="n">ice_same</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># self.ice_type == &#39;inter&#39;</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="n">ice_diff</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">ice_score</span></div>
 
 </pre></div>
 

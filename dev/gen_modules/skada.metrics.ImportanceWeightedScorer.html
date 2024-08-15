@@ -8,7 +8,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -71,6 +71,7 @@
 <li class="toctree-l3"><a class="reference internal" href="skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.metrics.CircularValidation.html">skada.metrics.CircularValidation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.MixValScorer.html">skada.metrics.MixValScorer</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
@@ -130,6 +131,14 @@ scorer object will sign-flip the outcome of the <cite>scorer</cite>.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>weight_estimator_source_</strong><span class="classifier">object</span></dt><dd><p>The estimator object fitted on the source data.</p>
+</dd>
+<dt><strong>weight_estimator_target_</strong><span class="classifier">object</span></dt><dd><p>The estimator object fitted on the target data.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
@@ -140,16 +149,6 @@ by Importance Weighted Cross Validation.
 Journal of Machine Learning Research, 2007.</p>
 </div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>weight_estimator_source_</strong><span class="classifier">object</span></dt><dd><p>The estimator object fitted on the source data.</p>
-</dd>
-<dt><strong>weight_estimator_target_</strong><span class="classifier">object</span></dt><dd><p>The estimator object fitted on the target data.</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="skada.metrics.ImportanceWeightedScorer.set_score_request">
 <span class="sig-name descname"><span class="pre">set_score_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#skada.metrics.ImportanceWeightedScorer" title="skada.metrics.ImportanceWeightedScorer"><span class="pre">ImportanceWeightedScorer</span></a></span></span><a class="headerlink" href="#skada.metrics.ImportanceWeightedScorer.set_score_request" title="Link to this definition"></a></dt>
@@ -197,7 +196,7 @@ sub-estimator of a meta-estimator, e.g. used inside a
 
 <section id="examples-using-skada-metrics-importanceweightedscorer">
 <span id="sphx-glr-backreferences-skada-metrics-importanceweightedscorer"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.metrics.ImportanceWeightedScorer</span></code><a class="headerlink" href="#examples-using-skada-metrics-importanceweightedscorer" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchC..."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_gridsearch_for_da.html#sphx-glr-auto-examples-validation-plot-gridsearch-for-da-py"><span class="std std-ref">Using GridSearchCV with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
 </div></div></section>
