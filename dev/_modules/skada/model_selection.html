@@ -165,7 +165,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># automatically derive sample_domain if it is not provided</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">indexable</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iter_indices</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
@@ -225,7 +228,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_default_test_size</span> <span class="o">=</span> <span class="mf">0.1</span>
 
     <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="p">(</span><span class="n">source_idx</span><span class="p">,)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
         <span class="p">(</span><span class="n">target_idx</span><span class="p">,)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">indices</span><span class="p">)</span>
@@ -317,7 +320,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># automatically derive sample_domain if it is not provided</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">indexable</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="c1"># xxx(okachaiev): make sure all domains are given both as sources and targets</span>
@@ -346,7 +352,7 @@
 
 
     <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="p">(</span><span class="n">source_idx</span><span class="p">,)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
         <span class="p">(</span><span class="n">target_idx</span><span class="p">,)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">indices</span><span class="p">)</span>
@@ -482,7 +488,10 @@
         <span class="c1"># License: BSD</span>
 
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">X</span><span class="p">,</span>
+            <span class="n">sample_domain</span><span class="p">,</span>
+            <span class="n">allow_auto_sample_domain</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">indexable</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
 
@@ -637,7 +646,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;under_sampling should be between 0 and 1&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">domain_source_idx_dict</span><span class="p">,</span> <span class="n">domain_target_idx_dict</span> <span class="o">=</span> <span class="n">extract_domains_indices</span><span class="p">(</span>
             <span class="n">sample_domain</span><span class="p">,</span> <span class="n">split_source_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>

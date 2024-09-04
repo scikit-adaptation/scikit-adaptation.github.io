@@ -159,7 +159,7 @@
     <span class="p">):</span>
         <span class="n">scorer</span> <span class="o">=</span> <span class="n">check_scoring</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">scorer</span><span class="p">(</span>
@@ -226,9 +226,11 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        X : array-like, shape (n_samples, *), where * is any number</span>
+<span class="sd">            of dimensions of at least 1</span>
 <span class="sd">            The source data.</span>
-<span class="sd">        X_target : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        X_target : array-like, shape (n_samples, *), where * is any number</span>
+<span class="sd">            of dimensions of at least 1</span>
 <span class="sd">            The target data.</span>
 
 <span class="sd">        Returns</span>
@@ -241,6 +243,8 @@
             <span class="n">weight_estimator</span> <span class="o">=</span> <span class="n">KernelDensity</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_source_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">weight_estimator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_target_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">weight_estimator</span><span class="p">)</span>
+        <span class="n">X_source</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">X_target</span> <span class="o">=</span> <span class="n">X_target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_source_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_source</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_target_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_target</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -255,10 +259,12 @@
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
+        <span class="n">X_source</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">X_target</span> <span class="o">=</span> <span class="n">X_target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">)</span>
         <span class="n">ws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_source_</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_source</span><span class="p">)</span>
         <span class="n">wt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_target_</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_source</span><span class="p">)</span>
@@ -332,7 +338,7 @@
                 <span class="s2">&quot;The estimator passed should have a &#39;predict_proba&#39; method. &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">proba</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
             <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="o">**</span><span class="n">params</span>
@@ -343,7 +349,9 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">log_proba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">proba</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
+        <span class="n">infty_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isneginf</span><span class="p">(</span><span class="n">log_proba</span><span class="p">)</span>
         <span class="n">entropy_per_sample</span> <span class="o">=</span> <span class="o">-</span><span class="n">proba</span> <span class="o">*</span> <span class="n">log_proba</span>
+        <span class="n">entropy_per_sample</span><span class="p">[</span><span class="n">infty_mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># x*log(x) -&gt; 0 as x -&gt; 0</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">entropy_per_sample</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">==</span> <span class="s2">&quot;sum&quot;</span><span class="p">:</span>
@@ -394,7 +402,7 @@
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">proba</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
             <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="o">**</span><span class="n">params</span>
@@ -502,7 +510,8 @@
             <span class="c1"># We use the input data as features</span>
             <span class="n">transformer</span> <span class="o">=</span> <span class="n">identity</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
         <span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sample_domain_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
@@ -655,7 +664,7 @@
 <span class="sd">        float</span>
 <span class="sd">            The computed score.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">_check_y_masking</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -815,7 +824,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">scorer</span> <span class="o">=</span> <span class="n">check_scoring</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_target</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
 
