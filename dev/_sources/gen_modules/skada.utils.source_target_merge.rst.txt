@@ -1,0 +1,11 @@
+﻿skada.utils.source\_target\_merge
+=================================
+
+.. currentmodule:: skada.utils
+
+.. autofunction:: source_target_merge
+
+.. _sphx_glr_backreferences_skada.utils.source_target_merge:
+
+.. minigallery:: skada.utils.source_target_merge
+    :add-heading:

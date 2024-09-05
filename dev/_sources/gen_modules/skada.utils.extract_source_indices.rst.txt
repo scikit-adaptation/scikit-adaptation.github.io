@@ -1,0 +1,11 @@
+﻿skada.utils.extract\_source\_indices
+====================================
+
+.. currentmodule:: skada.utils
+
+.. autofunction:: extract_source_indices
+
+.. _sphx_glr_backreferences_skada.utils.extract_source_indices:
+
+.. minigallery:: skada.utils.extract_source_indices
+    :add-heading:

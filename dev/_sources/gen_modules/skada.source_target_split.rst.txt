@@ -1,0 +1,11 @@
+﻿skada.source\_target\_split
+===========================
+
+.. currentmodule:: skada
+
+.. autofunction:: source_target_split
+
+.. _sphx_glr_backreferences_skada.source_target_split:
+
+.. minigallery:: skada.source_target_split
+    :add-heading:
