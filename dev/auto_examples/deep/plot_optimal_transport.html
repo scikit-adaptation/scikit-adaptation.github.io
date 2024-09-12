@@ -157,13 +157,13 @@ on a simple image classification task.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.6114  4.3461
-      2        0.3454  4.3024
-      3        0.1233  13.6056
-      4        0.0710  19.4121
-      5        0.0451  19.9997
+      1        1.3194  3.9000
+      2        0.2028  4.3994
+      3        0.0736  4.6001
+      4        0.0435  4.0989
+      5        0.0345  3.8997
 
-0.8971061093247589
+0.9163987138263665
 </pre></div>
 </div>
 </section>
@@ -175,7 +175,7 @@ on a simple image classification task.</p>
     <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
     <span class="n">max_epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">train_split</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">reg</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">reg_dist</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
     <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
     <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
 <span class="p">)</span>
@@ -183,18 +183,18 @@ on a simple image classification task.</p>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin.score" title="sklearn.base.ClassifierMixin.score" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">model</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
--------  ------------  -------
-      1        2.0028  24.8992
-      2        1.1353  36.4888
-      3        0.7475  18.4102
-      4        0.6037  14.2926
-      5        0.5234  9.7964
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
+-------  ------------  ------
+      1        1.9287  9.4850
+      2        1.0097  8.7924
+      3        0.6996  9.0021
+      4        0.5788  14.3030
+      5        0.5028  11.9978
 
-0.9067524115755627
+0.9517684887459807
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 51.440 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 19.654 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-optimal-transport-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b06e4ac81b0d73bc919c616b067bbd29/plot_optimal_transport.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_optimal_transport.ipynb</span></code></a></p>
