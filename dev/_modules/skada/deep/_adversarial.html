@@ -187,7 +187,7 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training.</span>
 <span class="sd">    reg : float, default=1</span>
-<span class="sd">        Regularization parameter.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
 <span class="sd">    domain_classifier : torch module, default=None</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module` used to classify the</span>
 <span class="sd">        domain. If None, a domain classifier is created following [1]_.</span>
@@ -440,7 +440,7 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training.</span>
 <span class="sd">    reg : float, default=1</span>
-<span class="sd">        Regularization parameter.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
 <span class="sd">    max_features : int, default=4096</span>
 <span class="sd">        Maximum size of the input for the domain classifier.</span>
 <span class="sd">        4096 is the largest number of units in typical deep network</span>

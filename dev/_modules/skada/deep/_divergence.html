@@ -156,7 +156,7 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
-<span class="sd">        The regularization parameter of the covariance estimator.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
 <span class="sd">    base_criterion : torch criterion (class)</span>
 <span class="sd">        The base criterion used to compute the loss with source</span>
 <span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
@@ -242,7 +242,7 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
-<span class="sd">        The regularization parameter of the covariance estimator.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
 <span class="sd">    sigmas : array-like, optional (default=None)</span>
 <span class="sd">        The sigmas for the Gaussian kernel.</span>
 <span class="sd">    base_criterion : torch criterion (class)</span>

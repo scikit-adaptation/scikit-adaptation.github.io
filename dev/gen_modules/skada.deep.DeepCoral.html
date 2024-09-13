@@ -123,7 +123,7 @@
 <dt><strong>layer_name</strong><span class="classifier">str</span></dt><dd><p>The name of the module's layer whose outputs are
 collected during the training for the adaptation.</p>
 </dd>
-<dt><strong>reg</strong><span class="classifier">float, optional (default=1)</span></dt><dd><p>The regularization parameter of the covariance estimator.</p>
+<dt><strong>reg</strong><span class="classifier">float, optional (default=1)</span></dt><dd><p>Regularization parameter for DA loss.</p>
 </dd>
 <dt><strong>base_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The base criterion used to compute the loss with source
 labels. If None, the default is <cite>torch.nn.CrossEntropyLoss</cite>.</p>
