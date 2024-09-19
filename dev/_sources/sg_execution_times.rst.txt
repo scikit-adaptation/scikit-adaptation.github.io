@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**04:37.392** total execution time for 21 files **from all galleries**:
+**05:20.053** total execution time for 21 files **from all galleries**:
 
 .. container::
 
@@ -32,66 +32,66 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_examples_deep_plot_adversarial.py` (``../../examples/deep/plot_adversarial.py``)
-     - 01:17.619
-     - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_divergence.py` (``../../examples/deep/plot_divergence.py``)
-     - 01:02.178
+     - 01:15.576
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_optimal_transport.py` (``../../examples/deep/plot_optimal_transport.py``)
-     - 00:51.927
+     - 01:15.152
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_deep_plot_adversarial.py` (``../../examples/deep/plot_adversarial.py``)
+     - 01:06.950
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_training_method.py` (``../../examples/deep/plot_training_method.py``)
-     - 00:44.391
+     - 00:59.850
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_method_comparison.py` (``../../examples/plot_method_comparison.py``)
-     - 00:12.036
+     - 00:14.929
      - 0.0
    * - :ref:`sphx_glr_auto_examples_validation_plot_gridsearch_for_da.py` (``../../examples/validation/plot_gridsearch_for_da.py``)
-     - 00:10.078
+     - 00:09.586
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_dasvm.py` (``../../examples/methods/plot_dasvm.py``)
-     - 00:05.167
+     - 00:04.739
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_subspace.py` (``../../examples/methods/plot_subspace.py``)
-     - 00:02.188
+     - 00:02.212
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py` (``../../examples/methods/plot_label_prop_da.py``)
-     - 00:01.748
+     - 00:01.631
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py` (``../../examples/plot_how_to_use_skada.py``)
-     - 00:01.507
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py` (``../../examples/methods/plot_jdot_da.py``)
-     - 00:01.488
+     - 00:01.434
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py` (``../../examples/methods/plot_optimal_transport_da.py``)
-     - 00:01.472
+     - 00:01.425
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py` (``../../examples/methods/plot_jdot_da.py``)
+     - 00:01.378
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_skada_logo.py` (``../../examples/plot_skada_logo.py``)
-     - 00:01.148
+     - 00:01.100
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_reweighting.py` (``../../examples/methods/plot_reweighting.py``)
-     - 00:00.968
+     - 00:00.922
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_monge_alignment_da.py` (``../../examples/methods/plot_monge_alignment_da.py``)
-     - 00:00.810
+     - 00:00.706
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py` (``../../examples/datasets/plot_shifted_dataset_regression.py``)
-     - 00:00.612
+     - 00:00.552
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py` (``../../examples/datasets/plot_variable_frequency_dataset.py``)
-     - 00:00.562
+     - 00:00.531
      - 0.0
    * - :ref:`sphx_glr_auto_examples_validation_plot_cross_validation_for_da.py` (``../../examples/validation/plot_cross_validation_for_da.py``)
-     - 00:00.512
+     - 00:00.481
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py` (``../../examples/datasets/plot_shifted_dataset.py``)
-     - 00:00.475
+     - 00:00.461
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_dataset_from_moons_distribution.py` (``../../examples/datasets/plot_dataset_from_moons_distribution.py``)
-     - 00:00.264
+     - 00:00.235
      - 0.0
    * - :ref:`sphx_glr_auto_examples_validation_plot_cross_val_score_for_da.py` (``../../examples/validation/plot_cross_val_score_for_da.py``)
-     - 00:00.239
+     - 00:00.204
      - 0.0

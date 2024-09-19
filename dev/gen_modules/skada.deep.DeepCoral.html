@@ -112,7 +112,7 @@
 <h1>skada.deep.DeepCoral<a class="headerlink" href="#skada-deep-deepcoral" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.deep.DeepCoral">
-<span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">DeepCoral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_divergence.html#DeepCoral"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DeepCoral" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">DeepCoral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assume_centered</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_divergence.html#DeepCoral"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DeepCoral" title="Link to this definition"></a></dt>
 <dd><p>DeepCORAL domain adaptation method.</p>
 <p>From <a class="reference internal" href="#r292c7a5a37e7-12" id="id1">[12]</a>.</p>
 <dl class="field-list simple">
@@ -124,6 +124,8 @@
 collected during the training for the adaptation.</p>
 </dd>
 <dt><strong>reg</strong><span class="classifier">float, optional (default=1)</span></dt><dd><p>Regularization parameter for DA loss.</p>
+</dd>
+<dt><strong>assume_centered: bool, default=False</strong></dt><dd><p>If True, data are not centered before computation.</p>
 </dd>
 <dt><strong>base_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The base criterion used to compute the loss with source
 labels. If None, the default is <cite>torch.nn.CrossEntropyLoss</cite>.</p>

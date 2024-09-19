@@ -109,6 +109,10 @@
 <span class="sd">    of the source features and the target features.</span>
 <span class="sd">    See [12]_.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -119,8 +123,10 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span> <span class="o">=</span> <span class="n">assume_centered</span>
 
 <div class="viewcode-block" id="DeepCoralLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss.forward">[docs]</a>
@@ -135,7 +141,7 @@
         <span class="n">features_t</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
 
@@ -143,7 +149,9 @@
 
 <div class="viewcode-block" id="DeepCoral">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral">[docs]</a>
-<span class="k">def</span> <span class="nf">DeepCoral</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">DeepCoral</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DeepCORAL domain adaptation method.</span>
 
 <span class="sd">    From [12]_.</span>
@@ -157,6 +165,8 @@
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 <span class="sd">    base_criterion : torch criterion (class)</span>
 <span class="sd">        The base criterion used to compute the loss with source</span>
 <span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
@@ -178,7 +188,7 @@
         <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
         <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
         <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
-        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DeepCoralLoss</span><span class="p">(),</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DeepCoralLoss</span><span class="p">(</span><span class="n">assume_centered</span><span class="o">=</span><span class="n">assume_centered</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span></div>
