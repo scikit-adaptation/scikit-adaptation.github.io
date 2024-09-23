@@ -516,6 +516,9 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">):</span>
             <span class="c1"># The estimator is a deep model</span>
+            <span class="k">if</span> <span class="n">estimator</span><span class="o">.</span><span class="n">module_</span><span class="o">.</span><span class="n">layer_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The layer_name of the estimator is not set.&quot;</span><span class="p">)</span>
+
             <span class="n">transformer</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_features</span>
             <span class="n">has_transform_method</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
