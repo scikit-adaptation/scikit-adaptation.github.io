@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.4410  1.9889
-          2        0.2531  2.4007
-          3        0.0967  2.1983
-          4        0.0652  2.4032
-          5        0.0474  2.2908
+          1        1.6039  6.3244
+          2        0.3846  5.5986
+          3        0.1367  3.9003
+          4        0.0675  4.2994
+          5        0.0483  4.2025
 
-    0.9260450160771704
+    0.8681672025723473
 
 
 
@@ -157,22 +157,22 @@ Train a DANN model
 
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1553: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-      epoch    train_loss     dur
-    -------  ------------  ------
-          1        2.6485  4.9861
-          2        1.3678  4.5038
-          3        1.1194  4.9953
-          4        1.0734  4.7052
-          5        1.0501  4.7945
+      epoch    train_loss      dur
+    -------  ------------  -------
+          1        2.5775  14.8773
+          2        1.4439  13.3990
+          3        1.1636  10.7009
+          4        1.0910  18.1002
+          5        1.0597  18.1983
 
-    0.9356913183279743
+    0.8938906752411575
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 38.436 seconds)
+   **Total running time of the script:** (1 minutes 44.675 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:
