@@ -876,23 +876,29 @@
         <span class="c1"># Calculate ICE scores based on ice_type</span>
         <span class="c1"># TODO: handle multiple target domains</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;intra&quot;</span><span class="p">]:</span>
-            <span class="n">ice_same</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
-                <span class="n">estimator</span><span class="p">,</span>
-                <span class="n">mix_inputs</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
-                <span class="n">mix_labels</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
-                <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">same_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">same_idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ice_same</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ice_same</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
+                    <span class="n">estimator</span><span class="p">,</span>
+                    <span class="n">mix_inputs</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
+                    <span class="n">mix_labels</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
+                    <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">same_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;inter&quot;</span><span class="p">]:</span>
-            <span class="n">ice_diff</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
-                <span class="n">estimator</span><span class="p">,</span>
-                <span class="n">mix_inputs</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
-                <span class="n">mix_labels</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
-                <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">diff_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
-            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ice_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ice_diff</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
+                    <span class="n">estimator</span><span class="p">,</span>
+                    <span class="n">mix_inputs</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
+                    <span class="n">mix_labels</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
+                    <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">diff_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">:</span>
-            <span class="n">ice_score</span> <span class="o">=</span> <span class="p">(</span><span class="n">ice_same</span> <span class="o">+</span> <span class="n">ice_diff</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">([</span><span class="n">ice_same</span><span class="p">,</span> <span class="n">ice_diff</span><span class="p">])</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">==</span> <span class="s2">&quot;intra&quot;</span><span class="p">:</span>
             <span class="n">ice_score</span> <span class="o">=</span> <span class="n">ice_same</span>
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># self.ice_type == &#39;inter&#39;</span>
