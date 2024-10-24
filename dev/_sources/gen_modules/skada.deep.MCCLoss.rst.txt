@@ -1,0 +1,13 @@
+﻿skada.deep.MCCLoss
+==================
+
+.. currentmodule:: skada.deep
+
+.. autoclass:: MCCLoss
+   :special-members: __contains__,__getitem__,__iter__,__len__,__add__,__sub__,__mul__,__div__,__neg__
+   :members:
+
+.. _sphx_glr_backreferences_skada.deep.MCCLoss:
+
+.. minigallery:: skada.deep.MCCLoss
+    :add-heading:
