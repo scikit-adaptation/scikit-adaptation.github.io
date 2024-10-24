@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>skada.deep.DANN &mdash; SKADA : Scikit Adaptation</title>
+  <title>skada.deep.CANLoss &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="skada.deep.CDAN" href="skada.deep.CDAN.html" />
-    <link rel="prev" title="skada.deep.DeepJDOT" href="skada.deep.DeepJDOT.html" /> 
+    <link rel="next" title="skada.deep.DeepCoral" href="skada.deep.DeepCoral.html" />
+    <link rel="prev" title="skada.deep.CDANLoss" href="skada.deep.CDANLoss.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,14 +59,13 @@
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOTLoss.html">skada.deep.DeepJDOTLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DANLoss.html">skada.deep.DANLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CDANLoss.html">skada.deep.CDANLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.CANLoss.html">skada.deep.CANLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">skada.deep.DANN</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#skada.deep.DANN"><code class="docutils literal notranslate"><span class="pre">DANN()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#examples-using-skada-deep-dann">Examples using <code class="docutils literal notranslate"><span class="pre">skada.deep.DANN</span></code></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">skada.deep.CANLoss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#skada.deep.CANLoss"><code class="docutils literal notranslate"><span class="pre">CANLoss</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.deep.DANN.html">skada.deep.DANN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CDAN.html">skada.deep.CDAN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CAN.html">skada.deep.CAN</a></li>
 </ul>
@@ -95,9 +94,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
-      <li class="breadcrumb-item active">skada.deep.DANN</li>
+      <li class="breadcrumb-item active">skada.deep.CANLoss</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/gen_modules/skada.deep.DANN.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/gen_modules/skada.deep.CANLoss.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -105,68 +104,76 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="skada-deep-dann">
-<h1>skada.deep.DANN<a class="headerlink" href="#skada-deep-dann" title="Link to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="skada.deep.DANN">
-<span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">DANN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_classifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#DANN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DANN" title="Link to this definition"></a></dt>
-<dd><p>Domain-Adversarial Training of Neural Networks (DANN).</p>
-<p>From <a class="reference internal" href="#r0b34c02c2bd8-15" id="id1">[15]</a>.</p>
+  <section id="skada-deep-canloss">
+<h1>skada.deep.CANLoss<a class="headerlink" href="#skada-deep-canloss" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skada.deep.CANLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">CANLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigmas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_kmeans</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_divergence.html#CANLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.CANLoss" title="Link to this definition"></a></dt>
+<dd><p>Loss for Contrastive Adaptation Network (CAN)</p>
+<p>This loss implements the contrastive domain discrepancy (CDD)
+as described in [33].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>module</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>. In general, the
-uninstantiated class should be passed, although instantiated
-modules will also work.</p>
+<dt><strong>distance_threshold</strong><span class="classifier">float, optional (default=0.5)</span></dt><dd><p>Distance threshold for discarding the samples that are
+to far from the centroids.</p>
 </dd>
-<dt><strong>layer_name</strong><span class="classifier">str</span></dt><dd><p>The name of the module's layer whose outputs are
-collected during the training.</p>
+<dt><strong>class_threshold</strong><span class="classifier">int, optional (default=3)</span></dt><dd><p>Minimum number of samples in a class to be considered for the loss.</p>
 </dd>
-<dt><strong>reg</strong><span class="classifier">float, default=1</span></dt><dd><p>Regularization parameter for DA loss.</p>
+<dt><strong>sigmas</strong><span class="classifier">array like, default=None,</span></dt><dd><p>If array, sigmas used for the multi gaussian kernel.
+If None, uses sigmas proposed  in <a href="#id3"><span class="problematic" id="id1">[1]_</span></a>.</p>
 </dd>
-<dt><strong>domain_classifier</strong><span class="classifier">torch module, default=None</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used to classify the
-domain. If None, a domain classifier is created following <a href="#id4"><span class="problematic" id="id2">[1]_</span></a>.</p>
-</dd>
-<dt><strong>num_features</strong><span class="classifier">int, default=None</span></dt><dd><p>Size of the input of domain classifier,
-e.g size of the last layer of
-the feature extractor.
-If domain_classifier is None, num_features has to be
-provided.</p>
-</dd>
-<dt><strong>base_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The base criterion used to compute the loss with source
-labels. If None, the default is <cite>torch.nn.CrossEntropyLoss</cite>.</p>
-</dd>
-<dt><strong>domain_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The criterion (loss) used to compute the
-DANN loss. If None, a BCELoss is used.</p>
+<dt><strong>target_kmeans</strong><span class="classifier">sklearn KMeans instance, default=None,</span></dt><dd><p>Pre-computed target KMeans clustering model.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="r0b34c02c2bd8-15" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">15</a><span class="fn-bracket">]</span></span>
-<p>Yaroslav Ganin et. al. Domain-Adversarial Training
-of Neural Networks  In Journal of Machine Learning
-Research, 2016.</p>
+<div class="citation" id="r394a243fad60-33" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>33<span class="fn-bracket">]</span></span>
+<p>Kang, G., Jiang, L., Yang, Y., &amp; Hauptmann, A. G. (2019).
+Contrastive adaptation network for unsupervised domain adaptation.
+In Proceedings of the IEEE/CVF Conference on Computer Vision
+and Pattern Recognition (pp. 4893-4902).</p>
 </div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="skada.deep.CANLoss.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_pred_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_pred_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_divergence.html#CANLoss.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.CANLoss.forward" title="Link to this definition"></a></dt>
+<dd><p>Compute the domain adaptation loss</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>y_s</strong></dt><dd><p>The true labels for source.</p>
+</dd>
+<dt><strong>y_pred_s</strong></dt><dd><p>Predictions of the source domain.</p>
+</dd>
+<dt><strong>y_pred_t</strong></dt><dd><p>Predictions of the target domain.</p>
+</dd>
+<dt><strong>domain_pred_s</strong></dt><dd><p>Domain predictions of the source domain.</p>
+</dd>
+<dt><strong>domain_pred_t</strong></dt><dd><p>Domain predictions of the source domain.</p>
+</dd>
+<dt><strong>features_s</strong></dt><dd><p>Features of the chosen layer of source domain.</p>
+</dd>
+<dt><strong>features_t</strong></dt><dd><p>Features of the chosen layer of target domain.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
-<section id="examples-using-skada-deep-dann">
-<span id="sphx-glr-backreferences-skada-deep-dann"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.deep.DANN</span></code><a class="headerlink" href="#examples-using-skada-deep-dann" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the adversarial methods from on a simple image classification task."><img alt="" src="../_images/sphx_glr_plot_adversarial_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/deep/plot_adversarial.html#sphx-glr-auto-examples-deep-plot-adversarial-py"><span class="std std-ref">Adversarial domain adaptation methods.</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Adversarial domain adaptation methods.</div>
-</div></div></section>
-</section>
+</dd></dl>
+
+<span class="target" id="sphx-glr-backreferences-skada-deep-canloss"></span></section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="skada.deep.DeepJDOT.html" class="btn btn-neutral float-left" title="skada.deep.DeepJDOT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="skada.deep.CDAN.html" class="btn btn-neutral float-right" title="skada.deep.CDAN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="skada.deep.CDANLoss.html" class="btn btn-neutral float-left" title="skada.deep.CDANLoss" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.deep.DeepCoral.html" class="btn btn-neutral float-right" title="skada.deep.DeepCoral" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

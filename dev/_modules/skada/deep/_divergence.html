@@ -80,6 +80,7 @@
   <h1>Source code for skada.deep._divergence</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
 <span class="c1">#         Remi Flamary &lt;remi.flamary@polytechnique.edu&gt;</span>
+<span class="c1">#         Yanis Lalou &lt;yanis.lalou@polytechnique.edu&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -92,7 +93,8 @@
     <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">dan_loss</span><span class="p">,</span> <span class="n">deepcoral_loss</span>
+<span class="kn">from</span> <span class="nn">.callbacks</span> <span class="kn">import</span> <span class="n">ComputeSourceCentroids</span>
+<span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">cdd_loss</span><span class="p">,</span> <span class="n">dan_loss</span><span class="p">,</span> <span class="n">deepcoral_loss</span>
 
 
 <div class="viewcode-block" id="DeepCoralLoss">
@@ -275,6 +277,142 @@
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span>
+
+
+<div class="viewcode-block" id="CANLoss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">CANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss for Contrastive Adaptation Network (CAN)</span>
+
+<span class="sd">    This loss implements the contrastive domain discrepancy (CDD)</span>
+<span class="sd">    as described in [33].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    distance_threshold : float, optional (default=0.5)</span>
+<span class="sd">        Distance threshold for discarding the samples that are</span>
+<span class="sd">        to far from the centroids.</span>
+<span class="sd">    class_threshold : int, optional (default=3)</span>
+<span class="sd">        Minimum number of samples in a class to be considered for the loss.</span>
+<span class="sd">    sigmas : array like, default=None,</span>
+<span class="sd">        If array, sigmas used for the multi gaussian kernel.</span>
+<span class="sd">        If None, uses sigmas proposed  in [1]_.</span>
+<span class="sd">    target_kmeans : sklearn KMeans instance, default=None,</span>
+<span class="sd">        Pre-computed target KMeans clustering model.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [33] Kang, G., Jiang, L., Yang, Y., &amp; Hauptmann, A. G. (2019).</span>
+<span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
+<span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
+<span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">class_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_kmeans</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">distance_threshold</span> <span class="o">=</span> <span class="n">distance_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_threshold</span> <span class="o">=</span> <span class="n">class_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_kmeans</span> <span class="o">=</span> <span class="n">target_kmeans</span>
+
+<div class="viewcode-block" id="CANLoss.forward">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_s</span><span class="p">,</span>
+        <span class="n">y_pred_s</span><span class="p">,</span>
+        <span class="n">y_pred_t</span><span class="p">,</span>
+        <span class="n">domain_pred_s</span><span class="p">,</span>
+        <span class="n">domain_pred_t</span><span class="p">,</span>
+        <span class="n">features_s</span><span class="p">,</span>
+        <span class="n">features_t</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">cdd_loss</span><span class="p">(</span>
+            <span class="n">y_s</span><span class="p">,</span>
+            <span class="n">features_s</span><span class="p">,</span>
+            <span class="n">features_t</span><span class="p">,</span>
+            <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">,</span>
+            <span class="n">target_kmeans</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">target_kmeans</span><span class="p">,</span>
+            <span class="n">distance_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">distance_threshold</span><span class="p">,</span>
+            <span class="n">class_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_threshold</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CAN">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.CAN.html#skada.deep.CAN">[docs]</a>
+<span class="k">def</span> <span class="nf">CAN</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">class_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Contrastive Adaptation Network (CAN) domain adaptation method.</span>
+
+<span class="sd">    From [33].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
+<span class="sd">    layer_name : str</span>
+<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        collected during the training for the adaptation.</span>
+<span class="sd">    reg : float, optional (default=1)</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
+<span class="sd">    distance_threshold : float, optional (default=0.5)</span>
+<span class="sd">        Distance threshold for discarding the samples that are</span>
+<span class="sd">        to far from the centroids.</span>
+<span class="sd">    class_threshold : int, optional (default=3)</span>
+<span class="sd">        Minimum number of samples in a class to be considered for the loss.</span>
+<span class="sd">    sigmas : array like, default=None,</span>
+<span class="sd">        If array, sigmas used for the multi gaussian kernel.</span>
+<span class="sd">        If None, uses sigmas proposed  in [1]_.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [33] Kang, G., Jiang, L., Yang, Y., &amp; Hauptmann, A. G. (2019).</span>
+<span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
+<span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
+<span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+    <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
+        <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
+        <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
+        <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
+        <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">CANLoss</span><span class="p">(</span>
+            <span class="n">distance_threshold</span><span class="o">=</span><span class="n">distance_threshold</span><span class="p">,</span>
+            <span class="n">class_threshold</span><span class="o">=</span><span class="n">class_threshold</span><span class="p">,</span>
+            <span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">ComputeSourceCentroids</span><span class="p">()],</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">net</span></div>
+
 </pre></div>
 
            </div>
