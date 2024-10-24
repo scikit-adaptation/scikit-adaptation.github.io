@@ -337,18 +337,12 @@
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_fit</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_features</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">is_fit</span><span class="p">:</span>
-            <span class="n">source_idx</span> <span class="o">=</span> <span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span>
-
-            <span class="n">X_t</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
-            <span class="n">X_s</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span>
             <span class="c1"># predict</span>
-            <span class="n">y_pred_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_module_</span><span class="p">(</span><span class="n">X_s</span><span class="p">)</span>
-            <span class="n">features_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intermediate_layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_name</span><span class="p">]</span>
-            <span class="n">y_pred_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_module_</span><span class="p">(</span><span class="n">X_t</span><span class="p">)</span>
-            <span class="n">features_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intermediate_layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_name</span><span class="p">]</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_module_</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intermediate_layers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_name</span><span class="p">]</span>
 
-            <span class="n">n_classes</span> <span class="o">=</span> <span class="n">y_pred_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">n_features</span> <span class="o">=</span> <span class="n">features_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">n_classes</span> <span class="o">=</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">n_features</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">n_features</span> <span class="o">*</span> <span class="n">n_classes</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_features</span><span class="p">:</span>
                 <span class="n">random_layer</span> <span class="o">=</span> <span class="n">_RandomLayer</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">,</span>
@@ -360,39 +354,13 @@
 
             <span class="c1"># Compute the input for the domain classifier</span>
             <span class="k">if</span> <span class="n">random_layer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span>
-                    <span class="n">y_pred_s</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">features_s</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">multilinear_map_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span>
-                    <span class="n">y_pred_t</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">features_t</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-                <span class="p">)</span>
-
+                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">y_pred</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">features</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
                 <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">multilinear_map</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">*</span> <span class="n">n_classes</span><span class="p">)</span>
-                <span class="n">multilinear_map_target</span> <span class="o">=</span> <span class="n">multilinear_map_target</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
-                    <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_features</span> <span class="o">*</span> <span class="n">n_classes</span>
-                <span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">random_layer</span><span class="o">.</span><span class="n">forward</span><span class="p">([</span><span class="n">features_s</span><span class="p">,</span> <span class="n">y_pred_s</span><span class="p">])</span>
-                <span class="n">multilinear_map_target</span> <span class="o">=</span> <span class="n">random_layer</span><span class="o">.</span><span class="n">forward</span><span class="p">([</span><span class="n">features_t</span><span class="p">,</span> <span class="n">y_pred_t</span><span class="p">])</span>
+                <span class="n">multilinear_map</span> <span class="o">=</span> <span class="n">random_layer</span><span class="o">.</span><span class="n">forward</span><span class="p">([</span><span class="n">features</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">])</span>
 
-            <span class="n">domain_pred_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="p">(</span><span class="n">multilinear_map</span><span class="p">)</span>
-            <span class="n">domain_pred_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="p">(</span><span class="n">multilinear_map_target</span><span class="p">)</span>
-            <span class="n">domain_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">domain_pred_s</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-            <span class="n">domain_pred</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_pred_s</span>
-            <span class="n">domain_pred</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_pred_t</span>
-
-            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
-                <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">),</span> <span class="n">y_pred_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="n">y_pred_s</span><span class="o">.</span><span class="n">device</span>
-            <span class="p">)</span>
-            <span class="n">y_pred</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred_s</span>
-            <span class="n">y_pred</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred_t</span>
-
-            <span class="n">features</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span>
-                <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">),</span> <span class="n">features_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">device</span><span class="o">=</span><span class="n">features_s</span><span class="o">.</span><span class="n">device</span>
-            <span class="p">)</span>
-            <span class="n">features</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">features_s</span>
-            <span class="n">features</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">features_t</span>
+            <span class="n">domain_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="p">(</span><span class="n">multilinear_map</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="p">(</span>
                 <span class="n">y_pred</span><span class="p">,</span>
