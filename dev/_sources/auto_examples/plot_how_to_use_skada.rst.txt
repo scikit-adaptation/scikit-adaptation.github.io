@@ -354,7 +354,7 @@ method of the grid search.
 
  .. code-block:: none
 
-    Best regularization parameter: auto
+    Best regularization parameter: 0.1
     Accuracy on target: 1.0
 
 
@@ -516,7 +516,7 @@ the last estimator. In the example below a :code:`StandardScaler` and a
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.799 seconds)
+   **Total running time of the script:** (0 minutes 2.280 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:
