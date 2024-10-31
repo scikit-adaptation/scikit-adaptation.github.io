@@ -110,7 +110,7 @@
 <h1>skada.deep.MCCLoss<a class="headerlink" href="#skada-deep-mccloss" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="skada.deep.MCCLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">MCCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_class_confusion.html#MCCLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.MCCLoss" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">MCCLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_class_confusion.html#MCCLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.MCCLoss" title="Link to this definition"></a></dt>
 <dd><p>Loss MCC.</p>
 <p>This loss reduces the class confusion of the predicted label of target domain
 See <a class="reference internal" href="#r3885c0b6a70a-33" id="id1">[33]</a>.</p>
@@ -119,6 +119,8 @@ See <a class="reference internal" href="#r3885c0b6a70a-33" id="id1">[33]</a>.</p
 <dd class="field-odd"><dl class="simple">
 <dt><strong>T</strong><span class="classifier">float, default=1</span></dt><dd><p>Temperature parameter for the scaling.
 If T=1, the scaling is a softmax function.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, default=1e-7</span></dt><dd><p>Small constant added to median distance calculation for numerical stability.</p>
 </dd>
 </dl>
 </dd>

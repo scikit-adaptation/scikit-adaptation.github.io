@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**06:58.960** total execution time for 21 files **from all galleries**:
+**05:31.786** total execution time for 21 files **from all galleries**:
 
 .. container::
 
@@ -33,65 +33,65 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_deep_plot_divergence.py` (``../../examples/deep/plot_divergence.py``)
-     - 02:07.385
+     - 01:22.635
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_adversarial.py` (``../../examples/deep/plot_adversarial.py``)
-     - 01:23.330
+     - 01:14.408
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_optimal_transport.py` (``../../examples/deep/plot_optimal_transport.py``)
-     - 01:18.069
+     - 01:10.462
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_training_method.py` (``../../examples/deep/plot_training_method.py``)
-     - 01:02.095
+     - 00:56.524
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_method_comparison.py` (``../../examples/plot_method_comparison.py``)
-     - 00:30.582
+     - 00:16.711
      - 0.0
    * - :ref:`sphx_glr_auto_examples_validation_plot_gridsearch_for_da.py` (``../../examples/validation/plot_gridsearch_for_da.py``)
-     - 00:11.631
+     - 00:10.925
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_dasvm.py` (``../../examples/methods/plot_dasvm.py``)
-     - 00:05.892
+     - 00:05.184
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_subspace.py` (``../../examples/methods/plot_subspace.py``)
-     - 00:04.295
+     - 00:02.543
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py` (``../../examples/methods/plot_label_prop_da.py``)
-     - 00:02.270
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py` (``../../examples/plot_how_to_use_skada.py``)
-     - 00:02.253
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py` (``../../examples/methods/plot_jdot_da.py``)
-     - 00:01.991
+     - 00:01.921
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py` (``../../examples/methods/plot_optimal_transport_da.py``)
-     - 00:01.877
+     - 00:01.765
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py` (``../../examples/methods/plot_jdot_da.py``)
+     - 00:01.480
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py` (``../../examples/plot_how_to_use_skada.py``)
+     - 00:01.450
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_skada_logo.py` (``../../examples/plot_skada_logo.py``)
-     - 00:01.411
+     - 00:01.122
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_reweighting.py` (``../../examples/methods/plot_reweighting.py``)
-     - 00:01.379
+     - 00:01.116
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_monge_alignment_da.py` (``../../examples/methods/plot_monge_alignment_da.py``)
-     - 00:00.966
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_validation_plot_cross_validation_for_da.py` (``../../examples/validation/plot_cross_validation_for_da.py``)
-     - 00:00.800
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py` (``../../examples/datasets/plot_variable_frequency_dataset.py``)
-     - 00:00.732
+     - 00:00.796
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py` (``../../examples/datasets/plot_shifted_dataset_regression.py``)
-     - 00:00.728
+     - 00:00.587
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_validation_plot_cross_validation_for_da.py` (``../../examples/validation/plot_cross_validation_for_da.py``)
+     - 00:00.576
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py` (``../../examples/datasets/plot_variable_frequency_dataset.py``)
+     - 00:00.562
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py` (``../../examples/datasets/plot_shifted_dataset.py``)
-     - 00:00.609
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_validation_plot_cross_val_score_for_da.py` (``../../examples/validation/plot_cross_val_score_for_da.py``)
-     - 00:00.336
+     - 00:00.476
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_dataset_from_moons_distribution.py` (``../../examples/datasets/plot_dataset_from_moons_distribution.py``)
-     - 00:00.331
+     - 00:00.288
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_validation_plot_cross_val_score_for_da.py` (``../../examples/validation/plot_cross_val_score_for_da.py``)
+     - 00:00.257
      - 0.0
