@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:19.283** total execution time for 3 files **from auto_examples**:
+**00:16.293** total execution time for 3 files **from auto_examples**:
 
 .. container::
 
@@ -33,11 +33,11 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_plot_method_comparison.py` (``plot_method_comparison.py``)
-     - 00:16.711
+     - 00:13.821
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py` (``plot_how_to_use_skada.py``)
-     - 00:01.450
+     - 00:01.395
      - 0.0
    * - :ref:`sphx_glr_auto_examples_plot_skada_logo.py` (``plot_skada_logo.py``)
-     - 00:01.122
+     - 00:01.077
      - 0.0

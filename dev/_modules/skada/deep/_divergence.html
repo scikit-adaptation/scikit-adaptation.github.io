@@ -205,6 +205,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    sigmas : array-like, optional (default=None)</span>
 <span class="sd">        The sigmas for the Gaussian kernel.</span>
+<span class="sd">    eps : float, default=1e-7</span>
+<span class="sd">        Small constant added to median distance calculation for numerical stability.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -213,9 +215,10 @@
 <span class="sd">            In ICML, 2015.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
 
 <div class="viewcode-block" id="DANLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss.forward">[docs]</a>
@@ -230,7 +233,7 @@
         <span class="n">features_t</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">dan_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">dan_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
 
