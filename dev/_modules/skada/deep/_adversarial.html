@@ -79,8 +79,10 @@
              
   <h1>Source code for skada.deep._adversarial</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
+<span class="c1">#         Ambroise Odonnat &lt;ambroiseodonnattechnologie@gmail.com&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -110,14 +112,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    target_criterion : torch criterion (class), default=None</span>
+<span class="sd">    domain_criterion : torch criterion (class), default=None</span>
 <span class="sd">        The initialized criterion (loss) used to compute the</span>
 <span class="sd">        DANN loss. If None, a BCELoss is used.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [15] Yaroslav Ganin et. al. Domain-Adversarial Training</span>
-<span class="sd">            of Neural Networks  In Journal of Machine Learning</span>
+<span class="sd">            of Neural Networks. In Journal of Machine Learning</span>
 <span class="sd">            Research, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -202,7 +204,7 @@
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [15] Yaroslav Ganin et. al. Domain-Adversarial Training</span>
-<span class="sd">            of Neural Networks  In Journal of Machine Learning</span>
+<span class="sd">            of Neural Networks. In Journal of Machine Learning</span>
 <span class="sd">            Research, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">domain_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -246,9 +248,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    reg : float, default=1</span>
-<span class="sd">        Regularization parameter.</span>
-<span class="sd">    target_criterion : torch criterion (class), default=None</span>
+<span class="sd">    domain_criterion : torch criterion (class), default=None</span>
 <span class="sd">        The initialized criterion (loss) used to compute the</span>
 <span class="sd">        CDAN loss. If None, a BCELoss is used.</span>
 
@@ -456,6 +456,163 @@
         <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
         <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
         <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">CDANLoss</span><span class="p">(</span><span class="n">domain_criterion</span><span class="o">=</span><span class="n">domain_criterion</span><span class="p">),</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">net</span></div>
+
+
+
+<div class="viewcode-block" id="MDDLoss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.MDDLoss.html#skada.deep.MDDLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">MDDLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss MDD.</span>
+
+<span class="sd">    This loss tries to minimize the disparity discrepancy between</span>
+<span class="sd">    the source and target domains. The discrepancy is estimated</span>
+<span class="sd">    through adversarial training of three networks: an encoder,</span>
+<span class="sd">    a task network and a discriminator.</span>
+
+<span class="sd">    See [35]_ for details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    disc_criterion : torch criterion (class)</span>
+<span class="sd">        The criterion (loss) used to compute the</span>
+<span class="sd">        MDD loss for the discriminator. It should</span>
+<span class="sd">        be the same loss as the base criterion.</span>
+<span class="sd">        If None, a CrossEntropyLoss is used.</span>
+<span class="sd">    gamma : float (default=4.0)</span>
+<span class="sd">        Margin parameter following [35]_</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [35] Yuchen Zhang et. al. Bridging Theory and Algorithm</span>
+<span class="sd">            for Domain Adaptation. In International Conference on</span>
+<span class="sd">            Machine Learning, 2019.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">disc_criterion</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">disc_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disc_criterion_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disc_criterion_</span> <span class="o">=</span> <span class="n">disc_criterion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+
+<div class="viewcode-block" id="MDDLoss.forward">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.MDDLoss.html#skada.deep.MDDLoss.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_s</span><span class="p">,</span>
+        <span class="n">y_pred_s</span><span class="p">,</span>
+        <span class="n">y_pred_t</span><span class="p">,</span>
+        <span class="n">disc_pred_s</span><span class="p">,</span>
+        <span class="n">disc_pred_t</span><span class="p">,</span>
+        <span class="n">features_s</span><span class="p">,</span>
+        <span class="n">features_t</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+        <span class="c1"># TODO: handle binary classification</span>
+        <span class="c1"># Multiclass classification</span>
+        <span class="n">pseudo_label_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_pred_s</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">pseudo_label_t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_pred_t</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">disc_loss_src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_criterion_</span><span class="p">(</span><span class="n">disc_pred_s</span><span class="p">,</span> <span class="n">pseudo_label_s</span><span class="p">)</span>
+        <span class="n">disc_loss_tgt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_criterion_</span><span class="p">(</span><span class="n">disc_pred_t</span><span class="p">,</span> <span class="n">pseudo_label_t</span><span class="p">)</span>
+
+        <span class="c1"># Compute the MDD loss value</span>
+        <span class="n">disc_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">disc_loss_src</span> <span class="o">-</span> <span class="n">disc_loss_tgt</span>
+
+        <span class="k">return</span> <span class="n">disc_loss</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MDD">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.MDD.html#skada.deep.MDD">[docs]</a>
+<span class="k">def</span> <span class="nf">MDD</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+    <span class="n">disc_classifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">disc_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Margin Disparity Discrepancy (MDD).</span>
+
+<span class="sd">    From [35]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`. In general, the</span>
+<span class="sd">        uninstantiated class should be passed, although instantiated</span>
+<span class="sd">        modules will also work.</span>
+<span class="sd">    layer_name : str</span>
+<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        collected during the training.</span>
+<span class="sd">    reg : float, default=1</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
+<span class="sd">    disc_classifier : torch module, default=None</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module` used as a discriminator.</span>
+<span class="sd">        It should have the same architecture than the classifier</span>
+<span class="sd">        used on the source. If None, a domain classifier is</span>
+<span class="sd">        created following [1]_.</span>
+<span class="sd">    num_features : int, default=None</span>
+<span class="sd">        Size of the input of domain classifier,</span>
+<span class="sd">        e.g size of the last layer of</span>
+<span class="sd">        the feature extractor.</span>
+<span class="sd">        If domain_classifier is None, num_features has to be</span>
+<span class="sd">        provided.</span>
+<span class="sd">    n_classes : int, default=None</span>
+<span class="sd">        Number of classes. If domain_classifier is None,</span>
+<span class="sd">        n_classes has to be provided.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
+<span class="sd">    disc_criterion : torch criterion (class)</span>
+<span class="sd">        The criterion (loss) used to compute the</span>
+<span class="sd">        MDD loss for the discriminator.</span>
+<span class="sd">        If None, use the same loss as base_criterion.</span>
+<span class="sd">    gamma : float (default=4.0)</span>
+<span class="sd">        Margin parameter following [35]_.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [35] Yuchen Zhang et. al. Bridging Theory and Algorithm</span>
+<span class="sd">            for Domain Adaptation. In International Conference on</span>
+<span class="sd">            Machine Learning, 2019.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">disc_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># raise error if num_feature is None</span>
+        <span class="k">if</span> <span class="n">num_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If disc_classifier is None, num_features has to be provided&quot;</span>
+            <span class="p">)</span>
+        <span class="n">disc_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span>
+            <span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">n_classes</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">disc_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">disc_criterion</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">base_criterion</span><span class="p">)</span>
+
+    <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
+        <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
+        <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
+        <span class="n">module__domain_classifier</span><span class="o">=</span><span class="n">disc_classifier</span><span class="p">,</span>
+        <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
+        <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">MDDLoss</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">disc_criterion</span><span class="o">=</span><span class="n">disc_criterion</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span></div>

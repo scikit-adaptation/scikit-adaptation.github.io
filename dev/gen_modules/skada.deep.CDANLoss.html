@@ -64,12 +64,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.MCCLoss.html">skada.deep.MCCLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CANLoss.html">skada.deep.CANLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.deep.MDDLoss.html">skada.deep.MDDLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DANN.html">skada.deep.DANN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CDAN.html">skada.deep.CDAN</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.MCC.html">skada.deep.MCC</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CAN.html">skada.deep.CAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.deep.MDD.html">skada.deep.MDD</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
@@ -121,9 +123,7 @@ From <a class="reference internal" href="#r9a8580d8efeb-16" id="id1">[16]</a>.</
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>reg</strong><span class="classifier">float, default=1</span></dt><dd><p>Regularization parameter.</p>
-</dd>
-<dt><strong>target_criterion</strong><span class="classifier">torch criterion (class), default=None</span></dt><dd><p>The initialized criterion (loss) used to compute the
+<dt><strong>domain_criterion</strong><span class="classifier">torch criterion (class), default=None</span></dt><dd><p>The initialized criterion (loss) used to compute the
 CDAN loss. If None, a BCELoss is used.</p>
 </dd>
 </dl>

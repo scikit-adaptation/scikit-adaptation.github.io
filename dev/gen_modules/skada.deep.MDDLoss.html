@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>skada.deep.DANLoss &mdash; SKADA : Scikit Adaptation</title>
+  <title>skada.deep.MDDLoss &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="skada.deep.CDANLoss" href="skada.deep.CDANLoss.html" />
-    <link rel="prev" title="skada.deep.DeepJDOTLoss" href="skada.deep.DeepJDOTLoss.html" /> 
+    <link rel="next" title="skada.deep.DeepCoral" href="skada.deep.DeepCoral.html" />
+    <link rel="prev" title="skada.deep.CANLoss" href="skada.deep.CANLoss.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -57,14 +57,14 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoralLoss.html">skada.deep.DeepCoralLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOTLoss.html">skada.deep.DeepJDOTLoss</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">skada.deep.DANLoss</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#skada.deep.DANLoss"><code class="docutils literal notranslate"><span class="pre">DANLoss</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="skada.deep.DANLoss.html">skada.deep.DANLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CDANLoss.html">skada.deep.CDANLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.MCCLoss.html">skada.deep.MCCLoss</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.CANLoss.html">skada.deep.CANLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.MDDLoss.html">skada.deep.MDDLoss</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">skada.deep.MDDLoss</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#skada.deep.MDDLoss"><code class="docutils literal notranslate"><span class="pre">MDDLoss</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.deep.DANN.html">skada.deep.DANN</a></li>
@@ -98,9 +98,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
-      <li class="breadcrumb-item active">skada.deep.DANLoss</li>
+      <li class="breadcrumb-item active">skada.deep.MDDLoss</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/gen_modules/skada.deep.DANLoss.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/gen_modules/skada.deep.MDDLoss.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -108,50 +108,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="skada-deep-danloss">
-<h1>skada.deep.DANLoss<a class="headerlink" href="#skada-deep-danloss" title="Link to this heading"></a></h1>
+  <section id="skada-deep-mddloss">
+<h1>skada.deep.MDDLoss<a class="headerlink" href="#skada-deep-mddloss" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="skada.deep.DANLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">DANLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigmas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_divergence.html#DANLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DANLoss" title="Link to this definition"></a></dt>
-<dd><p>Loss DAN</p>
-<p>This loss reduces the MMD distance between
-source features and target features.
-From <a class="reference internal" href="#rd2d5c139e58e-14" id="id1">[14]</a>.</p>
+<dt class="sig sig-object py" id="skada.deep.MDDLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">MDDLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disc_criterion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#MDDLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.MDDLoss" title="Link to this definition"></a></dt>
+<dd><p>Loss MDD.</p>
+<p>This loss tries to minimize the disparity discrepancy between
+the source and target domains. The discrepancy is estimated
+through adversarial training of three networks: an encoder,
+a task network and a discriminator.</p>
+<p>See <a class="reference internal" href="#rc2dd339bd1ec-35" id="id1">[35]</a> for details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>sigmas</strong><span class="classifier">array-like, optional (default=None)</span></dt><dd><p>The sigmas for the Gaussian kernel.</p>
+<dt><strong>disc_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The criterion (loss) used to compute the
+MDD loss for the discriminator. It should
+be the same loss as the base criterion.
+If None, a CrossEntropyLoss is used.</p>
 </dd>
-<dt><strong>eps</strong><span class="classifier">float, default=1e-7</span></dt><dd><p>Small constant added to median distance calculation for numerical stability.</p>
+<dt><strong>gamma</strong><span class="classifier">float (default=4.0)</span></dt><dd><p>Margin parameter following <a class="reference internal" href="#rc2dd339bd1ec-35" id="id2">[35]</a></p>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <div role="list" class="citation-list">
-<div class="citation" id="rd2d5c139e58e-14" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">14</a><span class="fn-bracket">]</span></span>
-<p>Mingsheng Long et. al. Learning Transferable
-Features with Deep Adaptation Networks.
-In ICML, 2015.</p>
+<div class="citation" id="rc2dd339bd1ec-35" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>35<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
+<p>Yuchen Zhang et. al. Bridging Theory and Algorithm
+for Domain Adaptation. In International Conference on
+Machine Learning, 2019.</p>
 </div>
 </div>
 <dl class="py method">
-<dt class="sig sig-object py" id="skada.deep.DANLoss.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_pred_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_pred_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_divergence.html#DANLoss.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DANLoss.forward" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="skada.deep.MDDLoss.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disc_pred_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disc_pred_t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#MDDLoss.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.MDDLoss.forward" title="Link to this definition"></a></dt>
 <dd><p>Compute the domain adaptation loss</p>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="sphx-glr-backreferences-skada-deep-danloss"></span></section>
+<span class="target" id="sphx-glr-backreferences-skada-deep-mddloss"></span></section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="skada.deep.DeepJDOTLoss.html" class="btn btn-neutral float-left" title="skada.deep.DeepJDOTLoss" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="skada.deep.CDANLoss.html" class="btn btn-neutral float-right" title="skada.deep.CDANLoss" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="skada.deep.CANLoss.html" class="btn btn-neutral float-left" title="skada.deep.CANLoss" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.deep.DeepCoral.html" class="btn btn-neutral float-right" title="skada.deep.DeepCoral" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
