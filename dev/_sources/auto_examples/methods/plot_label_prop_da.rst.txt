@@ -252,7 +252,7 @@ Train the full Labe Propagation model
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     LabelProp MSE on source: 0.28
     LabelProp MSE on target: 0.50
@@ -311,7 +311,7 @@ labels are propagated from the source domain to the target domain.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
 
     (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
@@ -519,7 +519,7 @@ Train with LabelProp + classifier
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     LabelProp Accuracy on source: 0.76
     LabelProp Accuracy on target: 0.57
@@ -577,7 +577,7 @@ labels are propagated from the source domain to the target domain.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
 
     (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
@@ -718,10 +718,10 @@ to this kind of shift because it estimates the class proportions in the target.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
-    /home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_barycenter.py:909: UserWarning: Algorithm did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
-      warnings.warn("Algorithm did not converge. You might want to "
+    /home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_barycenter.py:1047: UserWarning: Algorithm did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
+      warnings.warn(
     LabelProp Accuracy on target: 0.87
     JCPOT Accuracy on target: 0.99
 
@@ -732,7 +732,7 @@ to this kind of shift because it estimates the class proportions in the target.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 2.103 seconds)
+   **Total running time of the script:** (0 minutes 1.921 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_label_prop_da.py:

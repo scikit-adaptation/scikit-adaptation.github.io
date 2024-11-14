@@ -86,44 +86,44 @@ Load the image datasets
 
     Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
     Failed to download (trying next):
-    <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1007)>
+    HTTP Error 403: Forbidden
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw/train-images-idx3-ubyte.gz
-      0%|          | 0.00/9.91M [00:00<?, ?B/s]    100%|██████████| 9.91M/9.91M [00:00<00:00, 295MB/s]
+      0%|          | 0.00/9.91M [00:00<?, ?B/s]    100%|██████████| 9.91M/9.91M [00:00<00:00, 170MB/s]
     Extracting ./datasets/MNIST/raw/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
     Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
     Failed to download (trying next):
-    <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1007)>
+    HTTP Error 403: Forbidden
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz
-      0%|          | 0.00/28.9k [00:00<?, ?B/s]    100%|██████████| 28.9k/28.9k [00:00<00:00, 75.0MB/s]
+      0%|          | 0.00/28.9k [00:00<?, ?B/s]    100%|██████████| 28.9k/28.9k [00:00<00:00, 32.7MB/s]
     Extracting ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
     Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
     Failed to download (trying next):
-    <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1007)>
+    HTTP Error 403: Forbidden
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz
-      0%|          | 0.00/1.65M [00:00<?, ?B/s]    100%|██████████| 1.65M/1.65M [00:00<00:00, 266MB/s]
+      0%|          | 0.00/1.65M [00:00<?, ?B/s]    100%|██████████| 1.65M/1.65M [00:00<00:00, 160MB/s]
     Extracting ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
     Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
     Failed to download (trying next):
-    <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1007)>
+    HTTP Error 403: Forbidden
 
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz
     Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz
-      0%|          | 0.00/4.54k [00:00<?, ?B/s]    100%|██████████| 4.54k/4.54k [00:00<00:00, 14.0MB/s]
+      0%|          | 0.00/4.54k [00:00<?, ?B/s]    100%|██████████| 4.54k/4.54k [00:00<00:00, 11.5MB/s]
     Extracting ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
     /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       mnist_target = torch.tensor(mnist_dataset.targets)
     Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2 to ./datasets/usps.t.bz2
-      0%|          | 0.00/1.83M [00:00<?, ?B/s]      2%|▏         | 32.8k/1.83M [00:00<00:21, 82.9kB/s]      4%|▎         | 65.5k/1.83M [00:00<00:21, 82.8kB/s]      5%|▌         | 98.3k/1.83M [00:01<00:20, 82.8kB/s]      7%|▋         | 131k/1.83M [00:01<00:17, 98.0kB/s]       9%|▉         | 164k/1.83M [00:01<00:17, 96.0kB/s]     11%|█         | 197k/1.83M [00:02<00:15, 107kB/s]      13%|█▎        | 229k/1.83M [00:02<00:13, 121kB/s]     14%|█▍        | 262k/1.83M [00:02<00:14, 105kB/s]     16%|█▌        | 295k/1.83M [00:02<00:12, 119kB/s]     18%|█▊        | 328k/1.83M [00:03<00:11, 130kB/s]     20%|█▉        | 360k/1.83M [00:03<00:12, 116kB/s]     21%|██▏       | 393k/1.83M [00:03<00:11, 121kB/s]     23%|██▎       | 426k/1.83M [00:03<00:10, 132kB/s]     25%|██▌       | 459k/1.83M [00:04<00:09, 141kB/s]     27%|██▋       | 492k/1.83M [00:04<00:09, 147kB/s]     29%|██▊       | 524k/1.83M [00:04<00:10, 125kB/s]     30%|███       | 557k/1.83M [00:04<00:09, 135kB/s]     32%|███▏      | 590k/1.83M [00:04<00:08, 143kB/s]     34%|███▍      | 623k/1.83M [00:05<00:08, 149kB/s]     36%|███▌      | 655k/1.83M [00:05<00:07, 154kB/s]     38%|███▊      | 688k/1.83M [00:05<00:07, 157kB/s]     41%|████      | 754k/1.83M [00:05<00:05, 195kB/s]     43%|████▎     | 786k/1.83M [00:05<00:05, 187kB/s]     45%|████▍     | 819k/1.83M [00:06<00:05, 193kB/s]     48%|████▊     | 885k/1.83M [00:06<00:04, 220kB/s]     50%|█████     | 918k/1.83M [00:06<00:04, 218kB/s]     54%|█████▎    | 983k/1.83M [00:06<00:03, 237kB/s]     57%|█████▋    | 1.05M/1.83M [00:06<00:02, 264kB/s]     61%|██████    | 1.11M/1.83M [00:07<00:02, 303kB/s]     64%|██████▍   | 1.18M/1.83M [00:07<00:02, 312kB/s]     68%|██████▊   | 1.25M/1.83M [00:07<00:01, 318kB/s]     73%|███████▎  | 1.34M/1.83M [00:07<00:01, 372kB/s]     79%|███████▊  | 1.44M/1.83M [00:07<00:00, 410kB/s]     84%|████████▍ | 1.54M/1.83M [00:08<00:00, 436kB/s]     91%|█████████ | 1.67M/1.83M [00:08<00:00, 504kB/s]     98%|█████████▊| 1.80M/1.83M [00:08<00:00, 551kB/s]    100%|██████████| 1.83M/1.83M [00:08<00:00, 215kB/s]
+      0%|          | 0.00/1.83M [00:00<?, ?B/s]      2%|▏         | 32.8k/1.83M [00:00<00:10, 168kB/s]      4%|▎         | 65.5k/1.83M [00:00<00:23, 76.7kB/s]      5%|▌         | 98.3k/1.83M [00:00<00:17, 102kB/s]       7%|▋         | 131k/1.83M [00:01<00:14, 114kB/s]      11%|█         | 197k/1.83M [00:01<00:11, 144kB/s]     14%|█▍        | 262k/1.83M [00:01<00:08, 182kB/s]     16%|█▌        | 295k/1.83M [00:01<00:08, 178kB/s]     18%|█▊        | 328k/1.83M [00:02<00:08, 185kB/s]     20%|█▉        | 360k/1.83M [00:02<00:10, 134kB/s]     21%|██▏       | 393k/1.83M [00:02<00:09, 149kB/s]     23%|██▎       | 426k/1.83M [00:02<00:09, 154kB/s]     25%|██▌       | 459k/1.83M [00:03<00:12, 113kB/s]     27%|██▋       | 492k/1.83M [00:03<00:12, 111kB/s]     29%|██▊       | 524k/1.83M [00:04<00:11, 113kB/s]     30%|███       | 557k/1.83M [00:04<00:14, 90.1kB/s]     32%|███▏      | 590k/1.83M [00:04<00:14, 88.2kB/s]     34%|███▍      | 623k/1.83M [00:05<00:13, 86.9kB/s]     36%|███▌      | 655k/1.83M [00:05<00:12, 93.3kB/s]     38%|███▊      | 688k/1.83M [00:05<00:12, 94.3kB/s]     39%|███▉      | 721k/1.83M [00:06<00:13, 82.9kB/s]     41%|████      | 754k/1.83M [00:06<00:13, 78.3kB/s]     43%|████▎     | 786k/1.83M [00:07<00:11, 89.0kB/s]     45%|████▍     | 819k/1.83M [00:07<00:12, 78.2kB/s]     47%|████▋     | 852k/1.83M [00:08<00:12, 79.7kB/s]     48%|████▊     | 885k/1.83M [00:08<00:11, 80.9kB/s]     50%|█████     | 918k/1.83M [00:08<00:11, 81.7kB/s]     52%|█████▏    | 950k/1.83M [00:09<00:10, 82.3kB/s]     54%|█████▎    | 983k/1.83M [00:09<00:10, 82.6kB/s]     55%|█████▌    | 1.02M/1.83M [00:10<00:09, 83.0kB/s]     57%|█████▋    | 1.05M/1.83M [00:10<00:09, 83.3kB/s]     59%|█████▉    | 1.08M/1.83M [00:10<00:07, 93.9kB/s]     61%|██████    | 1.11M/1.83M [00:11<00:07, 94.5kB/s]     63%|██████▎   | 1.15M/1.83M [00:11<00:06, 99.9kB/s]     64%|██████▍   | 1.18M/1.83M [00:11<00:06, 102kB/s]      66%|██████▌   | 1.21M/1.83M [00:11<00:05, 106kB/s]     68%|██████▊   | 1.25M/1.83M [00:12<00:05, 107kB/s]     70%|██████▉   | 1.28M/1.83M [00:12<00:04, 114kB/s]     72%|███████▏  | 1.31M/1.83M [00:12<00:04, 108kB/s]     73%|███████▎  | 1.34M/1.83M [00:13<00:04, 115kB/s]     75%|███████▌  | 1.38M/1.83M [00:13<00:03, 126kB/s]     77%|███████▋  | 1.41M/1.83M [00:13<00:03, 123kB/s]     79%|███████▊  | 1.44M/1.83M [00:13<00:03, 113kB/s]     81%|████████  | 1.47M/1.83M [00:14<00:02, 132kB/s]     82%|████████▏ | 1.51M/1.83M [00:14<00:02, 112kB/s]     84%|████████▍ | 1.54M/1.83M [00:14<00:02, 106kB/s]     86%|████████▌ | 1.57M/1.83M [00:15<00:02, 108kB/s]     88%|████████▊ | 1.61M/1.83M [00:15<00:02, 104kB/s]     89%|████████▉ | 1.64M/1.83M [00:15<00:01, 101kB/s]     91%|█████████ | 1.67M/1.83M [00:16<00:01, 104kB/s]     93%|█████████▎| 1.70M/1.83M [00:16<00:01, 102kB/s]     95%|█████████▍| 1.74M/1.83M [00:16<00:00, 110kB/s]     97%|█████████▋| 1.77M/1.83M [00:16<00:00, 110kB/s]     98%|█████████▊| 1.80M/1.83M [00:17<00:00, 96.6kB/s]    100%|██████████| 1.83M/1.83M [00:17<00:00, 105kB/s] 
 
 
 
@@ -158,13 +158,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.7808  5.6032
-          2        0.5054  5.2955
-          3        0.1594  5.6059
-          4        0.0823  6.2968
-          5        0.0583  5.9980
+          1        1.4386  3.5977
+          2        0.2424  3.6965
+          3        0.1015  3.9967
+          4        0.0625  4.7000
+          5        0.0442  4.2995
 
-    0.9035369774919614
+    0.9228295819935691
 
 
 
@@ -196,22 +196,22 @@ Train a DeepCoral model
 
  .. code-block:: none
 
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        1.5685  10.0694
-          2        0.3898  8.5993
-          3        0.1267  8.5979
-          4        0.0779  7.8056
-          5        0.0613  8.5987
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        1.5298  8.6064
+          2        0.3405  7.2951
+          3        0.1147  7.4032
+          4        0.0697  7.9982
+          5        0.0600  7.6971
 
-    0.9131832797427653
+    0.9196141479099679
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 28.957 seconds)
+   **Total running time of the script:** (1 minutes 24.684 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_divergence.py:
