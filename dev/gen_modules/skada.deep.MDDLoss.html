@@ -112,7 +112,7 @@
 <h1>skada.deep.MDDLoss<a class="headerlink" href="#skada-deep-mddloss" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="skada.deep.MDDLoss">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">MDDLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">disc_criterion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#MDDLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.MDDLoss" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">MDDLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#MDDLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.MDDLoss" title="Link to this definition"></a></dt>
 <dd><p>Loss MDD.</p>
 <p>This loss tries to minimize the disparity discrepancy between
 the source and target domains. The discrepancy is estimated
@@ -122,11 +122,6 @@ a task network and a discriminator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>disc_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The criterion (loss) used to compute the
-MDD loss for the discriminator. It should
-be the same loss as the base criterion.
-If None, a CrossEntropyLoss is used.</p>
-</dd>
 <dt><strong>gamma</strong><span class="classifier">float (default=4.0)</span></dt><dd><p>Margin parameter following <a class="reference internal" href="#rc2dd339bd1ec-35" id="id2">[35]</a></p>
 </dd>
 </dl>

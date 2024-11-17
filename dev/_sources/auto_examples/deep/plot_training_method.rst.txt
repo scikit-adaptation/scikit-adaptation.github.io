@@ -147,8 +147,8 @@ Training with skorch
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2899  8.3953
-          2        2.1957  7.6995
+          1        2.2728  9.4941
+          2        2.2243  10.8975
 
     <class 'skada.deep.base.DomainAwareNet'>[initialized](
       module_=DomainAwareModule(
@@ -205,8 +205,8 @@ Training with skorch with dataset
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2952  7.6652
-          2        2.2201  7.4037
+          1        2.2795  9.4001
+          2        2.1881  8.8061
 
     <class 'skada.deep.base.DomainAwareNet'>[initialized](
       module_=DomainAwareModule(
@@ -272,8 +272,8 @@ Training with torch
 
  .. code-block:: none
 
-    Loss: 0.9149682223796844
-    Loss: 0.2064664177596569
+    Loss: 0.8957772590219975
+    Loss: 0.17755669727921486
 
 
 
@@ -281,7 +281,7 @@ Training with torch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 56.148 seconds)
+   **Total running time of the script:** (1 minutes 5.434 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_training_method.py:
