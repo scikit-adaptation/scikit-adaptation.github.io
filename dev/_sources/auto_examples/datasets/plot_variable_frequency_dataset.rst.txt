@@ -151,7 +151,7 @@ and shifted target data.
 
  .. code-block:: none
 
-    The data was generated from (random_state=289)
+    The data was generated from (random_state=115)
 
 
 

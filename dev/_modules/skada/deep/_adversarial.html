@@ -464,18 +464,49 @@
 
 
 <span class="k">class</span> <span class="nc">ModifiedCrossEntropyLoss</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modified CrossEntropyLoss.</span>
-<span class="sd">    Implements modified CrossEntropyLoss as described in (29) from [35]_.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modified CrossEntropyLoss as described in (29) from [35]_ with label smoothing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    smoothing : float, default=0.1</span>
+<span class="sd">        Smoothing factor for label smoothing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoothing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smoothing</span> <span class="o">=</span> <span class="n">smoothing</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the modified CrossEntropyLoss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the modified CrossEntropyLoss</span>
+<span class="sd">        with label smoothing applied to predictions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input : torch.Tensor</span>
+<span class="sd">            Predictions from the model.</span>
+<span class="sd">        target : torch.Tensor</span>
+<span class="sd">            Target labels.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        loss : torch.Tensor</span>
+<span class="sd">            The modified CrossEntropyLoss with label smoothing applied to predictions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Compute probabilities</span>
         <span class="n">prob</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">prob</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">target</span><span class="p">]</span>
-        <span class="n">log_one_minus_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prob</span><span class="p">)</span>
+
+        <span class="c1"># Apply label smoothing to predictions</span>
+        <span class="n">num_classes</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">smooth_prob</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothing</span><span class="p">)</span> <span class="o">*</span> <span class="n">prob</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">smoothing</span> <span class="o">/</span> <span class="n">num_classes</span>
+
+        <span class="c1"># Gather probabilities of the target classes</span>
+        <span class="n">target_prob</span> <span class="o">=</span> <span class="n">smooth_prob</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">target</span><span class="p">]</span>
+
+        <span class="c1"># Compute log(1 - probability) for the target class</span>
+        <span class="n">log_one_minus_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">target_prob</span><span class="p">)</span>
+
+        <span class="c1"># Return mean loss</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">log_one_minus_prob</span><span class="p">)</span>
 
 
