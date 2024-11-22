@@ -126,13 +126,8 @@
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.MCCLoss.html#skada.deep.MCCLoss.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">y_s</span><span class="p">,</span>
-        <span class="n">y_pred_s</span><span class="p">,</span>
         <span class="n">y_pred_t</span><span class="p">,</span>
-        <span class="n">domain_pred_s</span><span class="p">,</span>
-        <span class="n">domain_pred_t</span><span class="p">,</span>
-        <span class="n">features_s</span><span class="p">,</span>
-        <span class="n">features_t</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">mcc_loss</span><span class="p">(</span>
