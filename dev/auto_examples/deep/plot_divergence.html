@@ -52,6 +52,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">SKADA: SciKit Domain Adaptation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
@@ -147,7 +148,7 @@ Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyt
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw/train-images-idx3-ubyte.gz
 
   0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
-100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 192MB/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 143MB/s]
 Extracting ./datasets/MNIST/raw/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
 Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
@@ -158,7 +159,7 @@ Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyt
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz
 
   0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
-100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 54.1MB/s]
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 62.2MB/s]
 Extracting ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
 Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
@@ -169,7 +170,7 @@ Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz
 
   0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
-100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 22.1MB/s]
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 278MB/s]
 Extracting ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
 Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
@@ -180,7 +181,7 @@ Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz
 
   0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
-100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 16.3MB/s]
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 15.5MB/s]
 Extracting ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
 /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
@@ -188,14 +189,21 @@ Extracting ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/ra
 Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2 to ./datasets/usps.t.bz2
 
   0%|          | 0.00/1.83M [00:00&lt;?, ?B/s]
-  2%|▏         | 32.8k/1.83M [00:00&lt;00:10, 168kB/s]
-  4%|▎         | 65.5k/1.83M [00:00&lt;00:10, 168kB/s]
-  5%|▌         | 98.3k/1.83M [00:00&lt;00:10, 168kB/s]
- 13%|█▎        | 229k/1.83M [00:00&lt;00:04, 367kB/s]
- 23%|██▎       | 426k/1.83M [00:00&lt;00:02, 599kB/s]
- 47%|████▋     | 852k/1.83M [00:01&lt;00:00, 1.14MB/s]
- 91%|█████████ | 1.67M/1.83M [00:01&lt;00:00, 2.14MB/s]
-100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.34MB/s]
+  2%|▏         | 32.8k/1.83M [00:00&lt;00:12, 143kB/s]
+  4%|▎         | 65.5k/1.83M [00:00&lt;00:12, 141kB/s]
+  5%|▌         | 98.3k/1.83M [00:00&lt;00:12, 140kB/s]
+ 11%|█         | 197k/1.83M [00:00&lt;00:06, 253kB/s]
+ 20%|█▉        | 360k/1.83M [00:01&lt;00:03, 416kB/s]
+ 29%|██▊       | 524k/1.83M [00:01&lt;00:02, 517kB/s]
+ 38%|███▊      | 688k/1.83M [00:01&lt;00:01, 579kB/s]
+ 45%|████▍     | 819k/1.83M [00:01&lt;00:01, 572kB/s]
+ 54%|█████▎    | 983k/1.83M [00:02&lt;00:01, 614kB/s]
+ 63%|██████▎   | 1.15M/1.83M [00:02&lt;00:01, 484kB/s]
+ 72%|███████▏  | 1.31M/1.83M [00:02&lt;00:00, 539kB/s]
+ 84%|████████▍ | 1.54M/1.83M [00:03&lt;00:00, 657kB/s]
+ 89%|████████▉ | 1.64M/1.83M [00:03&lt;00:00, 593kB/s]
+ 97%|█████████▋| 1.77M/1.83M [00:03&lt;00:00, 586kB/s]
+100%|██████████| 1.83M/1.83M [00:03&lt;00:00, 524kB/s]
 </pre></div>
 </div>
 </section>
@@ -215,11 +223,11 @@ Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/u
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.3849  3.2993
-      2        0.2275  3.3012
-      3        0.0918  2.9952
-      4        0.0510  2.6069
-      5        0.0359  2.7926
+      1        1.4608  3.6006
+      2        0.2497  3.2349
+      3        0.0927  3.7035
+      4        0.0580  3.7994
+      5        0.0393  3.9989
 
 0.8906752411575563
 </pre></div>
@@ -242,16 +250,16 @@ Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/u
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.3821  6.0832
-      2        0.2723  6.2995
-      3        0.1144  6.6915
-      4        0.0779  5.7989
-      5        0.0668  6.2016
+      1        1.7280  8.9178
+      2        0.4510  8.7009
+      3        0.1339  8.1987
+      4        0.0780  8.4989
+      5        0.0571  8.2015
 
-0.9196141479099679
+0.909967845659164
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 54.649 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 12.138 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>
