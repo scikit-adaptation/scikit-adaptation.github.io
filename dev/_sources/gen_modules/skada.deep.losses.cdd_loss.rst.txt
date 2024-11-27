@@ -1,0 +1,11 @@
+﻿skada.deep.losses.cdd\_loss
+===========================
+
+.. currentmodule:: skada.deep.losses
+
+.. autofunction:: cdd_loss
+
+.. _sphx_glr_backreferences_skada.deep.losses.cdd_loss:
+
+.. minigallery:: skada.deep.losses.cdd_loss
+    :add-heading:

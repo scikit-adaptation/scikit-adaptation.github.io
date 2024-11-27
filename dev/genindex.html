@@ -49,9 +49,9 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">SKADA: SciKit Domain Adaptation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Users Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -109,6 +109,8 @@
 </li>
       <li><a href="gen_modules/skada.deep.CDANLoss.html#skada.deep.CDANLoss">CDANLoss (class in skada.deep)</a>
 </li>
+      <li><a href="gen_modules/skada.deep.losses.cdd_loss.html#skada.deep.losses.cdd_loss">cdd_loss() (in module skada.deep.losses)</a>
+</li>
       <li><a href="gen_modules/skada.utils.check_X_y_domain.html#skada.utils.check_X_y_domain">check_X_y_domain() (in module skada.utils)</a>
 </li>
   </ul></td>
@@ -131,6 +133,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="gen_modules/skada.deep.losses.dan_loss.html#skada.deep.losses.dan_loss">dan_loss() (in module skada.deep.losses)</a>
+</li>
       <li><a href="gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss">DANLoss (class in skada.deep)</a>
 </li>
       <li><a href="gen_modules/skada.deep.DANN.html#skada.deep.DANN">DANN() (in module skada.deep)</a>
@@ -139,6 +143,8 @@
 </li>
       <li><a href="gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral">DeepCoral() (in module skada.deep)</a>
 </li>
+      <li><a href="gen_modules/skada.deep.losses.deepcoral_loss.html#skada.deep.losses.deepcoral_loss">deepcoral_loss() (in module skada.deep.losses)</a>
+</li>
       <li><a href="gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss">DeepCoralLoss (class in skada.deep)</a>
 </li>
       <li><a href="gen_modules/skada.metrics.DeepEmbeddedValidation.html#skada.metrics.DeepEmbeddedValidation">DeepEmbeddedValidation (class in skada.metrics)</a>
@@ -146,6 +152,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_modules/skada.deep.DeepJDOT.html#skada.deep.DeepJDOT">DeepJDOT() (in module skada.deep)</a>
+</li>
+      <li><a href="gen_modules/skada.deep.losses.deepjdot_loss.html#skada.deep.losses.deepjdot_loss">deepjdot_loss() (in module skada.deep.losses)</a>
 </li>
       <li><a href="gen_modules/skada.deep.DeepJDOTLoss.html#skada.deep.DeepJDOTLoss">DeepJDOTLoss (class in skada.deep)</a>
 </li>
@@ -299,6 +307,8 @@
 </li>
       <li><a href="gen_modules/skada.deep.MCC.html#skada.deep.MCC">MCC() (in module skada.deep)</a>
 </li>
+      <li><a href="gen_modules/skada.deep.losses.mcc_loss.html#skada.deep.losses.mcc_loss">mcc_loss() (in module skada.deep.losses)</a>
+</li>
       <li><a href="gen_modules/skada.deep.MCCLoss.html#skada.deep.MCCLoss">MCCLoss (class in skada.deep)</a>
 </li>
       <li><a href="gen_modules/skada.deep.MDD.html#skada.deep.MDD">MDD() (in module skada.deep)</a>
@@ -326,6 +336,8 @@
         <li><a href="all.html#module-skada.datasets">skada.datasets</a>
 </li>
         <li><a href="all.html#module-skada.deep">skada.deep</a>
+</li>
+        <li><a href="all.html#module-skada.deep.losses">skada.deep.losses</a>
 </li>
         <li><a href="all.html#module-skada.metrics">skada.metrics</a>
 </li>
@@ -378,9 +390,17 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource">SelectSource (class in skada)</a>
+</li>
+      <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget">SelectTarget (class in skada)</a>
+</li>
       <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_decision_function_request">set_decision_function_request() (skada.PerDomain method)</a>
 
       <ul>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_decision_function_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_decision_function_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_decision_function_request">(skada.Shared method)</a>
 </li>
       </ul></li>
@@ -401,30 +421,50 @@
 </li>
         <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_fit_request">(skada.PerDomain method)</a>
 </li>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_fit_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_fit_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_fit_request">(skada.Shared method)</a>
 </li>
       </ul></li>
       <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_partial_fit_request">set_partial_fit_request() (skada.PerDomain method)</a>
 
       <ul>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_partial_fit_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_partial_fit_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_partial_fit_request">(skada.Shared method)</a>
 </li>
       </ul></li>
       <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_predict_log_proba_request">set_predict_log_proba_request() (skada.PerDomain method)</a>
 
       <ul>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_predict_log_proba_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_predict_log_proba_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_predict_log_proba_request">(skada.Shared method)</a>
 </li>
       </ul></li>
       <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_predict_proba_request">set_predict_proba_request() (skada.PerDomain method)</a>
 
       <ul>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_predict_proba_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_predict_proba_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_predict_proba_request">(skada.Shared method)</a>
 </li>
       </ul></li>
       <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_predict_request">set_predict_request() (skada.PerDomain method)</a>
 
       <ul>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_predict_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_predict_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_predict_request">(skada.Shared method)</a>
 </li>
       </ul></li>
@@ -445,9 +485,15 @@
 </li>
         <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_score_request">(skada.PerDomain method)</a>
 </li>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_score_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_score_request">(skada.SelectTarget method)</a>
+</li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_score_request">(skada.Shared method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_modules/skada.model_selection.DomainShuffleSplit.html#skada.model_selection.DomainShuffleSplit.set_split_request">set_split_request() (skada.model_selection.DomainShuffleSplit method)</a>
 
       <ul>
@@ -458,8 +504,6 @@
         <li><a href="gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html#skada.model_selection.StratifiedDomainShuffleSplit.set_split_request">(skada.model_selection.StratifiedDomainShuffleSplit method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="gen_modules/skada.DensityReweightAdapter.html#skada.DensityReweightAdapter.set_transform_request">set_transform_request() (skada.DensityReweightAdapter method)</a>
 
       <ul>
@@ -476,6 +520,10 @@
         <li><a href="gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter.set_transform_request">(skada.NearestNeighborReweightAdapter method)</a>
 </li>
         <li><a href="gen_modules/skada.PerDomain.html#skada.PerDomain.set_transform_request">(skada.PerDomain method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectSource.html#skada.SelectSource.set_transform_request">(skada.SelectSource method)</a>
+</li>
+        <li><a href="gen_modules/skada.SelectTarget.html#skada.SelectTarget.set_transform_request">(skada.SelectTarget method)</a>
 </li>
         <li><a href="gen_modules/skada.Shared.html#skada.Shared.set_transform_request">(skada.Shared method)</a>
 </li>
@@ -501,6 +549,13 @@
 
       <ul>
         <li><a href="all.html#module-skada.deep">module</a>
+</li>
+      </ul></li>
+      <li>
+    skada.deep.losses
+
+      <ul>
+        <li><a href="all.html#module-skada.deep.losses">module</a>
 </li>
       </ul></li>
       <li>
@@ -594,7 +649,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.3.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

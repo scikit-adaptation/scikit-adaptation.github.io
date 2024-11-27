@@ -1,0 +1,11 @@
+﻿skada.deep.losses.deepjdot\_loss
+================================
+
+.. currentmodule:: skada.deep.losses
+
+.. autofunction:: deepjdot_loss
+
+.. _sphx_glr_backreferences_skada.deep.losses.deepjdot_loss:
+
+.. minigallery:: skada.deep.losses.deepjdot_loss
+    :add-heading:
