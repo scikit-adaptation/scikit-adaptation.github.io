@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release of SKADA &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=22974a12"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing to SKADA" href="contributing.html" />
+    <link rel="prev" title="Visualizing cross-validation behavior in skada" href="auto_examples/validation/plot_cross_validation_for_da.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SKADA
+              <img src="_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Users Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release of SKADA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#skada-v0-4-0">Skada v0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-s-changed">What's Changed</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Release of SKADA</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/releases.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-of-skada">
+<h1>Release of SKADA<a class="headerlink" href="#release-of-skada" title="Link to this heading"></a></h1>
+<section id="skada-v0-4-0">
+<h2>Skada v0.4.0<a class="headerlink" href="#skada-v0-4-0" title="Link to this heading"></a></h2>
+<p>This update brings significant enhancements and new features:</p>
+<ol class="arabic simple">
+<li><p>New Shallow Methods: MongeAlignment and JCPOT</p></li>
+<li><p>New Deep Methods: CAN, MCC, MDD, SPA, SourceOnly, and TargetOnly models.</p></li>
+<li><p>Scorers: Introduced MixValScorer and improved scorer compatibility with deep models.</p></li>
+<li><p>Subsampling Transformers: Added StratifiedDomainSubsampler and DomainSubsampler.</p></li>
+<li><p>Deep Models: Enhanced batch handling, fixed predict_proba, stabilized MDD loss, and fixed Deep Coral.</p></li>
+<li><p>Docs &amp; Design: Added a contributor guide, new logo, and documentation updates.</p></li>
+</ol>
+<section id="what-s-changed">
+<h3>What's Changed<a class="headerlink" href="#what-s-changed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Update README.md with zenodo badge by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/216">PR #216</a></p></li>
+<li><p>[MRG] Add multi-domain Monge alignment and JCPOT Target shift method by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/180">PR #180</a></p></li>
+<li><p>[MRG] Add a parameter base_criterion to deep models by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/217">PR #217</a></p></li>
+<li><p>[MRG] Add new scorer: MixValScorer by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/221">PR #221</a></p></li>
+<li><p>[MRG] Fix mixval by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/222">PR #222</a></p></li>
+<li><p>[MRG] Fix batch issue when generating features + add sample_weight in deep models by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/220">PR #220</a></p></li>
+<li><p>[MRG] Allow model selection cv to handle nd inputs by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/225">PR #225</a></p></li>
+<li><p>[MRG] In DEV, reshape features to 2D instead of input by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/226">PR #226</a></p></li>
+<li><p>[MRG] Add utilities functions to the doc by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/227">PR #227</a></p></li>
+<li><p>Add new logo! by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/223">PR #223</a></p></li>
+<li><p>Fix ImportanceWeightedScorer compatibility with deep learning models by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/232">PR #232</a></p></li>
+<li><p>[MRG] fix param for Deepjdot by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/234">PR #234</a></p></li>
+<li><p>[MRG] Add SourceOnly and TargetOnly models by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/233">PR #233</a></p></li>
+<li><p>[MRG] Fix docstring for the regulariation parameter of DA loss by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/230">PR #230</a></p></li>
+<li><p>[MRG] Fix order of feature acquisition for deep module by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/235">PR #235</a></p></li>
+<li><p>[MRG] Add recentering in DeepCoral by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/242">PR #242</a></p></li>
+<li><p>[MRG] Add DomainOnlySampler and DomainOnlyDataloader for SourceOnly ou TargetOnly deep methods by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/243">PR #243</a></p></li>
+<li><p>[MRG] Modify sampler to take the max of the two domains by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/241">PR #241</a></p></li>
+<li><p>Fix: Dev scorer wasn't working with SourceOnly and TargetOnly by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/244">PR #244</a></p></li>
+<li><p>[MRG] Fix deep coral by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/246">PR #246</a></p></li>
+<li><p>[MRG] Harmonize fixtures by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/248">PR #248</a></p></li>
+<li><p>[MRG] Bug fix when None in make_da_pipeline by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/256">PR #256</a></p></li>
+<li><p>[MRG] Handle edge case Mixvalscorer by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/257">PR #257</a></p></li>
+<li><p>[MRG] Add CAN Method by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/251">PR #251</a></p></li>
+<li><p>[MRG] Uncomment MMDTarSReweightAdapter tests by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/260">PR #260</a></p></li>
+<li><p>[MRG] Enhancements to DomainAwareNet and Scorers to handle <code class="docutils literal notranslate"><span class="pre">allow_source</span></code> arg by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/258">PR #258</a></p></li>
+<li><p>[MRG] Subsampling transformer by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/259">PR #259</a></p></li>
+<li><p>[MRG] Add MCC method by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/250">PR #250</a></p></li>
+<li><p>[MRG] Fix callback issue in CAN by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/265">PR #265</a></p></li>
+<li><p>[MRG] fix <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> for deep method by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/247">PR #247</a></p></li>
+<li><p>Batchnormfix2 by &#64;antoinedemathelin in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/266">PR #266</a></p></li>
+<li><p>[MRG] Handle scalar sample domain by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/267">PR #267</a></p></li>
+<li><p>[MRG] Add <code class="docutils literal notranslate"><span class="pre">DomainAndLabelStratifiedSubsampleTransformer</span></code> + Fix <code class="docutils literal notranslate"><span class="pre">DomainStratifiedSubsampleTransformer</span></code> by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/268">PR #268</a></p></li>
+<li><p>[MRG] Check if sample_domain have only unique domains indexes in check_*_domain by &#64;apmellot in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/261">PR #261</a></p></li>
+<li><p>[MRG] Add epsilon in MCC to prevent log(0) by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/270">PR #270</a></p></li>
+<li><p>[MRG] Handle edge case for DAN by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/271">PR #271</a></p></li>
+<li><p>[MRG] Handle edge cases for CAN by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/269">PR #269</a></p></li>
+<li><p>[MRG] Add MDD method by &#64;ambroiseodt in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/263">PR #263</a></p></li>
+<li><p>[MRG] Fix dissimilarities computations of Deep CAN by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/274">PR #274</a></p></li>
+<li><p>[MRG] Remove redundant centroid computation in spherical k-means by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/275">PR #275</a></p></li>
+<li><p>[MRG] Fix mdd loss by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/277">PR #277</a></p></li>
+<li><p>[MRG] Apply label smoothing to stabilize MDD by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/279">PR #279</a></p></li>
+<li><p>[MRG] do not try to complete when X_source is empty by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/280">PR #280</a></p></li>
+<li><p>[MRG] Add SPA method by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/276">PR #276</a></p></li>
+<li><p>[MRG] Add contributor guide by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/282">PR #282</a></p></li>
+</ul>
+<p><strong>Full Changelog</strong>: https://github.com/scikit-adaptation/skada/compare/0.3.0...0.4.0</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="auto_examples/validation/plot_cross_validation_for_da.html" class="btn btn-neutral float-left" title="Visualizing cross-validation behavior in skada" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to SKADA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
