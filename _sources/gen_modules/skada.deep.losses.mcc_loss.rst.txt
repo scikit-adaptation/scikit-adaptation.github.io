@@ -1,0 +1,11 @@
+﻿skada.deep.losses.mcc\_loss
+===========================
+
+.. currentmodule:: skada.deep.losses
+
+.. autofunction:: mcc_loss
+
+.. _sphx_glr_backreferences_skada.deep.losses.mcc_loss:
+
+.. minigallery:: skada.deep.losses.mcc_loss
+    :add-heading:

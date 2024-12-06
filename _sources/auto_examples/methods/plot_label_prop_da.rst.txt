@@ -53,7 +53,7 @@ evaluate their performance on the source and target domain.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-38
+.. GENERATED FROM PYTHON SOURCE LINES 29-44
 
 .. code-block:: Python
 
@@ -62,8 +62,14 @@ evaluate their performance on the source and target domain.
     from sklearn.kernel_ridge import KernelRidge
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import mean_squared_error
+    from sklearn.svm import SVC
 
-    from skada import OTLabelPropAdapter, make_da_pipeline, source_target_split
+    from skada import (
+        JCPOTLabelPropAdapter,
+        OTLabelPropAdapter,
+        make_da_pipeline,
+        source_target_split,
+    )
     from skada.datasets import make_shifted_datasets
 
 
@@ -73,14 +79,14 @@ evaluate their performance on the source and target domain.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-43
+.. GENERATED FROM PYTHON SOURCE LINES 45-49
 
 Generate concept drift regression dataset and plot it
 -----------------------------------------------------
 
 We generate a simple 2D concept drift dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-69
+.. GENERATED FROM PYTHON SOURCE LINES 49-75
 
 .. code-block:: Python
 
@@ -128,7 +134,7 @@ We generate a simple 2D concept drift dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-77
+.. GENERATED FROM PYTHON SOURCE LINES 76-83
 
 Train a regressor on source data
 --------------------------------
@@ -138,7 +144,7 @@ evaluate its performance on the source and target domain. Performance is
 much lower on the target domain due to the shift. We also plot the decision
 boundary learned by the KRR.
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-110
+.. GENERATED FROM PYTHON SOURCE LINES 83-116
 
 .. code-block:: Python
 
@@ -195,13 +201,13 @@ boundary learned by the KRR.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-114
+.. GENERATED FROM PYTHON SOURCE LINES 117-120
 
 Train the full Labe Propagation model
 --------------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-142
+.. GENERATED FROM PYTHON SOURCE LINES 120-148
 
 .. code-block:: Python
 
@@ -246,7 +252,7 @@ Train the full Labe Propagation model
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     LabelProp MSE on source: 0.28
     LabelProp MSE on target: 0.50
@@ -255,7 +261,7 @@ Train the full Labe Propagation model
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-148
+.. GENERATED FROM PYTHON SOURCE LINES 149-154
 
 Illustration of the propagated labels
 ---------------------------
@@ -263,7 +269,7 @@ Illustration of the propagated labels
 We illustrate the propagated labels on the target domain. We can see that the
 labels are propagated from the source domain to the target domain.
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-173
+.. GENERATED FROM PYTHON SOURCE LINES 154-179
 
 .. code-block:: Python
 
@@ -305,21 +311,21 @@ labels are propagated from the source domain to the target domain.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
 
     (np.float64(-2.570318895725525), np.float64(4.744989537549497), np.float64(-1.9610814126500358), np.float64(4.45933195939893))
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-178
+.. GENERATED FROM PYTHON SOURCE LINES 180-184
 
 Generate concept drift classification dataset and plot it
 -----------------------------------------------------
 
 We generate a simple 2D concept drift dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 178-203
+.. GENERATED FROM PYTHON SOURCE LINES 184-209
 
 .. code-block:: Python
 
@@ -366,7 +372,7 @@ We generate a simple 2D concept drift dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-210
+.. GENERATED FROM PYTHON SOURCE LINES 210-216
 
 Train a classifier on source data
 --------------------------------
@@ -375,7 +381,7 @@ We train a simple SVC classifier on the source domain and evaluate its
 performance on the source and target domain. Performance is much lower on
 the target domain due to the shift. We also plot the decision boundary
 
-.. GENERATED FROM PYTHON SOURCE LINES 210-256
+.. GENERATED FROM PYTHON SOURCE LINES 216-262
 
 .. code-block:: Python
 
@@ -445,13 +451,13 @@ the target domain due to the shift. We also plot the decision boundary
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 257-260
+.. GENERATED FROM PYTHON SOURCE LINES 263-266
 
 Train with LabelProp + classifier
 -------------------------
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 260-305
+.. GENERATED FROM PYTHON SOURCE LINES 266-311
 
 .. code-block:: Python
 
@@ -513,7 +519,7 @@ Train with LabelProp + classifier
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     LabelProp Accuracy on source: 0.76
     LabelProp Accuracy on target: 0.57
@@ -522,7 +528,7 @@ Train with LabelProp + classifier
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 306-311
+.. GENERATED FROM PYTHON SOURCE LINES 312-317
 
 Illustration of the propagated labels
 ---------------------------
@@ -530,7 +536,7 @@ Illustration of the propagated labels
 We illustrate the propagated labels on the target domain. We can see that the
 labels are propagated from the source domain to the target domain.
 
-.. GENERATED FROM PYTHON SOURCE LINES 311-333
+.. GENERATED FROM PYTHON SOURCE LINES 317-341
 
 .. code-block:: Python
 
@@ -559,6 +565,8 @@ labels are propagated from the source domain to the target domain.
 
 
 
+
+
 .. image-sg:: /auto_examples/methods/images/sphx_glr_plot_label_prop_da_008.png
    :alt: Source and Target data, Propagated labels data
    :srcset: /auto_examples/methods/images/sphx_glr_plot_label_prop_da_008.png
@@ -569,17 +577,162 @@ labels are propagated from the source domain to the target domain.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
 
     (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 342-346
+
+Generate classification classification dataset and plot it
+-----------------------------------------------------
+
+We generate a simple 2D target shift dataset.
+
+.. GENERATED FROM PYTHON SOURCE LINES 346-371
+
+.. code-block:: Python
+
+
+    X, y, sample_domain = make_shifted_datasets(
+        n_samples_source=20,
+        n_samples_target=20,
+        shift="target_shift",
+        noise=0.2,
+        random_state=42,
+    )
+
+
+    Xs, Xt, ys, yt = source_target_split(X, y, sample_domain=sample_domain)
+
+
+    plt.figure(5, (10, 5))
+    plt.subplot(1, 2, 1)
+    plt.scatter(Xs[:, 0], Xs[:, 1], c=ys, cmap="tab10", vmax=9, label="Source")
+    plt.title("Source data")
+    ax = plt.axis()
+
+    plt.subplot(1, 2, 2)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Target")
+    plt.title("Target data")
+    plt.axis(ax)
+
+
+
+
+
+.. image-sg:: /auto_examples/methods/images/sphx_glr_plot_label_prop_da_009.png
+   :alt: Source data, Target data
+   :srcset: /auto_examples/methods/images/sphx_glr_plot_label_prop_da_009.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+
+    (np.float64(-2.4269298070320042), np.float64(4.352173719537829), np.float64(-1.5585726101363702), np.float64(4.367467726151268))
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 372-379
+
+Train with LabelProp and JCPOT + classifier
+-------------------------
+
+On this target shift dataset, we can see that the label propagation method
+does not work well because it finds correspondences between the source and
+target samples with different classes. In this case JCPOT is more robust
+to this kind of shift because it estimates the class proportions in the target.
+
+.. GENERATED FROM PYTHON SOURCE LINES 379-432
+
+.. code-block:: Python
+
+
+
+    clf = make_da_pipeline(OTLabelPropAdapter(), SVC())
+    clf.fit(X, y, sample_domain=sample_domain)
+
+    clf_jcpot = make_da_pipeline(JCPOTLabelPropAdapter(reg=0.1), SVC())
+    clf_jcpot.fit(X, y, sample_domain=sample_domain)
+
+
+    yt_pred = clf.predict(Xt)
+    acc_t = (yt_pred == yt).mean()
+
+    print(f"LabelProp Accuracy on target: {acc_t:.2f}")
+
+
+    yt_pred = clf_jcpot.predict(Xt)
+    acc_s_jcpot = (yt_pred == yt).mean()
+
+    print(f"JCPOT Accuracy on target: {acc_s_jcpot:.2f}")
+
+    XX, YY = np.meshgrid(np.linspace(ax[0], ax[1], 100), np.linspace(ax[2], ax[3], 100))
+    Z = clf.predict(np.c_[XX.ravel(), YY.ravel()]).reshape(XX.shape)
+    Z_jcpot = clf_jcpot.predict(np.c_[XX.ravel(), YY.ravel()]).reshape(XX.shape)
+
+
+    plt.figure(7, (10, 5))
+
+
+    plt.subplot(1, 2, 1)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Prediction")
+    plt.imshow(
+        Z,
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
+        alpha=0.5,
+        cmap="tab10",
+        vmax=9,
+    )
+    plt.title(f"LabelProp reglog on target (ACC={acc_t:.2f})")
+    plt.axis(ax)
+
+    plt.subplot(1, 2, 2)
+    plt.scatter(Xt[:, 0], Xt[:, 1], c=yt, cmap="tab10", vmax=9, label="Prediction")
+    plt.imshow(
+        Z_jcpot,
+        extent=(ax[0], ax[1], ax[2], ax[3]),
+        origin="lower",
+        alpha=0.5,
+        cmap="tab10",
+        vmax=9,
+    )
+    plt.title(f"JCPOT reglog on target (ACC={acc_s_jcpot:.2f})")
+    plt.axis(ax)
+
+
+
+.. image-sg:: /auto_examples/methods/images/sphx_glr_plot_label_prop_da_010.png
+   :alt: LabelProp reglog on target (ACC=0.87), JCPOT reglog on target (ACC=0.99)
+   :srcset: /auto_examples/methods/images/sphx_glr_plot_label_prop_da_010.png
+   :class: sphx-glr-single-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+      result_code_string = check_result(result_code)
+    /home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_barycenter.py:1047: UserWarning: Algorithm did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
+      warnings.warn(
+    LabelProp Accuracy on target: 0.87
+    JCPOT Accuracy on target: 0.99
+
+    (np.float64(-2.4269298070320042), np.float64(4.352173719537829), np.float64(-1.5585726101363702), np.float64(4.367467726151268))
+
+
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.482 seconds)
+   **Total running time of the script:** (0 minutes 1.907 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_label_prop_da.py:
@@ -595,6 +748,10 @@ labels are propagated from the source domain to the target domain.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_label_prop_da.py <plot_label_prop_da.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_label_prop_da.zip <plot_label_prop_da.zip>`
 
 
 .. only:: html

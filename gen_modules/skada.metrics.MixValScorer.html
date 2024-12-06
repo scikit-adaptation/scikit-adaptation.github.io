@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.metrics.MixValScorer &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="skada.model_selection.SourceTargetShuffleSplit" href="skada.model_selection.SourceTargetShuffleSplit.html" />
+    <link rel="prev" title="skada.metrics.CircularValidation" href="skada.metrics.CircularValidation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SKADA
+              <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.SupervisedScorer.html">skada.metrics.SupervisedScorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.ImportanceWeightedScorer.html">skada.metrics.ImportanceWeightedScorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.PredictionEntropyScorer.html">skada.metrics.PredictionEntropyScorer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.DeepEmbeddedValidation.html">skada.metrics.DeepEmbeddedValidation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.SoftNeighborhoodDensity.html">skada.metrics.SoftNeighborhoodDensity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="skada.metrics.CircularValidation.html">skada.metrics.CircularValidation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">skada.metrics.MixValScorer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#skada.metrics.MixValScorer"><code class="docutils literal notranslate"><span class="pre">MixValScorer</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
+      <li class="breadcrumb-item active">skada.metrics.MixValScorer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/gen_modules/skada.metrics.MixValScorer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="skada-metrics-mixvalscorer">
+<h1>skada.metrics.MixValScorer<a class="headerlink" href="#skada-metrics-mixvalscorer" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="skada.metrics.MixValScorer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">skada.metrics.</span></span><span class="sig-name descname"><span class="pre">MixValScorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.55</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ice_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scoring</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">greater_is_better</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/metrics.html#MixValScorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.metrics.MixValScorer" title="Link to this definition"></a></dt>
+<dd><p>MixVal scorer for unsupervised domain adaptation.</p>
+<p>This scorer uses mixup to create mixed samples from the target domain,
+and evaluates the model's consistency on these mixed samples.</p>
+<p>See <a class="reference internal" href="#rd98a1564dd0a-32" id="id1">[32]</a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>alpha</strong><span class="classifier">float, default=0.55</span></dt><dd><p>Mixing parameter for mixup.</p>
+</dd>
+<dt><strong>ice_type</strong><span class="classifier">{'both', 'intra', 'inter'}, default='both'</span></dt><dd><p>Type of ICE score to compute:
+- 'both': Compute both intra-cluster and inter-cluster ICE scores (average).
+- 'intra': Compute only intra-cluster ICE score.
+- 'inter': Compute only inter-cluster ICE score.</p>
+</dd>
+<dt><strong>scoring</strong><span class="classifier">str or callable, default=None</span></dt><dd><p>A string (see model evaluation documentation) or
+a scorer callable object / function with signature
+<code class="docutils literal notranslate"><span class="pre">scorer(estimator,</span> <span class="pre">X,</span> <span class="pre">y)</span></code>.
+If None, the provided estimator object's <cite>score</cite> method is used.</p>
+</dd>
+<dt><strong>greater_is_better</strong><span class="classifier">bool, default=True</span></dt><dd><p>Whether higher scores are better.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">int, RandomState instance or None, default=None</span></dt><dd><p>Controls the randomness of the mixing process.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Mixing parameter.</p>
+</dd>
+<dt><strong>random_state</strong><span class="classifier">RandomState</span></dt><dd><p>Random number generator.</p>
+</dd>
+<dt><strong>_sign</strong><span class="classifier">int</span></dt><dd><p>1 if greater_is_better is True, -1 otherwise.</p>
+</dd>
+<dt><strong>ice_type</strong><span class="classifier">str</span></dt><dd><p>Type of ICE score to compute.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="rd98a1564dd0a-32" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">32</a><span class="fn-bracket">]</span></span>
+<p>Dapeng Hu et al. Mixed Samples as Probes for Unsupervised Model
+Selection in Domain Adaptation.
+NeurIPS, 2023.</p>
+</div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="skada.metrics.MixValScorer.set_score_request">
+<span class="sig-name descname"><span class="pre">set_score_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'$UNCHANGED$'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#skada.metrics.MixValScorer" title="skada.metrics.MixValScorer"><span class="pre">MixValScorer</span></a></span></span><a class="headerlink" href="#skada.metrics.MixValScorer.set_score_request" title="Link to this definition"></a></dt>
+<dd><p>Request metadata passed to the <code class="docutils literal notranslate"><span class="pre">score</span></code> method.</p>
+<p>Note that this method is only relevant if
+<code class="docutils literal notranslate"><span class="pre">enable_metadata_routing=True</span></code> (see <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.set_config.html#sklearn.set_config" title="(in scikit-learn v1.5)"><code class="xref py py-func docutils literal notranslate"><span class="pre">sklearn.set_config()</span></code></a>).
+Please see <a class="reference external" href="https://scikit-learn.org/stable/metadata_routing.html#metadata-routing" title="(in scikit-learn v1.5)"><span class="xref std std-ref">User Guide</span></a> on how the routing
+mechanism works.</p>
+<p>The options for each parameter are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: metadata is requested, and passed to <code class="docutils literal notranslate"><span class="pre">score</span></code> if provided. The request is ignored if metadata is not provided.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: metadata is not requested and the meta-estimator will not pass it to <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: metadata is not requested, and the meta-estimator will raise an error if the user provides it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">str</span></code>: metadata should be passed to the meta-estimator with this given alias instead of the original name.</p></li>
+</ul>
+<p>The default (<code class="docutils literal notranslate"><span class="pre">sklearn.utils.metadata_routing.UNCHANGED</span></code>) retains the
+existing request. This allows you to change the request for some
+parameters and not others.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.3.</span></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method is only relevant if this estimator is used as a
+sub-estimator of a meta-estimator, e.g. used inside a
+<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a>. Otherwise it has no effect.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sample_domain</strong><span class="classifier">str, True, False, or None,                     default=sklearn.utils.metadata_routing.UNCHANGED</span></dt><dd><p>Metadata routing for <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> parameter in <code class="docutils literal notranslate"><span class="pre">score</span></code>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>self</strong><span class="classifier">object</span></dt><dd><p>The updated object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="sphx-glr-backreferences-skada-metrics-mixvalscorer"></span></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="skada.metrics.CircularValidation.html" class="btn btn-neutral float-left" title="skada.metrics.CircularValidation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.model_selection.SourceTargetShuffleSplit.html" class="btn btn-neutral float-right" title="skada.model_selection.SourceTargetShuffleSplit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

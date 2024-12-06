@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -5,23 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.metrics &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -39,9 +37,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -56,6 +51,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -159,7 +156,7 @@
     <span class="p">):</span>
         <span class="n">scorer</span> <span class="o">=</span> <span class="n">check_scoring</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">scorer</span><span class="p">(</span>
@@ -226,9 +223,11 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        X : array-like, shape (n_samples, *), where * is any number</span>
+<span class="sd">            of dimensions of at least 1</span>
 <span class="sd">            The source data.</span>
-<span class="sd">        X_target : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        X_target : array-like, shape (n_samples, *), where * is any number</span>
+<span class="sd">            of dimensions of at least 1</span>
 <span class="sd">            The target data.</span>
 
 <span class="sd">        Returns</span>
@@ -255,13 +254,20 @@
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">)</span>
-        <span class="n">ws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_source_</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_source</span><span class="p">)</span>
-        <span class="n">wt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_target_</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_source</span><span class="p">)</span>
+
+        <span class="c1"># Reshape to 2D vectors</span>
+        <span class="n">X_source_reshaped</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">X_target_reshaped</span> <span class="o">=</span> <span class="n">X_target</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_source_reshaped</span><span class="p">,</span> <span class="n">X_target_reshaped</span><span class="p">)</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_source_</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_source_reshaped</span><span class="p">)</span>
+        <span class="n">wt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_estimator_target_</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">X_source_reshaped</span><span class="p">)</span>
         <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">wt</span> <span class="o">-</span> <span class="n">ws</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
@@ -270,15 +276,18 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;All weights are zero. Using uniform weights.&quot;</span><span class="p">)</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">scorer</span><span class="p">(</span>
+        <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
             <span class="n">estimator</span><span class="p">,</span>
             <span class="n">X_source</span><span class="p">,</span>
             <span class="n">y_source</span><span class="p">,</span>
-            <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span>
             <span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
             <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="o">**</span><span class="n">params</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">score</span></div>
 
 
 
@@ -332,7 +341,7 @@
                 <span class="s2">&quot;The estimator passed should have a &#39;predict_proba&#39; method. &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">proba</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
             <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="o">**</span><span class="n">params</span>
@@ -343,7 +352,9 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">log_proba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">proba</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
+        <span class="n">infty_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isneginf</span><span class="p">(</span><span class="n">log_proba</span><span class="p">)</span>
         <span class="n">entropy_per_sample</span> <span class="o">=</span> <span class="o">-</span><span class="n">proba</span> <span class="o">*</span> <span class="n">log_proba</span>
+        <span class="n">entropy_per_sample</span><span class="p">[</span><span class="n">infty_mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># x*log(x) -&gt; 0 as x -&gt; 0</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">entropy_per_sample</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduction</span> <span class="o">==</span> <span class="s2">&quot;sum&quot;</span><span class="p">:</span>
@@ -394,7 +405,7 @@
                 <span class="sa">f</span><span class="s2">&quot;The estimator </span><span class="si">{</span><span class="n">estimator</span><span class="si">!r}</span><span class="s2"> does not.&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">proba</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
             <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">],</span> <span class="o">**</span><span class="n">params</span>
@@ -483,6 +494,9 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">):</span>
             <span class="c1"># The estimator is a deep model</span>
+            <span class="k">if</span> <span class="n">estimator</span><span class="o">.</span><span class="n">module_</span><span class="o">.</span><span class="n">layer_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The layer_name of the estimator is not set.&quot;</span><span class="p">)</span>
+
             <span class="n">transformer</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_features</span>
             <span class="n">has_transform_method</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
@@ -502,7 +516,9 @@
             <span class="c1"># We use the input data as features</span>
             <span class="n">transformer</span> <span class="o">=</span> <span class="n">identity</span>
 
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
         <span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sample_domain_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
@@ -531,13 +547,9 @@
         <span class="n">N_train</span><span class="p">,</span> <span class="n">N_target</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_train</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">features_target</span><span class="p">)</span>
         <span class="n">domain_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_classifier_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">features_val</span><span class="p">)</span>
         <span class="n">weights</span> <span class="o">=</span> <span class="p">(</span><span class="n">N_train</span> <span class="o">/</span> <span class="n">N_target</span><span class="p">)</span> <span class="o">*</span> <span class="n">domain_pred</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">domain_pred</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">):</span>
-            <span class="c1"># Deep estimators dont accept allow_source parameter</span>
-            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">sample_domain_val</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
-                <span class="n">X_val</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain_val</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span>
-            <span class="p">)</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span>
+            <span class="n">X_val</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain_val</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
 
         <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loss_func</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">error</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -635,7 +647,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">source_scorer</span> <span class="o">=</span> <span class="n">source_scorer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">greater_is_better</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
 
-    <span class="k">def</span> <span class="nf">_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the score based on a circular validation strategy.</span>
 
@@ -655,7 +667,7 @@
 <span class="sd">        float</span>
 <span class="sd">            The computed score.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">_check_y_masking</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -687,7 +699,8 @@
             <span class="c1"># the target domain will predict the same label for all</span>
             <span class="c1"># the source domain samples</span>
             <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_scorer</span><span class="p">(</span>
-                <span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">])</span> <span class="o">*</span> <span class="n">y_pred_target</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">])</span> <span class="o">*</span> <span class="n">y_pred_target</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">y_type</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">source_idx</span><span class="p">])</span>
@@ -725,6 +738,156 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">score</span></div>
 
+
+
+<div class="viewcode-block" id="MixValScorer">
+<a class="viewcode-back" href="../../gen_modules/skada.metrics.MixValScorer.html#skada.metrics.MixValScorer">[docs]</a>
+<span class="k">class</span> <span class="nc">MixValScorer</span><span class="p">(</span><span class="n">_BaseDomainAwareScorer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    MixVal scorer for unsupervised domain adaptation.</span>
+
+<span class="sd">    This scorer uses mixup to create mixed samples from the target domain,</span>
+<span class="sd">    and evaluates the model&#39;s consistency on these mixed samples.</span>
+
+<span class="sd">    See [32]_ for details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    alpha : float, default=0.55</span>
+<span class="sd">        Mixing parameter for mixup.</span>
+<span class="sd">    ice_type : {&#39;both&#39;, &#39;intra&#39;, &#39;inter&#39;}, default=&#39;both&#39;</span>
+<span class="sd">        Type of ICE score to compute:</span>
+<span class="sd">        - &#39;both&#39;: Compute both intra-cluster and inter-cluster ICE scores (average).</span>
+<span class="sd">        - &#39;intra&#39;: Compute only intra-cluster ICE score.</span>
+<span class="sd">        - &#39;inter&#39;: Compute only inter-cluster ICE score.</span>
+<span class="sd">    scoring : str or callable, default=None</span>
+<span class="sd">        A string (see model evaluation documentation) or</span>
+<span class="sd">        a scorer callable object / function with signature</span>
+<span class="sd">        ``scorer(estimator, X, y)``.</span>
+<span class="sd">        If None, the provided estimator object&#39;s `score` method is used.</span>
+<span class="sd">    greater_is_better : bool, default=True</span>
+<span class="sd">        Whether higher scores are better.</span>
+<span class="sd">    random_state : int, RandomState instance or None, default=None</span>
+<span class="sd">        Controls the randomness of the mixing process.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    alpha : float</span>
+<span class="sd">        Mixing parameter.</span>
+<span class="sd">    random_state : RandomState</span>
+<span class="sd">        Random number generator.</span>
+<span class="sd">    _sign : int</span>
+<span class="sd">        1 if greater_is_better is True, -1 otherwise.</span>
+<span class="sd">    ice_type : str</span>
+<span class="sd">        Type of ICE score to compute.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [32] Dapeng Hu et al. Mixed Samples as Probes for Unsupervised Model</span>
+<span class="sd">            Selection in Domain Adaptation.</span>
+<span class="sd">            NeurIPS, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+        <span class="n">ice_type</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
+        <span class="n">scoring</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">greater_is_better</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">=</span> <span class="n">ice_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span> <span class="o">=</span> <span class="n">scoring</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">greater_is_better</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;intra&quot;</span><span class="p">,</span> <span class="s2">&quot;inter&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ice_type must be &#39;both&#39;, &#39;intra&#39;, or &#39;inter&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the Interpolation Consistency Evaluation (ICE) score.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        estimator : object</span>
+<span class="sd">            The fitted estimator to evaluate.</span>
+<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">            The input samples.</span>
+<span class="sd">        y : Ignored</span>
+<span class="sd">            Not used, present for API consistency by convention.</span>
+<span class="sd">        sample_domain : array-like, default=None</span>
+<span class="sd">            Domain labels for each sample.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        score : float</span>
+<span class="sd">            The ICE score.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scorer</span> <span class="o">=</span> <span class="n">check_scoring</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
+
+        <span class="n">X</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_target</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span>
+
+        <span class="c1"># Check from y values if it is a classification problem</span>
+        <span class="n">y_type</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y_type</span> <span class="o">!=</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;MixVal scorer only supports classification problems.&quot;</span><span class="p">)</span>
+
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="n">rand_idx</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># Get predictions for target samples</span>
+        <span class="n">labels_a</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span>
+        <span class="n">labels_b</span> <span class="o">=</span> <span class="n">labels_a</span><span class="p">[</span><span class="n">rand_idx</span><span class="p">]</span>
+
+        <span class="c1"># Intra-cluster and inter-cluster mixup</span>
+        <span class="n">same_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_a</span> <span class="o">==</span> <span class="n">labels_b</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">diff_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_a</span> <span class="o">!=</span> <span class="n">labels_b</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Mixup with X_target and hard pseudo labels</span>
+        <span class="n">mix_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">X_target</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">X_target</span><span class="p">[</span><span class="n">rand_idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="n">mix_labels</span> <span class="o">=</span> <span class="n">labels_a</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mix_labels</span> <span class="o">=</span> <span class="n">labels_b</span>
+
+        <span class="c1"># Calculate ICE scores based on ice_type</span>
+        <span class="c1"># TODO: handle multiple target domains</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;intra&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">same_idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ice_same</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ice_same</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
+                    <span class="n">estimator</span><span class="p">,</span>
+                    <span class="n">mix_inputs</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
+                    <span class="n">mix_labels</span><span class="p">[</span><span class="n">same_idx</span><span class="p">],</span>
+                    <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">same_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="s2">&quot;inter&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">diff_idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ice_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ice_diff</span> <span class="o">=</span> <span class="n">scorer</span><span class="p">(</span>
+                    <span class="n">estimator</span><span class="p">,</span>
+                    <span class="n">mix_inputs</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
+                    <span class="n">mix_labels</span><span class="p">[</span><span class="n">diff_idx</span><span class="p">],</span>
+                    <span class="n">sample_domain</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">diff_idx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">:</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">([</span><span class="n">ice_same</span><span class="p">,</span> <span class="n">ice_diff</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ice_type</span> <span class="o">==</span> <span class="s2">&quot;intra&quot;</span><span class="p">:</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="n">ice_same</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># self.ice_type == &#39;inter&#39;</span>
+            <span class="n">ice_score</span> <span class="o">=</span> <span class="n">ice_diff</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sign</span> <span class="o">*</span> <span class="n">ice_score</span></div>
+
 </pre></div>
 
            </div>
@@ -752,7 +915,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

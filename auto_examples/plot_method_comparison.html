@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Comparison of DA classification methods &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -59,8 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
@@ -68,6 +63,8 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#da-validation-procedures">DA validation procedures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -210,7 +207,7 @@ TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -264,7 +261,7 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                  Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -288,9 +285,9 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-/home/circleci/project/skada/utils.py:943: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 &gt; 1.00e-05
+/home/circleci/project/skada/utils.py:1027: UserWarning: Optimization did not converge. Final gradient maximum value: 1.16e-05 &gt; 1.00e-05
   warnings.warn(
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -390,7 +387,7 @@ TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -444,7 +441,7 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                  Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -468,7 +465,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -568,7 +565,7 @@ TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -622,7 +619,7 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                  Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -646,7 +643,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 Without da SVC()
 Reweight Density Pipeline(steps=[(&#39;densityreweightadapter&#39;,
@@ -746,7 +743,7 @@ TSL Pipeline(steps=[(&#39;transfersubspacelearningadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 OT mapping Pipeline(steps=[(&#39;otmappingadapter&#39;,
                  Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -800,7 +797,7 @@ OT Label Propagation Pipeline(steps=[(&#39;otlabelpropadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+/home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
   result_code_string = check_result(result_code)
 CORAL Pipeline(steps=[(&#39;coraladapter&#39;,
                  Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -824,7 +821,7 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
                         kernel=&#39;rbf&#39;, max_iter=-1, probability=False,
                         random_state=None, shrinking=True, tol=0.001,
                         verbose=False))])
-/home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+/home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 </pre></div>
 </div>
@@ -1045,13 +1042,16 @@ MMD Loc-Scale mapping Pipeline(steps=[(&#39;mmdlsconsmappingadapter&#39;,
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 10.888 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 20.104 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-method-comparison-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cfe66d5e49c5e18b6754c1b08a23542/plot_method_comparison.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_method_comparison.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/3317eede5090a33d5307407ee89fdb84/plot_method_comparison.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_method_comparison.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/118d118924a33c8fb8d44e223ad86f26/plot_method_comparison.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_method_comparison.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -1086,7 +1086,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

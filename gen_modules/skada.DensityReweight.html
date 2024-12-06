@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.DensityReweight &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -86,9 +81,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -143,7 +141,7 @@ observations. If None, a KernelDensity estimator is used.</p>
 
 <section id="examples-using-skada-densityreweight">
 <span id="sphx-glr-backreferences-skada-densityreweight"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.DensityReweight</span></code><a class="headerlink" href="#examples-using-skada-densityreweight" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp..."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different methods. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
   <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="An example of the reweighting methods on a dataset subject to covariate shift"><img alt="" src="../_images/sphx_glr_plot_reweighting_thumb.png" />
@@ -181,7 +179,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

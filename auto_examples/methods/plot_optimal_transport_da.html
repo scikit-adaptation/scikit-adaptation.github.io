@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -6,28 +8,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Optimal Transport Domain Adaptation (OTDA) &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Using GridSearchCV with skada" href="../validation/plot_gridsearch_for_da.html" />
-    <link rel="prev" title="Reweighting method example on covariate shift dataset" href="plot_reweighting.html" /> 
+    <link rel="prev" title="Label Propagation methods" href="plot_label_prop_da.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,9 +40,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -59,17 +54,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#da-methods">DA methods</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_monge_alignment_da.html">Multi-domain Linear Monge Alignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_dasvm.html">DASVM classifier example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plot_label_prop_da.html">Label Propagation methods</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_jdot_da.html">JDOT Regressor and Classifier examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_subspace.html">Subspace method example on subspace shift dataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_reweighting.html">Reweighting method example on covariate shift dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_label_prop_da.html">Label Propagation methods</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Optimal Transport Domain Adaptation (OTDA)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#generate-concept-drift-dataset">Generate concept drift dataset</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-da-problem">Illustration of the DA problem</a></li>
@@ -83,6 +79,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#da-validation-procedures">DA validation procedures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -142,7 +140,7 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
     <a href="../../gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter" title="skada.LinearOTMappingAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">LinearOTMappingAdapter</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.OTMapping.html#skada.OTMapping" title="skada.OTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">OTMapping</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">,</span>
-    <span class="n">source_target_split</span><span class="p">,</span>
+    <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 </pre></div>
@@ -159,7 +157,7 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
 <span class="p">)</span>
 
 
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_target</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_target</span></a> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_target</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_target</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a>
 <span class="p">)</span>
 
@@ -516,19 +514,22 @@ illustrate the different methods available in SKADA.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.title.html#matplotlib.pyplot.title" title="matplotlib.pyplot.title" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">title</span></a><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;OTDA linear (ACC=</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ACC_linear</span></a><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_optimal_transport_da_005.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_005.png" alt="OTDA adapted, OTDA Sinkhorn adapted, OTDA class reg adapted, OTDA linear adapted, OTDA (ACC=1.00), OTDA Sinkhorn (ACC=1.00), OTDA class reg (ACC=1.00), OTDA linear (ACC=1.00)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_sinkhorn.py:531: UserWarning: Sinkhorn did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
-  warnings.warn(&quot;Sinkhorn did not converge. You might want to &quot;
+<img src="../../_images/sphx_glr_plot_optimal_transport_da_005.png" srcset="../../_images/sphx_glr_plot_optimal_transport_da_005.png" alt="OTDA adapted, OTDA Sinkhorn adapted, OTDA class reg adapted, OTDA linear adapted, OTDA (ACC=1.00), OTDA Sinkhorn (ACC=1.00), OTDA class reg (ACC=1.00), OTDA linear (ACC=1.00)" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_sinkhorn.py:667: UserWarning: Sinkhorn did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
+  warnings.warn(
 
 Text(0.5, 1.0, &#39;OTDA linear (ACC=1.00)&#39;)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.549 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.700 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-optimal-transport-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/875c197df9ab4cd7d876a5e7d11e20a3/plot_optimal_transport_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_optimal_transport_da.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2dcbd7b36182d500a5d5ce921bc1f7b4/plot_optimal_transport_da.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_optimal_transport_da.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/a83e2ffe1b741feb1dabd18577271891/plot_optimal_transport_da.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_optimal_transport_da.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -539,7 +540,7 @@ Text(0.5, 1.0, &#39;OTDA linear (ACC=1.00)&#39;)
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="plot_reweighting.html" class="btn btn-neutral float-left" title="Reweighting method example on covariate shift dataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plot_label_prop_da.html" class="btn btn-neutral float-left" title="Label Propagation methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../validation/plot_gridsearch_for_da.html" class="btn btn-neutral float-right" title="Using GridSearchCV with skada" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -564,7 +565,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

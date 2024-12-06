@@ -1,0 +1,11 @@
+﻿skada.deep.CAN
+==============
+
+.. currentmodule:: skada.deep
+
+.. autofunction:: CAN
+
+.. _sphx_glr_backreferences_skada.deep.CAN:
+
+.. minigallery:: skada.deep.CAN
+    :add-heading:

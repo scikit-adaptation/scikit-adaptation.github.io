@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.datasets.make_shifted_datasets &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -73,9 +68,12 @@
 <li class="toctree-l3"><a class="reference internal" href="skada.datasets.make_variable_frequency_dataset.html">skada.datasets.make_variable_frequency_dataset</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -107,7 +105,7 @@
 <h1>skada.datasets.make_shifted_datasets<a class="headerlink" href="#skada-datasets-make-shifted-datasets" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.datasets.make_shifted_datasets">
-<span class="sig-prename descclassname"><span class="pre">skada.datasets.</span></span><span class="sig-name descname"><span class="pre">make_shifted_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'covariate_shift'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_regression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_regression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regression_scaling_constant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_cov_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/datasets/_samples_generator.html#make_shifted_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.datasets.make_shifted_datasets" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">skada.datasets.</span></span><span class="sig-name descname"><span class="pre">make_shifted_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples_target</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'covariate_shift'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu_regression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma_regression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regression_scaling_constant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_cov_shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">2)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standardize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_X_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/datasets/_samples_generator.html#make_shifted_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.datasets.make_shifted_datasets" title="Link to this definition"></a></dt>
 <dd><p>Generate source and shift target.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -156,6 +154,11 @@ should be a scalar when shift == 'subspace'</p>
 <dt><strong>center</strong><span class="classifier">array-like of shape (1, 2), default=((0, 2))</span></dt><dd><p>Center of the distribution.</p>
 </dd>
 <dt><strong>center_cov_shift</strong><span class="classifier">array-like of shape (1, 2), default=((0, 2))</span></dt><dd><p>Center of the covariate-shift.</p>
+</dd>
+<dt><strong>standardize</strong><span class="classifier">bool, default=False</span></dt><dd><p>If True, the data is standardized.
+The standard score of a sample x is calculated as:
+z = (x - u) / s
+where u is the mean and s is the standard deviation of the data.</p>
 </dd>
 <dt><strong>random_state</strong><span class="classifier">int, RandomState instance or None, default=None</span></dt><dd><p>Determines random number generation for dataset creation. Pass an int
 for reproducible output across multiple function calls.</p>
@@ -207,22 +210,22 @@ Pattern recognition, 45(1):521-530.</p>
 
 <section id="examples-using-skada-datasets-make-shifted-datasets">
 <span id="sphx-glr-backreferences-skada-datasets-make-shifted-datasets"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.datasets.make_shifted_datasets</span></code><a class="headerlink" href="#examples-using-skada-datasets-make-shifted-datasets" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat..."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dataset. It illustrates the API choice specific to DA."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html#sphx-glr-auto-examples-plot-how-to-use-skada-py"><span class="std std-ref">How to use SKADA</span></a></p>
   <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp..."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different methods. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
   <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating..."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/datasets/plot_shifted_dataset.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating..."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/datasets/plot_shifted_dataset_regression.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-regression-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation..."><img alt="" src="../_images/sphx_glr_plot_label_prop_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/methods/plot_label_prop_da.html#sphx-glr-auto-examples-methods-plot-label-prop-da-py"><span class="std std-ref">Label Propagation methods</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to..."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter"><img alt="" src="../_images/sphx_glr_plot_monge_alignment_da_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/methods/plot_monge_alignment_da.html#sphx-glr-auto-examples-methods-plot-monge-alignment-da-py"><span class="std std-ref">Multi-domain Linear Monge Alignment</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multi-domain Linear Monge Alignment</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple concept drift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor and Classifier examples</span></a></p>
   <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="An example of the subspace methods on a dataset subject to subspace shift"><img alt="" src="../_images/sphx_glr_plot_subspace_thumb.png" />
@@ -231,13 +234,16 @@ Pattern recognition, 45(1):521-530.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="An example of the reweighting methods on a dataset subject to covariate shift"><img alt="" src="../_images/sphx_glr_plot_reweighting_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_reweighting.html#sphx-glr-auto-examples-methods-plot-reweighting-py"><span class="std std-ref">Reweighting method example on covariate shift dataset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Reweighting method example on covariate shift dataset</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation. This is done by propagating labels from the source domain to the target domain using the OT plan. This was proposed originally in [28]_ for semi-supervised learning but can be used for DA."><img alt="" src="../_images/sphx_glr_plot_label_prop_da_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/methods/plot_label_prop_da.html#sphx-glr-auto-examples-methods-plot-label-prop-da-py"><span class="std std-ref">Label Propagation methods</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task."><img alt="" src="../_images/sphx_glr_plot_optimal_transport_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_optimal_transport_da.html#sphx-glr-auto-examples-methods-plot-optimal-transport-da-py"><span class="std std-ref">Optimal Transport Domain Adaptation (OTDA)</span></a></p>
   <div class="sphx-glr-thumbnail-title">Optimal Transport Domain Adaptation (OTDA)</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchC..."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_gridsearch_for_da.html#sphx-glr-auto-examples-validation-plot-gridsearch-for-da-py"><span class="std std-ref">Using GridSearchCV with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score..."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_cross_val_score_for_da.html#sphx-glr-auto-examples-validation-plot-cross-val-score-for-da-py"><span class="std std-ref">Using cross_val_score with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA cross-validation object such as DomainShuffleSplit."><img alt="" src="../_images/sphx_glr_plot_cross_validation_for_da_thumb.png" />
@@ -275,7 +281,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

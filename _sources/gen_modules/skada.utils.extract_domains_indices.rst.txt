@@ -1,0 +1,11 @@
+﻿skada.utils.extract\_domains\_indices
+=====================================
+
+.. currentmodule:: skada.utils
+
+.. autofunction:: extract_domains_indices
+
+.. _sphx_glr_backreferences_skada.utils.extract_domains_indices:
+
+.. minigallery:: skada.utils.extract_domains_indices
+    :add-heading:

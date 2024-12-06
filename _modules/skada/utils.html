@@ -1,0 +1,1216 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.utils &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            SKADA
+              <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">skada.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for skada.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Yanis Lalou &lt;yanis.lalou@polytechnique.edu&gt;</span>
+<span class="c1">#         Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3-Clause</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">LinearConstraint</span><span class="p">,</span> <span class="n">minimize</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_array</span><span class="p">,</span> <span class="n">check_consistent_length</span>
+
+<span class="kn">from</span> <span class="nn">skada._utils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_SOURCE_DOMAIN_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_TARGET_DOMAIN_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_TARGET_DOMAIN_ONLY_LABEL</span><span class="p">,</span>
+    <span class="n">_check_y_masking</span><span class="p">,</span>
+    <span class="n">Y_Type</span><span class="p">,</span>
+    <span class="n">_find_y_type</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="check_X_y_domain">
+<a class="viewcode-back" href="../../gen_modules/skada.utils.check_X_y_domain.html#skada.check_X_y_domain">[docs]</a>
+<span class="k">def</span> <span class="nf">check_X_y_domain</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">,</span>
+    <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">allow_source</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_multi_source</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_target</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_multi_target</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_common_domain_idx</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_auto_sample_domain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_nd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">allow_label_masks</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input validation for domain adaptation (DA) estimator.</span>
+<span class="sd">    If we work in single-source and single target mode, return source and target</span>
+<span class="sd">    separately to avoid additional scan for &#39;sample_domain&#39; array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Input features</span>
+<span class="sd">    y : array-like of shape (n_samples,)</span>
+<span class="sd">        Target variable</span>
+<span class="sd">    sample_domain : array-like, scalar, or None, optional (default=None)</span>
+<span class="sd">        Array specifying the domain labels for each sample. A scalar value</span>
+<span class="sd">        can be provided to assign all samples to the same domain.</span>
+<span class="sd">    allow_source : bool, optional (default=True)</span>
+<span class="sd">        Allow the presence of source domains.</span>
+<span class="sd">    allow_multi_source : bool, optional (default=True)</span>
+<span class="sd">        Allow multiple source domains.</span>
+<span class="sd">    allow_target : bool, optional (default=True)</span>
+<span class="sd">        Allow the presence of target domains.</span>
+<span class="sd">    allow_multi_target : bool, optional (default=True)</span>
+<span class="sd">        Allow multiple target domains.</span>
+<span class="sd">    allow_common_domain_idx : bool, optional (default=True)</span>
+<span class="sd">        Allow the same domain index to be used for source and target domains, e.g 1 for a source domain and -1 for a target domain.</span>
+<span class="sd">    allow_auto_sample_domain : bool, optional (default=True)</span>
+<span class="sd">        Allow automatic generation of sample_domain if not provided.</span>
+<span class="sd">    allow_nd : bool, optional (default=False)</span>
+<span class="sd">        Allow X and y to be N-dimensional arrays.</span>
+<span class="sd">    allow_label_masks : bool, optional (default=True)</span>
+<span class="sd">        Allow NaNs in y.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    X : array</span>
+<span class="sd">        Input features</span>
+<span class="sd">    y : array</span>
+<span class="sd">        Target variable</span>
+<span class="sd">    sample_domain : array</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="n">allow_nd</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">force_all_finite</span><span class="o">=</span><span class="ow">not</span> <span class="n">allow_label_masks</span><span class="p">,</span> <span class="n">ensure_2d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+    <span class="n">check_consistent_length</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_auto_sample_domain</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either &#39;sample_domain&#39; or &#39;allow_auto_sample_domain&#39; &quot;</span>
+                         <span class="s2">&quot;should be set&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">allow_auto_sample_domain</span><span class="p">:</span>
+        <span class="n">y_type</span> <span class="o">=</span> <span class="n">_check_y_masking</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">_DEFAULT_SOURCE_DOMAIN_LABEL</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="c1"># labels masked with -1 (for classification) are recognized as targets,</span>
+        <span class="c1"># labels masked with nan (for regression) are recognized as targets,</span>
+        <span class="c1"># the rest is treated as a source</span>
+        <span class="k">if</span> <span class="n">y_type</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">sample_domain</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">_DEFAULT_TARGET_DOMAIN_LABEL</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">sample_domain</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+
+    <span class="c1"># xxx(okachaiev): this needs to be re-written to accommodate for a</span>
+    <span class="c1"># a new domain labeling convention without &quot;intersections&quot;</span>
+    <span class="n">n_sources</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">[</span><span class="n">source_idx</span><span class="p">])</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_source</span> <span class="ow">and</span> <span class="n">n_sources</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sources provided is </span><span class="si">{</span><span class="n">n_sources</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_source&#39; is set to False&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_target</span> <span class="ow">and</span> <span class="n">n_targets</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of targets provided is </span><span class="si">{</span><span class="n">n_targets</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_target&#39; is set to False&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_multi_source</span> <span class="ow">and</span> <span class="n">n_sources</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sources provided is </span><span class="si">{</span><span class="n">n_sources</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_multi_source&#39; is set to False&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_multi_target</span> <span class="ow">and</span> <span class="n">n_sources</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of targets provided is </span><span class="si">{</span><span class="n">n_targets</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_multi_target&#39; is set to False&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Check for unique domain idx</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_common_domain_idx</span><span class="p">:</span>
+        <span class="n">unique_domain_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">unique_domain_idx_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">unique_domain_idx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_domain_idx</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">unique_domain_idx_abs</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Domain labels should be unique: the same domain &quot;</span>
+                             <span class="s2">&quot;index should not be used both for source and target&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span></div>
+
+
+
+<span class="c1"># xxx(okachaiev): code duplication, just for testing</span>
+<span class="k">def</span> <span class="nf">check_X_domain</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span>
+    <span class="n">sample_domain</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">allow_domains</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">allow_source</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_multi_source</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_target</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_multi_target</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_common_domain_idx</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_auto_sample_domain</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_nd</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Input validation for domain adaptation (DA) estimator.</span>
+<span class="sd">    If we work in single-source and single target mode, return source and target</span>
+<span class="sd">    separately to avoid additional scan for &#39;sample_domain&#39; array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Input features.</span>
+<span class="sd">    sample_domain : array-like, scalar, or None, optional (default=None)</span>
+<span class="sd">        Array specifying the domain labels for each sample. A scalar value</span>
+<span class="sd">        can be provided to assign all samples to the same domain.</span>
+<span class="sd">    allow_domains : set of int, optional (default=None)</span>
+<span class="sd">        Set of allowed domain labels. If provided, only these domain labels are allowed.</span>
+<span class="sd">    allow_source : bool, optional (default=True)</span>
+<span class="sd">        Allow the presence of source domains.</span>
+<span class="sd">    allow_multi_source : bool, optional (default=True)</span>
+<span class="sd">        Allow multiple source domains.</span>
+<span class="sd">    allow_target : bool, optional (default=True)</span>
+<span class="sd">        Allow the presence of target domains.</span>
+<span class="sd">    allow_multi_target : bool, optional (default=True)</span>
+<span class="sd">        Allow multiple target domains.</span>
+<span class="sd">    allow_common_domain_idx : bool, optional (default=True)</span>
+<span class="sd">        Allow the same domain index to be used for source and target domains, e.g 1 for a source domain and -1 for a target domain.</span>
+<span class="sd">    allow_auto_sample_domain : bool, optional (default=True)</span>
+<span class="sd">        Allow automatic generation of sample_domain if not provided.</span>
+<span class="sd">    allow_nd : bool, optional (default=False)</span>
+<span class="sd">        Allow X and y to be N-dimensional arrays.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    X : array</span>
+<span class="sd">        Input features.</span>
+<span class="sd">    sample_domain : array</span>
+<span class="sd">        Combined domain labels for source and target domains.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="n">allow_nd</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_auto_sample_domain</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either &#39;sample_domain&#39; or &#39;allow_auto_sample_domain&#39; &quot;</span>
+                         <span class="s2">&quot;should be set&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">allow_auto_sample_domain</span><span class="p">:</span>
+        <span class="c1"># default target domain when sample_domain is not given</span>
+        <span class="c1"># The idea is that with no labels we always assume</span>
+        <span class="c1"># target domain (_DEFAULT_TARGET_DOMAIN_ONLY_LABEL)</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">_DEFAULT_TARGET_DOMAIN_ONLY_LABEL</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">sample_domain</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+    <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+    <span class="n">check_consistent_length</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">allow_domains</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
+            <span class="c1"># xxx(okachaiev): re-definition of the wildcards</span>
+            <span class="n">wildcard</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span> <span class="k">if</span> <span class="n">domain</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+            <span class="k">if</span> <span class="n">domain</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allow_domains</span> <span class="ow">and</span> <span class="n">wildcard</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allow_domains</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown domain label &#39;</span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2">&#39; given&quot;</span><span class="p">)</span>
+
+    <span class="n">n_sources</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">[</span><span class="n">source_idx</span><span class="p">])</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">n_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_source</span> <span class="ow">and</span> <span class="n">n_sources</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sources provided is </span><span class="si">{</span><span class="n">n_sources</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_source&#39; is set to False&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_target</span> <span class="ow">and</span> <span class="n">n_targets</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of targets provided is </span><span class="si">{</span><span class="n">n_targets</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_target&#39; is set to False&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_multi_source</span> <span class="ow">and</span> <span class="n">n_sources</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of sources provided is </span><span class="si">{</span><span class="n">n_sources</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_multi_source&#39; is set to False&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_multi_target</span> <span class="ow">and</span> <span class="n">n_sources</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of targets provided is </span><span class="si">{</span><span class="n">n_targets</span><span class="si">}</span><span class="s2"> &quot;</span>
+                         <span class="s2">&quot;and &#39;allow_multi_target&#39; is set to False&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check for unique domain idx</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_common_domain_idx</span><span class="p">:</span>
+        <span class="n">unique_domain_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">unique_domain_idx_abs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">unique_domain_idx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_domain_idx</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">unique_domain_idx_abs</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Domain labels should be unique: the same domain &quot;</span>
+                             <span class="s2">&quot;index should not be used both for source and target&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span>
+
+
+<div class="viewcode-block" id="extract_source_indices">
+<a class="viewcode-back" href="../../gen_modules/skada.utils.extract_source_indices.html#skada.extract_source_indices">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract the indices of the source samples.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples,)</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    source_idx : array</span>
+<span class="sd">        Boolean array indicating source indices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span>
+        <span class="n">sample_domain</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+        <span class="n">ensure_2d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;sample_domain&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">source_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">source_idx</span></div>
+
+
+
+<div class="viewcode-block" id="extract_domains_indices">
+<a class="viewcode-back" href="../../gen_modules/skada.utils.extract_domains_indices.html#skada.extract_domains_indices">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_domains_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">split_source_target</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract the indices of the specific</span>
+<span class="sd">    domain samples.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples,)</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+<span class="sd">    split_source_target : bool, optional (default=False)</span>
+<span class="sd">        Whether to split the source and target domains.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    domains_idx : dict</span>
+<span class="sd">        A dictionary where keys are unique domain labels</span>
+<span class="sd">        and values are indexes of the samples belonging to</span>
+<span class="sd">        the corresponding domain.</span>
+<span class="sd">    If split_source_target is True, then two dictionaries are returned:</span>
+<span class="sd">        - source_idx: keys &gt;= 0</span>
+<span class="sd">        - target_idx: keys &lt; 0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span>
+        <span class="n">sample_domain</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+        <span class="n">ensure_2d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">input_name</span><span class="o">=</span><span class="s1">&#39;sample_domain&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">domain_idx</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">unique_domains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">unique_domains</span><span class="p">:</span>
+        <span class="n">source_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample_domain</span> <span class="o">==</span> <span class="n">domain</span><span class="p">)</span>
+        <span class="n">domain_idx</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">source_idx</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">split_source_target</span><span class="p">:</span>
+        <span class="n">source_domain_idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">domain_idx</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="n">target_domain_idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">domain_idx</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">source_domain_idx</span><span class="p">,</span> <span class="n">target_domain_idx</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">domain_idx</span></div>
+
+
+
+<div class="viewcode-block" id="source_target_split">
+<a class="viewcode-back" href="../../gen_modules/skada.source_target_split.html#skada.source_target_split">[docs]</a>
+<span class="k">def</span> <span class="nf">source_target_split</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
+    <span class="n">sample_domain</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Split data into source and target domains</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *arrays : sequence of array-like of identical shape (n_samples, n_features)</span>
+<span class="sd">        Input features and target variable(s), and or sample_weights to be</span>
+<span class="sd">        split. All arrays should have the same length except if None is given</span>
+<span class="sd">        then a couple of None variables are returned to allow for optional</span>
+<span class="sd">        sample_weight.</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples,)</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    splits : list, length=2 * len(arrays)</span>
+<span class="sd">        List containing source-target split of inputs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one array required as input&quot;</span><span class="p">)</span>
+
+    <span class="n">check_consistent_length</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span>
+
+    <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="n">a</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">])</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arrays</span>
+    <span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="per_domain_split">
+<a class="viewcode-back" href="../../gen_modules/skada.per_domain_split.html#skada.per_domain_split">[docs]</a>
+<span class="k">def</span> <span class="nf">per_domain_split</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
+    <span class="n">sample_domain</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Split data into multiple source and target domains</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *arrays : sequence of array-like of identical shape (n_samples, n_features)</span>
+<span class="sd">        Input features and target variable(s), and or sample_weights to be</span>
+<span class="sd">        split. All arrays should have the same length except if None is given</span>
+<span class="sd">        then a couple of None variables are returned to allow for optional</span>
+<span class="sd">        sample_weight.</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples,)</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+<span class="sd">    split_source_target : bool, optional (default=False)</span>
+<span class="sd">        Whether to split the source and target domains.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    source_dict : dict</span>
+<span class="sd">        dict of source domains (contain tuple of subset of arrays).</span>
+<span class="sd">    target_dict : dict</span>
+<span class="sd">        dict of target domains (contain tuple of subset of arrays).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one array required as input&quot;</span><span class="p">)</span>
+
+    <span class="n">check_consistent_length</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span>
+
+    <span class="n">domain_idx</span> <span class="o">=</span> <span class="n">extract_domains_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">source_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">target_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">domain_idx</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">source_dict</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">],)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span>
+                <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arrays</span>
+            <span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target_dict</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">idx</span><span class="p">],)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span>
+                <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arrays</span>
+            <span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">source_dict</span><span class="p">,</span> <span class="n">target_dict</span></div>
+
+
+
+<div class="viewcode-block" id="source_target_merge">
+<a class="viewcode-back" href="../../gen_modules/skada.utils.source_target_merge.html#skada.source_target_merge">[docs]</a>
+<span class="k">def</span> <span class="nf">source_target_merge</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
+    <span class="n">sample_domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge source and target domain data based on sample domain labels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *arrays : sequence of array-like</span>
+<span class="sd">        (, n_features). The number of arrays must be even</span>
+<span class="sd">        since we consider pairs of source-target arrays each time.</span>
+<span class="sd">        Each pair should have at least one non-empty array.</span>
+<span class="sd">        In each pair the first array is considered as the source and</span>
+<span class="sd">        the second as the target. If one of the array is None or empty,</span>
+<span class="sd">        it&#39;s value will be inferred from the other array and the sample_domain</span>
+<span class="sd">        (depending on the type of the arrays, they&#39;ll have a value of</span>
+<span class="sd">        {_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL} or</span>
+<span class="sd">        {_DEFAULT_MASKED_TARGET_REGRESSION_LABEL}).</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples,)</span>
+<span class="sd">        Array specifying the domain labels for each sample. If None or empty</span>
+<span class="sd">        the domain labels will be inferred from the the *arrays, being a</span>
+<span class="sd">        default source and target domain (depending on the type of the arrays,</span>
+<span class="sd">        they&#39;ll have a value of {_DEFAULT_SOURCE_DOMAIN_LABEL}</span>
+<span class="sd">        or {_DEFAULT_TARGET_DOMAIN_LABEL}).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    merges : list, length=len(arrays)/2</span>
+<span class="sd">        List containing merged data based on the sample domain labels.</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples,)</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; X_source = np.array([[1, 2], [3, 4], [5, 6]])</span>
+<span class="sd">    &gt;&gt;&gt; X_target = np.array([[7, 8], [9, 10]])</span>
+<span class="sd">    &gt;&gt;&gt; X, sample_domain = source_target_merge(X_source, X_target)</span>
+<span class="sd">    &gt;&gt;&gt; X</span>
+<span class="sd">    array([[ 1,  2],</span>
+<span class="sd">           [ 3,  4],</span>
+<span class="sd">           [ 5,  6],</span>
+<span class="sd">           [ 7,  8],</span>
+<span class="sd">           [ 9, 10]])</span>
+<span class="sd">    &gt;&gt;&gt; sample_domain</span>
+<span class="sd">    array([ 1.,  1.,  1., -2., -2.])</span>
+
+<span class="sd">    &gt;&gt;&gt; X_source = np.array([[1, 2], [3, 4], [5, 6]])</span>
+<span class="sd">    &gt;&gt;&gt; X_target = np.array([[7, 8], [9, 10]])</span>
+<span class="sd">    &gt;&gt;&gt; y_source = np.array([0, 1, 1])</span>
+<span class="sd">    &gt;&gt;&gt; y_target = None</span>
+<span class="sd">    &gt;&gt;&gt; X, y, _ = source_target_merge(X_source, X_target, y_source, y_target)</span>
+<span class="sd">    &gt;&gt;&gt; X</span>
+<span class="sd">    array([[ 1,  2],</span>
+<span class="sd">           [ 3,  4],</span>
+<span class="sd">           [ 5,  6],</span>
+<span class="sd">           [ 7,  8],</span>
+<span class="sd">           [ 9, 10]])</span>
+<span class="sd">    &gt;&gt;&gt; y</span>
+<span class="sd">    array([ 0,  1,  1, {_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL}, {_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL}])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">arrays</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span>   <span class="c1"># Convert to list to be able to modify it</span>
+
+    <span class="c1"># ################ Check *arrays #################</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least two array required as input&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Even number of arrays required as input&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+        <span class="k">if</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+        <span class="c1"># Check no pair is empty</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only one array can be None or empty in each pair&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check consistent dim of arrays</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Inconsistent number of features in source-target arrays&quot;</span>
+                <span class="p">)</span>
+
+    <span class="c1"># ################ Check sample_domain #################</span>
+    <span class="c1"># If sample_domain is None, we need to infer it from the target array</span>
+    <span class="k">if</span> <span class="n">sample_domain</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">sample_domain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># We need to infer the domain from the target array</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;sample_domain is None or empty, it will be inferred from the arrays&quot;</span>
+        <span class="p">)</span>
+
+        <span class="c1"># By assuming that the first array is the source and the second the target</span>
+        <span class="n">source_assumed_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">target_assumed_index</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span>
+            <span class="n">_DEFAULT_SOURCE_DOMAIN_LABEL</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                <span class="n">arrays</span><span class="p">[</span><span class="n">source_assumed_index</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">),</span>
+            <span class="n">_DEFAULT_TARGET_DOMAIN_LABEL</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                <span class="n">arrays</span><span class="p">[</span><span class="n">target_assumed_index</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">))</span>
+
+    <span class="c1"># To test afterward if the number of samples in source-target arrays</span>
+    <span class="c1"># and the number inferred in the sample_domain are consistent</span>
+    <span class="n">source_indices</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+    <span class="n">source_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">source_indices</span><span class="p">)</span>
+    <span class="n">target_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="o">~</span><span class="n">source_indices</span><span class="p">)</span>
+
+    <span class="c1"># ################ Merge arrays #################</span>
+    <span class="n">merges</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># List of merged arrays</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">arrays</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+
+        <span class="c1"># If one of the array is empty, we need to infer its values</span>
+        <span class="n">index_is_empty</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Index of the array that was None</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">index_is_empty</span> <span class="o">=</span> <span class="n">i</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">index_is_empty</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">index_is_empty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># We need to infer the value of the empty array in the pair</span>
+            <span class="c1"># warnings.warn(</span>
+            <span class="c1">#    &quot;One of the arrays in a pair is empty, it will be inferred&quot;</span>
+            <span class="c1"># )</span>
+
+            <span class="n">pair_index</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">index_is_empty</span> <span class="o">==</span> <span class="n">i</span> <span class="k">else</span> <span class="n">i</span>
+
+            <span class="c1"># Infer the value of the empty array</span>
+            <span class="c1"># only if the shape of the new array is not (0, ...)</span>
+            <span class="n">shape_to_complete</span> <span class="o">=</span> <span class="p">(</span><span class="n">sample_domain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">arrays</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],)</span> <span class="o">+</span> <span class="n">arrays</span><span class="p">[</span><span class="n">pair_index</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="n">shape_to_complete</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">y_type</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">pair_index</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">y_type</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span><span class="p">:</span>
+                    <span class="n">default_masked_label</span> <span class="o">=</span> <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span>
+                <span class="k">elif</span> <span class="n">y_type</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">CONTINUOUS</span><span class="p">:</span>
+                    <span class="n">default_masked_label</span> <span class="o">=</span> <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span>
+
+                <span class="n">arrays</span><span class="p">[</span><span class="n">index_is_empty</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">default_masked_label</span> <span class="o">*</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape_to_complete</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Check consistent number of samples in source-target arrays</span>
+        <span class="c1"># and the number inferred in the sample_domain</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sample_domain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">sample_domain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">source_samples</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">target_samples</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Inconsistent number of samples in source-target arrays &quot;</span>
+                    <span class="s2">&quot;and the number inferred in the sample_domain&quot;</span>
+                <span class="p">)</span>
+
+        <span class="n">merges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">_merge_arrays</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">arrays</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">merges</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># Update the docstring to replace placeholders with actual values</span>
+<span class="n">source_target_merge</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="o">=</span><span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="o">=</span><span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_SOURCE_DOMAIN_LABEL</span><span class="o">=</span><span class="n">_DEFAULT_SOURCE_DOMAIN_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_TARGET_DOMAIN_LABEL</span><span class="o">=</span><span class="n">_DEFAULT_TARGET_DOMAIN_LABEL</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_merge_arrays</span><span class="p">(</span>
+    <span class="n">array_source</span><span class="p">,</span>
+    <span class="n">array_target</span><span class="p">,</span>
+    <span class="n">sample_domain</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Merge source and target domain data based on sample domain labels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array_source : sequence of array-like of identical number of samples</span>
+<span class="sd">        (n_samples_source, n_features).</span>
+<span class="sd">    array_target : sequence of array-like of identical number of samples</span>
+<span class="sd">        (n_samples_target, n_features).</span>
+<span class="sd">    sample_domain : array-like of shape (n_samples_source + n_samples_target,)</span>
+<span class="sd">        Array specifying the domain labels for each sample.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    merge : sequence of array-like of identical number of samples</span>
+<span class="sd">        (n_samples_source + n_samples_target, n_features)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">array_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">array_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">array_source</span><span class="p">,</span> <span class="n">array_target</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">array_source</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">)</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">array_source</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">array_target</span>
+
+    <span class="k">elif</span> <span class="n">array_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
+            <span class="n">array_source</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">array_source</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">)</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">array_source</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span>
+            <span class="n">array_target</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">array_target</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">)</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">array_target</span>
+
+    <span class="k">return</span> <span class="n">output</span>
+
+
+<span class="k">def</span> <span class="nf">qp_solve</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+             <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;scipy&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves a standard quadratic program</span>
+
+<span class="sd">    Solve the following optimization problem:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  \frac{1}{2}x^TQx + x^Tc</span>
+
+
+<span class="sd">        lb &lt;= x &lt;= ub</span>
+
+<span class="sd">        Ax &lt;= b</span>
+
+<span class="sd">        A_{eq} x = b_{eq}</span>
+
+<span class="sd">    Return val as None if optimization failed.</span>
+
+<span class="sd">    All constraint parameters are optional, they will be ignored</span>
+<span class="sd">    if set as None.</span>
+
+<span class="sd">    Note that the Frank-wolfe solver can only be used to solve</span>
+<span class="sd">    optimization problem defined as follows:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  \frac{1}{2}x^TQx + x^Tc</span>
+
+<span class="sd">        A_{eq} x = b_{eq}</span>
+
+<span class="sd">        x &gt;= 0</span>
+
+<span class="sd">    Or,</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  \frac{1}{2}x^TQx + x^Tc</span>
+
+<span class="sd">        A x &lt;= b</span>
+
+<span class="sd">        x &gt;= 0</span>
+
+<span class="sd">    With Aeq and beq of respective dimension (1,d) and (1,),</span>
+<span class="sd">    and A and b of respective dimension (1,d) and (1,) or</span>
+<span class="sd">    (2,d) and (2,), with A[0] = -A[1] and b[0] &gt;= -b[1].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Q : (d,d) ndarray, float64, optional</span>
+<span class="sd">        Quadratic cost matrix matrix</span>
+<span class="sd">    c : (d,) ndarray, float64, optional</span>
+<span class="sd">        Linear cost vector</span>
+<span class="sd">    A : (n,d) ndarray, float64, optional</span>
+<span class="sd">        Linear inequality constraint matrix.</span>
+<span class="sd">    b : (n,) ndarray, float64, optional</span>
+<span class="sd">        Linear inequality constraint vector.</span>
+<span class="sd">    Aeq : (n,d) ndarray, float64, optional</span>
+<span class="sd">        Linear equality constraint matrix .</span>
+<span class="sd">    beq : (n,) ndarray, float64, optional</span>
+<span class="sd">        Linear equality constraint vector.   .</span>
+<span class="sd">    lb : (d) ndarray, float64, optional</span>
+<span class="sd">        Lower bound constraint, -np.inf if not provided.</span>
+<span class="sd">    ub : (d) ndarray, float64, optional</span>
+<span class="sd">        Upper bound constraint, np.inf if not provided.</span>
+<span class="sd">    x0 : (d,) ndarray, float64, optional</span>
+<span class="sd">        Initialization. Ones by default.</span>
+<span class="sd">    tol : float, optional</span>
+<span class="sd">        Tolerance for termination.</span>
+<span class="sd">    max_iter : int, optional</span>
+<span class="sd">        Maximum number of iterations to perform.</span>
+<span class="sd">    verbose : boolean, optional</span>
+<span class="sd">        Print optimization information.</span>
+<span class="sd">    log : boolean, optional</span>
+<span class="sd">        Return a dictionary with optim information in addition to x and val</span>
+<span class="sd">    solver : str, optional default=&#39;scipy&#39;</span>
+<span class="sd">        Available solvers : &#39;scipy&#39;, &#39;frank-wolfe&#39;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x: (d,) ndarray</span>
+<span class="sd">        Optimal solution x</span>
+<span class="sd">    val: float</span>
+<span class="sd">        optimal value of the objective (None if optimization error)</span>
+<span class="sd">    log: dict</span>
+<span class="sd">        Optional log output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">solver_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;scipy&quot;</span><span class="p">,</span> <span class="s2">&quot;frank-wolfe&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s2">&quot;scipy&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_qp_solve_scipy</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">Aeq</span><span class="p">,</span> <span class="n">beq</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span>
+                               <span class="n">x0</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">solver</span> <span class="o">==</span> <span class="s2">&quot;frank-wolfe&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_qp_solve_frank_wolfe</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">Aeq</span><span class="p">,</span> <span class="n">beq</span><span class="p">,</span>
+                                     <span class="n">x0</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`solver` argument should be included in </span><span class="si">%s</span><span class="s2">,&quot;</span>
+                         <span class="s2">&quot; got &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">solver_list</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">solver</span><span class="p">)))</span>
+
+
+<span class="k">def</span> <span class="nf">_qp_solve_scipy</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves a standard quadratic program</span>
+
+<span class="sd">    Solve the following optimization problem:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  \frac{1}{2}x^TQx + x^Tc</span>
+
+
+<span class="sd">        lb &lt;= x &lt;= ub</span>
+
+<span class="sd">        Ax &lt;= b</span>
+
+<span class="sd">        A_{eq} x = b_{eq}</span>
+
+<span class="sd">    All constraint parameters are optional, they will be ignored</span>
+<span class="sd">    if set as None.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Q : (d,d) ndarray, float64, optional</span>
+<span class="sd">        Quadratic cost matrix matrix</span>
+<span class="sd">    c : (d,) ndarray, float64, optional</span>
+<span class="sd">        Linear cost vector</span>
+<span class="sd">    A : (n,d) ndarray, float64, optional</span>
+<span class="sd">        Linear inequality constraint matrix.</span>
+<span class="sd">    b : (n,) ndarray, float64, optional</span>
+<span class="sd">        Linear inequality constraint vector.</span>
+<span class="sd">    Aeq : (n,d) ndarray, float64, optional</span>
+<span class="sd">        Linear equality constraint matrix .</span>
+<span class="sd">    beq : (n,) ndarray, float64, optional</span>
+<span class="sd">        Linear equality constraint vector.   .</span>
+<span class="sd">    lb : (d) ndarray, float64, optional</span>
+<span class="sd">        Lower bound constraint, -np.inf if not provided.</span>
+<span class="sd">    ub : (d) ndarray, float64, optional</span>
+<span class="sd">        Upper bound constraint, np.inf if not provided.</span>
+<span class="sd">    x0 : (d,) ndarray, float64, optional</span>
+<span class="sd">        Initialization. Ones by default.</span>
+<span class="sd">    tol : float, optional</span>
+<span class="sd">        Tolerance for termination.</span>
+<span class="sd">    max_iter : int, optional</span>
+<span class="sd">        Maximum number of iterations to perform.</span>
+<span class="sd">    verbose : boolean, optional</span>
+<span class="sd">        Print optimization information.</span>
+<span class="sd">    log : boolean, optional</span>
+<span class="sd">        Return a dictionary with optim information in addition to x and val</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x: (d,) ndarray</span>
+<span class="sd">        Optimal solution x</span>
+<span class="sd">    val: float</span>
+<span class="sd">        optimal value of the objective (None if optimization error)</span>
+<span class="sd">    log: dict</span>
+<span class="sd">        Optional log output</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Constraints</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LinearConstraint</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">b</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">Aeq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LinearConstraint</span><span class="p">(</span><span class="n">Aeq</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">beq</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">beq</span><span class="p">))</span>
+
+    <span class="c1"># Objective function</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span> <span class="o">@</span> <span class="n">c</span>
+
+        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
+
+    <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># Bounds</span>
+    <span class="k">if</span> <span class="n">lb</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ub</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">bounds</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">lb</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ub</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">ub</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">lb</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span> <span class="k">for</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">)]</span>
+
+    <span class="c1"># Optimization</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">func</span><span class="p">,</span>
+                       <span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span>
+                       <span class="n">method</span><span class="o">=</span><span class="s2">&quot;SLSQP&quot;</span><span class="p">,</span>
+                       <span class="n">jac</span><span class="o">=</span><span class="n">jac</span><span class="p">,</span>
+                       <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+                       <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+                       <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+                       <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;maxiter&quot;</span><span class="p">:</span> <span class="n">max_iter</span><span class="p">,</span>
+                                <span class="s2">&quot;disp&quot;</span><span class="p">:</span> <span class="n">verbose</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="n">outputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;fun&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
+        <span class="n">outputs</span> <span class="o">+=</span> <span class="p">(</span><span class="n">results</span><span class="p">,)</span>
+
+    <span class="k">return</span> <span class="n">outputs</span>
+
+
+<span class="k">def</span> <span class="nf">_qp_solve_frank_wolfe</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                          <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves a quadratic program with Frank-Wolfe algorithm</span>
+
+<span class="sd">    Solve the following optimization problem:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  \frac{1}{2}x^TQx + x^Tc</span>
+
+<span class="sd">        A_{eq} x = b_{eq}</span>
+
+<span class="sd">        x &gt;= 0</span>
+
+<span class="sd">    Or,</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  \frac{1}{2}x^TQx + x^Tc</span>
+
+<span class="sd">        A x &lt;= b</span>
+
+<span class="sd">        x &gt;= 0</span>
+
+<span class="sd">    With Aeq and beq of respective dimension (1,d) and (1,),</span>
+<span class="sd">    and A and b of respective dimension (1,d) and (1,) or</span>
+<span class="sd">    (2,d) and (2,), with A[0] = -A[1] and b[0] &gt;= -b[1].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Q : (d,d) ndarray, float64, optional</span>
+<span class="sd">        Quadratic cost matrix matrix</span>
+<span class="sd">    c : (d,) ndarray, float64, optional</span>
+<span class="sd">        Linear cost vector</span>
+<span class="sd">    A : (n,d) ndarray, float64, optional</span>
+<span class="sd">        Linear inequality constraint matrix.</span>
+<span class="sd">    b : (n,) ndarray, float64, optional</span>
+<span class="sd">        Linear inequality constraint vector.</span>
+<span class="sd">    Aeq : (n,d) ndarray, float64, optional</span>
+<span class="sd">        Linear equality constraint matrix .</span>
+<span class="sd">    beq : (n,) ndarray, float64, optional</span>
+<span class="sd">        Linear equality constraint vector.</span>
+<span class="sd">    x0 : (d,) ndarray, float64, optional</span>
+<span class="sd">        Initialization. Ones by default.</span>
+<span class="sd">    max_iter : int, optional</span>
+<span class="sd">        Maximum number of iterations to perform.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x: (d,) ndarray</span>
+<span class="sd">        Optimal solution x</span>
+<span class="sd">    val: float</span>
+<span class="sd">        optimal value of the objective (None if optimization error)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">Aeq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">Aeq</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`Aeq.shape[0]` must be equal to 1&quot;</span>
+                         <span class="s2">&quot; when using the &#39;frank-wolfe&#39; solver,&quot;</span>
+                         <span class="s2">&quot; got &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">Aeq</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`A.shape[2]` must be lower than 2&quot;</span>
+                             <span class="s2">&quot; when using the &#39;frank-wolfe&#39; solver,&quot;</span>
+                             <span class="s2">&quot; got &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`A[0]` must be equal to `-A[1]`&quot;</span>
+                                 <span class="s2">&quot; when using the &#39;frank-wolfe&#39; solver&quot;</span>
+                                 <span class="s2">&quot; with A.shape[0]=2&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`b[0]` must be greater or equal to&quot;</span>
+                                 <span class="s2">&quot; `-b[1]` when using the &#39;frank-wolfe&#39;&quot;</span>
+                                 <span class="s2">&quot; solver with A.shape[0]=2&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span> <span class="o">@</span> <span class="n">c</span>
+
+        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
+
+    <span class="k">if</span> <span class="n">Aeq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">frank_wolfe</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">Aeq</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">beq</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">beq</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="n">x0</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">frank_wolfe</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">x0</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">frank_wolfe</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">x0</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`A` or `Aeq` must be given when&quot;</span>
+                         <span class="s2">&quot; using the &#39;frank-wolfe&#39; solver&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">frank_wolfe</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">clb</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">cub</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Frank-Wolfe algorithm for convex programming</span>
+
+<span class="sd">    Solve the following convex optimization problem:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad  f(x)</span>
+
+<span class="sd">        clb &lt;= \\langle x, c \\rangle &lt;= cub</span>
+
+<span class="sd">        x &gt;= 0</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    jac : callable</span>
+<span class="sd">        The jacobian of f, return a vector of shape (d,).</span>
+<span class="sd">    c : (d,) ndarray, float64</span>
+<span class="sd">        Linear constraint vector.</span>
+<span class="sd">    clb : float64, optional, default=1.</span>
+<span class="sd">        Lower bound of the linear constraint.</span>
+<span class="sd">    cub : float64, optional, default=1.</span>
+<span class="sd">        Upper bound of the linear constraint.</span>
+<span class="sd">    max_iter : int, optional, default=1000</span>
+<span class="sd">        Maximum number of iterations to perform.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x: (d,) ndarray</span>
+<span class="sd">        Optimal solution x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inv_c</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">c</span>
+
+    <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="n">inv_c</span> <span class="o">*</span> <span class="p">((</span><span class="n">cub</span> <span class="o">-</span> <span class="n">clb</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="n">jac</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">product</span> <span class="o">=</span> <span class="n">grad</span> <span class="o">*</span> <span class="n">inv_c</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+        <span class="n">vect</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">product</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">vect</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv_c</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="n">clb</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vect</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">inv_c</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="n">cub</span>
+        <span class="n">lr</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mf">1.</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">lr</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">vect</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">def</span> <span class="nf">torch_minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves unconstrained optimization problem using pytorch</span>
+
+<span class="sd">    Solve the following optimization problem:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \min_x \quad loss(x)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    loss : callable</span>
+<span class="sd">        Objective function to be minimized.</span>
+<span class="sd">    x0 : list of ndarrays or torch.Tensor</span>
+<span class="sd">        Initialization.</span>
+<span class="sd">    tol : float, optional</span>
+<span class="sd">        Tolerance on the gradient for termination.</span>
+<span class="sd">    max_iter : int, optional</span>
+<span class="sd">        Maximum number of iterations to perform.</span>
+<span class="sd">    verbose : bool, optional</span>
+<span class="sd">        If True, print the final gradient norm.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x: ndarray or list of ndarrays</span>
+<span class="sd">        Optimal solution x</span>
+<span class="sd">    val: float</span>
+<span class="sd">        final value of the objective</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">torch</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;torch_minimize requires pytorch to be installed&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="n">x0</span><span class="p">]</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">]</span>
+
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span>
+        <span class="n">x0</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+        <span class="n">tolerance_grad</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+        <span class="n">line_search_fn</span><span class="o">=</span><span class="s2">&quot;strong_wolfe&quot;</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss_value</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="o">*</span><span class="n">x0</span><span class="p">)</span>
+        <span class="n">loss_value</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">loss_value</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">closure</span><span class="p">)</span>
+
+    <span class="n">grad_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">])</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final gradient norm: </span><span class="si">{</span><span class="n">grad_norm</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">grad_norm</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Optimization did not converge. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Final gradient maximum value: </span><span class="si">{</span><span class="n">grad_norm</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> &gt; </span><span class="si">{</span><span class="n">tol</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">solution</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">solution</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">loss_val</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="o">*</span><span class="n">x0</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">solution</span><span class="p">,</span> <span class="n">loss_val</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

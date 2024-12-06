@@ -105,7 +105,7 @@ to evaluate the performance of the DA estimator during the grid search.
 
  .. code-block:: none
 
-    Best regularization parameter: 0.05
+    Best regularization parameter: 0.08
 
 
 
@@ -176,7 +176,7 @@ Plot the results
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.315 seconds)
+   **Total running time of the script:** (0 minutes 11.356 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_gridsearch_for_da.py:
@@ -192,6 +192,10 @@ Plot the results
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_gridsearch_for_da.py <plot_gridsearch_for_da.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_gridsearch_for_da.zip <plot_gridsearch_for_da.zip>`
 
 
 .. only:: html

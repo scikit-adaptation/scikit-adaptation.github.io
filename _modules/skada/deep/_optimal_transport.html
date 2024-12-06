@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../../">
 <head>
@@ -5,23 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.deep._optimal_transport &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -39,9 +37,6 @@
             SKADA
               <img src="../../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -56,6 +51,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -86,7 +83,7 @@
 <span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="kn">from</span> <span class="nn">skada.deep.base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseDALoss</span><span class="p">,</span>
@@ -111,6 +108,8 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    reg_dist : float, default=1</span>
+<span class="sd">        Divergence regularization parameter.</span>
 <span class="sd">    reg_cl : float, default=1</span>
 <span class="sd">        Class distance term regularization parameter.</span>
 <span class="sd">    target_criterion : torch criterion (class)</span>
@@ -127,8 +126,9 @@
 <span class="sd">            September 2018. Springer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg_dist</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_dist</span> <span class="o">=</span> <span class="n">reg_dist</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg_cl</span> <span class="o">=</span> <span class="n">reg_cl</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">criterion_</span> <span class="o">=</span> <span class="n">target_criterion</span>
 
@@ -137,12 +137,10 @@
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y_s</span><span class="p">,</span>
-        <span class="n">y_pred_s</span><span class="p">,</span>
         <span class="n">y_pred_t</span><span class="p">,</span>
-        <span class="n">domain_pred_s</span><span class="p">,</span>
-        <span class="n">domain_pred_t</span><span class="p">,</span>
         <span class="n">features_s</span><span class="p">,</span>
         <span class="n">features_t</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">deepjdot_loss</span><span class="p">(</span>
@@ -150,6 +148,7 @@
             <span class="n">y_pred_t</span><span class="p">,</span>
             <span class="n">features_s</span><span class="p">,</span>
             <span class="n">features_t</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reg_dist</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reg_cl</span><span class="p">,</span>
             <span class="n">criterion</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">criterion_</span><span class="p">,</span>
         <span class="p">)</span>
@@ -160,7 +159,15 @@
 
 <div class="viewcode-block" id="DeepJDOT">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepJDOT.html#skada.deep.DeepJDOT">[docs]</a>
-<span class="k">def</span> <span class="nf">DeepJDOT</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">DeepJDOT</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">,</span>
+    <span class="n">reg_dist</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DeepJDOT.</span>
 
 <span class="sd">       See [13]_.</span>
@@ -173,9 +180,12 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, default=1</span>
-<span class="sd">        Regularization parameter.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
 <span class="sd">    reg_cl : float, default=1</span>
 <span class="sd">        Class distance term regularization parameter.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
 <span class="sd">    target_criterion : torch criterion (class)</span>
 <span class="sd">        The uninitialized criterion (loss) used to compute the</span>
 <span class="sd">        DeepJDOT loss. The criterion should support reduction=&#39;none&#39;.</span>
@@ -189,15 +199,18 @@
 <span class="sd">            15th European Conference on Computer Vision,</span>
 <span class="sd">            September 2018. Springer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
     <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
         <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
         <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
         <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
         <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
         <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
-        <span class="n">criterion__criterion</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span>
-        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DeepJDOTLoss</span><span class="p">(</span><span class="n">reg_cl</span><span class="p">,</span> <span class="n">target_criterion</span><span class="p">),</span>
-        <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DeepJDOTLoss</span><span class="p">(</span><span class="n">reg_dist</span><span class="p">,</span> <span class="n">reg_cl</span><span class="p">,</span> <span class="n">target_criterion</span><span class="p">),</span>
+        <span class="n">criterion__reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span></div>
@@ -229,7 +242,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

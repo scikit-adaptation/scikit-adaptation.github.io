@@ -114,16 +114,18 @@ DA pipeline
 
    Shared
    PerDomain
-   SourceSelect
-   TargetSelect
+   SelectSource
+   SelectTarget
 
 Utilities
 ^^^^^^^^^
 
+.. autosummary::
+   :toctree: gen_modules/
+   :template: function.rst
 
-
-
-
+   source_target_split
+   per_domain_split
 
 
 
@@ -137,6 +139,26 @@ Deep learning DA :py:mod:`skada.deep`:
    :no-members:
    :no-inherited-members:
 
+
+Deep learning DA methods
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autosummary::
+   :toctree: gen_modules/
+   :template: function.rst
+
+   DeepCoral
+   DeepJDOT
+   DANN
+   CDAN
+   MCC
+   CAN
+   MDD
+
+
+SKADA deep learning DA losses
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. autosummary::
    :toctree: gen_modules/
    :template: class.rst
@@ -145,6 +167,18 @@ Deep learning DA :py:mod:`skada.deep`:
    DeepJDOTLoss
    DANLoss
    CDANLoss
+   MCCLoss
+   CANLoss
+   MDDLoss
+
+Torch compatible DA losses in :py:mod:`skada.deep.losses`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. currentmodule:: skada.deep.losses
+
+.. automodule:: skada.deep.losses
+   :no-members:
+   :no-inherited-members:
 
 .. autosummary::
    :toctree: gen_modules/
@@ -153,12 +187,8 @@ Deep learning DA :py:mod:`skada.deep`:
    dan_loss
    deepcoral_loss
    deepjdot_loss
-   DeepCoral
-   DeepJDOT
-   DANN
-   CDAN
-
-
+   mcc_loss
+   cdd_loss
 
 
 DA metrics :py:mod:`skada.metrics`
@@ -180,6 +210,7 @@ DA metrics :py:mod:`skada.metrics`
    DeepEmbeddedValidation
    SoftNeighborhoodDensity
    CircularValidation
+   MixValScorer
 
 
 Model Selection :py:mod:`skada.model_selection`
@@ -220,3 +251,20 @@ Datasets :py:mod:`skada.datasets`
    make_variable_frequency_dataset
 
 
+Utilities :py:mod:`skada.utils`
+--------------------------------
+
+.. currentmodule:: skada.utils
+
+.. automodule:: skada.utils
+   :no-members:
+   :no-inherited-members:
+
+.. autosummary::
+   :toctree: gen_modules/
+   :template: function.rst
+
+   check_X_y_domain
+   extract_source_indices
+   extract_domains_indices
+   source_target_merge

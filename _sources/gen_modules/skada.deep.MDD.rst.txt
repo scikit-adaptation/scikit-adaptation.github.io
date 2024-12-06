@@ -1,0 +1,11 @@
+﻿skada.deep.MDD
+==============
+
+.. currentmodule:: skada.deep
+
+.. autofunction:: MDD
+
+.. _sphx_glr_backreferences_skada.deep.MDD:
+
+.. minigallery:: skada.deep.MDD
+    :add-heading:

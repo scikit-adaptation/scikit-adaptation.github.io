@@ -182,7 +182,7 @@ See detailed description of each shift in [1]_.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.574 seconds)
+   **Total running time of the script:** (0 minutes 0.714 seconds)
 
 
 .. _sphx_glr_download_auto_examples_datasets_plot_shifted_dataset_regression.py:
@@ -198,6 +198,10 @@ See detailed description of each shift in [1]_.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_shifted_dataset_regression.py <plot_shifted_dataset_regression.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_shifted_dataset_regression.zip <plot_shifted_dataset_regression.zip>`
 
 
 .. only:: html

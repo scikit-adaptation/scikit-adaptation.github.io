@@ -15,6 +15,23 @@ This is a gallery of all the SKADA example files.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dataset. It illustrates the API choice specific to DA.">
+
+.. only:: html
+
+  .. image:: /auto_examples/images/thumb/sphx_glr_plot_how_to_use_skada_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip=" In this example we plot the logos of the SKADA toolbox.">
 
 .. only:: html
@@ -32,24 +49,7 @@ This is a gallery of all the SKADA example files.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dat...">
-
-.. only:: html
-
-  .. image:: /auto_examples/images/thumb/sphx_glr_plot_how_to_use_skada_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this examp...">
+    <div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different methods. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets.">
 
 .. only:: html
 
@@ -74,8 +74,8 @@ This is a gallery of all the SKADA example files.
 .. toctree::
    :hidden:
 
-   /auto_examples/plot_skada_logo
    /auto_examples/plot_how_to_use_skada
+   /auto_examples/plot_skada_logo
    /auto_examples/plot_method_comparison
 
 
@@ -92,7 +92,7 @@ Domain Adaptation Datasets
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_.">
 
 .. only:: html
 
@@ -109,7 +109,7 @@ Domain Adaptation Datasets
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_.">
 
 .. only:: html
 
@@ -126,7 +126,7 @@ Domain Adaptation Datasets
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_variable_frequency_dataset dataset generator. Each method consists of...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_variable_frequency_dataset dataset generator. Each method consists of generating source data and shifted target data.">
 
 .. only:: html
 
@@ -143,7 +143,7 @@ Domain Adaptation Datasets
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_dataset_from_moons_distribution dataset generator. Each method consis...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_dataset_from_moons_distribution dataset generator. Each method consists of generating source data and shifted target data.">
 
 .. only:: html
 
@@ -220,7 +220,7 @@ Deep learning DA methods
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the Optimal Transport deep DA method from on a simple image classifica...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the Optimal Transport deep DA method from on a simple image classification task.">
 
 .. only:: html
 
@@ -237,7 +237,7 @@ Deep learning DA methods
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of deep DA methods in Skada. on a simple image classification ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of deep DA methods in Skada. on a simple image classification task.">
 
 .. only:: html
 
@@ -280,6 +280,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_monge_alignment_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_monge_alignment_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Multi-domain Linear Monge Alignment</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the DASVM method from [21].">
 
 .. only:: html
@@ -297,24 +314,7 @@ DA methods
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation...">
-
-.. only:: html
-
-  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_label_prop_da_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple concept drift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator.">
 
 .. only:: html
 
@@ -365,6 +365,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation. This is done by propagating labels from the source domain to the target domain using the OT plan. This was proposed originally in [28]_ for semi-supervised learning but can be used for DA.">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_label_prop_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task.">
 
 .. only:: html
@@ -390,11 +407,12 @@ DA methods
 .. toctree::
    :hidden:
 
+   /auto_examples/methods/plot_monge_alignment_da
    /auto_examples/methods/plot_dasvm
-   /auto_examples/methods/plot_label_prop_da
    /auto_examples/methods/plot_jdot_da
    /auto_examples/methods/plot_subspace
    /auto_examples/methods/plot_reweighting
+   /auto_examples/methods/plot_label_prop_da
    /auto_examples/methods/plot_optimal_transport_da
 
 
@@ -410,7 +428,7 @@ DA validation procedures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchC...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV.">
 
 .. only:: html
 
@@ -427,7 +445,7 @@ DA validation procedures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score.">
 
 .. only:: html
 

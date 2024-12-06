@@ -146,7 +146,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -200,7 +200,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -224,9 +224,9 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
-    /home/circleci/project/skada/utils.py:943: UserWarning: Optimization did not converge. Final gradient maximum value: 1.21e-05 > 1.00e-05
+    /home/circleci/project/skada/utils.py:1027: UserWarning: Optimization did not converge. Final gradient maximum value: 1.16e-05 > 1.00e-05
       warnings.warn(
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -326,7 +326,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -380,7 +380,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -404,7 +404,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -504,7 +504,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -558,7 +558,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -582,7 +582,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     Without da SVC()
     Reweight Density Pipeline(steps=[('densityreweightadapter',
@@ -682,7 +682,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
     OT mapping Pipeline(steps=[('otmappingadapter',
                      Shared(base_estimator=OTMappingAdapter(), max_iter=100000,
@@ -736,7 +736,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:535: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -760,7 +760,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/project/skada/utils.py:920: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/utils.py:1004: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
       x0 = [torch.tensor(x, requires_grad=True, dtype=torch.float64) for x in x0]
 
 
@@ -989,7 +989,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 10.888 seconds)
+   **Total running time of the script:** (0 minutes 20.104 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
@@ -1005,6 +1005,10 @@ accuracy on the test set.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_method_comparison.py <plot_method_comparison.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_method_comparison.zip <plot_method_comparison.zip>`
 
 
 .. only:: html

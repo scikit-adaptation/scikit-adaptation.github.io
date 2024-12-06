@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plot dataset source domain and shifted target domain &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -59,8 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="plot_shifted_dataset.html">Plot dataset source domain and shifted target domain</a></li>
@@ -74,6 +69,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#da-validation-procedures">DA validation procedures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -114,7 +111,7 @@ and shifted target data.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">source_target_split</span>
+<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a>
 <span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_variable_frequency_dataset.html#skada.datasets.make_variable_frequency_dataset" title="skada.datasets.make_variable_frequency_dataset" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_variable_frequency_dataset</span></a>
 
 <span class="c1"># Use same random seed for multiple calls to make_datasets to</span>
@@ -135,7 +132,7 @@ and shifted target data.</p>
     <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">,</span>
 <span class="p">)</span>
 
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_target</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_target</span></a> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_target</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_target</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a>
 <span class="p">)</span>
 </pre></div>
@@ -183,16 +180,19 @@ and shifted target data.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The data was generated from (random_state=</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_variable_frequency_dataset_002.png" srcset="../../_images/sphx_glr_plot_variable_frequency_dataset_002.png" alt="PSD shift, Class 1, Class 2" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The data was generated from (random_state=587)
+<img src="../../_images/sphx_glr_plot_variable_frequency_dataset_002.png" srcset="../../_images/sphx_glr_plot_variable_frequency_dataset_002.png" alt="PSD shift, Class 1, Class 2" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The data was generated from (random_state=19)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.563 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.678 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-datasets-plot-variable-frequency-dataset-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/73e7bd1c0f0bf35a99f8f2bc9d7e8025/plot_variable_frequency_dataset.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_variable_frequency_dataset.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6df8089b0eff687db3e10a0772632bcf/plot_variable_frequency_dataset.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_variable_frequency_dataset.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/daa626e1b562400e4fe11c3e28b2a1f9/plot_variable_frequency_dataset.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_variable_frequency_dataset.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -227,7 +227,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

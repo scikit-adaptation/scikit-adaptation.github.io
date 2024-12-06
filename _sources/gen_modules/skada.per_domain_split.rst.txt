@@ -1,0 +1,11 @@
+﻿skada.per\_domain\_split
+========================
+
+.. currentmodule:: skada
+
+.. autofunction:: per_domain_split
+
+.. _sphx_glr_backreferences_skada.per_domain_split:
+
+.. minigallery:: skada.per_domain_split
+    :add-heading:

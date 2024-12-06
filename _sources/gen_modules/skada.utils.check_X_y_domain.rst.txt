@@ -1,0 +1,11 @@
+﻿skada.utils.check\_X\_y\_domain
+===============================
+
+.. currentmodule:: skada.utils
+
+.. autofunction:: check_X_y_domain
+
+.. _sphx_glr_backreferences_skada.utils.check_X_y_domain:
+
+.. minigallery:: skada.utils.check_X_y_domain
+    :add-heading:

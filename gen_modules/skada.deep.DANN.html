@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.deep.DANN &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -60,26 +55,29 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoralLoss.html">skada.deep.DeepCoralLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOTLoss.html">skada.deep.DeepJDOTLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DANLoss.html">skada.deep.DANLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.CDANLoss.html">skada.deep.CDANLoss</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">skada.deep.DANN</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#skada.deep.DANN"><code class="docutils literal notranslate"><span class="pre">DANN()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#examples-using-skada-deep-dann">Examples using <code class="docutils literal notranslate"><span class="pre">skada.deep.DANN</span></code></a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../all.html#deep-learning-da-methods">Deep learning DA methods</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">skada.deep.DANN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.CDAN.html">skada.deep.CDAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.MCC.html">skada.deep.MCC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.CAN.html">skada.deep.CAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.MDD.html">skada.deep.MDD</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="skada.deep.CDAN.html">skada.deep.CDAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../all.html#skada-deep-learning-da-losses">SKADA deep learning DA losses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../all.html#module-skada.deep.losses">Torch compatible DA losses in <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep.losses</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -111,22 +109,22 @@
 <h1>skada.deep.DANN<a class="headerlink" href="#skada-deep-dann" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.deep.DANN">
-<span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">DANN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_classifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#DANN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DANN" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">skada.deep.</span></span><span class="sig-name descname"><span class="pre">DANN</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_classifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_criterion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/_adversarial.html#DANN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.DANN" title="Link to this definition"></a></dt>
 <dd><p>Domain-Adversarial Training of Neural Networks (DANN).</p>
 <p>From <a class="reference internal" href="#r0b34c02c2bd8-15" id="id1">[15]</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>module</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>. In general, the
+<dt><strong>module</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>. In general, the
 uninstantiated class should be passed, although instantiated
 modules will also work.</p>
 </dd>
 <dt><strong>layer_name</strong><span class="classifier">str</span></dt><dd><p>The name of the module's layer whose outputs are
 collected during the training.</p>
 </dd>
-<dt><strong>reg</strong><span class="classifier">float, default=1</span></dt><dd><p>Regularization parameter.</p>
+<dt><strong>reg</strong><span class="classifier">float, default=1</span></dt><dd><p>Regularization parameter for DA loss.</p>
 </dd>
-<dt><strong>domain_classifier</strong><span class="classifier">torch module, default=None</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used to classify the
+<dt><strong>domain_classifier</strong><span class="classifier">torch module, default=None</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used to classify the
 domain. If None, a domain classifier is created following <a href="#id4"><span class="problematic" id="id2">[1]_</span></a>.</p>
 </dd>
 <dt><strong>num_features</strong><span class="classifier">int, default=None</span></dt><dd><p>Size of the input of domain classifier,
@@ -134,6 +132,9 @@ e.g size of the last layer of
 the feature extractor.
 If domain_classifier is None, num_features has to be
 provided.</p>
+</dd>
+<dt><strong>base_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The base criterion used to compute the loss with source
+labels. If None, the default is <cite>torch.nn.CrossEntropyLoss</cite>.</p>
 </dd>
 <dt><strong>domain_criterion</strong><span class="classifier">torch criterion (class)</span></dt><dd><p>The criterion (loss) used to compute the
 DANN loss. If None, a BCELoss is used.</p>
@@ -146,7 +147,7 @@ DANN loss. If None, a BCELoss is used.</p>
 <div class="citation" id="r0b34c02c2bd8-15" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">15</a><span class="fn-bracket">]</span></span>
 <p>Yaroslav Ganin et. al. Domain-Adversarial Training
-of Neural Networks  In Journal of Machine Learning
+of Neural Networks. In Journal of Machine Learning
 Research, 2016.</p>
 </div>
 </div>
@@ -189,7 +190,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

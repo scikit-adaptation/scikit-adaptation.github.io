@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -5,23 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada._ot &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -39,9 +37,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -56,6 +51,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -102,7 +99,7 @@
 <span class="kn">from</span> <span class="nn">._pipeline</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
 <span class="kn">from</span> <span class="nn">._utils</span> <span class="kn">import</span> <span class="n">Y_Type</span><span class="p">,</span> <span class="n">_find_y_type</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseAdapter</span><span class="p">,</span> <span class="n">DAEstimator</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">source_target_split</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">per_domain_split</span><span class="p">,</span> <span class="n">source_target_split</span>
 
 
 <span class="k">def</span> <span class="nf">get_jdot_class_cost_matrix</span><span class="p">(</span><span class="n">Ys</span><span class="p">,</span> <span class="n">Xt</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;multinomial&quot;</span><span class="p">):</span>
@@ -988,6 +985,144 @@
         <span class="n">OTLabelPropAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">n_iter_max</span><span class="o">=</span><span class="n">n_iter_max</span><span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">JCPOTLabelPropAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;JCPOT Label Propagation Adapter for multi source target shift</span>
+
+<span class="sd">    This adapter uses the optimal transport plan to propagate labels from</span>
+<span class="sd">    sources to target domain with target shift (change in proportion of</span>
+<span class="sd">    classes). This was proposed in [31].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    metric : str, default=&#39;sqeuclidean&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;sqeuclidean&#39; for</span>
+<span class="sd">        squared euclidean distance, &#39;euclidean&#39; for euclidean distance,</span>
+<span class="sd">    reg : float, default=1</span>
+<span class="sd">        The entropic  regularization parameter for the optimal transport</span>
+<span class="sd">        problem.</span>
+<span class="sd">    max_iter : int, default=10</span>
+<span class="sd">        Maximum number of iterations for the JCPOT solver.</span>
+<span class="sd">    tol : float, default=1e-9</span>
+<span class="sd">        Tolerance for loss variations (OT and mse) stopping iterations.</span>
+<span class="sd">    verbose : bool, default=False</span>
+<span class="sd">        Print loss along iterations if True.</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [31] Redko, Ievgen, Nicolas Courty, Rémi Flamary, and Devis Tuia. &quot;Optimal</span>
+<span class="sd">         transport for multi-source domain adaptation under target shift.&quot; In</span>
+<span class="sd">         The 22nd International Conference on artificial intelligence and</span>
+<span class="sd">         statistics, pp. 849-858. PMLR, 2019.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metric</span> <span class="o">=</span> <span class="n">metric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_y_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+
+        <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">per_domain_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+
+        <span class="n">Xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span> <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">sources</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">sources</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">Xs</span> <span class="o">=</span> <span class="n">Xs</span> <span class="o">*</span> <span class="mi">2</span>
+            <span class="n">ys</span> <span class="o">=</span> <span class="n">ys</span> <span class="o">*</span> <span class="mi">2</span>
+
+        <span class="n">Xt</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span> <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+
+        <span class="n">Xt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ot_adapter_</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">da</span><span class="o">.</span><span class="n">JCPOTTransport</span><span class="p">(</span>
+            <span class="n">reg_e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span>
+            <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">metric</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ot_adapter_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="o">=</span><span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">ys</span><span class="p">,</span> <span class="n">Xt</span><span class="o">=</span><span class="n">Xt</span><span class="p">)</span>
+
+        <span class="n">yh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ot_adapter_</span><span class="o">.</span><span class="n">transform_labels</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">yh_continuous_</span> <span class="o">=</span> <span class="n">yh</span>
+
+        <span class="n">yh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">yh</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">yout</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">yout</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">yh</span>
+
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="p">{}</span>
+
+
+<span class="k">def</span> <span class="nf">JCPOTLabelProp</span><span class="p">(</span>
+    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">tol</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;JCPOT Label Propagation Adapter for multi source target shift</span>
+
+<span class="sd">    This adapter uses the optimal transport plan to propagate labels from</span>
+<span class="sd">    sources to target domain with target shift (change in proportion of</span>
+<span class="sd">    classes). This was proposed in [31].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : object, default=LinearRegression()</span>
+<span class="sd">        The base estimator to be used for the classification task. This</span>
+<span class="sd">        estimator should optimize a classification loss corresponding to the</span>
+<span class="sd">        given metric and provide compatible predict method (decision_function of</span>
+<span class="sd">        predict_proba).</span>
+<span class="sd">    reg : float, default=1</span>
+<span class="sd">        The entropic  regularization parameter for the optimal transport</span>
+<span class="sd">        problem.</span>
+<span class="sd">    metric : str, default=&#39;sqeuclidean&#39;</span>
+<span class="sd">        The metric to use for the cost matrix. Can be &#39;sqeuclidean&#39; for</span>
+<span class="sd">        squared euclidean distance, &#39;euclidean&#39; for euclidean distance,</span>
+<span class="sd">    max_iter : int, default=10</span>
+<span class="sd">        Maximum number of iterations for the JCPOT solver.</span>
+<span class="sd">    tol : float, default=1e-9</span>
+<span class="sd">        Tolerance for loss variations (OT and mse) stopping iterations.</span>
+<span class="sd">    verbose : bool, default=False</span>
+<span class="sd">        Print loss along iterations if True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    adapter : JCPOTLabelPropAdapter</span>
+<span class="sd">        The optimal transport label propagation adapter.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    [31] Redko, Ievgen, Nicolas Courty, Rémi Flamary, and Devis Tuia. &quot;Optimal</span>
+<span class="sd">         transport for multi-source domain adaptation under target shift.&quot; In</span>
+<span class="sd">         The 22nd International Conference on artificial intelligence and</span>
+<span class="sd">         statistics, pp. 849-858. PMLR, 2019.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
+        <span class="n">JCPOTLabelPropAdapter</span><span class="p">(</span>
+            <span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+        <span class="p">),</span>
+        <span class="n">base_estimator</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 
            </div>
@@ -1015,7 +1150,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

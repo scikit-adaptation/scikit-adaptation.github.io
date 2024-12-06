@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.LinearOTMappingAdapter &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -91,9 +86,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -127,6 +125,8 @@
 <dt class="sig sig-object py" id="skada.LinearOTMappingAdapter">
 <span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">LinearOTMappingAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#LinearOTMappingAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.LinearOTMappingAdapter" title="Link to this definition"></a></dt>
 <dd><p>Domain Adaptation Using Optimal Transport.</p>
+<p>Uses Gaussian Monge mapping to align source and target domains as proposed
+in [7].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -145,6 +145,15 @@ and target data.</p>
 </dl>
 </dd>
 </dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r2687d30ffb5c-7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<p>Flamary, R., Lounici, K., &amp; Ferrari, A. (2019). Concentration bounds
+for linear monge mapping estimation and optimal transport domain
+adaptation. arXiv preprint arXiv:1905.10155.</p>
+</div>
+</div>
 </dd></dl>
 
 <section id="examples-using-skada-linearotmappingadapter">
@@ -184,7 +193,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

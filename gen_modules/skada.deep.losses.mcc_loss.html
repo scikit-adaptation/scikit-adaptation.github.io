@@ -1,0 +1,226 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.deep.losses.mcc_loss &mdash; SKADA : Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="skada.deep.losses.cdd_loss" href="skada.deep.losses.cdd_loss.html" />
+    <link rel="prev" title="skada.deep.losses.deepjdot_loss" href="skada.deep.losses.deepjdot_loss.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SKADA
+              <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../all.html#deep-learning-da-methods">Deep learning DA methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../all.html#skada-deep-learning-da-losses">SKADA deep learning DA losses</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../all.html#module-skada.deep.losses">Torch compatible DA losses in <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep.losses</span></code></a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.losses.dan_loss.html">skada.deep.losses.dan_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.losses.deepcoral_loss.html">skada.deep.losses.deepcoral_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.losses.deepjdot_loss.html">skada.deep.losses.deepjdot_loss</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">skada.deep.losses.mcc_loss</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.losses.cdd_loss.html">skada.deep.losses.cdd_loss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
+      <li class="breadcrumb-item active">skada.deep.losses.mcc_loss</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/gen_modules/skada.deep.losses.mcc_loss.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="skada-deep-losses-mcc-loss">
+<h1>skada.deep.losses.mcc_loss<a class="headerlink" href="#skada-deep-losses-mcc-loss" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="skada.deep.losses.mcc_loss">
+<span class="sig-prename descclassname"><span class="pre">skada.deep.losses.</span></span><span class="sig-name descname"><span class="pre">mcc_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/deep/losses.html#mcc_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.deep.losses.mcc_loss" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Estimate the Frobenius norm divide by 4*n**2</dt><dd><p>for DeepCORAL method <a class="reference internal" href="#r226c0dbef068-33" id="id1">[33]</a>.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>y</strong><span class="classifier">tensor</span></dt><dd><p>The output of target domain of the model.</p>
+</dd>
+<dt><strong>T</strong><span class="classifier">float, default=1</span></dt><dd><p>The temperature for the scaling.</p>
+</dd>
+<dt><strong>eps</strong><span class="classifier">float, default=1e-7</span></dt><dd><p>Small constant added to median distance calculation for numerical stability.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>loss</strong><span class="classifier">ndarray</span></dt><dd><p>The loss of the method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r226c0dbef068-33" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">33</a><span class="fn-bracket">]</span></span>
+<p>Ying Jin, Ximei Wang, Mingsheng Long, Jianmin Wang.
+Minimum Class Confusion for Versatile Domain Adaptation.
+In ECCV, 2020.</p>
+</div>
+</div>
+</dd></dl>
+
+<span class="target" id="sphx-glr-backreferences-skada-deep-losses-mcc-loss"></span></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="skada.deep.losses.deepjdot_loss.html" class="btn btn-neutral float-left" title="skada.deep.losses.deepjdot_loss" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.deep.losses.cdd_loss.html" class="btn btn-neutral float-right" title="skada.deep.losses.cdd_loss" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.5256  2.8797
-          2        0.2875  3.2087
-          3        0.0960  3.1023
-          4        0.0604  11.5027
-          5        0.0427  19.3837
+          1        1.8338  5.6983
+          2        0.6723  4.7002
+          3        0.2520  8.5028
+          4        0.1241  6.5940
+          5        0.0752  7.4009
 
-    0.9067524115755627
+    0.9389067524115756
 
 
 
@@ -155,24 +155,24 @@ Train a DANN model
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1532: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+    /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1736: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-      epoch    train_loss     dur
-    -------  ------------  ------
-          1        2.8517  6.4979
-          2        1.6590  5.7895
-          3        1.1971  6.3997
-          4        1.0960  6.3920
-          5        1.0650  7.1081
+      epoch    train_loss      dur
+    -------  ------------  -------
+          1        2.5349  13.5681
+          2        1.4122  14.4012
+          3        1.1506  13.5996
+          4        1.0899  13.6968
+          5        1.0557  16.1884
 
-    0.8971061093247589
+    0.954983922829582
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 16.086 seconds)
+   **Total running time of the script:** (1 minutes 49.256 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:
@@ -188,6 +188,10 @@ Train a DANN model
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot_adversarial.py <plot_adversarial.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: plot_adversarial.zip <plot_adversarial.zip>`
 
 
 .. only:: html

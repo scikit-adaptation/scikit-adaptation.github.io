@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Divergence domain adaptation methods. &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -59,8 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a><ul class="current">
@@ -79,6 +74,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#da-validation-procedures">DA validation procedures</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -151,8 +148,8 @@ HTTP Error 403: Forbidden
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw/train-images-idx3-ubyte.gz
 
-  0%|          | 0/9912422 [00:00&lt;?, ?it/s]
-100%|██████████| 9912422/9912422 [00:00&lt;00:00, 135416947.57it/s]
+  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 144MB/s]
 Extracting ./datasets/MNIST/raw/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
 Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
@@ -162,8 +159,8 @@ HTTP Error 403: Forbidden
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz
 
-  0%|          | 0/28881 [00:00&lt;?, ?it/s]
-100%|██████████| 28881/28881 [00:00&lt;00:00, 45591153.11it/s]
+  0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 16.1MB/s]
 Extracting ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
 Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
@@ -173,8 +170,8 @@ HTTP Error 403: Forbidden
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz
 
-  0%|          | 0/1648877 [00:00&lt;?, ?it/s]
-100%|██████████| 1648877/1648877 [00:00&lt;00:00, 124308284.29it/s]
+  0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 42.0MB/s]
 Extracting ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw
 
 Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
@@ -184,23 +181,29 @@ HTTP Error 403: Forbidden
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz
 Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz
 
-  0%|          | 0/4542 [00:00&lt;?, ?it/s]
-100%|██████████| 4542/4542 [00:00&lt;00:00, 13834806.66it/s]
+  0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 14.5MB/s]
 Extracting ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
 
 /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   mnist_target = torch.tensor(mnist_dataset.targets)
 Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2 to ./datasets/usps.t.bz2
 
-  0%|          | 0/1831726 [00:00&lt;?, ?it/s]
-  2%|▏         | 32768/1831726 [00:00&lt;00:10, 165759.25it/s]
-  4%|▎         | 65536/1831726 [00:00&lt;00:10, 165592.90it/s]
-  5%|▌         | 98304/1831726 [00:00&lt;00:10, 165832.75it/s]
- 13%|█▎        | 229376/1831726 [00:00&lt;00:04, 361654.36it/s]
- 25%|██▌       | 458752/1831726 [00:00&lt;00:02, 649087.63it/s]
- 48%|████▊     | 884736/1831726 [00:01&lt;00:00, 1160213.89it/s]
- 98%|█████████▊| 1802240/1831726 [00:01&lt;00:00, 2294293.44it/s]
-100%|██████████| 1831726/1831726 [00:01&lt;00:00, 1321243.74it/s]
+  0%|          | 0.00/1.83M [00:00&lt;?, ?B/s]
+  2%|▏         | 32.8k/1.83M [00:00&lt;00:11, 150kB/s]
+  4%|▎         | 65.5k/1.83M [00:00&lt;00:11, 151kB/s]
+  7%|▋         | 131k/1.83M [00:00&lt;00:07, 218kB/s]
+ 11%|█         | 197k/1.83M [00:00&lt;00:06, 243kB/s]
+ 18%|█▊        | 328k/1.83M [00:01&lt;00:04, 368kB/s]
+ 25%|██▌       | 459k/1.83M [00:01&lt;00:03, 435kB/s]
+ 34%|███▍      | 623k/1.83M [00:01&lt;00:02, 524kB/s]
+ 43%|████▎     | 786k/1.83M [00:01&lt;00:01, 581kB/s]
+ 54%|█████▎    | 983k/1.83M [00:02&lt;00:01, 659kB/s]
+ 63%|██████▎   | 1.15M/1.83M [00:02&lt;00:01, 676kB/s]
+ 73%|███████▎  | 1.34M/1.83M [00:02&lt;00:00, 728kB/s]
+ 84%|████████▍ | 1.54M/1.83M [00:02&lt;00:00, 765kB/s]
+ 95%|█████████▍| 1.74M/1.83M [00:02&lt;00:00, 793kB/s]
+100%|██████████| 1.83M/1.83M [00:03&lt;00:00, 609kB/s]
 </pre></div>
 </div>
 </section>
@@ -220,13 +223,13 @@ Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/u
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.6599  2.6128
-      2        0.4158  3.2110
-      3        0.1322  2.9048
-      4        0.0760  2.9995
-      5        0.0529  2.7021
+      1        1.4900  9.5993
+      2        0.3168  8.1940
+      3        0.1119  7.3040
+      4        0.0610  6.7043
+      5        0.0458  8.6105
 
-0.8681672025723473
+0.8906752411575563
 </pre></div>
 </div>
 </section>
@@ -245,24 +248,27 @@ Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/u
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin.score" title="sklearn.base.ClassifierMixin.score" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">model</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
--------  ------------  ------
-      1        1.4944  4.8805
-      2        0.3791  5.0937
-      3        0.1755  5.1045
-      4        0.1195  5.4045
-      5        0.0910  5.6992
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
+-------  ------------  -------
+      1        1.6827  30.1814
+      2        0.4499  17.5877
+      3        0.1586  14.8993
+      4        0.0891  13.2113
+      5        0.0644  12.6976
 
-0.8617363344051447
+0.8938906752411575
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 48.225 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (2 minutes 22.076 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/103fab88fb5995bf10bc10c8a5800c9d/plot_divergence.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_divergence.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/db7dedeaa49f3071cffd6528ab3f03cf/plot_divergence.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_divergence.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -298,7 +304,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

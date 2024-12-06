@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -5,23 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada._mapping &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -39,9 +37,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -56,6 +51,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -94,6 +91,8 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ot</span> <span class="kn">import</span> <span class="n">da</span>
+<span class="kn">from</span> <span class="nn">ot.gaussian</span> <span class="kn">import</span> <span class="n">bures_wasserstein_barycenter</span><span class="p">,</span> <span class="n">bures_wasserstein_mapping</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
 
@@ -102,7 +101,9 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseAdapter</span><span class="p">,</span> <span class="n">clone</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">check_X_domain</span><span class="p">,</span>
+    <span class="n">extract_domains_indices</span><span class="p">,</span>
     <span class="n">extract_source_indices</span><span class="p">,</span>
+    <span class="n">per_domain_split</span><span class="p">,</span>
     <span class="n">source_target_merge</span><span class="p">,</span>
     <span class="n">source_target_split</span><span class="p">,</span>
     <span class="n">torch_minimize</span><span class="p">,</span>
@@ -545,6 +546,9 @@
 <span class="k">class</span> <span class="nc">LinearOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
 
+<span class="sd">    Uses Gaussian Monge mapping to align source and target domains as proposed</span>
+<span class="sd">    in [7].</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    reg : float, (default=1e-08)</span>
@@ -558,6 +562,12 @@
 <span class="sd">        The OT object based on linear operator between empirical</span>
 <span class="sd">        distributions fitted on the source</span>
 <span class="sd">        and target data.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [7] Flamary, R., Lounici, K., &amp; Ferrari, A. (2019). Concentration bounds</span>
+<span class="sd">        for linear monge mapping estimation and optimal transport domain</span>
+<span class="sd">        adaptation. arXiv preprint arXiv:1905.10155.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -579,7 +589,8 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a the linear OT mapping method with adapter and estimator.</span>
 
-<span class="sd">    see [6]_ for details.</span>
+<span class="sd">    Uses Gaussian Monge mapping to align source and target domains as proposed</span>
+<span class="sd">    in [7].</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -612,6 +623,239 @@
         <span class="n">base_estimator</span><span class="p">,</span>
     <span class="p">)</span></div>
 
+
+
+<span class="k">def</span> <span class="nf">_get_cov_mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns covariance and mean</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        The source data.</span>
+<span class="sd">    w : array-like, shape (n_samples,)</span>
+<span class="sd">        The weights of the samples.</span>
+<span class="sd">    bias: bool, optional (default=True)</span>
+<span class="sd">        estimate bias (mean).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cov : array-like, shape (n_features, n_features)</span>
+<span class="sd">        The covariance matrix.</span>
+<span class="sd">    mean : array-like, shape (n_features,)</span>
+<span class="sd">        The mean vector.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">mean</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cov</span><span class="p">,</span> <span class="n">mean</span>
+
+
+<span class="k">class</span> <span class="nc">MultiLinearMongeAlignmentAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aligns multiple domains using Gaussian Monge mapping to a barycenter.</span>
+
+<span class="sd">    The method is a simplified extension of [29] using the Bures-Wasserstein</span>
+<span class="sd">    distance and mapping of [7] to align multiple source domains to a</span>
+<span class="sd">    barycenter. The sued of barycenter alignment with gaussien assumption was</span>
+<span class="sd">    proposed in [30].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    reg : float, optional (default=1e-08)</span>
+<span class="sd">        Regularization parameter added to the diagonal of the covariance.</span>
+<span class="sd">    bias : bool, optional (default=True)</span>
+<span class="sd">        Estimate bias.</span>
+<span class="sd">    test_time : bool, optional (default=False)</span>
+<span class="sd">        If True, the estimator can be updated at test time to map new</span>
+<span class="sd">        target domains unseen during training</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cov_means_sources_ : dict</span>
+<span class="sd">        Dictionary of covariance and mean for each source domain.</span>
+<span class="sd">    cov_means_targets_ : dict</span>
+<span class="sd">        Dictionary of covariance and mean for each target domain.</span>
+<span class="sd">    barycenter_ : tuple</span>
+<span class="sd">        Barycenter of the source domains (mean, cov).</span>
+<span class="sd">    _mappings_ : dict</span>
+<span class="sd">        Dictionary of mappings for each domain.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [29] Montesuma, Eduardo Fernandes, and Fred Maurice Ngole Mboula.</span>
+<span class="sd">        &quot;Wasserstein barycenter for multi-source domain adaptation.&quot; In Proceedings</span>
+<span class="sd">        of the IEEE/CVF conference on computer vision and pattern recognition, pp.</span>
+<span class="sd">        16785-16793. 2021.</span>
+
+<span class="sd">    .. [7] Flamary, R., Lounici, K., &amp; Ferrari, A. (2019). Concentration bounds</span>
+<span class="sd">        for linear monge mapping estimation and optimal transport domain</span>
+<span class="sd">        adaptation. arXiv preprint arXiv:1905.10155.</span>
+
+<span class="sd">    .. [30] Gnassounou, Theo, Rémi Flamary, and Alexandre Gramfort. &quot;Convolution</span>
+<span class="sd">        Monge Mapping Normalization for learning on sleep data.&quot; Advances in</span>
+<span class="sd">        Neural Information Processing Systems 36 (2024).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">test_time</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">test_time</span> <span class="o">=</span> <span class="n">test_time</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : object</span>
+<span class="sd">            Returns self.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">per_domain_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cov_means_sources_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">domain</span><span class="p">:</span> <span class="n">_get_cov_mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">sources</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cov_means_targets_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">domain</span><span class="p">:</span> <span class="n">_get_cov_mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">targets</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">cov</span> <span class="k">for</span> <span class="n">cov</span><span class="p">,</span> <span class="n">mean</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_means_sources_</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">mean</span> <span class="k">for</span> <span class="n">cov</span><span class="p">,</span> <span class="n">mean</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_means_sources_</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">barycenter_</span> <span class="o">=</span> <span class="n">bures_wasserstein_barycenter</span><span class="p">(</span>
+            <span class="n">m</span><span class="p">,</span>
+            <span class="n">C</span><span class="p">,</span>
+            <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">domain</span><span class="p">:</span> <span class="n">bures_wasserstein_mapping</span><span class="p">(</span>
+                <span class="n">mean</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">barycenter_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">cov</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">barycenter_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_means_sources_</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="n">mapping_target</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">domain</span><span class="p">:</span> <span class="n">bures_wasserstein_mapping</span><span class="p">(</span>
+                <span class="n">mean</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">barycenter_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">cov</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">barycenter_</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">mean</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cov_means_targets_</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">mapping_target</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">            The source data.</span>
+<span class="sd">        y : array-like, shape (n_samples,)</span>
+<span class="sd">            The source labels.</span>
+<span class="sd">        sample_domain : array-like, shape (n_samples,)</span>
+<span class="sd">            The domain labels (same as sample_domain).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
+<span class="sd">            The data (same as X).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">extract_domains_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
+        <span class="n">X_adapt</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">idx</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">A</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span>
+            <span class="n">X_adapt</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">sel</span><span class="p">]</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+
+        <span class="k">return</span> <span class="n">X_adapt</span>
+
+
+<span class="k">def</span> <span class="nf">MultiLinearMongeAlignment</span><span class="p">(</span>
+    <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">test_time</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;MultiLinearMongeAlignment pipeline with adapter and estimator.</span>
+
+<span class="sd">    The method is a simplified extension of [29] using the Bures-Wasserstein</span>
+<span class="sd">    distance and mapping of [7] to align multiple source domains to a</span>
+<span class="sd">    barycenter. The sued of barycenter alignment with gaussien assumption was</span>
+<span class="sd">    proposed in [30].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_estimator : object, optional (default=None)</span>
+<span class="sd">        The base estimator to fit on the target dataset.</span>
+<span class="sd">    reg : float, optional (default=1e-08)</span>
+<span class="sd">        Regularization parameter added to the diagonal of the covariance.</span>
+<span class="sd">    bias : bool, optional (default=True)</span>
+<span class="sd">        Estimate bias.</span>
+<span class="sd">    test_time : bool, optional (default=False)</span>
+<span class="sd">        If True, the estimator can be updated at test time to map new</span>
+<span class="sd">        target domains unseen during training</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pipeline : Pipeline</span>
+<span class="sd">        Pipeline containing MultiLinearMongeAlignment adapter and base</span>
+<span class="sd">        estimator.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [29] Montesuma, Eduardo Fernandes, and Fred Maurice Ngole Mboula.</span>
+<span class="sd">        &quot;Wasserstein barycenter for multi-source domain adaptation.&quot; In Proceedings</span>
+<span class="sd">        of the IEEE/CVF conference on computer vision and pattern recognition, pp.</span>
+<span class="sd">        16785-16793. 2021.</span>
+
+<span class="sd">    .. [7] Flamary, R., Lounici, K., &amp; Ferrari, A. (2019). Concentration bounds</span>
+<span class="sd">        for linear monge mapping estimation and optimal transport domain</span>
+<span class="sd">        adaptation. arXiv preprint arXiv:1905.10155.</span>
+
+<span class="sd">    .. [30] Gnassounou, Theo, Rémi Flamary, and Alexandre Gramfort. &quot;Convolution</span>
+<span class="sd">        Monge Mapping Normalization for learning on sleep data.&quot; Advances in</span>
+<span class="sd">        Neural Information Processing Systems 36 (2024).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
+        <span class="n">MultiLinearMongeAlignmentAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">test_time</span><span class="o">=</span><span class="n">test_time</span><span class="p">),</span>
+        <span class="n">base_estimator</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">_sqrtm</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
@@ -1125,7 +1369,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Using cross_val_score with skada &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -42,9 +40,6 @@
             SKADA
               <img src="../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -59,8 +54,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../all.html">API and modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples gallery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_skada_logo.html">SKADA logo generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../plot_method_comparison.html">Comparison of DA classification methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#domain-adaptation-datasets">Domain Adaptation Datasets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
@@ -73,6 +68,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -117,7 +114,7 @@ base estimator doing the classification and the DA estimator. We use
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class"><span class="n">ShuffleSplit</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html#sklearn.model_selection.cross_val_score" title="sklearn.model_selection.cross_val_score" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-function"><span class="n">cross_val_score</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a>
 
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <a href="../../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">,</span> <a href="../../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">,</span> <span class="n">source_target_split</span>
+<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <a href="../../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">,</span> <a href="../../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">,</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a>
 <span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 <span class="kn">from</span> <span class="nn">skada.metrics</span> <span class="kn">import</span> <a href="../../gen_modules/skada.metrics.SupervisedScorer.html#skada.metrics.SupervisedScorer" title="skada.metrics.SupervisedScorer" class="sphx-glr-backref-module-skada-metrics sphx-glr-backref-type-py-class"><span class="n">SupervisedScorer</span></a>
 
@@ -136,7 +133,7 @@ base estimator doing the classification and the DA estimator. We use
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">estimator</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping" title="skada.EntropicOTMapping" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMapping</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_estimator</span></a><span class="o">=</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_estimator</span></a><span class="p">,</span> <span class="n">reg_e</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
 
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">])</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_target</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_target</span></a> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_target</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_source</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_target</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a><span class="p">(</span>
     <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a>
 <span class="p">)</span>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cv</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit" title="sklearn.model_selection.ShuffleSplit" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class"><span class="n">ShuffleSplit</span></a><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">)</span>
@@ -207,13 +204,16 @@ to separate the source and target data and to compute the score.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_cross_val_score_for_da_001.png" srcset="../../_images/sphx_glr_plot_cross_val_score_for_da_001.png" alt="plot cross val score for da" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.288 seconds)</p>
+<img src="../../_images/sphx_glr_plot_cross_val_score_for_da_001.png" srcset="../../_images/sphx_glr_plot_cross_val_score_for_da_001.png" alt="plot cross val score for da" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.259 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-validation-plot-cross-val-score-for-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/712e980d0c4c62e09c5bd88253a3bb11/plot_cross_val_score_for_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cross_val_score_for_da.ipynb</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a57f40e5c74e2d95827ad7eed008b580/plot_cross_val_score_for_da.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_val_score_for_da.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/64ad7f6c370766819e939476833852e9/plot_cross_val_score_for_da.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_cross_val_score_for_da.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -248,7 +248,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

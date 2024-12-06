@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="English" data-content_root="../../../">
 <head>
@@ -5,23 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.deep._divergence &mdash; SKADA : Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=8f8119fe"></script>
-        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -39,9 +37,6 @@
             SKADA
               <img src="../../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
           </a>
-              <div class="version">
-                0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -56,6 +51,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to SKADA</a></li>
 </ul>
 
         </div>
@@ -85,6 +82,8 @@
   <h1>Source code for skada.deep._divergence</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
 <span class="c1">#         Remi Flamary &lt;remi.flamary@polytechnique.edu&gt;</span>
+<span class="c1">#         Yanis Lalou &lt;yanis.lalou@polytechnique.edu&gt;</span>
+<span class="c1">#         Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -97,7 +96,8 @@
     <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">dan_loss</span><span class="p">,</span> <span class="n">deepcoral_loss</span>
+<span class="kn">from</span> <span class="nn">.callbacks</span> <span class="kn">import</span> <span class="n">ComputeSourceCentroids</span>
+<span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">cdd_loss</span><span class="p">,</span> <span class="n">dan_loss</span><span class="p">,</span> <span class="n">deepcoral_loss</span>
 
 
 <div class="viewcode-block" id="DeepCoralLoss">
@@ -109,6 +109,10 @@
 <span class="sd">    of the source features and the target features.</span>
 <span class="sd">    See [12]_.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -119,23 +123,21 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
+        <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span> <span class="o">=</span> <span class="n">assume_centered</span>
 
 <div class="viewcode-block" id="DeepCoralLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">y_s</span><span class="p">,</span>
-        <span class="n">y_pred_s</span><span class="p">,</span>
-        <span class="n">y_pred_t</span><span class="p">,</span>
-        <span class="n">domain_pred_s</span><span class="p">,</span>
-        <span class="n">domain_pred_t</span><span class="p">,</span>
         <span class="n">features_s</span><span class="p">,</span>
         <span class="n">features_t</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
 
@@ -143,7 +145,9 @@
 
 <div class="viewcode-block" id="DeepCoral">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral">[docs]</a>
-<span class="k">def</span> <span class="nf">DeepCoral</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">DeepCoral</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DeepCORAL domain adaptation method.</span>
 
 <span class="sd">    From [12]_.</span>
@@ -156,7 +160,12 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
-<span class="sd">        The regularization parameter of the covariance estimator.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
+<span class="sd">    assume_centered: bool, default=False</span>
+<span class="sd">        If True, data are not centered before computation.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -164,15 +173,18 @@
 <span class="sd">            Correlation alignment for deep domain</span>
 <span class="sd">            adaptation. In ECCV Workshops, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
     <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
         <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
         <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
         <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
         <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
         <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
-        <span class="n">criterion__criterion</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
         <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
-        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DeepCoralLoss</span><span class="p">(),</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DeepCoralLoss</span><span class="p">(</span><span class="n">assume_centered</span><span class="o">=</span><span class="n">assume_centered</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span></div>
@@ -192,6 +204,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    sigmas : array-like, optional (default=None)</span>
 <span class="sd">        The sigmas for the Gaussian kernel.</span>
+<span class="sd">    eps : float, default=1e-7</span>
+<span class="sd">        Small constant added to median distance calculation for numerical stability.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -200,30 +214,27 @@
 <span class="sd">            In ICML, 2015.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
 
 <div class="viewcode-block" id="DANLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">y_s</span><span class="p">,</span>
-        <span class="n">y_pred_s</span><span class="p">,</span>
-        <span class="n">y_pred_t</span><span class="p">,</span>
-        <span class="n">domain_pred_s</span><span class="p">,</span>
-        <span class="n">domain_pred_t</span><span class="p">,</span>
         <span class="n">features_s</span><span class="p">,</span>
         <span class="n">features_t</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">dan_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">dan_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
 
 
 
-<span class="k">def</span> <span class="nf">DAN</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">DAN</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DAN domain adaptation method.</span>
 
 <span class="sd">    See [14]_.</span>
@@ -236,9 +247,12 @@
 <span class="sd">        The name of the module&#39;s layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
-<span class="sd">        The regularization parameter of the covariance estimator.</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
 <span class="sd">    sigmas : array-like, optional (default=None)</span>
 <span class="sd">        The sigmas for the Gaussian kernel.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -246,20 +260,170 @@
 <span class="sd">            Features with Deep Adaptation Networks.</span>
 <span class="sd">            In ICML, 2015.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
     <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
         <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
         <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
         <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
         <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
-        <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span> <span class="n">DANLoss</span><span class="p">(</span><span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span><span class="p">),</span> <span class="n">reg</span><span class="o">=</span><span class="n">reg</span>
-        <span class="p">),</span>
-        <span class="n">criterion__criterion</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(),</span>
+        <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
         <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
         <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DANLoss</span><span class="p">(</span><span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">net</span>
+
+
+<div class="viewcode-block" id="CANLoss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">CANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss for Contrastive Adaptation Network (CAN)</span>
+
+<span class="sd">    This loss implements the contrastive domain discrepancy (CDD)</span>
+<span class="sd">    as described in [33].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    distance_threshold : float, optional (default=0.5)</span>
+<span class="sd">        Distance threshold for discarding the samples that are</span>
+<span class="sd">        to far from the centroids.</span>
+<span class="sd">    class_threshold : int, optional (default=3)</span>
+<span class="sd">        Minimum number of samples in a class to be considered for the loss.</span>
+<span class="sd">    sigmas : array like, default=None,</span>
+<span class="sd">        If array, sigmas used for the multi gaussian kernel.</span>
+<span class="sd">        If None, uses sigmas proposed  in [1]_.</span>
+<span class="sd">    target_kmeans : sklearn KMeans instance, default=None,</span>
+<span class="sd">        Pre-computed target KMeans clustering model.</span>
+<span class="sd">    eps : float, default=1e-7</span>
+<span class="sd">        Small constant added to median distance calculation for numerical stability.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [33] Kang, G., Jiang, L., Yang, Y., &amp; Hauptmann, A. G. (2019).</span>
+<span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
+<span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
+<span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">class_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_kmeans</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">distance_threshold</span> <span class="o">=</span> <span class="n">distance_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_threshold</span> <span class="o">=</span> <span class="n">class_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_kmeans</span> <span class="o">=</span> <span class="n">target_kmeans</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
+
+<div class="viewcode-block" id="CANLoss.forward">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_s</span><span class="p">,</span>
+        <span class="n">features_s</span><span class="p">,</span>
+        <span class="n">features_t</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">cdd_loss</span><span class="p">(</span>
+            <span class="n">y_s</span><span class="p">,</span>
+            <span class="n">features_s</span><span class="p">,</span>
+            <span class="n">features_t</span><span class="p">,</span>
+            <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">,</span>
+            <span class="n">target_kmeans</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">target_kmeans</span><span class="p">,</span>
+            <span class="n">distance_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">distance_threshold</span><span class="p">,</span>
+            <span class="n">class_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">class_threshold</span><span class="p">,</span>
+            <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CAN">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.CAN.html#skada.deep.CAN">[docs]</a>
+<span class="k">def</span> <span class="nf">CAN</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">class_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Contrastive Adaptation Network (CAN) domain adaptation method.</span>
+
+<span class="sd">    From [33].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
+<span class="sd">    layer_name : str</span>
+<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        collected during the training for the adaptation.</span>
+<span class="sd">    reg : float, optional (default=1)</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
+<span class="sd">    distance_threshold : float, optional (default=0.5)</span>
+<span class="sd">        Distance threshold for discarding the samples that are</span>
+<span class="sd">        to far from the centroids.</span>
+<span class="sd">    class_threshold : int, optional (default=3)</span>
+<span class="sd">        Minimum number of samples in a class to be considered for the loss.</span>
+<span class="sd">    sigmas : array like, default=None,</span>
+<span class="sd">        If array, sigmas used for the multi gaussian kernel.</span>
+<span class="sd">        If None, uses sigmas proposed  in [1]_.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
+<span class="sd">    callbacks : list, optional</span>
+<span class="sd">        List of callbacks to be used during training.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [33] Kang, G., Jiang, L., Yang, Y., &amp; Hauptmann, A. G. (2019).</span>
+<span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
+<span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
+<span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">callbacks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">ComputeSourceCentroids</span><span class="p">()]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callbacks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ComputeSourceCentroids</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span><span class="n">callbacks</span><span class="p">,</span> <span class="n">ComputeSourceCentroids</span><span class="p">()]</span>
+
+    <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
+        <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
+        <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
+        <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
+        <span class="n">criterion__reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">CANLoss</span><span class="p">(</span>
+            <span class="n">distance_threshold</span><span class="o">=</span><span class="n">distance_threshold</span><span class="p">,</span>
+            <span class="n">class_threshold</span><span class="o">=</span><span class="n">class_threshold</span><span class="p">,</span>
+            <span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">net</span></div>
+
 </pre></div>
 
            </div>
@@ -287,7 +451,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span>
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->
