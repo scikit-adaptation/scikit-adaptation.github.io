@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users Guide &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -189,7 +189,7 @@
 <span class="n">target_idx</span> <span class="o">=</span> <span class="n">office31</span><span class="o">.</span><span class="n">select_domain</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">DomainAwareEstimator</span><span class="o">.</span><span class="n">INCLUDE_ALL_TARGETS</span><span class="p">)</span>
 
 <span class="c1"># generic helper to simplify flow when the dataset is created &quot;on the fly&quot;</span>
-<span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <span class="n">select_domain</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">select_domain</span>
 <span class="n">source_idx</span> <span class="o">=</span> <span class="n">select_domain</span><span class="p">(</span><span class="n">office31</span><span class="o">.</span><span class="n">domain_names</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;amazon&#39;</span><span class="p">,</span> <span class="s1">&#39;dslr&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -217,7 +217,7 @@
 <section id="pipeline">
 <h3>Pipeline<a class="headerlink" href="#pipeline" title="Link to this heading"></a></h3>
 <p>You can create a domain aware estimator as the pipeline that combines together adapter of your choice (to perform transformation) and the estimator (well, as an estimator):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">make_da_pipeline</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_da_pipeline</span>
 
 <span class="n">estimator</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
     <span class="n">CORALAdapter</span><span class="p">(),</span>

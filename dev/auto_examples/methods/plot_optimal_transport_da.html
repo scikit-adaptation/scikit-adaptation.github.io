@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Optimal Transport Domain Adaptation (OTDA) &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -130,11 +130,11 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
 <span class="c1"># sphinx_gallery_thumbnail_number = 4</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">DecisionBoundaryDisplay</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.inspection</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionBoundaryDisplay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a>
 
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <a href="../../gen_modules/skada.ClassRegularizerOTMappingAdapter.html#skada.ClassRegularizerOTMappingAdapter" title="skada.ClassRegularizerOTMappingAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">ClassRegularizerOTMappingAdapter</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.EntropicOTMappingAdapter.html#skada.EntropicOTMappingAdapter" title="skada.EntropicOTMappingAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">EntropicOTMappingAdapter</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter" title="skada.LinearOTMappingAdapter" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">LinearOTMappingAdapter</span></a><span class="p">,</span>
@@ -142,7 +142,7 @@ Transactions on Pattern Analysis and Machine Intelligence</p>
     <a href="../../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline" title="skada.make_da_pipeline" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">make_da_pipeline</span></a><span class="p">,</span>
     <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 </pre></div>
 </div>
 <section id="generate-concept-drift-dataset">
@@ -520,7 +520,7 @@ illustrate the different methods available in SKADA.</p>
 Text(0.5, 1.0, &#39;OTDA linear (ACC=1.00)&#39;)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.560 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.710 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-optimal-transport-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/875c197df9ab4cd7d876a5e7d11e20a3/plot_optimal_transport_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_optimal_transport_da.ipynb</span></code></a></p>

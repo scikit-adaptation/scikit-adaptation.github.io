@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.deep._adversarial &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -85,14 +85,14 @@
 <span class="c1">#         Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 
-<span class="kn">from</span> <span class="nn">skada.deep.base</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.base</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseDALoss</span><span class="p">,</span>
     <span class="n">DomainAwareCriterion</span><span class="p">,</span>
     <span class="n">DomainAwareModule</span><span class="p">,</span>
@@ -100,11 +100,11 @@
     <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.modules</span> <span class="kn">import</span> <span class="n">DomainClassifier</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">check_generator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.modules</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_generator</span>
 
 
-<span class="k">class</span> <span class="nc">DANNLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DANNLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DANN.</span>
 
 <span class="sd">    This loss tries to minimize the divergence between features with</span>
@@ -126,14 +126,14 @@
 <span class="sd">            Research, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">domain_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">domain_criterion</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">domain_pred_s</span><span class="p">,</span>
         <span class="n">domain_pred_t</span><span class="p">,</span>
@@ -159,7 +159,7 @@
 
 <div class="viewcode-block" id="DANN">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANN.html#skada.deep.DANN">[docs]</a>
-<span class="k">def</span> <span class="nf">DANN</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">DANN</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span>
     <span class="n">layer_name</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -235,7 +235,7 @@
 
 <div class="viewcode-block" id="CDANLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CDANLoss.html#skada.deep.CDANLoss">[docs]</a>
-<span class="k">class</span> <span class="nc">CDANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CDANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Conditional Domain Adversarial Networks (CDAN) loss.</span>
 
 <span class="sd">    This loss tries to minimize the divergence between features with</span>
@@ -257,7 +257,7 @@
 <span class="sd">            In NeurIPS, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">domain_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
@@ -266,7 +266,7 @@
 
 <div class="viewcode-block" id="CDANLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CDANLoss.html#skada.deep.CDANLoss.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">domain_pred_s</span><span class="p">,</span>
         <span class="n">domain_pred_t</span><span class="p">,</span>
@@ -294,7 +294,7 @@
 
 
 
-<span class="k">class</span> <span class="nc">CDANModule</span><span class="p">(</span><span class="n">DomainAwareModule</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CDANModule</span><span class="p">(</span><span class="n">DomainAwareModule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Conditional Domain Adversarial Networks (CDAN) module.</span>
 
 <span class="sd">    From [16]_.</span>
@@ -320,7 +320,7 @@
 <span class="sd">            In NeurIPS, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">base_module</span><span class="p">,</span>
         <span class="n">layer_name</span><span class="p">,</span>
@@ -332,7 +332,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">max_features</span> <span class="o">=</span> <span class="n">max_features</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">X</span><span class="p">,</span>
         <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -382,7 +382,7 @@
 
 <div class="viewcode-block" id="CDAN">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CDAN.html#skada.deep.CDAN">[docs]</a>
-<span class="k">def</span> <span class="nf">CDAN</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CDAN</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span>
     <span class="n">layer_name</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -467,7 +467,7 @@
 
 
 
-<span class="k">class</span> <span class="nc">ModifiedCrossEntropyLoss</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModifiedCrossEntropyLoss</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Modified CrossEntropyLoss as described in (29) from [35]_ with label smoothing.</span>
 
 <span class="sd">    Parameters</span>
@@ -476,11 +476,11 @@
 <span class="sd">        Smoothing factor for label smoothing.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoothing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoothing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">smoothing</span> <span class="o">=</span> <span class="n">smoothing</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the modified CrossEntropyLoss</span>
 <span class="sd">        with label smoothing applied to predictions.</span>
@@ -516,7 +516,7 @@
 
 <div class="viewcode-block" id="MDDLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.MDDLoss.html#skada.deep.MDDLoss">[docs]</a>
-<span class="k">class</span> <span class="nc">MDDLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MDDLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss MDD.</span>
 
 <span class="sd">    This loss tries to minimize the disparity discrepancy between</span>
@@ -538,7 +538,7 @@
 <span class="sd">            Machine Learning, 2019.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disc_criterion_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
@@ -546,7 +546,7 @@
 
 <div class="viewcode-block" id="MDDLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.MDDLoss.html#skada.deep.MDDLoss.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y_pred_s</span><span class="p">,</span>
         <span class="n">y_pred_t</span><span class="p">,</span>
@@ -573,7 +573,7 @@
 
 <div class="viewcode-block" id="MDD">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.MDD.html#skada.deep.MDD">[docs]</a>
-<span class="k">def</span> <span class="nf">MDD</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">MDD</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span>
     <span class="n">layer_name</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -656,7 +656,7 @@
 
 
 
-<span class="k">class</span> <span class="nc">_RandomLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_RandomLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Randomized multilinear map layer.</span>
 
 <span class="sd">    Parameters</span>
@@ -669,7 +669,7 @@
 <span class="sd">        Output dimension wanted.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">input_dims</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">input_dims</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="n">gen</span> <span class="o">=</span> <span class="n">check_generator</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_dim</span> <span class="o">=</span> <span class="n">output_dim</span>
@@ -678,7 +678,7 @@
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_dims</span><span class="p">))</span>
         <span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_list</span><span class="p">):</span>
         <span class="n">device</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span>
         <span class="n">return_list</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">input_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>

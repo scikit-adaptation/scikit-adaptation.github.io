@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.utils &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -85,15 +85,15 @@
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
 
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Set</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">LinearConstraint</span><span class="p">,</span> <span class="n">minimize</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_array</span><span class="p">,</span> <span class="n">check_consistent_length</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearConstraint</span><span class="p">,</span> <span class="n">minimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_array</span><span class="p">,</span> <span class="n">check_consistent_length</span>
 
-<span class="kn">from</span> <span class="nn">skada._utils</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada._utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
     <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="p">,</span>
     <span class="n">_DEFAULT_SOURCE_DOMAIN_LABEL</span><span class="p">,</span>
@@ -107,7 +107,7 @@
 
 <div class="viewcode-block" id="check_X_y_domain">
 <a class="viewcode-back" href="../../gen_modules/skada.utils.check_X_y_domain.html#skada.check_X_y_domain">[docs]</a>
-<span class="k">def</span> <span class="nf">check_X_y_domain</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_X_y_domain</span><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span>
     <span class="n">y</span><span class="p">,</span>
     <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -215,7 +215,7 @@
 
 
 <span class="c1"># xxx(okachaiev): code duplication, just for testing</span>
-<span class="k">def</span> <span class="nf">check_X_domain</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_X_domain</span><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span>
     <span class="n">sample_domain</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
@@ -319,7 +319,7 @@
 
 <div class="viewcode-block" id="extract_source_indices">
 <a class="viewcode-back" href="../../gen_modules/skada.utils.extract_source_indices.html#skada.extract_source_indices">[docs]</a>
-<span class="k">def</span> <span class="nf">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract the indices of the source samples.</span>
 
 <span class="sd">    Parameters</span>
@@ -346,7 +346,7 @@
 
 <div class="viewcode-block" id="extract_domains_indices">
 <a class="viewcode-back" href="../../gen_modules/skada.utils.extract_domains_indices.html#skada.extract_domains_indices">[docs]</a>
-<span class="k">def</span> <span class="nf">extract_domains_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">split_source_target</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_domains_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">split_source_target</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract the indices of the specific</span>
 <span class="sd">    domain samples.</span>
 
@@ -392,7 +392,7 @@
 
 <div class="viewcode-block" id="source_target_split">
 <a class="viewcode-back" href="../../gen_modules/skada.source_target_split.html#skada.source_target_split">[docs]</a>
-<span class="k">def</span> <span class="nf">source_target_split</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">source_target_split</span><span class="p">(</span>
     <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
     <span class="n">sample_domain</span>
 <span class="p">):</span>
@@ -428,7 +428,7 @@
 
 <div class="viewcode-block" id="per_domain_split">
 <a class="viewcode-back" href="../../gen_modules/skada.per_domain_split.html#skada.per_domain_split">[docs]</a>
-<span class="k">def</span> <span class="nf">per_domain_split</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">per_domain_split</span><span class="p">(</span>
     <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
     <span class="n">sample_domain</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Split data into multiple source and target domains</span>
@@ -480,7 +480,7 @@
 
 <div class="viewcode-block" id="source_target_merge">
 <a class="viewcode-back" href="../../gen_modules/skada.utils.source_target_merge.html#skada.source_target_merge">[docs]</a>
-<span class="k">def</span> <span class="nf">source_target_merge</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">source_target_merge</span><span class="p">(</span>
     <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
     <span class="n">sample_domain</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
@@ -659,7 +659,7 @@
 <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_merge_arrays</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_merge_arrays</span><span class="p">(</span>
     <span class="n">array_source</span><span class="p">,</span>
     <span class="n">array_target</span><span class="p">,</span>
     <span class="n">sample_domain</span>
@@ -702,7 +702,7 @@
     <span class="k">return</span> <span class="n">output</span>
 
 
-<span class="k">def</span> <span class="nf">qp_solve</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">qp_solve</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
              <span class="n">lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
              <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;scipy&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves a standard quadratic program</span>
@@ -800,7 +800,7 @@
                          <span class="s2">&quot; got &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">solver_list</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">solver</span><span class="p">)))</span>
 
 
-<span class="k">def</span> <span class="nf">_qp_solve_scipy</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_qp_solve_scipy</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                     <span class="n">lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
                     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves a standard quadratic program</span>
@@ -867,16 +867,16 @@
 
     <span class="c1"># Objective function</span>
     <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span> <span class="o">@</span> <span class="n">c</span>
 
-        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
 
     <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -915,7 +915,7 @@
     <span class="k">return</span> <span class="n">outputs</span>
 
 
-<span class="k">def</span> <span class="nf">_qp_solve_frank_wolfe</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_qp_solve_frank_wolfe</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">Aeq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">beq</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                           <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves a quadratic program with Frank-Wolfe algorithm</span>
@@ -987,16 +987,16 @@
                                  <span class="s2">&quot; `-b[1]` when using the &#39;frank-wolfe&#39;&quot;</span>
                                  <span class="s2">&quot; solver with A.shape[0]=2&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span> <span class="o">@</span> <span class="n">c</span>
 
-        <span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>
 
     <span class="k">if</span> <span class="n">Aeq</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1015,7 +1015,7 @@
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">frank_wolfe</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">clb</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">cub</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">frank_wolfe</span><span class="p">(</span><span class="n">jac</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">clb</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">cub</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Frank-Wolfe algorithm for convex programming</span>
 
 <span class="sd">    Solve the following convex optimization problem:</span>
@@ -1066,7 +1066,7 @@
     <span class="k">return</span> <span class="n">x</span>
 
 
-<span class="k">def</span> <span class="nf">torch_minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">torch_minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot; Solves unconstrained optimization problem using pytorch</span>
 
 <span class="sd">    Solve the following optimization problem:</span>
@@ -1095,7 +1095,7 @@
 <span class="sd">        final value of the objective</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="kn">import</span> <span class="nn">torch</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;torch_minimize requires pytorch to be installed&quot;</span><span class="p">)</span>
 
@@ -1110,7 +1110,7 @@
         <span class="n">line_search_fn</span><span class="o">=</span><span class="s2">&quot;strong_wolfe&quot;</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">closure</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closure</span><span class="p">():</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         <span class="n">loss_value</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="o">*</span><span class="n">x0</span><span class="p">)</span>
         <span class="n">loss_value</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>

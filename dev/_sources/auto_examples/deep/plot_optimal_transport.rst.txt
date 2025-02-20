@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.7183  2.7340
-          2        0.4217  2.7001
-          3        0.1442  2.8005
-          4        0.0817  2.6010
-          5        0.0527  2.7962
+          1        1.2563  3.2018
+          2        0.2603  3.0013
+          3        0.1032  3.0974
+          4        0.0680  3.0982
+          5        0.0409  3.3018
 
-    0.8713826366559485
+    0.9003215434083601
 
 
 
@@ -157,20 +157,20 @@ Train a DeepJDOT model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.9403  7.9620
-          2        1.0623  7.0992
-          3        0.7029  7.1990
-          4        0.5534  7.1995
-          5        0.4751  7.3993
+          1        1.9594  8.2813
+          2        1.0787  8.5006
+          3        0.6825  8.3989
+          4        0.5592  8.2969
+          5        0.4760  8.9020
 
-    0.9260450160771704
+    0.909967845659164
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 53.980 seconds)
+   **Total running time of the script:** (1 minutes 1.894 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:

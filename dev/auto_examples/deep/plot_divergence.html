@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Divergence domain adaptation methods. &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -126,12 +126,12 @@ adaptation. In ECCV Workshops, 2016.</p>
 <span class="c1"># sphinx_gallery_thumbnail_number = 4</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skorch</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">NeuralNetClassifier</span></a>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skorch</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">NeuralNetClassifier</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 
-<span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <span class="n">load_mnist_usps</span>
-<span class="kn">from</span> <span class="nn">skada.deep</span> <span class="kn">import</span> <a href="../../gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral" title="skada.deep.DeepCoral" class="sphx-glr-backref-module-skada-deep sphx-glr-backref-type-py-function"><span class="n">DeepCoral</span></a>
-<span class="kn">from</span> <span class="nn">skada.deep.modules</span> <span class="kn">import</span> <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module" class="sphx-glr-backref-module-torch-nn sphx-glr-backref-type-py-class"><span class="n">MNISTtoUSPSNet</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_mnist_usps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral" title="skada.deep.DeepCoral" class="sphx-glr-backref-module-skada-deep sphx-glr-backref-type-py-function"><span class="n">DeepCoral</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.modules</span><span class="w"> </span><span class="kn">import</span> <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module" class="sphx-glr-backref-module-torch-nn sphx-glr-backref-type-py-class"><span class="n">MNISTtoUSPSNet</span></a>
 </pre></div>
 </div>
 <section id="load-the-image-datasets">
@@ -141,63 +141,29 @@ adaptation. In ECCV Workshops, 2016.</p>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack_test</span><span class="p">(</span><span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;usps&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
-Failed to download (trying next):
-HTTP Error 403: Forbidden
-
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw/train-images-idx3-ubyte.gz
-
-  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
-100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 130MB/s]
-Extracting ./datasets/MNIST/raw/train-images-idx3-ubyte.gz to ./datasets/MNIST/raw
-
-Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
-Failed to download (trying next):
-HTTP Error 403: Forbidden
-
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 133MB/s]
 
   0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
-100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 28.8MB/s]
-Extracting ./datasets/MNIST/raw/train-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
-
-Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
-Failed to download (trying next):
-HTTP Error 403: Forbidden
-
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 30.3MB/s]
 
   0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
-100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 236MB/s]
-Extracting ./datasets/MNIST/raw/t10k-images-idx3-ubyte.gz to ./datasets/MNIST/raw
-
-Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
-Failed to download (trying next):
-HTTP Error 403: Forbidden
-
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz
-Downloading https://ossci-datasets.s3.amazonaws.com/mnist/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 301MB/s]
 
   0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
-100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 14.7MB/s]
-Extracting ./datasets/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./datasets/MNIST/raw
-
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 12.0MB/s]
 /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   mnist_target = torch.tensor(mnist_dataset.targets)
-Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/usps.t.bz2 to ./datasets/usps.t.bz2
 
   0%|          | 0.00/1.83M [00:00&lt;?, ?B/s]
-  2%|▏         | 32.8k/1.83M [00:00&lt;00:11, 154kB/s]
-  4%|▎         | 65.5k/1.83M [00:00&lt;00:11, 154kB/s]
-  7%|▋         | 131k/1.83M [00:00&lt;00:07, 224kB/s]
- 13%|█▎        | 229k/1.83M [00:00&lt;00:05, 318kB/s]
- 25%|██▌       | 459k/1.83M [00:01&lt;00:02, 590kB/s]
- 45%|████▍     | 819k/1.83M [00:01&lt;00:01, 954kB/s]
- 91%|█████████ | 1.67M/1.83M [00:01&lt;00:00, 1.96MB/s]
-100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.23MB/s]
+  2%|▏         | 32.8k/1.83M [00:00&lt;00:13, 138kB/s]
+  4%|▎         | 65.5k/1.83M [00:00&lt;00:12, 138kB/s]
+  5%|▌         | 98.3k/1.83M [00:00&lt;00:12, 138kB/s]
+ 13%|█▎        | 229k/1.83M [00:00&lt;00:05, 301kB/s]
+ 23%|██▎       | 426k/1.83M [00:01&lt;00:02, 491kB/s]
+ 48%|████▊     | 885k/1.83M [00:01&lt;00:00, 981kB/s]
+ 95%|█████████▍| 1.74M/1.83M [00:01&lt;00:00, 1.83MB/s]
+100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.10MB/s]
 </pre></div>
 </div>
 </section>
@@ -217,13 +183,13 @@ Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/u
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.4748  2.9508
-      2        0.3692  2.7973
-      3        0.1471  2.7036
-      4        0.0838  2.5985
-      5        0.0558  2.5005
+      1        1.8037  3.5987
+      2        0.4520  3.0978
+      3        0.1401  3.0738
+      4        0.0769  3.2252
+      5        0.0502  3.2993
 
-0.887459807073955
+0.8971061093247589
 </pre></div>
 </div>
 </section>
@@ -244,16 +210,16 @@ Downloading https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/multiclass/u
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.5530  6.7772
-      2        0.2746  6.5688
-      3        0.1101  6.4290
-      4        0.0836  6.8994
-      5        0.0712  6.8981
+      1        1.4479  7.7704
+      2        0.3277  6.8979
+      3        0.1417  8.0983
+      4        0.0919  7.7057
+      5        0.0760  7.5936
 
-0.8778135048231511
+0.9389067524115756
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 55.438 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 3.001 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>

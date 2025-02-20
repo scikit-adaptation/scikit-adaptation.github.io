@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.deep._optimal_transport &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -83,9 +83,9 @@
 <span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="kn">from</span> <span class="nn">skada.deep.base</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.base</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseDALoss</span><span class="p">,</span>
     <span class="n">DomainAwareCriterion</span><span class="p">,</span>
     <span class="n">DomainAwareModule</span><span class="p">,</span>
@@ -93,12 +93,12 @@
     <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">deepjdot_loss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.losses</span><span class="w"> </span><span class="kn">import</span> <span class="n">deepjdot_loss</span>
 
 
 <div class="viewcode-block" id="DeepJDOTLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepJDOTLoss.html#skada.deep.DeepJDOTLoss">[docs]</a>
-<span class="k">class</span> <span class="nc">DeepJDOTLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeepJDOTLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DeepJDOT.</span>
 
 <span class="sd">    This loss reduces the distance between source and target domain</span>
@@ -126,7 +126,7 @@
 <span class="sd">            September 2018. Springer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg_dist</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg_dist</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg_dist</span> <span class="o">=</span> <span class="n">reg_dist</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg_cl</span> <span class="o">=</span> <span class="n">reg_cl</span>
@@ -134,7 +134,7 @@
 
 <div class="viewcode-block" id="DeepJDOTLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepJDOTLoss.html#skada.deep.DeepJDOTLoss.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y_s</span><span class="p">,</span>
         <span class="n">y_pred_t</span><span class="p">,</span>
@@ -159,7 +159,7 @@
 
 <div class="viewcode-block" id="DeepJDOT">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepJDOT.html#skada.deep.DeepJDOT">[docs]</a>
-<span class="k">def</span> <span class="nf">DeepJDOT</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">DeepJDOT</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span>
     <span class="n">layer_name</span><span class="p">,</span>
     <span class="n">reg_dist</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>

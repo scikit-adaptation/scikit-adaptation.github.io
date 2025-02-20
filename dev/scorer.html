@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Metrics: Compute score for domain adaptation problems &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -90,9 +90,9 @@ To avoid overfitting, these methods split the initial data into training set and
 The training set is used to fit the estimator and the test set is used to compute the score.</p>
 <p>In domain adaptation (DA) problems, source data and target data have a shift in their distributions.</p>
 <p>Let's load a DA dataset:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <span class="n">make_shifted_datasets</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">EntropicOTmapping</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skada.metrics</span> <span class="kn">import</span> <span class="n">TargetAccuracyScorer</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_shifted_datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">EntropicOTmapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skada.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">TargetAccuracyScorer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">RANDOM_SEED</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">make_shifted_datasets</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
@@ -105,8 +105,8 @@ The training set is used to fit the estimator and the test set is used to comput
 </pre></div>
 </div>
 <p>Now let's define a DA estimator to evaluate on this data:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">DensityReweight</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">DensityReweight</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">estimator</span> <span class="o">=</span> <span class="n">DensityReweight</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="n">base_estimator</span><span class="p">)</span>
 </pre></div>
@@ -117,8 +117,8 @@ chance that the score does not reflect the score on target because the distribut
 <a class="reference internal image-reference" href="_images/source_only_scorer.png"><img alt="Source Only Scorer" class="align-center" src="_images/source_only_scorer.png" style="width: 400px; height: 240px;" />
 </a>
 <p>To evaluate the estimator on the source data, one can use:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">ShuffleSplit</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">estimator</span><span class="p">,</span>
@@ -135,7 +135,7 @@ chance that the score does not reflect the score on target because the distribut
 reusing the scikit-learn methods and scoring API.</p>
 <p>Different methods are available, to start we will use <a class="reference internal" href="gen_modules/skada.metrics.SupervisedScorer.html#skada.metrics.SupervisedScorer" title="skada.metrics.SupervisedScorer"><code class="xref py py-class docutils literal notranslate"><span class="pre">skada.metrics.SupervisedScorer</span></code></a>
 that computes the score on the target domain:</p>
-<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">skada.metrics</span> <span class="kn">import</span> <span class="n">SupervisedScorer</span>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">skada.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">SupervisedScorer</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cv</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">estimator</span><span class="p">,</span>

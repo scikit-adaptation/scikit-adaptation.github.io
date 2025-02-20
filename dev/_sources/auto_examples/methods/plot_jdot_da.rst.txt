@@ -515,9 +515,9 @@ domain than with the SVC trained on source.
 
  .. code-block:: none
 
-    iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.22983129554592746
-    iter=1, loss_ot=0.18530735809550572, loss_tgt_labels=0.21420445266620786
-    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620786
+    iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.2298312955459269
+    iter=1, loss_ot=0.18530735809550555, loss_tgt_labels=0.2142044526662074
+    iter=2, loss_ot=0.182799418703954, loss_tgt_labels=0.2142044526662074
     JDOT Accuracy on source: 0.84
     JDOT Accuracy on target: 0.97
 
@@ -605,7 +605,7 @@ Note that in this case it is necessary to change the metric from the default
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.513 seconds)
+   **Total running time of the script:** (0 minutes 1.790 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_jdot_da.py:

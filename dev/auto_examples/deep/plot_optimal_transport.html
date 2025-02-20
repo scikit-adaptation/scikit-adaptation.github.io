@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Optimal transport domain adaptation methods. &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -118,12 +118,12 @@ on a simple image classification task.</p>
 <span class="c1"># sphinx_gallery_thumbnail_number = 4</span>
 </pre></div>
 </div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skorch</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">NeuralNetClassifier</span></a>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skorch</span><span class="w"> </span><span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin" title="sklearn.base.ClassifierMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">NeuralNetClassifier</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
 
-<span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <span class="n">load_mnist_usps</span>
-<span class="kn">from</span> <span class="nn">skada.deep</span> <span class="kn">import</span> <a href="../../gen_modules/skada.deep.DeepJDOT.html#skada.deep.DeepJDOT" title="skada.deep.DeepJDOT" class="sphx-glr-backref-module-skada-deep sphx-glr-backref-type-py-function"><span class="n">DeepJDOT</span></a>
-<span class="kn">from</span> <span class="nn">skada.deep.modules</span> <span class="kn">import</span> <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module" class="sphx-glr-backref-module-torch-nn sphx-glr-backref-type-py-class"><span class="n">MNISTtoUSPSNet</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_mnist_usps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.deep.DeepJDOT.html#skada.deep.DeepJDOT" title="skada.deep.DeepJDOT" class="sphx-glr-backref-module-skada-deep sphx-glr-backref-type-py-function"><span class="n">DeepJDOT</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.modules</span><span class="w"> </span><span class="kn">import</span> <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="torch.nn.Module" class="sphx-glr-backref-module-torch-nn sphx-glr-backref-type-py-class"><span class="n">MNISTtoUSPSNet</span></a>
 </pre></div>
 </div>
 <section id="load-the-image-datasets">
@@ -154,13 +154,13 @@ on a simple image classification task.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.7183  2.7340
-      2        0.4217  2.7001
-      3        0.1442  2.8005
-      4        0.0817  2.6010
-      5        0.0527  2.7962
+      1        1.2563  3.2018
+      2        0.2603  3.0013
+      3        0.1032  3.0974
+      4        0.0680  3.0982
+      5        0.0409  3.3018
 
-0.8713826366559485
+0.9003215434083601
 </pre></div>
 </div>
 </section>
@@ -182,16 +182,16 @@ on a simple image classification task.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.9403  7.9620
-      2        1.0623  7.0992
-      3        0.7029  7.1990
-      4        0.5534  7.1995
-      5        0.4751  7.3993
+      1        1.9594  8.2813
+      2        1.0787  8.5006
+      3        0.6825  8.3989
+      4        0.5592  8.2969
+      5        0.4760  8.9020
 
-0.9260450160771704
+0.909967845659164
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 53.980 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 1.894 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-optimal-transport-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b06e4ac81b0d73bc919c616b067bbd29/plot_optimal_transport.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_optimal_transport.ipynb</span></code></a></p>

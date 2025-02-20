@@ -113,6 +113,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     Subspace Alignment Pipeline(steps=[('subspacealignmentadapter',
                      Shared(base_estimator=SubspaceAlignmentAdapter(n_components=1),
                             n_components=1, random_state=None)),
@@ -200,6 +202,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
@@ -293,6 +297,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     Subspace Alignment Pipeline(steps=[('subspacealignmentadapter',
                      Shared(base_estimator=SubspaceAlignmentAdapter(n_components=1),
                             n_components=1, random_state=None)),
@@ -380,6 +386,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
@@ -471,6 +479,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     Subspace Alignment Pipeline(steps=[('subspacealignmentadapter',
                      Shared(base_estimator=SubspaceAlignmentAdapter(n_components=1),
                             n_components=1, random_state=None)),
@@ -558,6 +568,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
@@ -649,6 +661,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     Subspace Alignment Pipeline(steps=[('subspacealignmentadapter',
                      Shared(base_estimator=SubspaceAlignmentAdapter(n_components=1),
                             n_components=1, random_state=None)),
@@ -736,6 +750,8 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:151: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
@@ -989,7 +1005,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 11.409 seconds)
+   **Total running time of the script:** (0 minutes 13.415 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:

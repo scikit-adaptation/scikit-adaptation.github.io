@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.datasets.make_shifted_datasets &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -177,7 +177,7 @@ for the domain where sample is taken.</p>
 <dd class="field-even"><dl>
 <dt><strong>(X, y, sample_domain)</strong><span class="classifier">tuple if <cite>return_X_y=True</cite></span></dt><dd><p>Tuple of (data, target, sample_domain), see the description below.</p>
 </dd>
-<dt><strong>data</strong><span class="classifier"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
+<dt><strong>data</strong><span class="classifier"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
 <dl class="simple">
 <dt>X: ndarray</dt><dd><p>Samples from all sources and all targets given.</p>
 </dd>
@@ -210,45 +210,45 @@ Pattern recognition, 45(1):521-530.</p>
 
 <section id="examples-using-skada-datasets-make-shifted-datasets">
 <span id="sphx-glr-backreferences-skada-datasets-make-shifted-datasets"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.datasets.make_shifted_datasets</span></code><a class="headerlink" href="#examples-using-skada-datasets-make-shifted-datasets" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dataset. It illustrates the API choice specific to DA."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html#sphx-glr-auto-examples-plot-how-to-use-skada-py"><span class="std std-ref">How to use SKADA</span></a></p>
-  <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different methods. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/datasets/plot_shifted_dataset.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/datasets/plot_shifted_dataset_regression.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-regression-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter"><img alt="" src="../_images/sphx_glr_plot_monge_alignment_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/methods/plot_monge_alignment_da.html#sphx-glr-auto-examples-methods-plot-monge-alignment-da-py"><span class="std std-ref">Multi-domain Linear Monge Alignment</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Multi-domain Linear Monge Alignment</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple concept drift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor and Classifier examples</span></a></p>
   <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="An example of the subspace methods on a dataset subject to subspace shift"><img alt="" src="../_images/sphx_glr_plot_subspace_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/methods/plot_subspace.html#sphx-glr-auto-examples-methods-plot-subspace-py"><span class="std std-ref">Subspace method example on subspace shift dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Subspace method example on subspace shift dataset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="An example of the reweighting methods on a dataset subject to covariate shift"><img alt="" src="../_images/sphx_glr_plot_reweighting_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/methods/plot_reweighting.html#sphx-glr-auto-examples-methods-plot-reweighting-py"><span class="std std-ref">Reweighting method example on covariate shift dataset</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Reweighting method example on covariate shift dataset</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation. This is done by propagating labels from the source domain to the target domain using the OT plan. This was proposed originally in [28]_ for semi-supervised learning but can be used for DA."><img alt="" src="../_images/sphx_glr_plot_label_prop_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_label_prop_da.html#sphx-glr-auto-examples-methods-plot-label-prop-da-py"><span class="std std-ref">Label Propagation methods</span></a></p>
   <div class="sphx-glr-thumbnail-title">Label Propagation methods</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter"><img alt="" src="../_images/sphx_glr_plot_monge_alignment_da_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/methods/plot_monge_alignment_da.html#sphx-glr-auto-examples-methods-plot-monge-alignment-da-py"><span class="std std-ref">Multi-domain Linear Monge Alignment</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multi-domain Linear Monge Alignment</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the OTDA method from [1] on a simple classification task."><img alt="" src="../_images/sphx_glr_plot_optimal_transport_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_optimal_transport_da.html#sphx-glr-auto-examples-methods-plot-optimal-transport-da-py"><span class="std std-ref">Optimal Transport Domain Adaptation (OTDA)</span></a></p>
   <div class="sphx-glr-thumbnail-title">Optimal Transport Domain Adaptation (OTDA)</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/validation/plot_gridsearch_for_da.html#sphx-glr-auto-examples-validation-plot-gridsearch-for-da-py"><span class="std std-ref">Using GridSearchCV with skada</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="An example of the reweighting methods on a dataset subject to covariate shift"><img alt="" src="../_images/sphx_glr_plot_reweighting_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/methods/plot_reweighting.html#sphx-glr-auto-examples-methods-plot-reweighting-py"><span class="std std-ref">Reweighting method example on covariate shift dataset</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Reweighting method example on covariate shift dataset</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="An example of the subspace methods on a dataset subject to subspace shift"><img alt="" src="../_images/sphx_glr_plot_subspace_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/methods/plot_subspace.html#sphx-glr-auto-examples-methods-plot-subspace-py"><span class="std std-ref">Subspace method example on subspace shift dataset</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Subspace method example on subspace shift dataset</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is a short example to get started with SKADA and perform domain adaptation on a simple dataset. It illustrates the API choice specific to DA."><img alt="" src="../_images/sphx_glr_plot_how_to_use_skada_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html#sphx-glr-auto-examples-plot-how-to-use-skada-py"><span class="std std-ref">How to use SKADA</span></a></p>
+  <div class="sphx-glr-thumbnail-title">How to use SKADA</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different methods. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as TargetAccuracyScorer with cross_val_score."><img alt="" src="../_images/sphx_glr_plot_cross_val_score_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_cross_val_score_for_da.html#sphx-glr-auto-examples-validation-plot-cross-val-score-for-da-py"><span class="std std-ref">Using cross_val_score with skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Using cross_val_score with skada</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA cross-validation object such as DomainShuffleSplit."><img alt="" src="../_images/sphx_glr_plot_cross_validation_for_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/validation/plot_cross_validation_for_da.html#sphx-glr-auto-examples-validation-plot-cross-validation-for-da-py"><span class="std std-ref">Visualizing cross-validation behavior in skada</span></a></p>
   <div class="sphx-glr-thumbnail-title">Visualizing cross-validation behavior in skada</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of DA scorer such as ImportanceWeightedScorer with GridSearchCV."><img alt="" src="../_images/sphx_glr_plot_gridsearch_for_da_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/validation/plot_gridsearch_for_da.html#sphx-glr-auto-examples-validation-plot-gridsearch-for-da-py"><span class="std std-ref">Using GridSearchCV with skada</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Using GridSearchCV with skada</div>
 </div></div></section>
 </section>
 

@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plot dataset source domain and shifted target domain &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
@@ -108,11 +108,11 @@ to download the full example code.</p>
 <p>This illustrates the <a class="reference internal" href="../../gen_modules/skada.datasets.make_dataset_from_moons_distribution.html#skada.datasets.make_dataset_from_moons_distribution" title="skada.datasets.make_dataset_from_moons_distribution"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_dataset_from_moons_distribution()</span></code></a>
 dataset generator. Each method consists of generating source data
 and shifted target data.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a>
-<span class="kn">from</span> <span class="nn">skada.datasets</span> <span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_dataset_from_moons_distribution.html#skada.datasets.make_dataset_from_moons_distribution" title="skada.datasets.make_dataset_from_moons_distribution" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_dataset_from_moons_distribution</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_dataset_from_moons_distribution.html#skada.datasets.make_dataset_from_moons_distribution" title="skada.datasets.make_dataset_from_moons_distribution" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_dataset_from_moons_distribution</span></a>
 
 <span class="c1"># Use same random seed for multiple calls to make_shifted_datasets to</span>
 <span class="c1"># ensure same distributions</span>
@@ -232,10 +232,10 @@ and shifted target data.</p>
 </div>
 <img src="../../_images/sphx_glr_plot_dataset_from_moons_distribution_002.png" srcset="../../_images/sphx_glr_plot_dataset_from_moons_distribution_002.png" alt="Multi-source and Multi-target, Source data, Target data" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/circleci/project/examples/datasets/plot_dataset_from_moons_distribution.py:105: UserWarning: No data for colormapping provided via &#39;c&#39;. Parameters &#39;cmap&#39;, &#39;vmax&#39; will be ignored
   ax2.scatter(
-The data was generated from (random_state=116)
+The data was generated from (random_state=146)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.248 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.269 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-datasets-plot-dataset-from-moons-distribution-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9eca45be81ecdeef76c0e9e145232ccd/plot_dataset_from_moons_distribution.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dataset_from_moons_distribution.ipynb</span></code></a></p>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.deep._divergence &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
@@ -86,9 +86,9 @@
 <span class="c1">#         Antoine Collas &lt;contact@antoinecollas.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD 3-Clause</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="kn">from</span> <span class="nn">skada.deep.base</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.base</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BaseDALoss</span><span class="p">,</span>
     <span class="n">DomainAwareCriterion</span><span class="p">,</span>
     <span class="n">DomainAwareModule</span><span class="p">,</span>
@@ -96,13 +96,13 @@
     <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.callbacks</span> <span class="kn">import</span> <span class="n">ComputeSourceCentroids</span>
-<span class="kn">from</span> <span class="nn">.losses</span> <span class="kn">import</span> <span class="n">cdd_loss</span><span class="p">,</span> <span class="n">dan_loss</span><span class="p">,</span> <span class="n">deepcoral_loss</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">ComputeSourceCentroids</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.losses</span><span class="w"> </span><span class="kn">import</span> <span class="n">cdd_loss</span><span class="p">,</span> <span class="n">dan_loss</span><span class="p">,</span> <span class="n">deepcoral_loss</span>
 
 
 <div class="viewcode-block" id="DeepCoralLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss">[docs]</a>
-<span class="k">class</span> <span class="nc">DeepCoralLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DeepCoralLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DeepCORAL</span>
 
 <span class="sd">    This loss reduces the distance between covariances</span>
@@ -121,7 +121,7 @@
 <span class="sd">            adaptation. In ECCV Workshops, 2016.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
@@ -130,7 +130,7 @@
 
 <div class="viewcode-block" id="DeepCoralLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">features_s</span><span class="p">,</span>
         <span class="n">features_t</span><span class="p">,</span>
@@ -145,7 +145,7 @@
 
 <div class="viewcode-block" id="DeepCoral">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoral.html#skada.deep.DeepCoral">[docs]</a>
-<span class="k">def</span> <span class="nf">DeepCoral</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">DeepCoral</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DeepCORAL domain adaptation method.</span>
@@ -193,7 +193,7 @@
 
 <div class="viewcode-block" id="DANLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss">[docs]</a>
-<span class="k">class</span> <span class="nc">DANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DAN</span>
 
 <span class="sd">    This loss reduces the MMD distance between</span>
@@ -214,14 +214,14 @@
 <span class="sd">            In ICML, 2015.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span>
 
 <div class="viewcode-block" id="DANLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">features_s</span><span class="p">,</span>
         <span class="n">features_t</span><span class="p">,</span>
@@ -234,7 +234,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">DAN</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">DAN</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DAN domain adaptation method.</span>
 
 <span class="sd">    See [14]_.</span>
@@ -279,7 +279,7 @@
 
 <div class="viewcode-block" id="CANLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss">[docs]</a>
-<span class="k">class</span> <span class="nc">CANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss for Contrastive Adaptation Network (CAN)</span>
 
 <span class="sd">    This loss implements the contrastive domain discrepancy (CDD)</span>
@@ -308,7 +308,7 @@
 <span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
         <span class="n">class_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
@@ -325,7 +325,7 @@
 
 <div class="viewcode-block" id="CANLoss.forward">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y_s</span><span class="p">,</span>
         <span class="n">features_s</span><span class="p">,</span>
@@ -350,7 +350,7 @@
 
 <div class="viewcode-block" id="CAN">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CAN.html#skada.deep.CAN">[docs]</a>
-<span class="k">def</span> <span class="nf">CAN</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">CAN</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span>
     <span class="n">layer_name</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
