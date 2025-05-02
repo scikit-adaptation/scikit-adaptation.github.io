@@ -119,7 +119,7 @@ target clusters. At the end 8*n_samples points.</p>
 <dt><strong>shift</strong><span class="classifier">tuple, default='covariate_shift'</span></dt><dd><p>Choose the nature of the shift.
 If 'covariate_shift', use covariate shift.
 If 'target_shift', use target shift.
-If 'concept_drift', use concept drift.
+If 'conditional_shift', use conditional shift.
 If 'subspace', a subspace where the classes are separable
 independently of the domains exists.
 See detailed description of each shift in <a class="reference internal" href="#rd0cf8c9d5046-1" id="id1">[1]</a>.</p>
@@ -135,9 +135,9 @@ If 'regression', generates regression's y-values.</p>
 <dt><strong>ratio</strong><span class="classifier">float, default=0.9</span></dt><dd><p>Ratio of the number of data in class 1 selected
 in the target shift and the sample_selection bias</p>
 </dd>
-<dt><strong>mean</strong><span class="classifier">float, default=1</span></dt><dd><p>value of the translation in the concept drift.</p>
+<dt><strong>mean</strong><span class="classifier">float, default=1</span></dt><dd><p>value of the translation in the conditional shift.</p>
 </dd>
-<dt><strong>sigma</strong><span class="classifier">float, default=0.7</span></dt><dd><p>multiplicative value of the concept drift.</p>
+<dt><strong>sigma</strong><span class="classifier">float, default=0.7</span></dt><dd><p>multiplicative value of the conditional shift.</p>
 </dd>
 <dt><strong>mu_regression</strong><span class="classifier">np.array|float, default=None</span></dt><dd><p>Will only be used if label=='regression'
 should be 2x1 matrix when shift != 'subspace'
@@ -210,13 +210,13 @@ Pattern recognition, 45(1):521-530.</p>
 
 <section id="examples-using-skada-datasets-make-shifted-datasets">
 <span id="sphx-glr-backreferences-skada-datasets-make-shifted-datasets"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.datasets.make_shifted_datasets</span></code><a class="headerlink" href="#examples-using-skada-datasets-make-shifted-datasets" title="Link to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, conditional shift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/datasets/plot_shifted_dataset.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, conditional shift, and sample bias. See detailed description of each shift in [1]_."><img alt="" src="../_images/sphx_glr_plot_shifted_dataset_regression_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/datasets/plot_shifted_dataset_regression.html#sphx-glr-auto-examples-datasets-plot-shifted-dataset-regression-py"><span class="std std-ref">Plot dataset source domain and shifted target domain</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plot dataset source domain and shifted target domain</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple concept drift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple conditional shift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator."><img alt="" src="../_images/sphx_glr_plot_jdot_da_thumb.png" />
 <p><a class="reference internal" href="../auto_examples/methods/plot_jdot_da.html#sphx-glr-auto-examples-methods-plot-jdot-da-py"><span class="std std-ref">JDOT Regressor and Classifier examples</span></a></p>
   <div class="sphx-glr-thumbnail-title">JDOT Regressor and Classifier examples</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use how to use label propagation methods to perform domain adaptation. This is done by propagating labels from the source domain to the target domain using the OT plan. This was proposed originally in [28]_ for semi-supervised learning but can be used for DA."><img alt="" src="../_images/sphx_glr_plot_label_prop_da_thumb.png" />

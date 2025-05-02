@@ -80,7 +80,7 @@ Load the image datasets
 
  .. code-block:: none
 
-    /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
       mnist_target = torch.tensor(mnist_dataset.targets)
 
 
@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.4850  2.5033
-          2        0.2735  2.6029
-          3        0.0966  3.5964
-          4        0.0510  2.6985
-          5        0.0392  2.6949
+          1        1.2371  4.3050
+          2        0.1615  4.5001
+          3        0.0684  4.5946
+          4        0.0373  4.5028
+          5        0.0321  4.2049
 
-    0.8778135048231511
+    0.9035369774919614
 
 
 
@@ -155,22 +155,22 @@ Train a DeepJDOT model
 
  .. code-block:: none
 
-      epoch    train_loss     dur
-    -------  ------------  ------
-          1        2.0085  6.9701
-          2        1.0176  6.6018
-          3        0.6904  8.9007
-          4        0.5663  7.2969
-          5        0.4764  8.3985
+      epoch    train_loss      dur
+    -------  ------------  -------
+          1        1.7894  10.0857
+          2        0.9393  10.7036
+          3        0.6868  10.7940
+          4        0.5553  10.9001
+          5        0.5124  11.2010
 
-    0.9292604501607717
+    0.932475884244373
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 56.363 seconds)
+   **Total running time of the script:** (1 minutes 19.709 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:

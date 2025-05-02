@@ -143,7 +143,7 @@ adaptation problem with 2 source domains and 2 target domains.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
     <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a><span class="p">,</span>
@@ -153,7 +153,7 @@ adaptation problem with 2 source domains and 2 target domains.</p>
 <span class="n">dataset2</span> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
     <span class="n">noise</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">RANDOM_SEED</span></a> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
@@ -467,7 +467,7 @@ from the others sample_domain for the source domain (Can be used only with
 </ul>
 </dd>
 </dl>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.534 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.542 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-validation-plot-cross-validation-for-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/df2e820e1c8040b63460ca86568836ed/plot_cross_validation_for_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cross_validation_for_da.ipynb</span></code></a></p>

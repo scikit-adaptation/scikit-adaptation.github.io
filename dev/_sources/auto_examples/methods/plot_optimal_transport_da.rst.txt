@@ -71,7 +71,7 @@ This example illustrates the OTDA method from [1] on a simple classification tas
 
 .. GENERATED FROM PYTHON SOURCE LINES 34-36
 
-Generate concept drift dataset
+Generate conditional shift dataset
 ------------------------------
 
 .. GENERATED FROM PYTHON SOURCE LINES 36-66
@@ -82,7 +82,7 @@ Generate concept drift dataset
     X, y, sample_domain = make_shifted_datasets(
         n_samples_source=n_samples,
         n_samples_target=n_samples + 1,
-        shift="concept_drift",
+        shift="conditional_shift",
         noise=0.1,
         random_state=42,
     )
@@ -547,7 +547,7 @@ illustrate the different methods available in SKADA.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.792 seconds)
+   **Total running time of the script:** (0 minutes 1.606 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_optimal_transport_da.py:

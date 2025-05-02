@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.881** total execution time for 4 files **from auto_examples/datasets**:
+**00:01.907** total execution time for 4 files **from auto_examples/datasets**:
 
 .. container::
 
@@ -33,14 +33,14 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py` (``plot_shifted_dataset_regression.py``)
-     - 00:00.599
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py` (``plot_variable_frequency_dataset.py``)
-     - 00:00.518
+     - 00:00.582
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py` (``plot_shifted_dataset.py``)
-     - 00:00.509
+     - 00:00.554
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py` (``plot_variable_frequency_dataset.py``)
+     - 00:00.511
      - 0.0
    * - :ref:`sphx_glr_auto_examples_datasets_plot_dataset_from_moons_distribution.py` (``plot_dataset_from_moons_distribution.py``)
-     - 00:00.255
+     - 00:00.260
      - 0.0

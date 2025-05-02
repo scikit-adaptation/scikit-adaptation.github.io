@@ -142,28 +142,28 @@ adaptation. In ECCV Workshops, 2016.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
-100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 145MB/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 138MB/s]
 
   0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
-100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 59.4MB/s]
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 83.8MB/s]
 
   0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
-100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 178MB/s]
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 138MB/s]
 
   0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
-100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 12.1MB/s]
-/home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 15.4MB/s]
+/home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
   mnist_target = torch.tensor(mnist_dataset.targets)
 
   0%|          | 0.00/1.83M [00:00&lt;?, ?B/s]
-  2%|▏         | 32.8k/1.83M [00:00&lt;00:13, 138kB/s]
-  4%|▎         | 65.5k/1.83M [00:00&lt;00:12, 138kB/s]
-  7%|▋         | 131k/1.83M [00:00&lt;00:08, 201kB/s]
- 13%|█▎        | 229k/1.83M [00:00&lt;00:05, 285kB/s]
- 25%|██▌       | 459k/1.83M [00:01&lt;00:02, 530kB/s]
- 50%|█████     | 918k/1.83M [00:01&lt;00:00, 1.01MB/s]
- 98%|█████████▊| 1.80M/1.83M [00:01&lt;00:00, 1.90MB/s]
-100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.10MB/s]
+  2%|▏         | 32.8k/1.83M [00:00&lt;00:11, 160kB/s]
+  4%|▎         | 65.5k/1.83M [00:00&lt;00:11, 161kB/s]
+  5%|▌         | 98.3k/1.83M [00:00&lt;00:10, 161kB/s]
+ 13%|█▎        | 229k/1.83M [00:00&lt;00:04, 350kB/s]
+ 25%|██▌       | 459k/1.83M [00:01&lt;00:02, 629kB/s]
+ 48%|████▊     | 885k/1.83M [00:01&lt;00:00, 1.12MB/s]
+ 97%|█████████▋| 1.77M/1.83M [00:01&lt;00:00, 2.17MB/s]
+100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.28MB/s]
 </pre></div>
 </div>
 </section>
@@ -183,11 +183,11 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.6348  3.6962
-      2        0.3176  3.4033
-      3        0.1082  3.2970
-      4        0.0643  3.3030
-      5        0.0456  3.4945
+      1        1.3754  4.6986
+      2        0.2157  4.8998
+      3        0.0850  4.9961
+      4        0.0488  4.6022
+      5        0.0339  4.3946
 
 0.8842443729903537
 </pre></div>
@@ -210,16 +210,16 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.4456  7.0768
-      2        0.2629  6.5027
-      3        0.1114  6.7957
-      4        0.0737  6.6992
-      5        0.0648  7.1999
+      1        1.6878  9.0908
+      2        0.5023  8.5998
+      3        0.1864  9.4966
+      4        0.1014  9.9046
+      5        0.0771  9.5024
 
-0.9517684887459807
+0.8938906752411575
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 0.276 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 18.620 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>

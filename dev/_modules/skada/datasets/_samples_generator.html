@@ -492,7 +492,7 @@
 <span class="sd">        Choose the nature of the shift.</span>
 <span class="sd">        If &#39;covariate_shift&#39;, use covariate shift.</span>
 <span class="sd">        If &#39;target_shift&#39;, use target shift.</span>
-<span class="sd">        If &#39;concept_drift&#39;, use concept drift.</span>
+<span class="sd">        If &#39;conditional_shift&#39;, use conditional shift.</span>
 <span class="sd">        If &#39;subspace&#39;, a subspace where the classes are separable</span>
 <span class="sd">        independently of the domains exists.</span>
 <span class="sd">        See detailed description of each shift in [1]_.</span>
@@ -508,9 +508,9 @@
 <span class="sd">        Ratio of the number of data in class 1 selected</span>
 <span class="sd">        in the target shift and the sample_selection bias</span>
 <span class="sd">    mean : float, default=1</span>
-<span class="sd">        value of the translation in the concept drift.</span>
+<span class="sd">        value of the translation in the conditional shift.</span>
 <span class="sd">    sigma : float, default=0.7</span>
-<span class="sd">        multiplicative value of the concept drift.</span>
+<span class="sd">        multiplicative value of the conditional shift.</span>
 <span class="sd">    mu_regression : np.array|float, default=None</span>
 <span class="sd">        Will only be used if label==&#39;regression&#39;</span>
 <span class="sd">        should be 2x1 matrix when shift != &#39;subspace&#39;</span>
@@ -628,7 +628,7 @@
         <span class="n">X_target</span> <span class="o">=</span> <span class="n">X_target</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span>
         <span class="n">y_target</span> <span class="o">=</span> <span class="n">y_target</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span>
 
-    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">&quot;concept_drift&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">&quot;conditional_shift&quot;</span><span class="p">:</span>
         <span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">_generate_data_2d_classif</span><span class="p">(</span>
             <span class="n">n_samples_target</span><span class="p">,</span>
             <span class="n">rng</span><span class="p">,</span>
@@ -661,7 +661,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Invalid shift value: </span><span class="si">{</span><span class="n">shift</span><span class="si">}</span><span class="s2">. The shift should either be &quot;</span>
-            <span class="s2">&quot;&#39;covariate_shift&#39;, &#39;target_shift&#39;, &#39;concept_drift&#39; &quot;</span>
+            <span class="s2">&quot;&#39;covariate_shift&#39;, &#39;target_shift&#39;, &#39;conditional_shift&#39; &quot;</span>
             <span class="s2">&quot;or &#39;subspace&#39;&quot;</span>
         <span class="p">)</span>
 

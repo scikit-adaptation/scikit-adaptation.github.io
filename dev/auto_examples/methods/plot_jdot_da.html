@@ -63,11 +63,11 @@
 <li class="toctree-l3"><a class="reference internal" href="plot_monge_alignment_da.html">Multi-domain Linear Monge Alignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plot_dasvm.html">DASVM classifier example</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">JDOT Regressor and Classifier examples</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#generate-concept-drift-regression-dataset-and-plot-it">Generate concept drift regression dataset and plot it</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-conditional-shift-regression-dataset-and-plot-it">Generate conditional shift regression dataset and plot it</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-a-regressor-on-source-data">Train a regressor on source data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-with-jdot-regressor">Train with JDOT regressor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#illustration-of-the-ot-plan">Illustration of the OT plan</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#generate-concept-drift-classification-dataset-and-plot-it">Generate concept drift classification dataset and plot it</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-conditional-shift-classification-dataset-and-plot-it">Generate conditional shift classification dataset and plot it</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-a-classifier-on-source-data">Train a classifier on source data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-with-jdot-classifier">Train with JDOT classifier</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-with-jdot-classifier-with-svc">Train with JDOT classifier with SVC</a></li>
@@ -119,7 +119,7 @@ to download the full example code.</p>
 <section class="sphx-glr-example-title" id="jdot-regressor-and-classifier-examples">
 <span id="sphx-glr-auto-examples-methods-plot-jdot-da-py"></span><h1>JDOT Regressor and Classifier examples<a class="headerlink" href="#jdot-regressor-and-classifier-examples" title="Link to this heading"></a></h1>
 <p>This example shows how to use the JDOTRegressor [10] to learn a regression model
-from source to target domain on a simple concept drift 2D example. We use a
+from source to target domain on a simple conditional shift 2D example. We use a
 simple Kernel Ridge Regression (KRR) as base estimator.</p>
 <p>We compare the performance of the KRR on the source and target domain, and the
 JDOTRegressor on the same task and illustrate the learned decision boundary and
@@ -149,13 +149,13 @@ neural information processing systems, 30.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 </pre></div>
 </div>
-<section id="generate-concept-drift-regression-dataset-and-plot-it">
-<h2>Generate concept drift regression dataset and plot it<a class="headerlink" href="#generate-concept-drift-regression-dataset-and-plot-it" title="Link to this heading"></a></h2>
-<p>We generate a simple 2D concept drift dataset.</p>
+<section id="generate-conditional-shift-regression-dataset-and-plot-it">
+<h2>Generate conditional shift regression dataset and plot it<a class="headerlink" href="#generate-conditional-shift-regression-dataset-and-plot-it" title="Link to this heading"></a></h2>
+<p>We generate a simple 2D conditional shift dataset.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
     <span class="n">noise</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;regression&quot;</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
@@ -296,13 +296,13 @@ is able to align the source and target samples while preserving the label.</p>
 </pre></div>
 </div>
 </section>
-<section id="generate-concept-drift-classification-dataset-and-plot-it">
-<h2>Generate concept drift classification dataset and plot it<a class="headerlink" href="#generate-concept-drift-classification-dataset-and-plot-it" title="Link to this heading"></a></h2>
-<p>We generate a simple 2D concept drift dataset.</p>
+<section id="generate-conditional-shift-classification-dataset-and-plot-it">
+<h2>Generate conditional shift classification dataset and plot it<a class="headerlink" href="#generate-conditional-shift-classification-dataset-and-plot-it" title="Link to this heading"></a></h2>
+<p>We generate a simple 2D conditional shift dataset.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
     <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;multiclass&quot;</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
@@ -501,7 +501,7 @@ JDOT Accuracy on target: 0.97
 (np.float64(-2.3676169789533272), np.float64(4.53817259426296), np.float64(-1.7964573229829714), np.float64(4.336863129384494))
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.677 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.752 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-jdot-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/beb20d2dbf098361d98a5d6a4c68e0e1/plot_jdot_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_jdot_da.ipynb</span></code></a></p>

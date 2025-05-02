@@ -108,7 +108,7 @@ to download the full example code.</p>
 <p>This illustrates the <code class="xref py py-func docutils literal notranslate"><span class="pre">make_shifted_dataset()</span></code>
 dataset generator. Each method consists of generating source data
 and shifted target data. We illustrate here:
-covariate shift, target shift, concept drift, and sample bias.
+covariate shift, target shift, conditional shift, and sample bias.
 See detailed description of each shift in <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="id2" role="doc-footnote">
@@ -129,7 +129,7 @@ Pattern recognition, 45(1):521-530.</p>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot source and shifted target data for a given type of shift.</span>
 
 <span class="sd">    The possible shifts are &#39;covariate_shift&#39;, &#39;target_shift&#39;,</span>
-<span class="sd">    &#39;concept_drift&#39;, or &#39;subspace&#39;.</span>
+<span class="sd">    &#39;conditional_shift&#39;, or &#39;subspace&#39;.</span>
 
 <span class="sd">    We use here the same random seed for multiple calls to</span>
 <span class="sd">    ensure same distributions.</span>
@@ -188,7 +188,7 @@ Pattern recognition, 45(1):521-530.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a> <span class="ow">in</span> <span class="p">[</span>
     <span class="s2">&quot;covariate_shift&quot;</span><span class="p">,</span>
     <span class="s2">&quot;target_shift&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
     <span class="s2">&quot;subspace&quot;</span><span class="p">,</span>
 <span class="p">]:</span>
     <span class="n">plot_shifted_dataset</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a><span class="p">)</span>
@@ -197,10 +197,10 @@ Pattern recognition, 45(1):521-530.</p>
 <ul class="sphx-glr-horizontal">
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_001.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_001.png" alt="Covariate Shift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_002.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_002.png" alt="Target Shift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
-<li><img src="../../_images/sphx_glr_plot_shifted_dataset_003.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_003.png" alt="Concept Drift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
+<li><img src="../../_images/sphx_glr_plot_shifted_dataset_003.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_003.png" alt="Conditional Shift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_004.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_004.png" alt="Subspace, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 </ul>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.509 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.554 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-datasets-plot-shifted-dataset-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0cd9d59df2ece5a22069fd215f17bf88/plot_shifted_dataset.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_shifted_dataset.ipynb</span></code></a></p>

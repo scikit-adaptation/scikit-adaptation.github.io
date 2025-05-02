@@ -64,10 +64,10 @@ This example illustrates the use of the MultiLinearMongeAlignmentAdapter
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-31
 
-Generate concept drift classification dataset and plot it
+Generate conditional shift classification dataset and plot it
 -----------------------------------------------------
 
-We generate a simple 2D concept drift dataset.
+We generate a simple 2D conditional shift dataset.
 
 .. GENERATED FROM PYTHON SOURCE LINES 31-56
 
@@ -77,7 +77,7 @@ We generate a simple 2D concept drift dataset.
     X, y, sample_domain = make_shifted_datasets(
         n_samples_source=20,
         n_samples_target=20,
-        shift="concept_drift",
+        shift="conditional_shift",
         noise=0.2,
         label="multiclass",
         random_state=42,
@@ -245,7 +245,7 @@ Train a classifier on adapted data
             n_samples_source=n_samples_source,
             n_samples_target=n_samples_target,
             noise=noise,
-            shift="concept_drift",
+            shift="conditional_shift",
             label="multiclass",
             random_state=random_state,
         )
@@ -254,7 +254,7 @@ Train a classifier on adapted data
                 n_samples_source=n_samples_source,
                 n_samples_target=n_samples_target,
                 noise=noise,
-                shift="concept_drift",
+                shift="conditional_shift",
                 label="multiclass",
                 random_state=random_state + ns,
                 mean=np.random.randn(2),
@@ -270,7 +270,7 @@ Train a classifier on adapted data
                 n_samples_source=n_samples_source,
                 n_samples_target=n_samples_target,
                 noise=noise,
-                shift="concept_drift",
+                shift="conditional_shift",
                 label="multiclass",
                 random_state=random_state + nt + 42,
                 mean=np.random.randn(2),
@@ -427,7 +427,7 @@ Train a classifier on adapted data
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.944 seconds)
+   **Total running time of the script:** (0 minutes 0.852 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_monge_alignment_da.py:

@@ -48,7 +48,7 @@ base estimator doing the classification and the DA estimator. We use
     dataset = make_shifted_datasets(
         n_samples_source=30,
         n_samples_target=20,
-        shift="concept_drift",
+        shift="conditional_shift",
         label="binary",
         noise=0.4,
         random_state=RANDOM_SEED,
@@ -189,7 +189,7 @@ to separate the source and target data and to compute the score.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.279 seconds)
+   **Total running time of the script:** (0 minutes 0.293 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_cross_val_score_for_da.py:

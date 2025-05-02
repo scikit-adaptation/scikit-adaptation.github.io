@@ -61,7 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#deep-learning-da-methods">Deep learning DA methods</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#da-methods">DA methods</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Multi-domain Linear Monge Alignment</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#generate-concept-drift-classification-dataset-and-plot-it">Generate concept drift classification dataset and plot it</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-conditional-shift-classification-dataset-and-plot-it">Generate conditional shift classification dataset and plot it</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-a-classifier-on-source-data">Train a classifier on source data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#train-a-classifier-on-adapted-data">Train a classifier on adapted data</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Train a classifier on adapted data</a></li>
@@ -133,13 +133,13 @@ to download the full example code.</p>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
 </pre></div>
 </div>
-<section id="generate-concept-drift-classification-dataset-and-plot-it">
-<h2>Generate concept drift classification dataset and plot it<a class="headerlink" href="#generate-concept-drift-classification-dataset-and-plot-it" title="Link to this heading"></a></h2>
-<p>We generate a simple 2D concept drift dataset.</p>
+<section id="generate-conditional-shift-classification-dataset-and-plot-it">
+<h2>Generate conditional shift classification dataset and plot it<a class="headerlink" href="#generate-conditional-shift-classification-dataset-and-plot-it" title="Link to this heading"></a></h2>
+<p>We generate a simple 2D conditional shift dataset.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
     <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;multiclass&quot;</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
@@ -247,7 +247,7 @@ the target domain due to the shift. We also plot the decision boundary</p>
         <span class="n">n_samples_source</span><span class="o">=</span><span class="n">n_samples_source</span><span class="p">,</span>
         <span class="n">n_samples_target</span><span class="o">=</span><span class="n">n_samples_target</span><span class="p">,</span>
         <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span>
-        <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+        <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;multiclass&quot;</span><span class="p">,</span>
         <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
     <span class="p">)</span>
@@ -256,7 +256,7 @@ the target domain due to the shift. We also plot the decision boundary</p>
             <span class="n">n_samples_source</span><span class="o">=</span><span class="n">n_samples_source</span><span class="p">,</span>
             <span class="n">n_samples_target</span><span class="o">=</span><span class="n">n_samples_target</span><span class="p">,</span>
             <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span>
-            <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+            <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;multiclass&quot;</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span> <span class="o">+</span> <span class="n">ns</span><span class="p">,</span>
             <span class="n">mean</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html#numpy.random.randn" title="numpy.random.randn" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span></a><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
@@ -272,7 +272,7 @@ the target domain due to the shift. We also plot the decision boundary</p>
             <span class="n">n_samples_source</span><span class="o">=</span><span class="n">n_samples_source</span><span class="p">,</span>
             <span class="n">n_samples_target</span><span class="o">=</span><span class="n">n_samples_target</span><span class="p">,</span>
             <span class="n">noise</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span>
-            <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;concept_drift&quot;</span><span class="p">,</span>
+            <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span>
             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;multiclass&quot;</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span> <span class="o">+</span> <span class="n">nt</span> <span class="o">+</span> <span class="mi">42</span><span class="p">,</span>
             <span class="n">mean</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.randn.html#numpy.random.randn" title="numpy.random.randn" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span></a><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
@@ -378,7 +378,7 @@ the target domain due to the shift. We also plot the decision boundary</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Average accuracy on all domains: 1.0
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.944 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.852 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-methods-plot-monge-alignment-da-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/51b086efd6ae88f29fe855fbd6d3e1e7/plot_monge_alignment_da.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_monge_alignment_da.ipynb</span></code></a></p>
