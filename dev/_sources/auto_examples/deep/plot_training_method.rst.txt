@@ -147,8 +147,8 @@ Training with skorch
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2496  9.7831
-          2        2.1582  9.4967
+          1        2.3018  9.7862
+          2        2.2227  9.2969
 
 
 .. raw:: html
@@ -640,8 +640,8 @@ Training with skorch with dataset
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2162  9.4611
-          2        2.0910  9.1947
+          1        2.2772  9.1875
+          2        2.2001  9.2016
 
 
 .. raw:: html
@@ -1142,8 +1142,8 @@ Training with torch
 
  .. code-block:: none
 
-    Loss: 1.0384917482733727
-    Loss: 0.23665057122707367
+    Loss: 0.9209927096962929
+    Loss: 0.2028075009584427
 
 
 
@@ -1151,7 +1151,7 @@ Training with torch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 57.792 seconds)
+   **Total running time of the script:** (0 minutes 57.412 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_training_method.py:
