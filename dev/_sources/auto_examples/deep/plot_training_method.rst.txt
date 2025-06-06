@@ -147,8 +147,8 @@ Training with skorch
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.3018  9.7862
-          2        2.2227  9.2969
+          1        2.3133  7.5798
+          2        2.2230  7.6002
 
 
 .. raw:: html
@@ -334,9 +334,7 @@ Training with skorch
     /* Toggleable content - dropdown */
 
     #sk-container-id-1 div.sk-toggleable__content {
-      max-height: 0;
-      max-width: 0;
-      overflow: hidden;
+      display: none;
       text-align: left;
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-0);
@@ -362,9 +360,9 @@ Training with skorch
 
     #sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
-      max-height: 200px;
-      max-width: 100%;
-      overflow: auto;
+      display: block;
+      width: 100%;
+      overflow: visible;
     }
 
     #sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -569,7 +567,71 @@ Training with skorch
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>&lt;class &#x27;skada.deep.base.DomainAwareNet&#x27;&gt;[initialized](
+
+    .estimator-table summary {
+        padding: .5rem;
+        font-family: monospace;
+        cursor: pointer;
+    }
+
+    .estimator-table details[open] {
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+        padding-bottom: 0.3rem;
+    }
+
+    .estimator-table .parameters-table {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .estimator-table .parameters-table tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    .estimator-table .parameters-table tr:nth-child(even) {
+        background-color: #f6f6f6;
+    }
+
+    .estimator-table .parameters-table tr:hover {
+        background-color: #e0e0e0;
+    }
+
+    .estimator-table table td {
+        border: 1px solid rgba(106, 105, 104, 0.232);
+    }
+
+    .user-set td {
+        color:rgb(255, 94, 0);
+        text-align: left;
+    }
+
+    .user-set td.value pre {
+        color:rgb(255, 94, 0) !important;
+        background-color: transparent !important;
+    }
+
+    .default td {
+        color: black;
+        text-align: left;
+    }
+
+    .user-set td i,
+    .default td i {
+        color: black;
+    }
+
+    .copy-paste-icon {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-position: 0;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+    }
+    </style><body><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>&lt;class &#x27;skada.deep.base.DomainAwareNet&#x27;&gt;[initialized](
       module_=DomainAwareModule(
         (base_module_): MNISTtoUSPSNet(
           (conv1): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
@@ -584,22 +646,530 @@ Training with skorch
           (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
         )
       ),
-    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>&lt;class &#x27;skada.deep.base.DomainAwareNet&#x27;&gt;[initialized](
-      module_=DomainAwareModule(
-        (base_module_): MNISTtoUSPSNet(
-          (conv1): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
-          (relu1): ReLU()
-          (conv2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
-          (relu2): ReLU()
-          (dropout1): Dropout(p=0.25, inplace=False)
-          (dropout2): Dropout(p=0.5, inplace=False)
-          (fc1): Linear(in_features=9216, out_features=128, bias=True)
-          (relu3): ReLU()
-          (fc2): Linear(in_features=128, out_features=10, bias=True)
-          (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-        )
-      ),
-    )</pre></div> </div></div></div></div>
+    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('module',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">module&nbsp;</td>
+                <td class="value">&lt;class &#x27;skada...nAwareModule&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('iterator_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">iterator_train&nbsp;</td>
+                <td class="value">&lt;class &#x27;skada...edDataLoader&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion&nbsp;</td>
+                <td class="value">&lt;class &#x27;skada...areCriterion&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('optimizer',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">optimizer&nbsp;</td>
+                <td class="value">&lt;class &#x27;torch.optim.sgd.SGD&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('lr',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">lr&nbsp;</td>
+                <td class="value">0.001</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('max_epochs',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">max_epochs&nbsp;</td>
+                <td class="value">2</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('batch_size',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">batch_size&nbsp;</td>
+                <td class="value">256</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('iterator_valid',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">iterator_valid&nbsp;</td>
+                <td class="value">&lt;class &#x27;torch...r.DataLoader&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('dataset',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">dataset&nbsp;</td>
+                <td class="value">&lt;class &#x27;skorc...aset.Dataset&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('train_split',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">train_split&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('predict_nonlinearity',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">predict_nonlinearity&nbsp;</td>
+                <td class="value">&#x27;auto&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('warm_start',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">warm_start&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('verbose',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">verbose&nbsp;</td>
+                <td class="value">1</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('device',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">device&nbsp;</td>
+                <td class="value">device(type=&#x27;cpu&#x27;)</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('compile',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">compile&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('use_caching',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">use_caching&nbsp;</td>
+                <td class="value">&#x27;auto&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('torch_load_kwargs',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">torch_load_kwargs&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('_params_to_validate',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">_params_to_validate&nbsp;</td>
+                <td class="value">{&#x27;criterion__adapt_criterion&#x27;, &#x27;criterion__base_criterion&#x27;, &#x27;criterion__reg&#x27;, &#x27;module__base_module&#x27;, &#x27;module__layer_name&#x27;}</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('module__base_module',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">module__base_module&nbsp;</td>
+                <td class="value">MNISTtoUSPSNe..._mode=False)
+    )</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('module__layer_name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">module__layer_name&nbsp;</td>
+                <td class="value">&#x27;fc1&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion__base_criterion',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion__base_criterion&nbsp;</td>
+                <td class="value">CrossEntropyLoss()</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion__reg',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion__reg&nbsp;</td>
+                <td class="value">1</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion__adapt_criterion',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion__adapt_criterion&nbsp;</td>
+                <td class="value">DeepCoralLoss()</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('classes',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">classes&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__epoch_timer',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__epoch_timer&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890f700&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890ed40&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss__name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss__name&nbsp;</td>
+                <td class="value">&#x27;train_loss&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss__lower_is_better',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss__lower_is_better&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss__on_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss__on_train&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890eb90&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss__name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss__name&nbsp;</td>
+                <td class="value">&#x27;valid_loss&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss__lower_is_better',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss__lower_is_better&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss__on_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss__on_train&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890f220&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__scoring',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__scoring&nbsp;</td>
+                <td class="value">&#x27;accuracy&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__lower_is_better',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__lower_is_better&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__on_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__on_train&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__name&nbsp;</td>
+                <td class="value">&#x27;valid_acc&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__target_extractor',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
+                <td class="value">&lt;function to_...x7f8b264af760&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__use_caching',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__use_caching&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890c5b0&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__keys_ignored',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__keys_ignored&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__sink',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__sink&nbsp;</td>
+                <td class="value">&lt;built-in function print&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__tablefmt',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__tablefmt&nbsp;</td>
+                <td class="value">&#x27;simple&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__floatfmt',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__floatfmt&nbsp;</td>
+                <td class="value">&#x27;.4f&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__stralign',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__stralign&nbsp;</td>
+                <td class="value">&#x27;right&#x27;</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div></div></div><script>function copyToClipboard(text, element) {
+        // Get the parameter prefix from the closest toggleable content
+        const toggleableContent = element.closest('.sk-toggleable__content');
+        const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+        const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+        const originalStyle = element.style;
+        const computedStyle = window.getComputedStyle(element);
+        const originalWidth = computedStyle.width;
+        const originalHTML = element.innerHTML.replace('Copied!', '');
+
+        navigator.clipboard.writeText(fullParamName)
+            .then(() => {
+                element.style.width = originalWidth;
+                element.style.color = 'green';
+                element.innerHTML = "Copied!";
+
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style = originalStyle;
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+                element.style.color = 'red';
+                element.innerHTML = "Failed!";
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style = originalStyle;
+                }, 2000);
+            });
+        return false;
+    }
+
+    document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+        const toggleableContent = element.closest('.sk-toggleable__content');
+        const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+        const paramName = element.parentElement.nextElementSibling.textContent.trim();
+        const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+        element.setAttribute('title', fullParamName);
+    });
+    </script></body>
     </div>
     <br />
     <br />
@@ -640,8 +1210,8 @@ Training with skorch with dataset
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2772  9.1875
-          2        2.2001  9.2016
+          1        2.2251  8.1961
+          2        2.1456  8.2002
 
 
 .. raw:: html
@@ -827,9 +1397,7 @@ Training with skorch with dataset
     /* Toggleable content - dropdown */
 
     #sk-container-id-2 div.sk-toggleable__content {
-      max-height: 0;
-      max-width: 0;
-      overflow: hidden;
+      display: none;
       text-align: left;
       /* unfitted */
       background-color: var(--sklearn-color-unfitted-level-0);
@@ -855,9 +1423,9 @@ Training with skorch with dataset
 
     #sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
       /* Expand drop-down */
-      max-height: 200px;
-      max-width: 100%;
-      overflow: auto;
+      display: block;
+      width: 100%;
+      overflow: visible;
     }
 
     #sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
@@ -1062,7 +1630,71 @@ Training with skorch with dataset
       /* fitted */
       background-color: var(--sklearn-color-fitted-level-3);
     }
-    </style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>&lt;class &#x27;skada.deep.base.DomainAwareNet&#x27;&gt;[initialized](
+
+    .estimator-table summary {
+        padding: .5rem;
+        font-family: monospace;
+        cursor: pointer;
+    }
+
+    .estimator-table details[open] {
+        padding-left: 0.1rem;
+        padding-right: 0.1rem;
+        padding-bottom: 0.3rem;
+    }
+
+    .estimator-table .parameters-table {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .estimator-table .parameters-table tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    .estimator-table .parameters-table tr:nth-child(even) {
+        background-color: #f6f6f6;
+    }
+
+    .estimator-table .parameters-table tr:hover {
+        background-color: #e0e0e0;
+    }
+
+    .estimator-table table td {
+        border: 1px solid rgba(106, 105, 104, 0.232);
+    }
+
+    .user-set td {
+        color:rgb(255, 94, 0);
+        text-align: left;
+    }
+
+    .user-set td.value pre {
+        color:rgb(255, 94, 0) !important;
+        background-color: transparent !important;
+    }
+
+    .default td {
+        color: black;
+        text-align: left;
+    }
+
+    .user-set td i,
+    .default td i {
+        color: black;
+    }
+
+    .copy-paste-icon {
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+        background-repeat: no-repeat;
+        background-size: 14px 14px;
+        background-position: 0;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        cursor: pointer;
+    }
+    </style><body><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>&lt;class &#x27;skada.deep.base.DomainAwareNet&#x27;&gt;[initialized](
       module_=DomainAwareModule(
         (base_module_): MNISTtoUSPSNet(
           (conv1): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
@@ -1077,22 +1709,530 @@ Training with skorch with dataset
           (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
         )
       ),
-    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>&lt;class &#x27;skada.deep.base.DomainAwareNet&#x27;&gt;[initialized](
-      module_=DomainAwareModule(
-        (base_module_): MNISTtoUSPSNet(
-          (conv1): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1))
-          (relu1): ReLU()
-          (conv2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1))
-          (relu2): ReLU()
-          (dropout1): Dropout(p=0.25, inplace=False)
-          (dropout2): Dropout(p=0.5, inplace=False)
-          (fc1): Linear(in_features=9216, out_features=128, bias=True)
-          (relu3): ReLU()
-          (fc2): Linear(in_features=128, out_features=10, bias=True)
-          (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-        )
-      ),
-    )</pre></div> </div></div></div></div>
+    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+            <div class="estimator-table">
+                <details>
+                    <summary>Parameters</summary>
+                    <table class="parameters-table">
+                      <tbody>
+                    
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('module',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">module&nbsp;</td>
+                <td class="value">&lt;class &#x27;skada...nAwareModule&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('iterator_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">iterator_train&nbsp;</td>
+                <td class="value">&lt;class &#x27;skada...edDataLoader&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion&nbsp;</td>
+                <td class="value">&lt;class &#x27;skada...areCriterion&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('optimizer',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">optimizer&nbsp;</td>
+                <td class="value">&lt;class &#x27;torch.optim.sgd.SGD&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('lr',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">lr&nbsp;</td>
+                <td class="value">0.001</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('max_epochs',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">max_epochs&nbsp;</td>
+                <td class="value">2</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('batch_size',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">batch_size&nbsp;</td>
+                <td class="value">256</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('iterator_valid',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">iterator_valid&nbsp;</td>
+                <td class="value">&lt;class &#x27;torch...r.DataLoader&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('dataset',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">dataset&nbsp;</td>
+                <td class="value">&lt;class &#x27;skorc...aset.Dataset&#x27;&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('train_split',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">train_split&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('predict_nonlinearity',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">predict_nonlinearity&nbsp;</td>
+                <td class="value">&#x27;auto&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('warm_start',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">warm_start&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('verbose',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">verbose&nbsp;</td>
+                <td class="value">1</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('device',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">device&nbsp;</td>
+                <td class="value">device(type=&#x27;cpu&#x27;)</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('compile',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">compile&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('use_caching',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">use_caching&nbsp;</td>
+                <td class="value">&#x27;auto&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('torch_load_kwargs',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">torch_load_kwargs&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('_params_to_validate',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">_params_to_validate&nbsp;</td>
+                <td class="value">{&#x27;criterion__adapt_criterion&#x27;, &#x27;criterion__base_criterion&#x27;, &#x27;criterion__reg&#x27;, &#x27;module__base_module&#x27;, &#x27;module__layer_name&#x27;}</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('module__base_module',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">module__base_module&nbsp;</td>
+                <td class="value">MNISTtoUSPSNe..._mode=False)
+    )</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('module__layer_name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">module__layer_name&nbsp;</td>
+                <td class="value">&#x27;fc1&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion__base_criterion',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion__base_criterion&nbsp;</td>
+                <td class="value">CrossEntropyLoss()</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion__reg',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion__reg&nbsp;</td>
+                <td class="value">1</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('criterion__adapt_criterion',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">criterion__adapt_criterion&nbsp;</td>
+                <td class="value">DeepCoralLoss()</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('classes',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">classes&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__epoch_timer',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__epoch_timer&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890c430&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890ce80&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss__name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss__name&nbsp;</td>
+                <td class="value">&#x27;train_loss&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss__lower_is_better',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss__lower_is_better&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__train_loss__on_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__train_loss__on_train&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890d090&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss__name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss__name&nbsp;</td>
+                <td class="value">&#x27;valid_loss&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss__lower_is_better',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss__lower_is_better&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_loss__on_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_loss__on_train&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890d660&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__scoring',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__scoring&nbsp;</td>
+                <td class="value">&#x27;accuracy&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__lower_is_better',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__lower_is_better&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__on_train',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__on_train&nbsp;</td>
+                <td class="value">False</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__name',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__name&nbsp;</td>
+                <td class="value">&#x27;valid_acc&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__target_extractor',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
+                <td class="value">&lt;function to_...x7f8b264af760&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__valid_acc__use_caching',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__valid_acc__use_caching&nbsp;</td>
+                <td class="value">True</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log&nbsp;</td>
+                <td class="value">&lt;skorch.callb...x7f8b1890dc90&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__keys_ignored',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__keys_ignored&nbsp;</td>
+                <td class="value">None</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__sink',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__sink&nbsp;</td>
+                <td class="value">&lt;built-in function print&gt;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__tablefmt',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__tablefmt&nbsp;</td>
+                <td class="value">&#x27;simple&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__floatfmt',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__floatfmt&nbsp;</td>
+                <td class="value">&#x27;.4f&#x27;</td>
+            </tr>
+    
+
+            <tr class="user-set">
+                <td><i class="copy-paste-icon"
+                     onclick="copyToClipboard('callbacks__print_log__stralign',
+                              this.parentElement.nextElementSibling)"
+                ></i></td>
+                <td class="param">callbacks__print_log__stralign&nbsp;</td>
+                <td class="value">&#x27;right&#x27;</td>
+            </tr>
+    
+                      </tbody>
+                    </table>
+                </details>
+            </div>
+        </div></div></div></div></div><script>function copyToClipboard(text, element) {
+        // Get the parameter prefix from the closest toggleable content
+        const toggleableContent = element.closest('.sk-toggleable__content');
+        const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+        const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+        const originalStyle = element.style;
+        const computedStyle = window.getComputedStyle(element);
+        const originalWidth = computedStyle.width;
+        const originalHTML = element.innerHTML.replace('Copied!', '');
+
+        navigator.clipboard.writeText(fullParamName)
+            .then(() => {
+                element.style.width = originalWidth;
+                element.style.color = 'green';
+                element.innerHTML = "Copied!";
+
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style = originalStyle;
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+                element.style.color = 'red';
+                element.innerHTML = "Failed!";
+                setTimeout(() => {
+                    element.innerHTML = originalHTML;
+                    element.style = originalStyle;
+                }, 2000);
+            });
+        return false;
+    }
+
+    document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+        const toggleableContent = element.closest('.sk-toggleable__content');
+        const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+        const paramName = element.parentElement.nextElementSibling.textContent.trim();
+        const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+        element.setAttribute('title', fullParamName);
+    });
+    </script></body>
     </div>
     <br />
     <br />
@@ -1142,8 +2282,8 @@ Training with torch
 
  .. code-block:: none
 
-    Loss: 0.9209927096962929
-    Loss: 0.2028075009584427
+    Loss: 0.8954262807965279
+    Loss: 0.1768746469169855
 
 
 
@@ -1151,7 +2291,7 @@ Training with torch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 57.412 seconds)
+   **Total running time of the script:** (0 minutes 50.780 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_training_method.py:

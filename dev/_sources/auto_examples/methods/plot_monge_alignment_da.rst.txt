@@ -427,7 +427,7 @@ Train a classifier on adapted data
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.939 seconds)
+   **Total running time of the script:** (0 minutes 0.847 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_monge_alignment_da.py:
