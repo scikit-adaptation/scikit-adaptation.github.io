@@ -237,6 +237,23 @@ Deep learning DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrate some uses of DeepDADatasets.">
+
+.. only:: html
+
+  .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_deepdadataset_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_deep_plot_deepdadataset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Deep Domain Aware Datasets</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of deep DA methods in Skada. on a simple image classification task.">
 
 .. only:: html
@@ -265,6 +282,7 @@ Deep learning DA methods
    /auto_examples/deep/plot_divergence
    /auto_examples/deep/plot_adversarial
    /auto_examples/deep/plot_optimal_transport
+   /auto_examples/deep/plot_deepdadataset
    /auto_examples/deep/plot_training_method
 
 
