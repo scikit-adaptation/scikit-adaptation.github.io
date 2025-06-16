@@ -325,7 +325,7 @@ algorithm.
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
 
-    <matplotlib.legend.Legend object at 0x7f28e0d325f0>
+    <matplotlib.legend.Legend object at 0x7f6a684fbbb0>
 
 
 
@@ -379,7 +379,7 @@ source datapoints (circles) are removed from the training set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 5.028 seconds)
+   **Total running time of the script:** (0 minutes 5.642 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_dasvm.py:

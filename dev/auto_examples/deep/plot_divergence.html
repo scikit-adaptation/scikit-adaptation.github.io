@@ -137,33 +137,34 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <section id="load-the-image-datasets">
 <h2>Load the image datasets<a class="headerlink" href="#load-the-image-datasets" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">load_mnist_usps</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack_train</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mnist&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;usps&quot;</span><span class="p">])</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack_test</span><span class="p">(</span><span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;usps&quot;</span><span class="p">])</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset" title="skada.datasets.DomainAwareDataset" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a> <span class="o">=</span> <span class="n">load_mnist_usps</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">return_dataset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_train" title="skada.datasets.DomainAwareDataset.pack_train" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-method"><span class="n">dataset</span><span class="o">.</span><span class="n">pack_train</span></a><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mnist&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;usps&quot;</span><span class="p">])</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_test" title="skada.datasets.DomainAwareDataset.pack_test" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-method"><span class="n">dataset</span><span class="o">.</span><span class="n">pack_test</span></a><span class="p">(</span><span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;usps&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
-100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 134MB/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 130MB/s]
 
   0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
-100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 92.7MB/s]
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 73.8MB/s]
 
   0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
-100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 296MB/s]
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 208MB/s]
 
   0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
-100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 15.7MB/s]
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 13.6MB/s]
 /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
   mnist_target = torch.tensor(mnist_dataset.targets)
 
   0%|          | 0.00/1.83M [00:00&lt;?, ?B/s]
-  2%|▏         | 32.8k/1.83M [00:00&lt;00:21, 84.0kB/s]
-  4%|▎         | 65.5k/1.83M [00:00&lt;00:14, 119kB/s]
-  7%|▋         | 131k/1.83M [00:00&lt;00:08, 200kB/s]
- 14%|█▍        | 262k/1.83M [00:00&lt;00:04, 364kB/s]
- 27%|██▋       | 492k/1.83M [00:01&lt;00:02, 632kB/s]
- 54%|█████▎    | 983k/1.83M [00:01&lt;00:00, 1.24MB/s]
-100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.34MB/s]
+  2%|▏         | 32.8k/1.83M [00:00&lt;00:13, 136kB/s]
+  4%|▎         | 65.5k/1.83M [00:00&lt;00:13, 136kB/s]
+  5%|▌         | 98.3k/1.83M [00:00&lt;00:12, 136kB/s]
+ 13%|█▎        | 229k/1.83M [00:00&lt;00:05, 296kB/s]
+ 25%|██▌       | 459k/1.83M [00:01&lt;00:02, 532kB/s]
+ 48%|████▊     | 885k/1.83M [00:01&lt;00:00, 949kB/s]
+ 97%|█████████▋| 1.77M/1.83M [00:01&lt;00:00, 1.84MB/s]
+100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.08MB/s]
 </pre></div>
 </div>
 </section>
@@ -183,13 +184,13 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.7104  4.7984
-      2        0.4349  4.8535
-      3        0.1305  4.3039
-      4        0.0720  3.9980
-      5        0.0520  3.6977
+      1        1.5339  4.3056
+      2        0.2491  4.6033
+      3        0.0885  4.2014
+      4        0.0493  4.3868
+      5        0.0392  4.3078
 
-0.9067524115755627
+0.9260450160771704
 </pre></div>
 </div>
 </section>
@@ -210,16 +211,16 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.6341  7.8305
-      2        0.3807  7.8919
-      3        0.1344  8.3018
-      4        0.0843  7.3061
-      5        0.0673  8.1443
+      1        1.3781  8.1658
+      2        0.2618  8.4913
+      3        0.1139  8.5056
+      4        0.0829  8.6914
+      5        0.0744  8.6990
 
-0.9292604501607717
+0.9260450160771704
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 9.349 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 13.562 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>

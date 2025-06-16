@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.datasets._base &mdash; SKADA: Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SKADA
+              <img src="../../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">SKADA: SciKit Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">skada.datasets._base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for skada.datasets._base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Oleksii Kachaiev &lt;kachayev@gmail.com&gt;</span>
+<span class="c1">#         Yanis Lalou &lt;yanis.lalou@polytechnique.edu&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3-Clause</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bunch</span>
+
+<span class="n">_DEFAULT_HOME_FOLDER_KEY</span> <span class="o">=</span> <span class="s2">&quot;SKADA_DATA_FOLDER&quot;</span>
+<span class="n">_DEFAULT_HOME_FOLDER</span> <span class="o">=</span> <span class="s2">&quot;~/skada_datasets&quot;</span>
+
+<span class="c1"># xxx(okachaiev): if we use -1 as a detector for targets,</span>
+<span class="c1"># we should not allow non-labeled dataset or... we need</span>
+<span class="c1"># to come up with a way to pack them properly</span>
+<span class="n">DomainDataType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="c1"># (name, X, y)</span>
+    <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="c1"># (X, y)</span>
+    <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="c1"># (X,)</span>
+    <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,],</span>
+<span class="p">]</span>
+
+<span class="n">PackedDatasetType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">Bunch</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_data_home</span><span class="p">(</span><span class="n">data_home</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the path of the `skada` data folder.</span>
+
+<span class="sd">    This folder is used by some large dataset loaders to avoid downloading the</span>
+<span class="sd">    data several times.</span>
+
+<span class="sd">    By default the data directory is set to a folder named &#39;skada_datasets&#39; in the</span>
+<span class="sd">    user home folder.</span>
+
+<span class="sd">    Alternatively, it can be set by the &#39;SKADA_DATA_FOLDER&#39; environment</span>
+<span class="sd">    variable or programmatically by giving an explicit folder path. The &#39;~&#39;</span>
+<span class="sd">    symbol is expanded to the user home folder.</span>
+
+<span class="sd">    If the folder does not already exist, it is automatically created.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_home : str or path-like, default=None</span>
+<span class="sd">        The path to `skada` data folder. If `None`, the default path</span>
+<span class="sd">        is `~/skada_datasets`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data_home: str</span>
+<span class="sd">        The path to `skada` data folder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">data_home</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_DEFAULT_HOME_FOLDER_KEY</span><span class="p">,</span> <span class="n">_DEFAULT_HOME_FOLDER</span><span class="p">)</span>
+    <span class="n">data_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">data_home</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_home</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_home</span>
+
+
+<div class="viewcode-block" id="DomainAwareDataset">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DomainAwareDataset</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Container carrying all dataset domains.</span>
+
+<span class="sd">    This class allows to store and manipulate datasets from multiple domains,</span>
+<span class="sd">    keeping track of the domain information for each sample.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    domains : list of tuple or dict of tuple or None, optional</span>
+<span class="sd">        List or dictionary of domains to add at initialization.</span>
+<span class="sd">        Each domain can be a tuple (X, y) or (X, y, name).</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    domains_ : list</span>
+<span class="sd">        List of domains added, each as a tuple (X, y) or (X,).</span>
+<span class="sd">    domain_names_ : dict</span>
+<span class="sd">        Dictionary mapping each domain name to its internal identifier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="c1"># xxx(okachaiev): not sure if dictionary is a good format :thinking:</span>
+        <span class="n">domains</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DomainDataType</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DomainDataType</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domains_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># xxx(okachaiev): there should be a simpler way for adding those</span>
+        <span class="k">if</span> <span class="n">domains</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">domains</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">d</span>
+                    <span class="n">domain_name</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">domain_name</span> <span class="o">=</span> <span class="n">d</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">domain_name</span><span class="o">=</span><span class="n">domain_name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DomainAwareDataset.add_domain">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.add_domain">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_domain</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DomainAwareDataset&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a new domain to the dataset.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : np.ndarray</span>
+<span class="sd">            Feature matrix for the domain.</span>
+<span class="sd">        y : np.ndarray or None, optional</span>
+<span class="sd">            Labels for the domain. If None, labels are not provided.</span>
+<span class="sd">        domain_name : str, optional</span>
+<span class="sd">            Name of the domain. If None, a unique name is autogenerated.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : DomainAwareDataset</span>
+<span class="sd">            The updated dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">domain_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># check the name is unique</span>
+            <span class="c1"># xxx(okachaiev): ValueError would be more appropriate</span>
+            <span class="k">assert</span> <span class="n">domain_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">domain_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">domain_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">X</span><span class="p">,))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_id</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="DomainAwareDataset.merge">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.merge">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="s2">&quot;DomainAwareDataset&quot;</span><span class="p">,</span> <span class="n">names_mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DomainAwareDataset&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Merge another DomainAwareDataset into this one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : DomainAwareDataset</span>
+<span class="sd">            The dataset to merge.</span>
+<span class="sd">        names_mapping : mapping, optional</span>
+<span class="sd">            Mapping from old domain names to new domain names.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : DomainAwareDataset</span>
+<span class="sd">            The updated dataset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">domain_name</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">:</span>
+            <span class="c1"># xxx(okachaiev): this needs to be more flexible</span>
+            <span class="c1"># as it should be possible to pass only X with y=None</span>
+            <span class="c1"># i guess best way of doing so is to change &#39;add_domain&#39; API</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">names_mapping</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">domain_name</span> <span class="o">=</span> <span class="n">names_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">domain_name</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="DomainAwareDataset.get_domain">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.get_domain">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the data and labels for a given domain.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        domain_name : str</span>
+<span class="sd">            Name of the domain to retrieve.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        domain : tuple</span>
+<span class="sd">            Tuple containing (X, y) or (X,) for the specified domain.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">domain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">[</span><span class="n">domain_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DomainAwareDataset.select_domain">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.select_domain">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">select_domain</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">domains</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select samples belonging to one or more domains.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        sample_domain : np.ndarray</span>
+<span class="sd">            Array of domain labels for each sample.</span>
+<span class="sd">        domains : str or iterable of str</span>
+<span class="sd">            Domain name(s) to select.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        mask : np.ndarray</span>
+<span class="sd">            Boolean mask indicating selected samples.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">select_domain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">domains</span><span class="p">)</span></div>
+
+
+    <span class="c1"># xxx(okachaiev): i guess, if we are using names to pack domains into array,</span>
+    <span class="c1"># we should not autogenerate them... otherwise it might be not obvious at all</span>
+<div class="viewcode-block" id="DomainAwareDataset.pack">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">as_sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">train</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregates datasets from all domains into a unified domain-aware</span>
+<span class="sd">        representation, ensuring compatibility with domain adaptation (DA)</span>
+<span class="sd">        estimators.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        as_sources : list</span>
+<span class="sd">            List of domain names to be used as sources.</span>
+<span class="sd">        as_targets : list</span>
+<span class="sd">            List of domain names to be used as targets.</span>
+<span class="sd">        return_X_y : bool, default=True</span>
+<span class="sd">            When set to True, returns a tuple (X, y, sample_domain). Otherwise</span>
+<span class="sd">            returns :class:`~sklearn.utils.Bunch` object with the structure</span>
+<span class="sd">            described below.</span>
+<span class="sd">        train: bool, default=False</span>
+<span class="sd">            When set to True, masks labels for target domains with -1</span>
+<span class="sd">            (or a `mask` given), so they are not available at train time.</span>
+<span class="sd">        mask: int | float (optional), default=None</span>
+<span class="sd">            Value to mask labels at training time.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : :class:`~sklearn.utils.Bunch`</span>
+<span class="sd">            Dictionary-like object, with the following attributes.</span>
+
+<span class="sd">            X: ndarray</span>
+<span class="sd">                Samples from all sources and all targets given.</span>
+<span class="sd">            y : ndarray</span>
+<span class="sd">                Labels from all sources and all targets.</span>
+<span class="sd">            sample_domain : ndarray</span>
+<span class="sd">                The integer label for domain the sample was taken from.</span>
+<span class="sd">                By convention, source domains have non-negative labels,</span>
+<span class="sd">                and target domain label is always &lt; 0.</span>
+<span class="sd">            domain_names : dict</span>
+<span class="sd">                The names of domains and associated domain labels.</span>
+
+<span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
+<span class="sd">            Tuple of (data, target, sample_domain), see the description above.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domains</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">domain_labels</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">as_sources</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">as_sources</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">as_targets</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">as_targets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">domain_name</span> <span class="ow">in</span> <span class="n">as_sources</span><span class="p">:</span>
+            <span class="n">domain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">X</span><span class="p">,)</span> <span class="o">=</span> <span class="n">source</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">source</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid definition for domain data&quot;</span><span class="p">)</span>
+            <span class="c1"># xxx(okachaiev): this is horribly inefficient, re-write when API is fixed</span>
+            <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">sample_domains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="o">*</span> <span class="n">domain_id</span><span class="p">)</span>
+            <span class="n">domain_labels</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_id</span>
+        <span class="c1"># xxx(okachaiev): code duplication, re-write when API is fixed</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">domain_name</span> <span class="ow">in</span> <span class="n">as_targets</span><span class="p">:</span>
+            <span class="n">domain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="p">(</span><span class="n">X</span><span class="p">,)</span> <span class="o">=</span> <span class="n">target</span>
+                <span class="c1"># xxx(okachaiev): for what it&#39;s worth, we should likely to</span>
+                <span class="c1"># move the decision about dtype to the very end of the list</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">target</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid definition for domain data&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">train</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mask</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">):</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="c1"># make sure that the mask is reused on the next iteration</span>
+                    <span class="n">mask</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span>
+                <span class="k">elif</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">):</span>
+                    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="c1"># make sure that the  mask is reused on the next iteration</span>
+                    <span class="n">mask</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="c1"># xxx(okachaiev): this is horribly inefficient, rewrite when API is fixed</span>
+            <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">sample_domains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">domain_id</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
+            <span class="n">domain_labels</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">domain_id</span>
+
+        <span class="c1"># xxx(okachaiev): so far this only works if source and target has the same size</span>
+        <span class="n">Xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+        <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">sample_domains</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">return_X_y</span>
+            <span class="k">else</span> <span class="n">Bunch</span><span class="p">(</span>
+                <span class="n">X</span><span class="o">=</span><span class="n">Xs</span><span class="p">,</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">ys</span><span class="p">,</span>
+                <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span>
+                <span class="n">domain_names</span><span class="o">=</span><span class="n">domain_labels</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DomainAwareDataset.pack_train">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_train">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack_train</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">as_sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aggregate source and target domains for training.</span>
+
+<span class="sd">        This method is equivalent to :meth:`pack` with ``train=True``.</span>
+<span class="sd">        It masks the labels for target domains (with -1 or a custom mask value)</span>
+<span class="sd">        so that they are not available during training, as required for</span>
+<span class="sd">        domain adaptation scenarios.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        as_sources : list of str</span>
+<span class="sd">            List of domain names to be used as sources.</span>
+<span class="sd">        as_targets : list of str</span>
+<span class="sd">            List of domain names to be used as targets.</span>
+<span class="sd">        return_X_y : bool, default=True</span>
+<span class="sd">            If True, returns a tuple (X, y, sample_domain). Otherwise,</span>
+<span class="sd">            returns a :class:`sklearn.utils.Bunch` object.</span>
+<span class="sd">        mask : int or float, optional</span>
+<span class="sd">            Value to mask labels at training time. If None, uses -1 for integers</span>
+<span class="sd">            and np.nan for floats.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : :class:`sklearn.utils.Bunch`</span>
+<span class="sd">            Dictionary-like object with attributes X, y, sample_domain, domain_names.</span>
+<span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
+<span class="sd">            Tuple of (data, target, sample_domain).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="n">as_sources</span><span class="p">,</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="n">as_targets</span><span class="p">,</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DomainAwareDataset.pack_test">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_test">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack_test</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aggregate target domains for testing.</span>
+
+<span class="sd">        This method is equivalent to :meth:`pack` with only target domains</span>
+<span class="sd">        and ``train=False``. Labels are not masked.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        as_targets : list of str</span>
+<span class="sd">            List of domain names to be used as targets.</span>
+<span class="sd">        return_X_y : bool, default=True</span>
+<span class="sd">            If True, returns a tuple (X, y, sample_domain). Otherwise,</span>
+<span class="sd">            returns a :class:`sklearn.utils.Bunch` object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : :class:`sklearn.utils.Bunch`</span>
+<span class="sd">            Dictionary-like object with attributes X, y, sample_domain, domain_names.</span>
+<span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
+<span class="sd">            Tuple of (data, target, sample_domain).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="n">as_targets</span><span class="p">,</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DomainAwareDataset.pack_lodo">
+<a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_lodo">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pack_lodo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Packages all domains in a format compatible with the Leave-One-Domain-Out</span>
+<span class="sd">        cross-validator (refer to :class:`~skada.model_selection.LeaveOneDomainOut` for</span>
+<span class="sd">        more details). To enable the splitter&#39;s dynamic assignment of source and target</span>
+<span class="sd">        domains, data from each domain is included in the output twice — once as a</span>
+<span class="sd">        source and once as a target.</span>
+
+<span class="sd">        Exercise caution when using this output for purposes other than its intended</span>
+<span class="sd">        use, as this could lead to incorrect results and data leakage.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        return_X_y : bool, default=True</span>
+<span class="sd">            When set to True, returns a tuple (X, y, sample_domain). Otherwise</span>
+<span class="sd">            returns :class:`~sklearn.utils.Bunch` object with the structure</span>
+<span class="sd">            described below.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : :class:`~sklearn.utils.Bunch`</span>
+<span class="sd">            Dictionary-like object, with the following attributes.</span>
+
+<span class="sd">            X: ndarray</span>
+<span class="sd">                Samples from all sources and all targets given.</span>
+<span class="sd">            y : ndarray</span>
+<span class="sd">                Labels from all sources and all targets.</span>
+<span class="sd">            sample_domain : np.ndarray</span>
+<span class="sd">                The integer label for domain the sample was taken from.</span>
+<span class="sd">                By convention, source domains have non-negative labels,</span>
+<span class="sd">                and target domain label is always &lt; 0.</span>
+<span class="sd">            domain_names : dict</span>
+<span class="sd">                The names of domains and associated domain labels.</span>
+
+<span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
+<span class="sd">            Tuple of (data, target, sample_domain), see the description above.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DomainAwareDataset(domains=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_domain_representation</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Number of domains: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total size: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tup</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">head</span><span class="p">]</span> <span class="o">+</span> <span class="n">body</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_domain_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_domains</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+        <span class="n">domain_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain_names</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">max_domains</span><span class="p">:</span>
+            <span class="c1"># If the number of domains is small, include all names</span>
+            <span class="n">domain_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">domain_names</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If the number of domains is large, truncate the list and add ellipsis</span>
+            <span class="n">truncated_domains</span> <span class="o">=</span> <span class="n">domain_names</span><span class="p">[:</span><span class="n">max_domains</span><span class="p">]</span>
+            <span class="n">domain_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">truncated_domains</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;, ...]&quot;</span>
+
+        <span class="c1"># Truncate the string representation if it exceeds max_length</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain_str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
+            <span class="n">domain_str</span> <span class="o">=</span> <span class="n">domain_str</span><span class="p">[:</span> <span class="n">max_length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...]&quot;</span>
+
+        <span class="k">return</span> <span class="n">domain_str</span></div>
+
+
+
+<span class="c1"># xxx(okachaiev): putting `domain_names` first argument</span>
+<span class="c1"># so it&#39;s compatible with `partial`</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">select_domain</span><span class="p">(</span>
+    <span class="n">domain_names</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">sample_domain</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">domains</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">domains</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">domains</span> <span class="o">=</span> <span class="p">[</span><span class="n">domains</span><span class="p">]</span>
+    <span class="c1"># xxx(okachaiev): this version is not the most efficient</span>
+    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">,</span> <span class="p">(</span><span class="n">sample_domain</span> <span class="o">==</span> <span class="n">domain_names</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span> <span class="k">for</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">domains</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
