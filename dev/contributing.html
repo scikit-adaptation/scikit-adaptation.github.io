@@ -114,6 +114,14 @@ $<span class="w"> </span>pre-commit<span class="w"> </span>install
 </div>
 <p>This will install the pre-commit hooks that will run on every commit. If the hooks fail, the commit will be aborted.</p>
 </li>
+<li><p>Install the dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</li>
+</ol>
+<p>To install an optional dependency (see pyproject.toml), swap the previous command with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dependency_name]</span></code>.</p>
+<ol class="arabic" start="4">
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">feature</span></code> branch to hold your development changes:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>my-feature
 </pre></div>
