@@ -143,28 +143,28 @@ adaptation. In ECCV Workshops, 2016.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
-100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 134MB/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 137MB/s]
 
   0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
-100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 40.5MB/s]
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 46.3MB/s]
 
   0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
-100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 265MB/s]
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 210MB/s]
 
   0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
-100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 9.05MB/s]
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 15.3MB/s]
 /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
   mnist_target = torch.tensor(mnist_dataset.targets)
 
   0%|          | 0.00/1.83M [00:00&lt;?, ?B/s]
-  2%|▏         | 32.8k/1.83M [00:00&lt;00:13, 137kB/s]
-  4%|▎         | 65.5k/1.83M [00:00&lt;00:12, 136kB/s]
-  5%|▌         | 98.3k/1.83M [00:00&lt;00:12, 136kB/s]
- 13%|█▎        | 229k/1.83M [00:00&lt;00:05, 298kB/s]
- 25%|██▌       | 459k/1.83M [00:01&lt;00:02, 535kB/s]
- 48%|████▊     | 885k/1.83M [00:01&lt;00:00, 956kB/s]
- 97%|█████████▋| 1.77M/1.83M [00:01&lt;00:00, 1.85MB/s]
-100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.09MB/s]
+  2%|▏         | 32.8k/1.83M [00:00&lt;00:12, 141kB/s]
+  4%|▎         | 65.5k/1.83M [00:00&lt;00:12, 142kB/s]
+  5%|▌         | 98.3k/1.83M [00:00&lt;00:12, 142kB/s]
+ 11%|█         | 197k/1.83M [00:00&lt;00:06, 253kB/s]
+ 23%|██▎       | 426k/1.83M [00:01&lt;00:02, 519kB/s]
+ 45%|████▍     | 819k/1.83M [00:01&lt;00:01, 920kB/s]
+ 75%|███████▌  | 1.38M/1.83M [00:01&lt;00:00, 1.41MB/s]
+100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 1.13MB/s]
 </pre></div>
 </div>
 </section>
@@ -184,13 +184,13 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.6901  5.1701
-      2        0.3565  5.5292
-      3        0.1111  5.2967
-      4        0.0657  5.5965
-      5        0.0461  5.0052
+      1        1.6329  3.4372
+      2        0.3731  3.4056
+      3        0.1182  3.3207
+      4        0.0610  3.4008
+      5        0.0412  3.5964
 
-0.8906752411575563
+0.9003215434083601
 </pre></div>
 </div>
 </section>
@@ -209,18 +209,18 @@ adaptation. In ECCV Workshops, 2016.</p>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin.score" title="sklearn.base.ClassifierMixin.score" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">model</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
--------  ------------  -------
-      1        1.2820  10.1822
-      2        0.1862  11.2022
-      3        0.0843  10.0981
-      4        0.0701  11.7979
-      5        0.0542  10.3004
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
+-------  ------------  ------
+      1        1.5219  7.8035
+      2        0.2641  7.8984
+      3        0.1009  8.3000
+      4        0.0761  7.6990
+      5        0.0585  8.1024
 
-0.8938906752411575
+0.909967845659164
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 30.061 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 5.720 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>
