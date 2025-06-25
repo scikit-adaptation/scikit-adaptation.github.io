@@ -63,14 +63,18 @@ on a simple image classification task.
 Load the image datasets
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 24-33
 
 .. code-block:: Python
 
 
     dataset = load_mnist_usps(n_classes=2, n_samples=0.5, return_dataset=True)
-    X, y, sample_domain = dataset.pack_train(as_sources=["mnist"], as_targets=["usps"])
-    X_test, y_test, sample_domain_test = dataset.pack_test(as_targets=["usps"])
+    X, y, sample_domain = dataset.pack(
+        as_sources=["mnist"], as_targets=["usps"], mask_target_labels=True
+    )
+    X_test, y_test, sample_domain_test = dataset.pack(
+        as_sources=[], as_targets=["usps"], mask_target_labels=False
+    )
 
 
 
@@ -86,12 +90,12 @@ Load the image datasets
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-32
+.. GENERATED FROM PYTHON SOURCE LINES 34-36
 
 Train a classic model
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-43
+.. GENERATED FROM PYTHON SOURCE LINES 36-47
 
 .. code-block:: Python
 
@@ -116,22 +120,22 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.0029  4.8032
-          2        0.1127  4.3948
-          3        0.0487  4.1041
-          4        0.0358  3.8994
-          5        0.0305  3.5007
+          1        1.2921  4.7024
+          2        0.2215  4.5539
+          3        0.0903  4.2975
+          4        0.0522  3.8034
+          5        0.0360  3.5992
 
-    0.932475884244373
+    0.9067524115755627
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-46
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 Train a DeepJDOT model
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-58
+.. GENERATED FROM PYTHON SOURCE LINES 50-62
 
 .. code-block:: Python
 
@@ -157,20 +161,20 @@ Train a DeepJDOT model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.9667  9.0649
-          2        0.9730  9.3944
-          3        0.6911  9.0964
-          4        0.5644  9.8007
-          5        0.4869  10.0041
+          1        2.0762  7.7683
+          2        1.1572  8.8924
+          3        0.7853  8.8007
+          4        0.6102  8.2040
+          5        0.5270  7.3988
 
-    0.9581993569131833
+    0.9421221864951769
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 11.845 seconds)
+   **Total running time of the script:** (1 minutes 5.621 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:

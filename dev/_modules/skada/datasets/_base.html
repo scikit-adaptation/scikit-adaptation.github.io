@@ -86,11 +86,12 @@
 <span class="c1"># License: BSD 3-Clause</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bunch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bunch</span><span class="p">,</span> <span class="n">deprecated</span>
 
 <span class="n">_DEFAULT_HOME_FOLDER_KEY</span> <span class="o">=</span> <span class="s2">&quot;SKADA_DATA_FOLDER&quot;</span>
 <span class="n">_DEFAULT_HOME_FOLDER</span> <span class="o">=</span> <span class="s2">&quot;~/skada_datasets&quot;</span>
@@ -297,10 +298,11 @@
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">pack</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">as_sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">as_sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+        <span class="n">mask_target_labels</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">train</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">train</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregates datasets from all domains into a unified domain-aware</span>
@@ -310,16 +312,21 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        as_sources : list</span>
-<span class="sd">            List of domain names to be used as sources.</span>
+<span class="sd">            List of domain names to be used as sources. An empty list</span>
+<span class="sd">            indicates that no source domains are used.</span>
 <span class="sd">        as_targets : list</span>
-<span class="sd">            List of domain names to be used as targets.</span>
+<span class="sd">            List of domain names to be used as targets. An empty list</span>
+<span class="sd">            indicates that no target domains are used.</span>
+<span class="sd">        mask_target_labels : bool</span>
+<span class="sd">            This parameter should be set to True for training and False for testing.</span>
+<span class="sd">            When set to True, masks labels for target domains with -1 for classification</span>
+<span class="sd">            tasks of nan for regression tasks, so they are not available at train time.</span>
 <span class="sd">        return_X_y : bool, default=True</span>
 <span class="sd">            When set to True, returns a tuple (X, y, sample_domain). Otherwise</span>
 <span class="sd">            returns :class:`~sklearn.utils.Bunch` object with the structure</span>
 <span class="sd">            described below.</span>
-<span class="sd">        train: bool, default=False</span>
-<span class="sd">            When set to True, masks labels for target domains with -1</span>
-<span class="sd">            (or a `mask` given), so they are not available at train time.</span>
+<span class="sd">        train: Optional[bool], default=None</span>
+<span class="sd">            [DEPRECATED] Use `mask_target_labels`instead.</span>
 <span class="sd">        mask: int | float (optional), default=None</span>
 <span class="sd">            Value to mask labels at training time.</span>
 
@@ -344,10 +351,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domains</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="n">domain_labels</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="n">as_sources</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">as_sources</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">as_targets</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">as_targets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">train</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;The `train` parameter is deprecated and will be removed in&quot;</span>
+                <span class="s2">&quot;future versions. Use `mask_target_labels` instead.&quot;</span><span class="p">,</span>
+                <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">mask_target_labels</span> <span class="o">=</span> <span class="n">train</span>
         <span class="k">for</span> <span class="n">domain_name</span> <span class="ow">in</span> <span class="n">as_sources</span><span class="p">:</span>
             <span class="n">domain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span>
             <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain_name</span><span class="p">)</span>
@@ -377,7 +387,7 @@
                 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">target</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid definition for domain data&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">train</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mask_target_labels</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mask</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">):</span>
@@ -412,6 +422,7 @@
 
 <div class="viewcode-block" id="DomainAwareDataset.pack_train">
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_train">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">()</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">pack_train</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">as_sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
@@ -420,6 +431,9 @@
         <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        [Warning] This method is deprecated and will be removed in future versions.</span>
+<span class="sd">        Please use :meth:`pack` with `mask_target_labels=True` instead.</span>
+
 <span class="sd">        Aggregate source and target domains for training.</span>
 
 <span class="sd">        This method is equivalent to :meth:`pack` with ``train=True``.</span>
@@ -451,19 +465,23 @@
             <span class="n">as_sources</span><span class="o">=</span><span class="n">as_sources</span><span class="p">,</span>
             <span class="n">as_targets</span><span class="o">=</span><span class="n">as_targets</span><span class="p">,</span>
             <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
-            <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="DomainAwareDataset.pack_test">
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.pack_test">[docs]</a>
+    <span class="nd">@deprecated</span><span class="p">()</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">pack_test</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        [Warning] This method is deprecated and will be removed in future versions.</span>
+<span class="sd">        Please use :meth:`pack` with `mask_target_labels=False` instead.</span>
+
 <span class="sd">        Aggregate target domains for testing.</span>
 
 <span class="sd">        This method is equivalent to :meth:`pack` with only target domains</span>
@@ -488,7 +506,7 @@
             <span class="n">as_sources</span><span class="o">=</span><span class="p">[],</span>
             <span class="n">as_targets</span><span class="o">=</span><span class="n">as_targets</span><span class="p">,</span>
             <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
-            <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -534,7 +552,7 @@
             <span class="n">as_sources</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
             <span class="n">as_targets</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
             <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
-            <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 

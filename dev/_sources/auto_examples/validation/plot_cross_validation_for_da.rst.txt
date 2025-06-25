@@ -86,7 +86,7 @@ and 2 target distributions. The target distributions are shifted
 versions of the source distributions. Thus we will have a domain
 adaptation problem with 2 source domains and 2 target domains.
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-89
+.. GENERATED FROM PYTHON SOURCE LINES 45-91
 
 .. code-block:: Python
 
@@ -112,9 +112,11 @@ adaptation problem with 2 source domains and 2 target domains.
     )
     dataset.merge(dataset2, names_mapping={"s": "s2", "t": "t2"})
 
-    X, y, sample_domain = dataset.pack_train(as_sources=["s", "s2"], as_targets=["t", "t2"])
+    X, y, sample_domain = dataset.pack(
+        as_sources=["s", "s2"], as_targets=["t", "t2"], mask_target_labels=True
+    )
     _, target_labels, _ = dataset.pack(
-        as_sources=["s", "s2"], as_targets=["t", "t2"], train=False
+        as_sources=["s", "s2"], as_targets=["t", "t2"], mask_target_labels=False
     )
 
     # Sort by sample_domain first then by target_labels
@@ -141,7 +143,7 @@ adaptation problem with 2 source domains and 2 target domains.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-95
+.. GENERATED FROM PYTHON SOURCE LINES 92-97
 
 We define functions to visualize the behavior of each
 cross-validation object. The number of splits is set to 4
@@ -149,7 +151,7 @@ cross-validation object. The number of splits is set to 4
 indices selected for the training set (in blue) and the
 test set (in orange).
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-275
+.. GENERATED FROM PYTHON SOURCE LINES 97-277
 
 .. code-block:: Python
 
@@ -340,19 +342,20 @@ test set (in orange).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-285
+.. GENERATED FROM PYTHON SOURCE LINES 278-288
 
 The following plot illustrates the behavior of
 :class:`~skada.model_selection.SourceTargetShuffleSplit`.
 The left plot shows the indices of the training and
 testing sets for each split and with the datased packed with
-:func:`~skada.datasets._base.DomainAwareDataset.pack_train`
+:func:`~skada.datasets._base.DomainAwareDataset.pack`
 (the target domains labels are masked (=-1)).
 While the right plot shows the indices of the training and
 testing sets for each split and with the datased packed with
-:func:`~skada.datasets._base.DomainAwareDataset.pack_test`.
+:func:`~skada.datasets._base.DomainAwareDataset.pack` and
+argument mask_target_labels=False
 
-.. GENERATED FROM PYTHON SOURCE LINES 285-308
+.. GENERATED FROM PYTHON SOURCE LINES 288-311
 
 .. code-block:: Python
 
@@ -391,7 +394,7 @@ testing sets for each split and with the datased packed with
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 309-314
+.. GENERATED FROM PYTHON SOURCE LINES 312-317
 
 The following plot illustrates the behavior of
 :class:`~skada.model_selection.LeaveOneDomainOut`.
@@ -399,7 +402,7 @@ The plot shows the indices of the training and testing sets
 for each split and which domain is used as the target domain
 for each split.
 
-.. GENERATED FROM PYTHON SOURCE LINES 314-333
+.. GENERATED FROM PYTHON SOURCE LINES 317-336
 
 .. code-block:: Python
 
@@ -434,12 +437,12 @@ for each split.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 334-336
+.. GENERATED FROM PYTHON SOURCE LINES 337-339
 
 Now let's see how the other
 cross-validation objects behave on our dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 336-357
+.. GENERATED FROM PYTHON SOURCE LINES 339-360
 
 .. code-block:: Python
 
@@ -488,7 +491,7 @@ cross-validation objects behave on our dataset.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 358-374
+.. GENERATED FROM PYTHON SOURCE LINES 361-377
 
 As we can see each splitter has a very different behavior:
   -   :class:`~skada.model_selection.SourceTargetShuffleSplit`: Each sample
@@ -510,7 +513,7 @@ As we can see each splitter has a very different behavior:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.509 seconds)
+   **Total running time of the script:** (0 minutes 0.500 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_cross_validation_for_da.py:

@@ -452,7 +452,12 @@
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span> <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 
@@ -688,7 +693,12 @@
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span> <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 
@@ -810,7 +820,10 @@
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
-            <span class="n">as_sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span> <span class="n">as_targets</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="n">targets</span><span class="p">,</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 
@@ -940,7 +953,12 @@
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span> <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span> <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span>
+            <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
+            <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

@@ -63,14 +63,18 @@ on a simple image classification task.
 Load the image datasets
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 24-33
 
 .. code-block:: Python
 
 
     dataset = load_mnist_usps(n_classes=2, n_samples=0.5, return_dataset=True)
-    X, y, sample_domain = dataset.pack_train(as_sources=["mnist"], as_targets=["usps"])
-    X_test, y_test, sample_domain_test = dataset.pack_test(as_targets=["usps"])
+    X, y, sample_domain = dataset.pack(
+        as_sources=["mnist"], as_targets=["usps"], mask_target_labels=True
+    )
+    X_test, y_test, sample_domain_test = dataset.pack(
+        as_sources=[], as_targets=["usps"], mask_target_labels=False
+    )
 
 
 
@@ -86,12 +90,12 @@ Load the image datasets
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-32
+.. GENERATED FROM PYTHON SOURCE LINES 34-36
 
 Train a classic model
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-43
+.. GENERATED FROM PYTHON SOURCE LINES 36-47
 
 .. code-block:: Python
 
@@ -116,22 +120,22 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.5295  4.9000
-          2        0.3307  5.1973
-          3        0.1176  4.9556
-          4        0.0661  4.4574
-          5        0.0481  4.7445
+          1        1.6399  4.1974
+          2        0.3231  4.2511
+          3        0.1091  4.4004
+          4        0.0568  4.1024
+          5        0.0429  4.0981
 
-    0.9196141479099679
+    0.9356913183279743
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-46
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 Train a DANN model
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-58
+.. GENERATED FROM PYTHON SOURCE LINES 50-62
 
 .. code-block:: Python
 
@@ -159,20 +163,20 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.6168  9.7131
-          2        1.4369  9.3018
-          3        1.1449  9.8984
-          4        1.0775  9.8015
-          5        1.0528  10.1000
+          1        2.4629  8.6046
+          2        1.2895  8.5442
+          3        1.1026  7.5512
+          4        1.0573  8.5021
+          5        1.0431  7.9977
 
-    0.9228295819935691
+    0.9196141479099679
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 17.340 seconds)
+   **Total running time of the script:** (1 minutes 5.900 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:

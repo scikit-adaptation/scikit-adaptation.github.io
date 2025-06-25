@@ -34,7 +34,7 @@ training points in semi-transparent and testing points
 in solid colors. The lower right shows the classification
 accuracy on the test set.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-231
+.. GENERATED FROM PYTHON SOURCE LINES 18-233
 
 
 
@@ -908,7 +908,9 @@ accuracy on the test set.
     # iterate over datasets
     for ds_cnt, ds in enumerate(datasets):
         # preprocess dataset, split into training and test part
-        X, y, sample_domain = ds.pack_train(as_sources=["s"], as_targets=["t"])
+        X, y, sample_domain = ds.pack(
+            as_sources=["s"], as_targets=["t"], mask_target_labels=True
+        )
         Xs, ys = ds.get_domain("s")
         Xt, yt = ds.get_domain("t")
 
@@ -1005,7 +1007,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 14.544 seconds)
+   **Total running time of the script:** (0 minutes 14.279 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:
