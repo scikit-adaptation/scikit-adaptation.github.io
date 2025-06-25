@@ -454,7 +454,7 @@ method of the grid search.
       warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
-    Best regularization parameter: 0.1
+    Best regularization parameter: auto
     Accuracy on target: 1.0
 
 
@@ -622,7 +622,7 @@ the last estimator. In the example below a :code:`StandardScaler` and a
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.489 seconds)
+   **Total running time of the script:** (0 minutes 1.490 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_how_to_use_skada.py:

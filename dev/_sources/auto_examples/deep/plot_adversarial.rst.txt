@@ -116,13 +116,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.8830  3.2862
-          2        0.6407  3.4986
-          3        0.1856  3.4993
-          4        0.0958  3.5018
-          5        0.0672  3.5959
+          1        1.8377  4.2140
+          2        0.5140  4.3976
+          3        0.1558  4.3991
+          4        0.0939  4.4993
+          5        0.0547  4.3984
 
-    0.932475884244373
+    0.9067524115755627
 
 
 
@@ -159,20 +159,20 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.6181  8.7801
-          2        1.3865  9.0978
-          3        1.1399  9.0029
-          4        1.0811  8.9922
-          5        1.0537  8.2002
+          1        2.4676  8.0676
+          2        1.2900  8.8002
+          3        1.1034  8.7972
+          4        1.0617  10.3992
+          5        1.0409  10.2001
 
-    0.9389067524115756
+    0.9131832797427653
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 5.329 seconds)
+   **Total running time of the script:** (1 minutes 11.832 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:
