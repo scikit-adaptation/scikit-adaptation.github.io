@@ -252,8 +252,6 @@ Train the full Labe Propagation model
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     LabelProp MSE on source: 0.28
@@ -313,8 +311,6 @@ labels are propagated from the source domain to the target domain.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
 
@@ -523,8 +519,6 @@ Train with LabelProp + classifier
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     LabelProp Accuracy on source: 0.76
@@ -583,8 +577,6 @@ labels are propagated from the source domain to the target domain.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
 
@@ -726,12 +718,8 @@ to this kind of shift because it estimates the class proportions in the target.
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/ot/bregman/_barycenter.py:1047: UserWarning: Algorithm did not converge. You might want to increase the number of iterations `numItermax` or the regularization parameter `reg`.
       warnings.warn(
     LabelProp Accuracy on target: 0.87
@@ -744,7 +732,7 @@ to this kind of shift because it estimates the class proportions in the target.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.700 seconds)
+   **Total running time of the script:** (0 minutes 1.756 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_label_prop_da.py:
