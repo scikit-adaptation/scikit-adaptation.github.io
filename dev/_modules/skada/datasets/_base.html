@@ -431,10 +431,11 @@
         <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        [Warning] This method is deprecated and will be removed in future versions.</span>
-<span class="sd">        Please use :meth:`pack` with `mask_target_labels=True` instead.</span>
-
 <span class="sd">        Aggregate source and target domains for training.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            This method is deprecated and will be removed in future versions.</span>
+<span class="sd">            Use :meth:`pack` with ``mask_target_labels=True`` instead.</span>
 
 <span class="sd">        This method is equivalent to :meth:`pack` with ``train=True``.</span>
 <span class="sd">        It masks the labels for target domains (with -1 or a custom mask value)</span>
@@ -479,10 +480,11 @@
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        [Warning] This method is deprecated and will be removed in future versions.</span>
-<span class="sd">        Please use :meth:`pack` with `mask_target_labels=False` instead.</span>
-
 <span class="sd">        Aggregate target domains for testing.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            This method is deprecated and will be removed in future versions.</span>
+<span class="sd">            Use :meth:`pack` with ``mask_target_labels=False`` instead.</span>
 
 <span class="sd">        This method is equivalent to :meth:`pack` with only target domains</span>
 <span class="sd">        and ``train=False``. Labels are not masked.</span>
