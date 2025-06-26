@@ -667,6 +667,8 @@
 
 
 
+<div class="viewcode-block" id="SelectSourceTarget">
+<a class="viewcode-back" href="../../gen_modules/skada.SelectSourceTarget.html#skada.SelectSourceTarget">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SelectSourceTarget</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">):</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">target_estimator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -682,6 +684,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_final</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_transformer</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">source_estimator</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">)</span>
 
+<div class="viewcode-block" id="SelectSourceTarget.get_metadata_routing">
+<a class="viewcode-back" href="../../gen_modules/skada.SelectSourceTarget.html#skada.SelectSourceTarget.get_metadata_routing">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_metadata_routing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">routing</span> <span class="o">=</span> <span class="n">MetadataRouter</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">add_self_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">routing</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source_estimator</span><span class="p">,</span> <span class="n">method_mapping</span><span class="o">=</span><span class="n">MethodMapping</span><span class="p">()</span>
@@ -703,8 +707,11 @@
                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;predict_log_proba&#39;</span><span class="p">)</span>
                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;decision_function&#39;</span><span class="p">)</span>
                 <span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">callee</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">caller</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">routing</span>
+        <span class="k">return</span> <span class="n">routing</span></div>
 
+
+<div class="viewcode-block" id="SelectSourceTarget.get_params">
+<a class="viewcode-back" href="../../gen_modules/skada.SelectSourceTarget.html#skada.SelectSourceTarget.get_params">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get parameters for this estimator.</span>
 
@@ -721,8 +728,11 @@
 <span class="sd">        params : mapping of string to any</span>
 <span class="sd">            Parameter names mapped to their values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="n">deep</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="n">deep</span><span class="p">)</span></div>
 
+
+<div class="viewcode-block" id="SelectSourceTarget.set_params">
+<a class="viewcode-back" href="../../gen_modules/skada.SelectSourceTarget.html#skada.SelectSourceTarget.set_params">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the parameters of this estimator.</span>
 
@@ -741,13 +751,17 @@
 <span class="sd">            Selector class instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
 
+
+<div class="viewcode-block" id="SelectSourceTarget.get_estimator">
+<a class="viewcode-back" href="../../gen_modules/skada.SelectSourceTarget.html#skada.SelectSourceTarget.get_estimator">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">BaseEstimator</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides access to the fitted estimator based on the domain type.&quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">domain</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
         <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="n">X_container</span> <span class="o">=</span> <span class="n">MetadataContainer</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -847,7 +861,8 @@
 
     <span class="nd">@available_if</span><span class="p">(</span><span class="n">_estimator_has</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">base_attr_name</span><span class="o">=</span><span class="s1">&#39;source_estimator&#39;</span><span class="p">))</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route_to_estimator</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>

@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.OTLabelProp &mdash; SKADA: Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=49fce813"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="skada.JCPOTLabelProp" href="skada.JCPOTLabelProp.html" />
+    <link rel="prev" title="skada.DASVMClassifier" href="skada.DASVMClassifier.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SKADA
+              <img src="../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada">Main module <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../all.html#sample-reweighting-da-methods">Sample reweighting DA methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../all.html#sample-mapping-and-alignment-da-methods">Sample mapping and alignment DA methods</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../all.html#other-da-methods">Other DA methods</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="skada.JDOTClassifier.html">skada.JDOTClassifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.JDOTRegressor.html">skada.JDOTRegressor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.DASVMClassifier.html">skada.DASVMClassifier</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">skada.OTLabelProp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.JCPOTLabelProp.html">skada.JCPOTLabelProp</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../all.html#da-pipeline">DA pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../all.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.deep">Deep learning DA <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.deep</span></code>:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.utils">Utilities <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../all.html">API and modules</a></li>
+      <li class="breadcrumb-item active">skada.OTLabelProp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/gen_modules/skada.OTLabelProp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="skada-otlabelprop">
+<h1>skada.OTLabelProp<a class="headerlink" href="#skada-otlabelprop" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="skada.OTLabelProp">
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">OTLabelProp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqeuclidean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_iter_max</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_ot.html#OTLabelProp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.OTLabelProp" title="Link to this definition"></a></dt>
+<dd><p>Label propagation using optimal transport plan.</p>
+<p>This adapter uses the optimal transport plan to propagate labels from
+source to target domain. This was proposed originally in [28] for
+semi-supervised learning and can be used for domain adaptation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>base_estimator</strong><span class="classifier">object</span></dt><dd><p>The base estimator to be used for the classification task. This
+estimator should optimize a classification loss corresponding to the
+given metric and provide compatible predict method (decision_function of
+predict_proba).</p>
+</dd>
+<dt><strong>reg</strong><span class="classifier">float, default=0</span></dt><dd><p>The entropic  regularization parameter for the optimal transport
+problem. If None, the exact OT is solved, else it is used to weight
+the entropy regularizationof the coupling matrix.</p>
+</dd>
+<dt><strong>metric</strong><span class="classifier">str, default='sqeuclidean'</span></dt><dd><p>The metric to use for the cost matrix. Can be 'sqeuclidean' for
+squared euclidean distance, 'euclidean' for euclidean distance,</p>
+</dd>
+<dt><strong>n_iter_max: int</strong></dt><dd><p>Maximum number of iterations for the OT solver.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>adapter</strong><span class="classifier">OTLabelPropAdapter</span></dt><dd><p>The optimal transport label propagation adapter.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="simple">
+<dt>[28] Solomon, J., Rustamov, R., Guibas, L., &amp; Butscher, A. (2014, January).</dt><dd><p>Wasserstein propagation for semi-supervised learning. In International
+Conference on Machine Learning (pp. 306-314). PMLR.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-skada-otlabelprop">
+<span id="sphx-glr-backreferences-skada-otlabelprop"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.OTLabelProp</span></code><a class="headerlink" href="#examples-using-skada-otlabelprop" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="A comparison of a several methods of DA in skada on synthetic datasets. The point of this example is to illustrate the nature of decision boundaries of different methods. This should be taken with a grain of salt, as the intuition conveyed by these examples does not necessarily carry over to real datasets."><img alt="" src="../_images/sphx_glr_plot_method_comparison_thumb.png" />
+<p><a class="reference internal" href="../auto_examples/plot_method_comparison.html#sphx-glr-auto-examples-plot-method-comparison-py"><span class="std std-ref">Comparison of DA classification methods</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Comparison of DA classification methods</div>
+</div></div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="skada.DASVMClassifier.html" class="btn btn-neutral float-left" title="skada.DASVMClassifier" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.JCPOTLabelProp.html" class="btn btn-neutral float-right" title="skada.JCPOTLabelProp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0dev
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

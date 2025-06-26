@@ -1,0 +1,11 @@
+﻿skada.deep.losses.nap\_loss
+===========================
+
+.. currentmodule:: skada.deep.losses
+
+.. autofunction:: nap_loss
+
+.. _sphx_glr_backreferences_skada.deep.losses.nap_loss:
+
+.. minigallery:: skada.deep.losses.nap_loss
+    :add-heading:

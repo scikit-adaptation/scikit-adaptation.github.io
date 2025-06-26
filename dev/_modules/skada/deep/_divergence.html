@@ -234,6 +234,8 @@
 
 
 
+<div class="viewcode-block" id="DAN">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.DAN.html#skada.deep.DAN">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">DAN</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;DAN domain adaptation method.</span>
 
@@ -274,7 +276,8 @@
         <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">DANLoss</span><span class="p">(</span><span class="n">sigmas</span><span class="o">=</span><span class="n">sigmas</span><span class="p">),</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">net</span>
+    <span class="k">return</span> <span class="n">net</span></div>
+
 
 
 <div class="viewcode-block" id="CANLoss">

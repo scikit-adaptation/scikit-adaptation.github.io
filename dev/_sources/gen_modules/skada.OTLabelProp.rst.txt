@@ -1,0 +1,11 @@
+﻿skada.OTLabelProp
+=================
+
+.. currentmodule:: skada
+
+.. autofunction:: OTLabelProp
+
+.. _sphx_glr_backreferences_skada.OTLabelProp:
+
+.. minigallery:: skada.OTLabelProp
+    :add-heading:

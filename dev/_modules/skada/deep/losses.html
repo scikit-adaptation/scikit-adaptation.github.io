@@ -548,6 +548,8 @@
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown Laplacian type: </span><span class="si">{</span><span class="n">laplac</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="gda_loss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.gda_loss.html#skada.deep.losses.gda_loss">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">gda_loss</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euc&quot;</span><span class="p">,</span> <span class="n">laplac</span><span class="o">=</span><span class="s2">&quot;laplac1&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the GDA loss between two graphs.</span>
 
@@ -572,9 +574,12 @@
     <span class="n">_</span><span class="p">,</span> <span class="n">s_v</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">s_matrix</span><span class="p">)</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">t_v</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">t_matrix</span><span class="p">)</span>
     <span class="n">svd_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">s_v</span> <span class="o">-</span> <span class="n">t_v</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">svd_loss</span>
+    <span class="k">return</span> <span class="n">svd_loss</span></div>
 
 
+
+<div class="viewcode-block" id="nap_loss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.nap_loss.html#skada.deep.losses.nap_loss">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nap_loss</span><span class="p">(</span><span class="n">features_t</span><span class="p">,</span> <span class="n">y_pred_t</span><span class="p">,</span> <span class="n">memory_features</span><span class="p">,</span> <span class="n">memory_outputs</span><span class="p">,</span> <span class="n">sample_idx_t</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the NAP loss.</span>
 
@@ -609,7 +614,8 @@
     <span class="n">loss_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)(</span><span class="n">y_pred_t</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
     <span class="n">classifier_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weight_</span> <span class="o">*</span> <span class="n">loss_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weight_</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">classifier_loss</span>
+    <span class="k">return</span> <span class="n">classifier_loss</span></div>
+
 </pre></div>
 
            </div>

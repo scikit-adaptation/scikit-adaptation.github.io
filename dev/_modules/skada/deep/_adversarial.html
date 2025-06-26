@@ -104,6 +104,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_generator</span>
 
 
+<div class="viewcode-block" id="DANNLoss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.DANNLoss.html#skada.deep.DANNLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DANNLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DANN.</span>
 
@@ -133,6 +135,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">domain_criterion</span>
 
+<div class="viewcode-block" id="DANNLoss.forward">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.DANNLoss.html#skada.deep.DANNLoss.forward">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">domain_pred_s</span><span class="p">,</span>
@@ -154,7 +158,9 @@
             <span class="n">domain_pred_s</span><span class="p">,</span> <span class="n">domain_label</span>
         <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">domain_pred_t</span><span class="p">,</span> <span class="n">domain_label_target</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">loss</span>
+        <span class="k">return</span> <span class="n">loss</span></div>
+</div>
+
 
 
 <div class="viewcode-block" id="DANN">

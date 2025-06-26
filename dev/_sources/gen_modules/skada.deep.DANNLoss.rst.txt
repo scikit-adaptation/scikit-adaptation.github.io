@@ -1,0 +1,13 @@
+﻿skada.deep.DANNLoss
+===================
+
+.. currentmodule:: skada.deep
+
+.. autoclass:: DANNLoss
+   :special-members: __contains__,__getitem__,__iter__,__len__,__add__,__sub__,__mul__,__div__,__neg__
+   :members:
+
+.. _sphx_glr_backreferences_skada.deep.DANNLoss:
+
+.. minigallery:: skada.deep.DANNLoss
+    :add-heading:

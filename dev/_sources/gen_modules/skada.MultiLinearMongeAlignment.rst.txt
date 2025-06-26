@@ -1,0 +1,11 @@
+﻿skada.MultiLinearMongeAlignment
+===============================
+
+.. currentmodule:: skada
+
+.. autofunction:: MultiLinearMongeAlignment
+
+.. _sphx_glr_backreferences_skada.MultiLinearMongeAlignment:
+
+.. minigallery:: skada.MultiLinearMongeAlignment
+    :add-heading:

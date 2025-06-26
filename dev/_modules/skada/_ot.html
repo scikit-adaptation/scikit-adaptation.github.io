@@ -698,6 +698,8 @@
 
 
 
+<div class="viewcode-block" id="JDOTClassifier">
+<a class="viewcode-back" href="../../gen_modules/skada.JDOTClassifier.html#skada.JDOTClassifier">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">JDOTClassifier</span><span class="p">(</span><span class="n">DAEstimator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Joint Distribution Optimal Transport Classifier proposed in [10]</span>
 
@@ -846,7 +848,8 @@
                 <span class="s2">&quot;Source domain detected. Predictor is trained on target&quot;</span>
                 <span class="s2">&quot;and score might be biased.&quot;</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span></div>
+
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">OTLabelPropAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
@@ -942,6 +945,8 @@
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="n">dico</span>
 
 
+<div class="viewcode-block" id="OTLabelProp">
+<a class="viewcode-back" href="../../gen_modules/skada.OTLabelProp.html#skada.OTLabelProp">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">OTLabelProp</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">n_iter_max</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Label propagation using optimal transport plan.</span>
 
@@ -984,7 +989,8 @@
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">OTLabelPropAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">n_iter_max</span><span class="o">=</span><span class="n">n_iter_max</span><span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
+
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">JCPOTLabelPropAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
@@ -1067,6 +1073,8 @@
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">yout</span><span class="p">,</span> <span class="p">{}</span>
 
 
+<div class="viewcode-block" id="JCPOTLabelProp">
+<a class="viewcode-back" href="../../gen_modules/skada.JCPOTLabelProp.html#skada.JCPOTLabelProp">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">JCPOTLabelProp</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1122,7 +1130,8 @@
             <span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
         <span class="p">),</span>
         <span class="n">base_estimator</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="p">)</span></div>
+
 </pre></div>
 
            </div>
