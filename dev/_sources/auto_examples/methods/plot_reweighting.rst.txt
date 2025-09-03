@@ -534,17 +534,6 @@ See [24] for details.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/multiclass.py:213: UserWarning: The number of unique classes is greater than 50% of the number of samples.
-      y_type = type_of_target(y, input_name="y")
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/multiclass.py:213: UserWarning: The number of unique classes is greater than 50% of the number of samples.
-      y_type = type_of_target(y, input_name="y")
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/multiclass.py:213: UserWarning: The number of unique classes is greater than 50% of the number of samples.
-      y_type = type_of_target(y, input_name="y")
-
 
 
 
@@ -702,7 +691,7 @@ Comparison of score between reweighting methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.748 seconds)
+   **Total running time of the script:** (0 minutes 1.534 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_reweighting.py:
