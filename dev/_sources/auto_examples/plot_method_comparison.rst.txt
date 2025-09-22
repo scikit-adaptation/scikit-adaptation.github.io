@@ -200,7 +200,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/_network_simplex.py:520: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -380,7 +380,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/_network_simplex.py:520: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -558,7 +558,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/_network_simplex.py:520: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -736,7 +736,7 @@ accuracy on the test set.
                             kernel='rbf', max_iter=-1, probability=False,
                             random_state=None, shrinking=True, tol=0.001,
                             verbose=False))])
-    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/__init__.py:576: UserWarning: numItermax reached before optimality. Try to increase numItermax.
+    /home/circleci/.local/lib/python3.10/site-packages/ot/lp/_network_simplex.py:520: UserWarning: numItermax reached before optimality. Try to increase numItermax.
       result_code_string = check_result(result_code)
     CORAL Pipeline(steps=[('coraladapter',
                      Shared(assume_centered=False, base_estimator=CORALAdapter(),
@@ -991,7 +991,7 @@ accuracy on the test set.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 27.499 seconds)
+   **Total running time of the script:** (0 minutes 18.829 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_method_comparison.py:

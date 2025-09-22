@@ -106,7 +106,11 @@
     <span class="n">_apply_domain_masks</span><span class="p">,</span>
     <span class="n">_merge_domain_outputs</span><span class="p">,</span>
     <span class="n">_remove_masked</span><span class="p">,</span>
-    <span class="n">_route_params</span>
+    <span class="n">_route_params</span><span class="p">,</span>
+    <span class="n">_find_y_type</span><span class="p">,</span>
+    <span class="n">Y_Type</span><span class="p">,</span>
+    <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span><span class="p">,</span>
+    <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">skada.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_X_domain</span><span class="p">,</span> <span class="n">check_X_y_domain</span><span class="p">,</span> <span class="n">extract_source_indices</span>
 
@@ -284,12 +288,13 @@
 
     <span class="n">__metadata_request__transform</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">mask_target_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span> <span class="o">=</span> <span class="n">base_estimator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_final</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_transformer</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_target_labels</span> <span class="o">=</span> <span class="n">mask_target_labels</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_metadata_routing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span>
@@ -424,6 +429,16 @@
             <span class="n">routed_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">routing_request</span><span class="o">.</span><span class="n">_consumes</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)}</span>
         <span class="k">return</span> <span class="n">routed_params</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_auto_mask_target_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">routed_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y_type</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">routed_params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">y_type</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_DEFAULT_MASKED_TARGET_CLASSIFICATION_LABEL</span>
+            <span class="k">elif</span> <span class="n">y_type</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">CONTINUOUS</span><span class="p">:</span>
+                <span class="n">y</span><span class="p">[</span><span class="o">~</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">_DEFAULT_MASKED_TARGET_REGRESSION_LABEL</span>
+        <span class="k">return</span> <span class="n">y</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_remove_masked</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">routed_params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes masked inputs before passing them to a downstream (base) estimator,</span>
 <span class="sd">        ensuring their compatibility with the DA pipeline, particularly for estimators</span>
@@ -496,6 +511,9 @@
 
     <span class="c1"># xxx(okachaiev): solve the problem with parameter renaming</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routing_method</span><span class="p">,</span> <span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_target_labels</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_mask_target_labels</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_out</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="n">routing</span> <span class="o">=</span> <span class="n">get_routing_for_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
         <span class="n">routing_request</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">routing</span><span class="p">,</span> <span class="n">routing_method</span><span class="p">)</span>
@@ -539,6 +557,9 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_target_labels</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_mask_target_labels</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_out</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;sample_domain&#39;</span><span class="p">]</span>
         <span class="n">routing</span> <span class="o">=</span> <span class="n">get_routing_for_object</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span>
@@ -566,6 +587,9 @@
             <span class="n">domain_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="s1">&#39;fit_transform&#39;</span><span class="p">,</span> <span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
             <span class="n">output</span> <span class="o">=</span> <span class="n">_merge_domain_outputs</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_container</span><span class="p">),</span> <span class="n">domain_outputs</span><span class="p">,</span> <span class="n">allow_containers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_target_labels</span><span class="p">:</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_auto_mask_target_labels</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
             <span class="bp">self</span><span class="o">.</span><span class="n">_fit</span><span class="p">(</span><span class="n">X_container</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">method_params</span> <span class="o">=</span> <span class="n">X_container</span><span class="o">.</span><span class="n">merge_out</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
             <span class="n">transform_params</span> <span class="o">=</span> <span class="n">_route_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">routing_</span><span class="o">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">method_params</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
@@ -662,6 +686,15 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">SelectTarget</span><span class="p">(</span><span class="n">_BaseSelectDomain</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Selects only target domains for fitting base estimator.&quot;&quot;&quot;</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">mask_target_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># We do not mask target labels</span>
+        <span class="c1"># Because we want to be able to pass the target labels to the base estimator</span>
+        
+        <span class="k">if</span> <span class="n">mask_target_labels</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Target labels cannot be masked for SelectTarget.&quot;</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="n">mask_target_labels</span><span class="o">=</span><span class="n">mask_target_labels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_select_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">):</span>
         <span class="k">return</span> <span class="o">~</span><span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span></div>
 
@@ -671,12 +704,16 @@
 <a class="viewcode-back" href="../../gen_modules/skada.SelectSourceTarget.html#skada.SelectSourceTarget">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SelectSourceTarget</span><span class="p">(</span><span class="n">BaseSelector</span><span class="p">):</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">target_estimator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_estimator</span><span class="p">:</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">target_estimator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mask_target_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">target_estimator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> \
                 <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">source_estimator</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">)</span> \
                 <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">target_estimator</span><span class="p">,</span> <span class="s1">&#39;transform&#39;</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The provided source and target estimators must &quot;</span>
                             <span class="s2">&quot;both be transformers, or neither should be.&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">mask_target_labels</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Target labels cannot be masked for SelectSourceTarget.&quot;</span><span class="p">)</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">source_estimator</span> <span class="o">=</span> <span class="n">source_estimator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target_estimator</span> <span class="o">=</span> <span class="n">target_estimator</span>
         <span class="c1"># xxx(okachaiev): the fact that we need to put those variables</span>

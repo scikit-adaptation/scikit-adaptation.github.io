@@ -682,7 +682,7 @@ Comparison of score between reweighting methods:
     Gaussian Reweighting | 99.375%
     Discr. Reweighting   | 98.125%
     KLIEPReweight        | 100.0 %
-    1NN Reweighting      | 99.375%
+    1NN Reweighting      | 98.75 %
     Kernel Mean Matching | 100.0 %
 
 
@@ -691,7 +691,7 @@ Comparison of score between reweighting methods:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.534 seconds)
+   **Total running time of the script:** (0 minutes 1.462 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_reweighting.py:
