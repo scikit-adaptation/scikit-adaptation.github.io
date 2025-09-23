@@ -149,10 +149,10 @@ Training with skorch
 
  .. code-block:: none
 
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        2.3708  10.7062
-          2        2.2787  9.6955
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        2.2617  7.0632
+          2        2.2032  6.8983
 
 
 .. raw:: html
@@ -914,7 +914,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__epoch_timer&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787fe50&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d828f0&gt;</td>
             </tr>
     
 
@@ -924,7 +924,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__train_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787fd30&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d81a80&gt;</td>
             </tr>
     
 
@@ -964,7 +964,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787f760&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d83730&gt;</td>
             </tr>
     
 
@@ -1004,7 +1004,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787c3a0&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d80610&gt;</td>
             </tr>
     
 
@@ -1054,7 +1054,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
-                <td class="value">&lt;function to_...x7fc9964bc670&gt;</td>
+                <td class="value">&lt;function to_...x7ff1b8938790&gt;</td>
             </tr>
     
 
@@ -1074,7 +1074,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__print_log&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787cb50&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d81c30&gt;</td>
             </tr>
     
 
@@ -1212,10 +1212,14 @@ Training with skorch with dataset
 
  .. code-block:: none
 
+    /home/circleci/project/examples/deep/plot_training_method.py:68: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      X_dict = {"X": torch.tensor(X), "sample_domain": torch.tensor(sample_domain)}
+    /home/circleci/project/examples/deep/plot_training_method.py:71: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
+      dataset = Dataset(X_dict, torch.tensor(y))
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.3164  9.5455
-          2        2.2569  11.4996
+          1        2.3070  8.2245
+          2        2.2251  8.5985
 
 
 .. raw:: html
@@ -1977,7 +1981,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__epoch_timer&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787ed10&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d83c70&gt;</td>
             </tr>
     
 
@@ -1987,7 +1991,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__train_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787f250&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d802b0&gt;</td>
             </tr>
     
 
@@ -2027,7 +2031,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787c310&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d811e0&gt;</td>
             </tr>
     
 
@@ -2067,7 +2071,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787eb30&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d82fe0&gt;</td>
             </tr>
     
 
@@ -2117,7 +2121,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
-                <td class="value">&lt;function to_...x7fc9964bc670&gt;</td>
+                <td class="value">&lt;function to_...x7ff1b8938790&gt;</td>
             </tr>
     
 
@@ -2137,7 +2141,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__print_log&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fca9787ccd0&gt;</td>
+                <td class="value">&lt;skorch.callb...x7ff2b9d82b00&gt;</td>
             </tr>
     
 
@@ -2286,8 +2290,8 @@ Training with torch
 
  .. code-block:: none
 
-    Loss: 0.9231560863554478
-    Loss: 0.217377420514822
+    Loss: 1.0229120552539825
+    Loss: 0.22571586444973946
 
 
 
@@ -2295,7 +2299,7 @@ Training with torch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 5.904 seconds)
+   **Total running time of the script:** (0 minutes 49.317 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_training_method.py:
