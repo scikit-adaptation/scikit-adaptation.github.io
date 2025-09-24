@@ -118,15 +118,15 @@ Train a classic model
 
  .. code-block:: none
 
-      epoch    train_loss     dur
-    -------  ------------  ------
-          1        1.7205  3.4048
-          2        0.4503  3.3974
-          3        0.1426  3.4058
-          4        0.0781  3.3949
-          5        0.0467  3.0985
+      epoch    train_loss      dur
+    -------  ------------  -------
+          1        1.2540  13.1974
+          2        0.1479  12.4482
+          3        0.0666  14.8514
+          4        0.0438  11.9062
+          5        0.0366  14.0008
 
-    0.9196141479099679
+    0.8713826366559485
 
 
 
@@ -159,24 +159,32 @@ Train a DANN model
 
  .. code-block:: none
 
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/torch/nn/modules/module.py:1773: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
       return self._call_impl(*args, **kwargs)
-      epoch    train_loss     dur
-    -------  ------------  ------
-          1        2.4643  6.2540
-          2        1.2621  6.6018
-          3        1.1004  6.7959
-          4        1.0547  6.5058
-          5        1.0424  6.6004
+      epoch    train_loss      dur
+    -------  ------------  -------
+          1        2.7250  19.8954
+          2        1.5684  19.5590
+          3        1.1852  19.4060
+          4        1.1035  30.7440
+          5        1.0677  23.4532
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
 
-    0.932475884244373
+    0.8745980707395499
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 53.833 seconds)
+   **Total running time of the script:** (3 minutes 8.250 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:

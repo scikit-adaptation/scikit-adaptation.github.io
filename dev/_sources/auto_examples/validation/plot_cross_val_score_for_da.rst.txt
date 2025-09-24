@@ -193,7 +193,7 @@ to separate the source and target data and to compute the score.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.288 seconds)
+   **Total running time of the script:** (0 minutes 0.376 seconds)
 
 
 .. _sphx_glr_download_auto_examples_validation_plot_cross_val_score_for_da.py:
