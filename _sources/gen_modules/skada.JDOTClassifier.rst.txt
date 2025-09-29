@@ -1,0 +1,11 @@
+﻿skada.JDOTClassifier
+====================
+
+.. currentmodule:: skada
+
+.. autofunction:: JDOTClassifier
+
+.. _sphx_glr_backreferences_skada.JDOTClassifier:
+
+.. minigallery:: skada.JDOTClassifier
+    :add-heading:

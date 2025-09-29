@@ -1,0 +1,11 @@
+﻿skada.deep.SPA
+==============
+
+.. currentmodule:: skada.deep
+
+.. autofunction:: SPA
+
+.. _sphx_glr_backreferences_skada.deep.SPA:
+
+.. minigallery:: skada.deep.SPA
+    :add-heading:

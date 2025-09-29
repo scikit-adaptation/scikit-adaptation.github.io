@@ -63,14 +63,18 @@ on a simple image classification task.
 Load the image datasets
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 24-33
 
 .. code-block:: Python
 
 
     dataset = load_mnist_usps(n_classes=2, n_samples=0.5, return_dataset=True)
-    X, y, sample_domain = dataset.pack_train(as_sources=["mnist"], as_targets=["usps"])
-    X_test, y_test, sample_domain_test = dataset.pack_test(as_targets=["usps"])
+    X, y, sample_domain = dataset.pack(
+        as_sources=["mnist"], as_targets=["usps"], mask_target_labels=True
+    )
+    X_test, y_test, sample_domain_test = dataset.pack(
+        as_sources=[], as_targets=["usps"], mask_target_labels=False
+    )
 
 
 
@@ -80,18 +84,18 @@ Load the image datasets
 
  .. code-block:: none
 
-    /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
+    /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
       mnist_target = torch.tensor(mnist_dataset.targets)
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-32
+.. GENERATED FROM PYTHON SOURCE LINES 34-36
 
 Train a classic model
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-43
+.. GENERATED FROM PYTHON SOURCE LINES 36-47
 
 .. code-block:: Python
 
@@ -116,22 +120,22 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.6460  6.1998
-          2        0.4327  6.4993
-          3        0.1498  6.6010
-          4        0.0746  12.6988
-          5        0.0511  13.5012
+          1        1.4460  5.3023
+          2        0.1985  5.7021
+          3        0.0777  5.3999
+          4        0.0422  6.9946
+          5        0.0334  7.5007
 
-    0.8938906752411575
+    0.8906752411575563
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-46
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 Train a DeepJDOT model
 ----------------------------------------------------------------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-58
+.. GENERATED FROM PYTHON SOURCE LINES 50-62
 
 .. code-block:: Python
 
@@ -155,22 +159,30 @@ Train a DeepJDOT model
 
  .. code-block:: none
 
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
       epoch    train_loss      dur
     -------  ------------  -------
-          1        2.1794  38.5859
-          2        1.3292  13.6001
-          3        0.8222  10.7061
-          4        0.6452  10.4921
-          5        0.5480  10.5015
+          1        2.0113  14.6628
+          2        1.1483  14.0983
+          3        0.7808  12.7022
+          4        0.6364  11.3017
+          5        0.5516  13.8933
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
+    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
+      warnings.warn(
 
-    0.9389067524115756
+    0.8585209003215434
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (2 minutes 14.978 seconds)
+   **Total running time of the script:** (1 minutes 42.555 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:

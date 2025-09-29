@@ -6,8 +6,8 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SKADA: SciKit Domain Adaptation &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+  <title>SKADA: SciKit Adaptation &mdash; SKADA: Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=d2d258e8" />
@@ -18,7 +18,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=22974a12"></script>
+      <script src="_static/documentation_options.js?v=5e5be09d"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -49,7 +49,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SKADA: SciKit Adaptation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
@@ -72,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">SKADA: SciKit Domain Adaptation</li>
+      <li class="breadcrumb-item active">SKADA: SciKit Adaptation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,15 +82,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="skada-scikit-domain-adaptation">
-<h1>SKADA: SciKit Domain Adaptation<a class="headerlink" href="#skada-scikit-domain-adaptation" title="Link to this heading"></a></h1>
+  <section id="skada-scikit-adaptation">
+<h1>SKADA: SciKit Adaptation<a class="headerlink" href="#skada-scikit-adaptation" title="Link to this heading"></a></h1>
 <a class="reference internal image-reference" href="_images/skada_logo_full.svg"><img alt="SKADA Logo" src="_images/skada_logo_full.svg" style="width: 600px;" />
 </a>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Link to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SKADA: SciKit Adaptation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Users Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
@@ -106,10 +106,6 @@
 <a class="reference external" href="https://codecov.io/gh/scikit-adaptation/skada"><img alt="Codecov Status" src="https://codecov.io/gh/scikit-adaptation/skada/branch/main/graph/badge.svg" /></a>
 <a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD_3--Clause-blue.svg" /></a>
 <a class="reference external" href="https://doi.org/10.5281/zenodo.12666838"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.12666838.svg" /></a></p>
-<blockquote>
-<div><p>[!WARNING]
-This library is currently in a phase of active development. All features are subject to change without prior notice. If you are interested in collaborating, please feel free to reach out by opening an issue or starting a discussion.</p>
-</div></blockquote>
 <p>SKADA is a library for domain adaptation (DA) with a scikit-learn and PyTorch/skorch
 compatible API with the following features:</p>
 <ul class="simple">
@@ -189,7 +185,7 @@ details, please refer to this <a class="reference external" href="https://scikit
 <p>Where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the input data, <code class="docutils literal notranslate"><span class="pre">y</span></code> is the target labels and <code class="docutils literal notranslate"><span class="pre">sample_domain</span></code> is the
 domain labels (positive for source and negative for target domains). We provide
 below an example ho how to fit a DA estimator:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORAL</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">CORAL</span>
 
 <span class="n">da</span> <span class="o">=</span> <span class="n">CORAL</span><span class="p">()</span>
 <span class="n">da</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span> <span class="c1"># sample_domain passed by name</span>
@@ -198,9 +194,9 @@ below an example ho how to fit a DA estimator:</p>
 </pre></div>
 </div>
 <p>One can also use <code class="docutils literal notranslate"><span class="pre">Adapter</span></code> classes to create a full pipeline with DA:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORALAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">CORALAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
 
@@ -211,20 +207,20 @@ below an example ho how to fit a DA estimator:</p>
 subsequent classifier/regressor must require sample_weights as input. This is
 done with the <code class="docutils literal notranslate"><span class="pre">set_fit_requires</span></code> method. For instance, with <code class="docutils literal notranslate"><span class="pre">LogisticRegression</span></code>, you
 would use <code class="docutils literal notranslate"><span class="pre">LogisticRegression().set_fit_requires('sample_weight')</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">GaussianReweightAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianReweightAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">GaussianReweightAdapter</span><span class="p">(),</span>
                         <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Finally SKADA can be used for cross validation scores estimation and hyperparameter
 selection :</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">GridSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
 
-<span class="kn">from</span> <span class="nn">skada</span> <span class="kn">import</span> <span class="n">CORALAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
-<span class="kn">from</span> <span class="nn">skada.model_selection</span> <span class="kn">import</span> <span class="n">SourceTargetShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">skada.metrics</span> <span class="kn">import</span> <span class="n">PredictionEntropyScorer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <span class="n">CORALAdapter</span><span class="p">,</span> <span class="n">make_da_pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceTargetShuffleSplit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PredictionEntropyScorer</span>
 
 <span class="c1"># make pipeline</span>
 <span class="n">pipe</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">(),</span> <span class="n">CORALAdapter</span><span class="p">(),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
@@ -259,6 +255,10 @@ selection :</p>
 <li><p><a class="reference external" href="https://scholar.google.com/citations?user=h79bffAAAAAJ&amp;amp;hl=fr">Antoine de Mathelin</a></p></li>
 <li><p><a class="reference internal" href="#"><span class="xref myst">Ruben Bueno</span></a></p></li>
 </ul>
+<p>SKADA has benefited from the financing or manpower from the following partners:</p>
+<img src="https://scikit-adaptation.github.io/dev/_static/images/logo_anr.jpg" alt="ANR" style="height:60px;"/>
+<img src="https://scikit-adaptation.github.io/dev/_static/images/logo_hiparis.png" alt="Hi!PARIS" style="height:60px;"/>
+<img src="https://scikit-adaptation.github.io/dev/_static/images/logo_elias.png" alt="ELIAS European project" style="height:60px;"/>
 </section>
 <section id="license">
 <h4>License<a class="headerlink" href="#license" title="Link to this heading"></a></h4>
@@ -302,6 +302,7 @@ selection :</p>
 <p>[34] Jin, Ying, Wang, Ximei, Long, Mingsheng, Wang, Jianmin. <a class="reference external" href="https://arxiv.org/pdf/1912.03699">Minimum Class Confusion for Versatile Domain Adaptation</a>. ECCV, 2020.</p>
 <p>[35] Zhang, Y., Liu, T., Long, M., &amp; Jordan, M. I. (2019). <a class="reference external" href="https://arxiv.org/abs/1904.05801">Bridging Theory and Algorithm for Domain Adaptation</a>. In Proceedings of the 36th International Conference on Machine Learning, (pp. 7404-7413).</p>
 <p>[36] Xiao, Zhiqing, Wang, Haobo, Jin, Ying, Feng, Lei, Chen, Gang, Huang, Fei, Zhao, Junbo.<a class="reference external" href="https://arxiv.org/pdf/2310.17594">SPA: A Graph Spectral Alignment Perspective for Domain Adaptation</a>. In Neurips, 2023.</p>
+<p>[37] Xie, Renchunzi, Odonnat, Ambroise, Feofanov, Vasilii, Deng, Weijian, Zhang, Jianfeng and An, Bo. <a class="reference external" href="https://arxiv.org/pdf/2405.18979">MaNo: Exploiting Matrix Norm for Unsupervised Accuracy Estimation Under Distribution Shifts</a>. In NeurIPS, 2024.</p>
 </section>
 </section>
 </section>
@@ -343,7 +344,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

@@ -114,7 +114,7 @@ datasets = [
     make_shifted_datasets(
         n_samples_source=20,
         n_samples_target=20,
-        shift="concept_drift",
+        shift="conditional_shift",
         label="binary",
         noise=0.4,
         random_state=RANDOM_SEED,
@@ -135,7 +135,9 @@ figure, axes = plt.subplots(len(classifiers) + 2, len(datasets), figsize=(9, 27)
 # iterate over datasets
 for ds_cnt, ds in enumerate(datasets):
     # preprocess dataset, split into training and test part
-    X, y, sample_domain = ds.pack_train(as_sources=["s"], as_targets=["t"])
+    X, y, sample_domain = ds.pack(
+        as_sources=["s"], as_targets=["t"], mask_target_labels=True
+    )
     Xs, ys = ds.get_domain("s")
     Xt, yt = ds.get_domain("t")
 

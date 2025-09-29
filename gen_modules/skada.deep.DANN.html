@@ -6,8 +6,8 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>skada.deep.DANN &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+  <title>skada.deep.DANN &mdash; SKADA: Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,14 +18,14 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/documentation_options.js?v=5e5be09d"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="skada.deep.CDAN" href="skada.deep.CDAN.html" />
-    <link rel="prev" title="skada.deep.DeepJDOT" href="skada.deep.DeepJDOT.html" /> 
+    <link rel="prev" title="skada.deep.DAN" href="skada.deep.DAN.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,7 +49,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Adaptation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
@@ -58,11 +58,13 @@
 <li class="toctree-l3 current"><a class="reference internal" href="../all.html#deep-learning-da-methods">Deep learning DA methods</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="skada.deep.DeepCoral.html">skada.deep.DeepCoral</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.deep.DeepJDOT.html">skada.deep.DeepJDOT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.DAN.html">skada.deep.DAN</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">skada.deep.DANN</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.deep.CDAN.html">skada.deep.CDAN</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.deep.MCC.html">skada.deep.MCC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.deep.CAN.html">skada.deep.CAN</a></li>
 <li class="toctree-l4"><a class="reference internal" href="skada.deep.MDD.html">skada.deep.MDD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="skada.deep.SPA.html">skada.deep.SPA</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../all.html#skada-deep-learning-da-losses">SKADA deep learning DA losses</a></li>
@@ -115,7 +117,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>module</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>. In general, the
+<dt><strong>module</strong><span class="classifier">torch module (class or instance)</span></dt><dd><p>A PyTorch <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>. In general, the
 uninstantiated class should be passed, although instantiated
 modules will also work.</p>
 </dd>
@@ -124,7 +126,7 @@ collected during the training.</p>
 </dd>
 <dt><strong>reg</strong><span class="classifier">float, default=1</span></dt><dd><p>Regularization parameter for DA loss.</p>
 </dd>
-<dt><strong>domain_classifier</strong><span class="classifier">torch module, default=None</span></dt><dd><p>A PyTorch <a class="reference external" href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used to classify the
+<dt><strong>domain_classifier</strong><span class="classifier">torch module, default=None</span></dt><dd><p>A PyTorch <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch v2.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a> used to classify the
 domain. If None, a domain classifier is created following <a href="#id4"><span class="problematic" id="id2">[1]_</span></a>.</p>
 </dd>
 <dt><strong>num_features</strong><span class="classifier">int, default=None</span></dt><dd><p>Size of the input of domain classifier,
@@ -165,7 +167,7 @@ Research, 2016.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="skada.deep.DeepJDOT.html" class="btn btn-neutral float-left" title="skada.deep.DeepJDOT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="skada.deep.DAN.html" class="btn btn-neutral float-left" title="skada.deep.DAN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="skada.deep.CDAN.html" class="btn btn-neutral float-right" title="skada.deep.CDAN" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -190,7 +192,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

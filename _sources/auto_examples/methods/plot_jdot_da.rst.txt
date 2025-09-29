@@ -22,7 +22,7 @@ JDOT Regressor and Classifier examples
 ======================================
 
 This example shows how to use the JDOTRegressor [10] to learn a regression model
-from source to target domain on a simple concept drift 2D example. We use a
+from source to target domain on a simple conditional shift 2D example. We use a
 simple Kernel Ridge Regression (KRR) as base estimator.
 
 We compare the performance of the KRR on the source and target domain, and the
@@ -73,10 +73,10 @@ the OT plan between samples estimated by JDOT.
 
 .. GENERATED FROM PYTHON SOURCE LINES 36-40
 
-Generate concept drift regression dataset and plot it
+Generate conditional shift regression dataset and plot it
 -----------------------------------------------------
 
-We generate a simple 2D concept drift dataset.
+We generate a simple 2D conditional shift dataset.
 
 .. GENERATED FROM PYTHON SOURCE LINES 40-66
 
@@ -86,7 +86,7 @@ We generate a simple 2D concept drift dataset.
     X, y, sample_domain = make_shifted_datasets(
         n_samples_source=20,
         n_samples_target=20,
-        shift="concept_drift",
+        shift="conditional_shift",
         noise=0.3,
         label="regression",
         random_state=42,
@@ -310,10 +310,10 @@ is able to align the source and target samples while preserving the label.
 
 .. GENERATED FROM PYTHON SOURCE LINES 173-177
 
-Generate concept drift classification dataset and plot it
+Generate conditional shift classification dataset and plot it
 -----------------------------------------------------
 
-We generate a simple 2D concept drift dataset.
+We generate a simple 2D conditional shift dataset.
 
 .. GENERATED FROM PYTHON SOURCE LINES 177-202
 
@@ -323,7 +323,7 @@ We generate a simple 2D concept drift dataset.
     X, y, sample_domain = make_shifted_datasets(
         n_samples_source=20,
         n_samples_target=20,
-        shift="concept_drift",
+        shift="conditional_shift",
         noise=0.2,
         label="multiclass",
         random_state=42,
@@ -515,9 +515,9 @@ domain than with the SVC trained on source.
 
  .. code-block:: none
 
-    iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.22983129554592746
-    iter=1, loss_ot=0.18530735809550572, loss_tgt_labels=0.21420445266620786
-    iter=2, loss_ot=0.18279941870395425, loss_tgt_labels=0.21420445266620786
+    iter=0, loss_ot=5.075493682966016, loss_tgt_labels=0.2298312955459269
+    iter=1, loss_ot=0.18530735809550555, loss_tgt_labels=0.2142044526662074
+    iter=2, loss_ot=0.182799418703954, loss_tgt_labels=0.2142044526662074
     JDOT Accuracy on source: 0.84
     JDOT Accuracy on target: 0.97
 
@@ -605,7 +605,7 @@ Note that in this case it is necessary to change the metric from the default
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.597 seconds)
+   **Total running time of the script:** (0 minutes 1.924 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_jdot_da.py:

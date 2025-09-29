@@ -1,0 +1,11 @@
+﻿skada.JCPOTLabelProp
+====================
+
+.. currentmodule:: skada
+
+.. autofunction:: JCPOTLabelProp
+
+.. _sphx_glr_backreferences_skada.JCPOTLabelProp:
+
+.. minigallery:: skada.JCPOTLabelProp
+    :add-heading:

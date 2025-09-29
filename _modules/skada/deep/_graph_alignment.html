@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="English" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skada.deep._graph_alignment &mdash; SKADA: Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5e5be09d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            SKADA
+              <img src="../../../_static/skada_logo_full_white.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">SKADA: SciKit Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Users Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../all.html">API and modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Release of SKADA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to SKADA</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SKADA</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">skada.deep._graph_alignment</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for skada.deep._graph_alignment</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Theo Gnassounou &lt;theo.gnassounou@inria.fr&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3-Clause</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.base</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BaseDALoss</span><span class="p">,</span>
+    <span class="n">DomainAwareCriterion</span><span class="p">,</span>
+    <span class="n">DomainAwareModule</span><span class="p">,</span>
+    <span class="n">DomainAwareNet</span><span class="p">,</span>
+    <span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.callbacks</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountEpochs</span><span class="p">,</span> <span class="n">MemoryBank</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">skada.deep.losses</span><span class="w"> </span><span class="kn">import</span> <span class="n">gda_loss</span><span class="p">,</span> <span class="n">nap_loss</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.modules</span><span class="w"> </span><span class="kn">import</span> <span class="n">DomainClassifier</span>
+
+
+<div class="viewcode-block" id="SPALoss">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.SPALoss.html#skada.deep.SPALoss">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SPALoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss SPA.</span>
+
+<span class="sd">    This loss tries to minimize the divergence between features with</span>
+<span class="sd">    adversarial method. The weights are updated to make harder</span>
+<span class="sd">    to classify domains (i.e., remove domain-specific features).</span>
+
+<span class="sd">    See [36]_ for details.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    max_epochs : int</span>
+<span class="sd">        Maximum number of epochs to train the model.</span>
+<span class="sd">    target_criterion : torch criterion (class), default=None</span>
+<span class="sd">        The initialized criterion (loss) used to compute the</span>
+<span class="sd">        adversarial loss. If None, a BCELoss is used.</span>
+<span class="sd">    reg_adv : float, default=1</span>
+<span class="sd">        Regularization parameter for adversarial loss.</span>
+<span class="sd">    reg_gsa : float, default=1</span>
+<span class="sd">        Regularization parameter for graph alignment loss</span>
+<span class="sd">    reg_nap : float, default=1</span>
+<span class="sd">        Regularization parameter for nap loss</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [36] Xiao et. al. SPA: A Graph Spectral Alignment Perspective for</span>
+<span class="sd">            Domain Adaptation. In Neurips, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">max_epochs</span><span class="p">,</span>
+        <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">memory_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">memory_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">K</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">reg_adv</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">reg_gsa</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">reg_nap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">domain_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span> <span class="o">=</span> <span class="n">domain_criterion</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_adv</span> <span class="o">=</span> <span class="n">reg_adv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_gsa</span> <span class="o">=</span> <span class="n">reg_gsa</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reg_nap</span> <span class="o">=</span> <span class="n">reg_nap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_features</span> <span class="o">=</span> <span class="n">memory_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_outputs</span> <span class="o">=</span> <span class="n">memory_outputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_epochs</span> <span class="o">=</span> <span class="n">max_epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_scheduler_adv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+        <span class="n">max_epochs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_epochs</span>
+        <span class="n">n_epochs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="mf">2.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">n_epochs</span> <span class="o">/</span> <span class="n">max_epochs</span><span class="p">))</span>
+            <span class="o">-</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">low</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_scheduler_nap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_epochs</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_epochs</span>
+
+<div class="viewcode-block" id="SPALoss.forward">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.SPALoss.html#skada.deep.SPALoss.forward">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">y_pred_t</span><span class="p">,</span>
+        <span class="n">domain_pred_s</span><span class="p">,</span>
+        <span class="n">domain_pred_t</span><span class="p">,</span>
+        <span class="n">features_s</span><span class="p">,</span>
+        <span class="n">features_t</span><span class="p">,</span>
+        <span class="n">sample_idx_t</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+        <span class="n">domain_label</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">domain_pred_s</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">domain_pred_s</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">domain_label_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">domain_pred_t</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">domain_pred_t</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># update classification function</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheduler_adv</span><span class="p">()</span>
+        <span class="n">loss_adv</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reg_adv</span>
+            <span class="o">*</span> <span class="n">scale</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">domain_pred_s</span><span class="p">,</span> <span class="n">domain_label</span><span class="p">)</span>
+                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_criterion_</span><span class="p">(</span><span class="n">domain_pred_t</span><span class="p">,</span> <span class="n">domain_label_target</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">loss_gda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg_gsa</span> <span class="o">*</span> <span class="n">gda_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;gauss&quot;</span><span class="p">)</span>
+
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scheduler_nap</span><span class="p">()</span>
+        <span class="n">loss_pl</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reg_nap</span>
+            <span class="o">*</span> <span class="n">scale</span>
+            <span class="o">*</span> <span class="n">nap_loss</span><span class="p">(</span>
+                <span class="n">features_t</span><span class="o">=</span><span class="n">features_t</span><span class="p">,</span>
+                <span class="n">y_pred_t</span><span class="o">=</span><span class="n">y_pred_t</span><span class="p">,</span>
+                <span class="n">memory_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_features</span><span class="p">,</span>
+                <span class="n">memory_outputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_outputs</span><span class="p">,</span>
+                <span class="n">K</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">,</span>
+                <span class="n">sample_idx_t</span><span class="o">=</span><span class="n">sample_idx_t</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_adv</span> <span class="o">+</span> <span class="n">loss_gda</span> <span class="o">+</span> <span class="n">loss_pl</span>
+        <span class="k">return</span> <span class="n">loss</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="SPA">
+<a class="viewcode-back" href="../../../gen_modules/skada.deep.SPA.html#skada.deep.SPA">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">SPA</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">,</span>
+    <span class="n">reg_adv</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">reg_gsa</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">reg_nap</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">domain_classifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation with SPA.</span>
+
+<span class="sd">    From [36]_.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    module : torch module (class or instance)</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module`. In general, the</span>
+<span class="sd">        uninstantiated class should be passed, although instantiated</span>
+<span class="sd">        modules will also work.</span>
+<span class="sd">    layer_name : str</span>
+<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        collected during the training.</span>
+<span class="sd">    reg : float, default=1</span>
+<span class="sd">        Regularization parameter for DA loss.</span>
+<span class="sd">    domain_classifier : torch module, default=None</span>
+<span class="sd">        A PyTorch :class:`~torch.nn.Module` used to classify the</span>
+<span class="sd">        domain. If None, a domain classifier is created following [1]_.</span>
+<span class="sd">    num_features : int, default=None</span>
+<span class="sd">        Size of the input of domain classifier,</span>
+<span class="sd">        e.g size of the last layer of</span>
+<span class="sd">        the feature extractor.</span>
+<span class="sd">        If domain_classifier is None, num_features has to be</span>
+<span class="sd">        provided.</span>
+<span class="sd">    base_criterion : torch criterion (class)</span>
+<span class="sd">        The base criterion used to compute the loss with source</span>
+<span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
+<span class="sd">    domain_criterion : torch criterion (class)</span>
+<span class="sd">        The criterion (loss) used to compute the</span>
+<span class="sd">        adversarial loss. If None, a BCELoss is used.</span>
+<span class="sd">    callbacks : list, default=None</span>
+<span class="sd">        List of callbacks to use during training.</span>
+<span class="sd">    max_epochs : int, default=100</span>
+<span class="sd">        Maximum number of epochs to train the model.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [36] Xiao et. al. SPA: A Graph Spectral Alignment Perspective for</span>
+<span class="sd">            Domain Adaptation. In Neurips, 2023.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">domain_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># raise error if num_feature is None</span>
+        <span class="k">if</span> <span class="n">num_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If domain_classifier is None, num_features has to be provided&quot;</span>
+            <span class="p">)</span>
+        <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">callbacks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">MemoryBank</span><span class="p">(),</span>
+            <span class="n">CountEpochs</span><span class="p">(),</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callbacks</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">MemoryBank</span><span class="p">())</span>
+            <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CountEpochs</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">callbacks</span><span class="p">,</span>
+                <span class="n">MemoryBank</span><span class="p">(),</span>
+                <span class="n">CountEpochs</span><span class="p">(),</span>
+            <span class="p">]</span>
+    <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+
+    <span class="n">net</span> <span class="o">=</span> <span class="n">DomainAwareNet</span><span class="p">(</span>
+        <span class="n">module</span><span class="o">=</span><span class="n">DomainAwareModule</span><span class="p">,</span>
+        <span class="n">module__base_module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">module__layer_name</span><span class="o">=</span><span class="n">layer_name</span><span class="p">,</span>
+        <span class="n">module__domain_classifier</span><span class="o">=</span><span class="n">domain_classifier</span><span class="p">,</span>
+        <span class="n">iterator_train</span><span class="o">=</span><span class="n">DomainBalancedDataLoader</span><span class="p">,</span>
+        <span class="n">criterion</span><span class="o">=</span><span class="n">DomainAwareCriterion</span><span class="p">,</span>
+        <span class="n">criterion__base_criterion</span><span class="o">=</span><span class="n">base_criterion</span><span class="p">,</span>
+        <span class="n">criterion__reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">criterion__adapt_criterion</span><span class="o">=</span><span class="n">SPALoss</span><span class="p">(</span>
+            <span class="n">domain_criterion</span><span class="o">=</span><span class="n">domain_criterion</span><span class="p">,</span>
+            <span class="n">reg_adv</span><span class="o">=</span><span class="n">reg_adv</span><span class="p">,</span>
+            <span class="n">reg_gsa</span><span class="o">=</span><span class="n">reg_gsa</span><span class="p">,</span>
+            <span class="n">reg_nap</span><span class="o">=</span><span class="n">reg_nap</span><span class="p">,</span>
+            <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
+        <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">net</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, The SKADA team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note"
+aria-label="versions">
+  <!--  add shift_up to the class for force viewing ,
+  data-toggle="rst-current-version" -->
+    <span class="rst-current-version"  style="margin-bottom:1mm;">
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
+      <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
+     <!--  versions
+      <span class="fa fa-caret-down"></span>-->
+      <span class="rst-current-version" style="display: inline-block;padding:
+      0px;color:#fcfcfcab;float:left;font-size: 100%;">
+        Versions: 
+        <a href="https://scikit-adaptation.github.io/" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Release</a>
+        <a href="https://scikit-adaptation.github.io/dev" 
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Development</a>
+        <a href="https://github.com/scikit-adaptation/skada"
+        style="padding: 3px;color:#fcfcfc;font-size: 100%;">Code</a>
+
+      </span>
+
+     
+    </span>
+  
+     <!--
+    <div class="rst-other-versions">
+
+      
+
+<div class="injected">
+
+    
+  <dl>
+    <dt>Versions</dt>
+
+    <dd><a href="https://pythonot.github.io/">Release</a></dd>
+    
+    <dd><a href="https://pythonot.github.io/master">Development</a></dd>
+   
+    
+
+    <dt><a href="https://github.com/PythonOT/POT">Code on Github</a></dt>       
+
+    
+  </dl>
+  <hr>
+
+</div> 
+</div>-->
+  </div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

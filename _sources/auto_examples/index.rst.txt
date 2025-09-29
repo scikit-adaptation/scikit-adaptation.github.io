@@ -92,7 +92,7 @@ Domain Adaptation Datasets
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, conditional shift, and sample bias. See detailed description of each shift in [1]_.">
 
 .. only:: html
 
@@ -109,7 +109,7 @@ Domain Adaptation Datasets
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, concept drift, and sample bias. See detailed description of each shift in [1]_.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This illustrates the make_shifted_dataset dataset generator. Each method consists of generating source data and shifted target data. We illustrate here: covariate shift, target shift, conditional shift, and sample bias. See detailed description of each shift in [1]_.">
 
 .. only:: html
 
@@ -237,6 +237,23 @@ Deep learning DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrate some uses of DeepDADatasets.">
+
+.. only:: html
+
+  .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_deepdadataset_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_deep_plot_deepdadataset.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Deep Domain Aware Datasets</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of deep DA methods in Skada. on a simple image classification task.">
 
 .. only:: html
@@ -265,6 +282,7 @@ Deep learning DA methods
    /auto_examples/deep/plot_divergence
    /auto_examples/deep/plot_adversarial
    /auto_examples/deep/plot_optimal_transport
+   /auto_examples/deep/plot_deepdadataset
    /auto_examples/deep/plot_training_method
 
 
@@ -314,7 +332,7 @@ DA methods
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple concept drift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the JDOTRegressor [10] to learn a regression model from source to target domain on a simple conditional shift 2D example. We use a simple Kernel Ridge Regression (KRR) as base estimator.">
 
 .. only:: html
 

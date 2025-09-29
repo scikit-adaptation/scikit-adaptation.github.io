@@ -6,8 +6,8 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>skada.datasets.make_dataset_from_moons_distribution &mdash; SKADA : Scikit Adaptation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+  <title>skada.datasets.make_dataset_from_moons_distribution &mdash; SKADA: Scikit Adaptation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -18,7 +18,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=22974a12"></script>
+      <script src="../_static/documentation_options.js?v=5e5be09d"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -49,7 +49,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Domain Adaptation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">SKADA: SciKit Adaptation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/plot_how_to_use_skada.html">How to use SKADA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Users Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../all.html">API and modules</a><ul class="current">
@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.metrics">DA metrics <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.metrics</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../all.html#module-skada.model_selection">Model Selection <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.model_selection</span></code></a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../all.html#module-skada.datasets">Datasets <code class="xref py py-mod docutils literal notranslate"><span class="pre">skada.datasets</span></code></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="skada.datasets.DomainAwareDataset.html">skada.datasets.DomainAwareDataset</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.datasets.make_shifted_blobs.html">skada.datasets.make_shifted_blobs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="skada.datasets.make_shifted_datasets.html">skada.datasets.make_shifted_datasets</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">skada.datasets.make_dataset_from_moons_distribution</a><ul>
@@ -137,7 +138,7 @@ the source and the target respectively). Otherwise returns tuple of
 for the domain where sample is taken.</p>
 </dd>
 <dt><strong>return_dataset</strong><span class="classifier">boolean, optional (default=False)</span></dt><dd><p>When set to <cite>True</cite>, the function returns
-<code class="xref py py-class docutils literal notranslate"><span class="pre">DomainAwareDataset</span></code> object.</p>
+<a class="reference internal" href="skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset" title="skada.datasets.DomainAwareDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">DomainAwareDataset</span></code></a> object.</p>
 </dd>
 </dl>
 </dd>
@@ -145,7 +146,7 @@ for the domain where sample is taken.</p>
 <dd class="field-even"><dl>
 <dt><strong>(X, y, sample_domain)</strong><span class="classifier">tuple if <cite>return_X_y=True</cite></span></dt><dd><p>Tuple of (data, target, sample_domain), see the description below.</p>
 </dd>
-<dt><strong>data</strong><span class="classifier"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
+<dt><strong>data</strong><span class="classifier"><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.utils.Bunch.html#sklearn.utils.Bunch" title="(in scikit-learn v1.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Bunch</span></code></a></span></dt><dd><p>Dictionary-like object, with the following attributes.</p>
 <dl class="simple">
 <dt>X: ndarray</dt><dd><p>Samples from all sources and all targets given.</p>
 </dd>
@@ -159,7 +160,7 @@ and target domain label is always &lt; 0.</p>
 </dd>
 </dl>
 </dd>
-<dt><strong>dataset</strong><span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">DomainAwareDataset</span></code></span></dt><dd><p>Dataset object.</p>
+<dt><strong>dataset</strong><span class="classifier"><a class="reference internal" href="skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset" title="skada.datasets.DomainAwareDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">DomainAwareDataset</span></code></a></span></dt><dd><p>Dataset object.</p>
 </dd>
 </dl>
 </dd>
@@ -206,7 +207,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.4.0
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->
