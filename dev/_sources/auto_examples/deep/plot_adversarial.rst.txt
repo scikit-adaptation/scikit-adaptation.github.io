@@ -118,15 +118,15 @@ Train a classic model
 
  .. code-block:: none
 
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        1.2540  13.1974
-          2        0.1479  12.4482
-          3        0.0666  14.8514
-          4        0.0438  11.9062
-          5        0.0366  14.0008
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        1.5035  5.0989
+          2        0.2546  4.8037
+          3        0.0831  5.1934
+          4        0.0490  4.5016
+          5        0.0356  4.8983
 
-    0.8713826366559485
+    0.9003215434083601
 
 
 
@@ -165,11 +165,11 @@ Train a DANN model
       return self._call_impl(*args, **kwargs)
       epoch    train_loss      dur
     -------  ------------  -------
-          1        2.7250  19.8954
-          2        1.5684  19.5590
-          3        1.1852  19.4060
-          4        1.1035  30.7440
-          5        1.0677  23.4532
+          1        2.4881  10.0910
+          2        1.2773  10.7986
+          3        1.0984  10.3991
+          4        1.0555  10.8971
+          5        1.0409  10.6012
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
@@ -177,14 +177,14 @@ Train a DANN model
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
 
-    0.8745980707395499
+    0.9035369774919614
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (3 minutes 8.250 seconds)
+   **Total running time of the script:** (1 minutes 21.695 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_adversarial.py:

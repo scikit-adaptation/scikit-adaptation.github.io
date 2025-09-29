@@ -88,13 +88,13 @@ Load the image datasets
 
  .. code-block:: none
 
-      0%|          | 0.00/9.91M [00:00<?, ?B/s]    100%|██████████| 9.91M/9.91M [00:00<00:00, 141MB/s]
-      0%|          | 0.00/28.9k [00:00<?, ?B/s]    100%|██████████| 28.9k/28.9k [00:00<00:00, 18.6MB/s]
-      0%|          | 0.00/1.65M [00:00<?, ?B/s]    100%|██████████| 1.65M/1.65M [00:00<00:00, 236MB/s]
-      0%|          | 0.00/4.54k [00:00<?, ?B/s]    100%|██████████| 4.54k/4.54k [00:00<00:00, 8.27MB/s]
+      0%|          | 0.00/9.91M [00:00<?, ?B/s]    100%|██████████| 9.91M/9.91M [00:00<00:00, 129MB/s]
+      0%|          | 0.00/28.9k [00:00<?, ?B/s]    100%|██████████| 28.9k/28.9k [00:00<00:00, 44.2MB/s]
+      0%|          | 0.00/1.65M [00:00<?, ?B/s]    100%|██████████| 1.65M/1.65M [00:00<00:00, 97.4MB/s]
+      0%|          | 0.00/4.54k [00:00<?, ?B/s]    100%|██████████| 4.54k/4.54k [00:00<00:00, 14.7MB/s]
     /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
       mnist_target = torch.tensor(mnist_dataset.targets)
-      0%|          | 0.00/1.83M [00:00<?, ?B/s]      2%|▏         | 32.8k/1.83M [00:00<00:10, 171kB/s]      4%|▎         | 65.5k/1.83M [00:00<00:10, 171kB/s]      5%|▌         | 98.3k/1.83M [00:00<00:10, 171kB/s]     13%|█▎        | 229k/1.83M [00:00<00:04, 373kB/s]      25%|██▌       | 459k/1.83M [00:00<00:02, 669kB/s]     48%|████▊     | 885k/1.83M [00:01<00:00, 1.20MB/s]     98%|█████████▊| 1.80M/1.83M [00:01<00:00, 2.36MB/s]    100%|██████████| 1.83M/1.83M [00:01<00:00, 1.36MB/s]
+      0%|          | 0.00/1.83M [00:00<?, ?B/s]      2%|▏         | 32.8k/1.83M [00:00<00:10, 167kB/s]      4%|▎         | 65.5k/1.83M [00:00<00:10, 167kB/s]      5%|▌         | 98.3k/1.83M [00:00<00:10, 167kB/s]     13%|█▎        | 229k/1.83M [00:00<00:04, 365kB/s]      23%|██▎       | 426k/1.83M [00:00<00:02, 595kB/s]     48%|████▊     | 885k/1.83M [00:01<00:00, 1.19MB/s]     97%|█████████▋| 1.77M/1.83M [00:01<00:00, 2.27MB/s]    100%|██████████| 1.83M/1.83M [00:01<00:00, 1.33MB/s]
 
 
 
@@ -127,15 +127,15 @@ Train a classic model
 
  .. code-block:: none
 
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        1.3886  12.5542
-          2        0.2377  15.6999
-          3        0.0955  7.4029
-          4        0.0525  18.9448
-          5        0.0403  21.0526
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        1.5367  5.1982
+          2        0.3111  4.7037
+          3        0.1083  4.8984
+          4        0.0588  4.8945
+          5        0.0408  5.1000
 
-    0.8938906752411575
+    0.9163987138263665
 
 
 
@@ -171,11 +171,11 @@ Train a DeepCoral model
       warnings.warn(
       epoch    train_loss      dur
     -------  ------------  -------
-          1        1.6448  17.7477
-          2        0.3532  22.2507
-          3        0.1255  20.3526
-          4        0.0814  23.6454
-          5        0.0658  18.3495
+          1        1.6283  10.1582
+          2        0.3672  9.9996
+          3        0.1345  10.1960
+          4        0.0843  10.2018
+          5        0.0702  9.7004
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
@@ -183,14 +183,14 @@ Train a DeepCoral model
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
 
-    0.9485530546623794
+    0.909967845659164
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (3 minutes 10.502 seconds)
+   **Total running time of the script:** (1 minutes 23.974 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_divergence.py:

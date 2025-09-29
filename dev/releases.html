@@ -18,7 +18,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=49fce813"></script>
+      <script src="_static/documentation_options.js?v=5e5be09d"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -55,8 +55,11 @@
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release of SKADA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#skada-v0-5-0">Skada v0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-changed">What's Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-contributors">New Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#skada-v0-4-0">Skada v0.4.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#what-s-changed">What's Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">What's Changed</a></li>
 </ul>
 </li>
 </ul>
@@ -90,6 +93,68 @@
              
   <section id="release-of-skada">
 <h1>Release of SKADA<a class="headerlink" href="#release-of-skada" title="Link to this heading"></a></h1>
+<section id="skada-v0-5-0">
+<h2>Skada v0.5.0<a class="headerlink" href="#skada-v0-5-0" title="Link to this heading"></a></h2>
+<p>Skada v0.5.0 Release Highlights</p>
+<p>This update brings significant enhancements and new features:</p>
+<ol class="arabic simple">
+<li><p>API Enhancement: Fix target labels masking in shallow methods.</p></li>
+<li><p>API Enhancement: Remove the functions <code class="docutils literal notranslate"><span class="pre">pack_train</span></code> and <code class="docutils literal notranslate"><span class="pre">pack_test</span></code> for DomainAwareDataset.</p></li>
+<li><p>New Feature: Add DeepDADataset to deal with the dataset for Deep DA.</p></li>
+<li><p>Function Enhancement: Improve DomainAwareDataset to deal with tensors.</p></li>
+<li><p>New Scorer: Introduce MaNo scorer.</p></li>
+<li><p>Enhancement: Improve the dependencies of skada.</p></li>
+<li><p>Enhancement: Fix CodeCov for the main branch.</p></li>
+</ol>
+</section>
+<section id="what-s-changed">
+<h2>What's Changed<a class="headerlink" href="#what-s-changed" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>[MRG] Fix Github action version v2 -&gt; v4 and fix test with skorch update by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/292">PR #292</a></p></li>
+<li><p>[WIP] Add new scorer: MaNoScorer by &#64;ambroiseodt in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/289">PR #289</a></p></li>
+<li><p>[MRG] renaming, issue #294 by &#64;mbarneche in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/299">PR #299</a></p></li>
+<li><p>[MRG] typo fix, issue #297 by &#64;mbarneche in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/298">PR #298</a></p></li>
+<li><p>[MRG] Fix test after sklearn update where the text of a Value error changed by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/303">PR #303</a></p></li>
+<li><p>[MRG] Add DeepDADataset by &#64;mbarneche in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/302">PR #302</a></p></li>
+<li><p>[MRG] added skada.datasets.DomainAwareDataset to the doc by &#64;arthurdrk in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/307">PR #307</a></p></li>
+<li><p>Move Contributing to root by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/316">PR #316</a></p></li>
+<li><p>Update version number and add logos of projects by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/319">PR #319</a></p></li>
+<li><p>Update README.md by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/320">PR #320</a></p></li>
+<li><p>Update README.md by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/321">PR #321</a></p></li>
+<li><p>Update pyproject.toml by &#64;ambroiseodt in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/318">PR #318</a></p></li>
+<li><p>Update link for download some dataset by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/324">PR #324</a></p></li>
+<li><p>Add dependabot by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/325">PR #325</a></p></li>
+<li><p>Fix git action of version by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/327">PR #327</a></p></li>
+<li><p>[DOC] fix sklearn FutureWarning in <code class="docutils literal notranslate"><span class="pre">check_array</span></code>. by &#64;vloison in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/322">PR #322</a></p></li>
+<li><p>Update yml linter configuration by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/331">PR #331</a></p></li>
+<li><p>Fix CodeCov parameters by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/329">PR #329</a></p></li>
+<li><p>[MRG] Update CONTRIBUTING.md by &#64;ambroiseodt in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/333">PR #333</a></p></li>
+<li><p>Include pack_train and pack_test in pack to get one method by &#64;MellotApolline in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/317">PR #317</a></p></li>
+<li><p>Improve warnings in doc by &#64;antoinecollas in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/336">PR #336</a></p></li>
+<li><p>Add missing classes and functions to the doc by &#64;MellotApolline in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/335">PR #335</a></p></li>
+<li><p>Separate the test of dataset to other tests by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/332">PR #332</a></p></li>
+<li><p>Fix codecov for main branch by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/340">PR #340</a></p></li>
+<li><p>Add automatic labeler to PR by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/346">PR #346</a></p></li>
+<li><p>Fix Labeler by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/347">PR #347</a></p></li>
+<li><p>Use Flag for improving the management of CodeCov by &#64;lionelkusch in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/343">PR #343</a></p></li>
+<li><p>[MRG] Add automatic target label masking to prevent data leakage by &#64;YanisLalou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/330">PR #330</a></p></li>
+<li><p>Bump the actions group across 1 directory with 3 updates by &#64;dependabot[bot] in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/349">PR #349</a></p></li>
+<li><p>[MRG] Handle torch tensor in DomainAwareDataset by &#64;tom-yneuro in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/337">PR #337</a></p></li>
+<li><p>[MRG] Make DeepDADAtaset deal with regression masking by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/352">PR #352</a></p></li>
+</ul>
+</section>
+<section id="new-contributors">
+<h2>New Contributors<a class="headerlink" href="#new-contributors" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>&#64;mbarneche made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/299">PR #299</a></p></li>
+<li><p>&#64;arthurdrk made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/307">PR #307</a></p></li>
+<li><p>&#64;lionelkusch made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/316">PR #316</a></p></li>
+<li><p>&#64;MellotApolline made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/317">PR #317</a></p></li>
+<li><p>&#64;dependabot[bot] made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/349">PR #349</a></p></li>
+<li><p>&#64;tom-yneuro made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/337">PR #337</a></p></li>
+</ul>
+<p><strong>Full Changelog</strong>: https://github.com/scikit-adaptation/skada/compare/0.4.0...0.5.0</p>
+</section>
 <section id="skada-v0-4-0">
 <h2>Skada v0.4.0<a class="headerlink" href="#skada-v0-4-0" title="Link to this heading"></a></h2>
 <p>This update brings significant enhancements and new features:</p>
@@ -101,8 +166,8 @@
 <li><p>Deep Models: Enhanced batch handling, fixed predict_proba, stabilized MDD loss, and fixed Deep Coral.</p></li>
 <li><p>Docs &amp; Design: Added a contributor guide, new logo, and documentation updates.</p></li>
 </ol>
-<section id="what-s-changed">
-<h3>What's Changed<a class="headerlink" href="#what-s-changed" title="Link to this heading"></a></h3>
+<section id="id1">
+<h3>What's Changed<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update README.md with zenodo badge by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/216">PR #216</a></p></li>
 <li><p>[MRG] Add multi-domain Monge alignment and JCPOT Target shift method by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/180">PR #180</a></p></li>
@@ -184,7 +249,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0dev
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->
