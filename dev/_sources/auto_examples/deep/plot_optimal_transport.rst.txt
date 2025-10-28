@@ -120,11 +120,11 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.4307  4.9030
-          2        0.2272  4.4934
-          3        0.0855  4.5994
-          4        0.0474  4.6014
-          5        0.0343  4.6967
+          1        1.4165  3.0587
+          2        0.2879  3.0963
+          3        0.1044  2.9012
+          4        0.0543  3.0981
+          5        0.0422  3.0015
 
     0.909967845659164
 
@@ -161,13 +161,13 @@ Train a DeepJDOT model
 
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        1.8591  10.2563
-          2        0.9833  9.2963
-          3        0.6609  8.7991
-          4        0.5400  8.8983
-          5        0.4775  9.0003
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        1.9694  6.3240
+          2        1.0191  6.4995
+          3        0.7131  5.9019
+          4        0.5694  5.9957
+          5        0.4862  5.8989
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
       warnings.warn(
     /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
@@ -182,7 +182,7 @@ Train a DeepJDOT model
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 14.207 seconds)
+   **Total running time of the script:** (0 minutes 49.293 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:

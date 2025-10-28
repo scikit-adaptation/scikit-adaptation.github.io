@@ -298,6 +298,23 @@ DA methods
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the GOAT method from [38] on a simple classification task. However, the CNN is replaced with a MLP.">
+
+.. only:: html
+
+  .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_gradual_da_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_examples_methods_plot_gradual_da.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Gradual Domain Adaptation Using Optimal Transport</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter">
 
 .. only:: html
@@ -425,6 +442,7 @@ DA methods
 .. toctree::
    :hidden:
 
+   /auto_examples/methods/plot_gradual_da
    /auto_examples/methods/plot_monge_alignment_da
    /auto_examples/methods/plot_dasvm
    /auto_examples/methods/plot_jdot_da

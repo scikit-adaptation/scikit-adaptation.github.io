@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:23.567** total execution time for 3 files **from auto_examples/validation**:
+**00:17.939** total execution time for 3 files **from auto_examples/validation**:
 
 .. container::
 
@@ -33,11 +33,11 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_validation_plot_gridsearch_for_da.py` (``plot_gridsearch_for_da.py``)
-     - 00:22.592
+     - 00:17.170
      - 0.0
    * - :ref:`sphx_glr_auto_examples_validation_plot_cross_validation_for_da.py` (``plot_cross_validation_for_da.py``)
-     - 00:00.629
+     - 00:00.490
      - 0.0
    * - :ref:`sphx_glr_auto_examples_validation_plot_cross_val_score_for_da.py` (``plot_cross_val_score_for_da.py``)
-     - 00:00.346
+     - 00:00.280
      - 0.0
