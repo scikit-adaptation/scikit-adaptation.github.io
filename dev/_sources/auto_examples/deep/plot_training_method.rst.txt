@@ -153,8 +153,8 @@ Training with skorch
       warnings.warn(
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2937  6.7845
-          2        2.1594  6.8749
+          1        2.2338  6.7673
+          2        2.1527  6.6001
 
 
 .. raw:: html
@@ -652,7 +652,7 @@ Training with skorch
           (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
         )
       ),
-    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content " data-param-prefix="">
             <div class="estimator-table">
                 <details>
                     <summary>Parameters</summary>
@@ -916,7 +916,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__epoch_timer&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9ebfd0&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276285900&gt;</td>
             </tr>
     
 
@@ -926,7 +926,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__train_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9ea5c0&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f32762862c0&gt;</td>
             </tr>
     
 
@@ -966,7 +966,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e9b40&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276285330&gt;</td>
             </tr>
     
 
@@ -1006,7 +1006,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e9a80&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276284fd0&gt;</td>
             </tr>
     
 
@@ -1056,7 +1056,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
-                <td class="value">&lt;function to_...x7fd12306f9a0&gt;</td>
+                <td class="value">&lt;function to_...x7f32a08bfd90&gt;</td>
             </tr>
     
 
@@ -1076,7 +1076,7 @@ Training with skorch
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__print_log&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e8280&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276287940&gt;</td>
             </tr>
     
 
@@ -1222,8 +1222,8 @@ Training with skorch with dataset
       warnings.warn(
       epoch    train_loss     dur
     -------  ------------  ------
-          1        2.2806  6.7744
-          2        2.1678  6.9074
+          1        2.3100  6.4241
+          2        2.2283  6.7004
 
 
 .. raw:: html
@@ -1721,7 +1721,7 @@ Training with skorch with dataset
           (maxpool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
         )
       ),
-    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+    )</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow"><div><div>DomainAwareNet</div></div><div><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></div></label><div class="sk-toggleable__content " data-param-prefix="">
             <div class="estimator-table">
                 <details>
                     <summary>Parameters</summary>
@@ -1985,7 +1985,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__epoch_timer&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e9a20&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276286530&gt;</td>
             </tr>
     
 
@@ -1995,7 +1995,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__train_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9eba30&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276285540&gt;</td>
             </tr>
     
 
@@ -2035,7 +2035,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_loss&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e8d60&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276284130&gt;</td>
             </tr>
     
 
@@ -2075,7 +2075,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e89a0&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276286590&gt;</td>
             </tr>
     
 
@@ -2125,7 +2125,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
-                <td class="value">&lt;function to_...x7fd12306f9a0&gt;</td>
+                <td class="value">&lt;function to_...x7f32a08bfd90&gt;</td>
             </tr>
     
 
@@ -2145,7 +2145,7 @@ Training with skorch with dataset
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">callbacks__print_log&nbsp;</td>
-                <td class="value">&lt;skorch.callb...x7fd10c9e85b0&gt;</td>
+                <td class="value">&lt;skorch.callb...x7f3276285000&gt;</td>
             </tr>
     
 
@@ -2294,8 +2294,8 @@ Training with torch
 
  .. code-block:: none
 
-    Loss: 0.9214240126311779
-    Loss: 0.2157585509121418
+    Loss: 0.9578282982110977
+    Loss: 0.214577067643404
 
 
 
@@ -2303,7 +2303,7 @@ Training with torch
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 44.524 seconds)
+   **Total running time of the script:** (0 minutes 43.417 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_training_method.py:

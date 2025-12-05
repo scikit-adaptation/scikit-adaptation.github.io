@@ -22,7 +22,7 @@ This is a gallery of all the SKADA example files.
   .. image:: /auto_examples/images/thumb/sphx_glr_plot_how_to_use_skada_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_plot_how_to_use_skada.py`
+  :doc:`/auto_examples/plot_how_to_use_skada`
 
 .. raw:: html
 
@@ -39,7 +39,7 @@ This is a gallery of all the SKADA example files.
   .. image:: /auto_examples/images/thumb/sphx_glr_plot_skada_logo_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_plot_skada_logo.py`
+  :doc:`/auto_examples/plot_skada_logo`
 
 .. raw:: html
 
@@ -56,7 +56,7 @@ This is a gallery of all the SKADA example files.
   .. image:: /auto_examples/images/thumb/sphx_glr_plot_method_comparison_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_plot_method_comparison.py`
+  :doc:`/auto_examples/plot_method_comparison`
 
 .. raw:: html
 
@@ -99,7 +99,7 @@ Domain Adaptation Datasets
   .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset.py`
+  :doc:`/auto_examples/datasets/plot_shifted_dataset`
 
 .. raw:: html
 
@@ -116,7 +116,7 @@ Domain Adaptation Datasets
   .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_shifted_dataset_regression_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_datasets_plot_shifted_dataset_regression.py`
+  :doc:`/auto_examples/datasets/plot_shifted_dataset_regression`
 
 .. raw:: html
 
@@ -133,7 +133,7 @@ Domain Adaptation Datasets
   .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_variable_frequency_dataset_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_datasets_plot_variable_frequency_dataset.py`
+  :doc:`/auto_examples/datasets/plot_variable_frequency_dataset`
 
 .. raw:: html
 
@@ -150,7 +150,7 @@ Domain Adaptation Datasets
   .. image:: /auto_examples/datasets/images/thumb/sphx_glr_plot_dataset_from_moons_distribution_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_datasets_plot_dataset_from_moons_distribution.py`
+  :doc:`/auto_examples/datasets/plot_dataset_from_moons_distribution`
 
 .. raw:: html
 
@@ -193,7 +193,7 @@ Deep learning DA methods
   .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_divergence_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_deep_plot_divergence.py`
+  :doc:`/auto_examples/deep/plot_divergence`
 
 .. raw:: html
 
@@ -210,7 +210,7 @@ Deep learning DA methods
   .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_adversarial_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_deep_plot_adversarial.py`
+  :doc:`/auto_examples/deep/plot_adversarial`
 
 .. raw:: html
 
@@ -227,7 +227,7 @@ Deep learning DA methods
   .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_optimal_transport_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_deep_plot_optimal_transport.py`
+  :doc:`/auto_examples/deep/plot_optimal_transport`
 
 .. raw:: html
 
@@ -244,7 +244,7 @@ Deep learning DA methods
   .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_deepdadataset_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_deep_plot_deepdadataset.py`
+  :doc:`/auto_examples/deep/plot_deepdadataset`
 
 .. raw:: html
 
@@ -261,7 +261,7 @@ Deep learning DA methods
   .. image:: /auto_examples/deep/images/thumb/sphx_glr_plot_training_method_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_deep_plot_training_method.py`
+  :doc:`/auto_examples/deep/plot_training_method`
 
 .. raw:: html
 
@@ -305,7 +305,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_gradual_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_gradual_da.py`
+  :doc:`/auto_examples/methods/plot_gradual_da`
 
 .. raw:: html
 
@@ -322,7 +322,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_monge_alignment_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_monge_alignment_da.py`
+  :doc:`/auto_examples/methods/plot_monge_alignment_da`
 
 .. raw:: html
 
@@ -339,7 +339,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_dasvm_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_dasvm.py`
+  :doc:`/auto_examples/methods/plot_dasvm`
 
 .. raw:: html
 
@@ -356,7 +356,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_jdot_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py`
+  :doc:`/auto_examples/methods/plot_jdot_da`
 
 .. raw:: html
 
@@ -373,7 +373,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_subspace_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_subspace.py`
+  :doc:`/auto_examples/methods/plot_subspace`
 
 .. raw:: html
 
@@ -390,7 +390,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_reweighting_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_reweighting.py`
+  :doc:`/auto_examples/methods/plot_reweighting`
 
 .. raw:: html
 
@@ -407,7 +407,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_label_prop_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py`
+  :doc:`/auto_examples/methods/plot_label_prop_da`
 
 .. raw:: html
 
@@ -424,7 +424,7 @@ DA methods
   .. image:: /auto_examples/methods/images/thumb/sphx_glr_plot_optimal_transport_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py`
+  :doc:`/auto_examples/methods/plot_optimal_transport_da`
 
 .. raw:: html
 
@@ -471,7 +471,7 @@ DA validation procedures
   .. image:: /auto_examples/validation/images/thumb/sphx_glr_plot_gridsearch_for_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_validation_plot_gridsearch_for_da.py`
+  :doc:`/auto_examples/validation/plot_gridsearch_for_da`
 
 .. raw:: html
 
@@ -488,7 +488,7 @@ DA validation procedures
   .. image:: /auto_examples/validation/images/thumb/sphx_glr_plot_cross_val_score_for_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_validation_plot_cross_val_score_for_da.py`
+  :doc:`/auto_examples/validation/plot_cross_val_score_for_da`
 
 .. raw:: html
 
@@ -505,7 +505,7 @@ DA validation procedures
   .. image:: /auto_examples/validation/images/thumb/sphx_glr_plot_cross_validation_for_da_thumb.png
     :alt:
 
-  :ref:`sphx_glr_auto_examples_validation_plot_cross_validation_for_da.py`
+  :doc:`/auto_examples/validation/plot_cross_validation_for_da`
 
 .. raw:: html
 
