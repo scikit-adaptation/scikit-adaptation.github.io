@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada._ot &mdash; SKADA: Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -440,7 +440,7 @@
 <span class="sd">        This estimator assumes that the loss function optimized by the base</span>
 <span class="sd">        estimator is compatible with the given metric. For instance, if the</span>
 <span class="sd">        metric is &#39;multinomial&#39;, the base estimator should optimize a</span>
-<span class="sd">        cross-entropy loss (e.g. LogisticRegression with multi_class=&#39;multinomial&#39;)</span>
+<span class="sd">        cross-entropy loss (e.g. LogisticRegression)</span>
 <span class="sd">        or a hinge loss (e.g. SVC with kernel=&#39;linear&#39; and one versus rest) if the</span>
 <span class="sd">        metric is &#39;hinge&#39;. While any estimator providing the necessary prediction</span>
 <span class="sd">        functions can be used, the convergence of the fixed point is not guaranteed</span>
@@ -707,7 +707,7 @@
 <span class="sd">        This estimator assumes that the loss function optimized by the base</span>
 <span class="sd">        estimator is compatible with the given metric. For instance, if the</span>
 <span class="sd">        metric is &#39;multinomial&#39;, the base estimator should optimize a</span>
-<span class="sd">        cross-entropy loss (e.g. LogisticRegression with multi_class=&#39;multinomial&#39;)</span>
+<span class="sd">        cross-entropy loss (e.g. LogisticRegression)</span>
 <span class="sd">        or a hinge loss (e.g. SVC with kernel=&#39;linear&#39; and one versus rest) if the</span>
 <span class="sd">        metric is &#39;hinge&#39;. While any estimator providing the necessary prediction</span>
 <span class="sd">        functions can be used, the convergence of the fixed point is not guaranteed</span>
@@ -768,7 +768,7 @@
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">multi_class</span><span class="o">=</span><span class="s2">&quot;multinomial&quot;</span><span class="p">)</span>
+            <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">,</span> <span class="s2">&quot;fit&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span>
                 <span class="n">base_estimator</span><span class="p">,</span> <span class="s2">&quot;predict&quot;</span>

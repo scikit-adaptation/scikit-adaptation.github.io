@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada._subspace &mdash; SKADA: Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
@@ -874,7 +874,8 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_torch_cov</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the covariance matrix of X using torch.&quot;&quot;&quot;</span>
-        <span class="n">torch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
         <span class="n">reg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span>
 
         <span class="n">n_samples</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
@@ -886,7 +887,8 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_D</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Divergence objective function&quot;&quot;&quot;</span>
-        <span class="n">torch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
         <span class="n">Z_source</span> <span class="o">=</span> <span class="n">X_source</span> <span class="o">@</span> <span class="n">W</span>
         <span class="n">Z_target</span> <span class="o">=</span> <span class="n">X_target</span> <span class="o">@</span> <span class="n">W</span>
@@ -908,7 +910,8 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_F</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Subspace learning objective function&quot;&quot;&quot;</span>
-        <span class="n">torch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">torch</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
         <span class="n">base_method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_method</span>
 
         <span class="k">if</span> <span class="n">base_method</span> <span class="o">==</span> <span class="s2">&quot;pca&quot;</span><span class="p">:</span>
@@ -953,7 +956,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">torch</span> <span class="o">=</span> <span class="n">torch</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">torch</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
                 <span class="s2">&quot;TransferSubspaceLearningAdapter requires pytorch to be installed.&quot;</span>
