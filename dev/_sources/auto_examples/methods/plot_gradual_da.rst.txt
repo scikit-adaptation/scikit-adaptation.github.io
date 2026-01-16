@@ -693,7 +693,7 @@ We use a MLP classifier as the base estimator (default parameters).
                               this.parentElement.nextElementSibling)"
                 ></i></td>
                 <td class="param">ot_method&nbsp;</td>
-                <td class="value">&lt;ot.da.Sinkho...x7f9c4426f760&gt;</td>
+                <td class="value">&lt;ot.da.Sinkho...x7f2557023190&gt;</td>
             </tr>
     
 
@@ -980,7 +980,7 @@ We use a MLP classifier as the base estimator (default parameters).
                     </table>
                 </details>
             </div>
-        </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>ot_method: SinkhornTransport</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="ot_method__"><pre>&lt;ot.da.SinkhornTransport object at 0x7f9c4426f760&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SinkhornTransport</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="ot_method__"><pre>&lt;ot.da.SinkhornTransport object at 0x7f9c4426f760&gt;</pre></div></div></div></div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
+        </div></div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>ot_method: SinkhornTransport</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="ot_method__"><pre>&lt;ot.da.SinkhornTransport object at 0x7f2557023190&gt;</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>SinkhornTransport</div></div></label><div class="sk-toggleable__content fitted" data-param-prefix="ot_method__"><pre>&lt;ot.da.SinkhornTransport object at 0x7f2557023190&gt;</pre></div></div></div></div></div></div></div></div></div></div><script>function copyToClipboard(text, element) {
         // Get the parameter prefix from the closest toggleable content
         const toggleableContent = element.closest('.sk-toggleable__content');
         const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
@@ -1067,7 +1067,7 @@ estimator and the final estimator.
     Initial accuracy on source domain: 1.000
     Initial accuracy on target domain: 0.500
 
-    Final accuracy on source domain: 0.863
+    Final accuracy on source domain: 0.869
     Final accuracy on target domain: 0.995
 
 
@@ -1211,7 +1211,7 @@ the decision boundary between the source and target domains.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 14.186 seconds)
+   **Total running time of the script:** (0 minutes 10.009 seconds)
 
 
 .. _sphx_glr_download_auto_examples_methods_plot_gradual_da.py:
