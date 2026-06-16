@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**08:29.198** total execution time for 5 files **from auto_examples/deep**:
+**04:44.207** total execution time for 5 files **from auto_examples/deep**:
 
 .. container::
 
@@ -33,17 +33,17 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_deep_plot_optimal_transport.py` (``plot_optimal_transport.py``)
-     - 02:24.744
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_deep_plot_adversarial.py` (``plot_adversarial.py``)
-     - 02:17.585
+     - 01:19.652
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_divergence.py` (``plot_divergence.py``)
-     - 02:11.377
+     - 01:12.061
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_deep_plot_adversarial.py` (``plot_adversarial.py``)
+     - 01:09.674
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_training_method.py` (``plot_training_method.py``)
-     - 01:35.477
+     - 01:02.808
      - 0.0
    * - :ref:`sphx_glr_auto_examples_deep_plot_deepdadataset.py` (``plot_deepdadataset.py``)
-     - 00:00.015
+     - 00:00.011
      - 0.0
