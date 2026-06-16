@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:27.022** total execution time for 8 files **from auto_examples/methods**:
+**00:24.551** total execution time for 8 files **from auto_examples/methods**:
 
 .. container::
 
@@ -33,26 +33,26 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_methods_plot_gradual_da.py` (``plot_gradual_da.py``)
-     - 00:11.324
+     - 00:09.937
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_dasvm.py` (``plot_dasvm.py``)
-     - 00:05.349
+     - 00:05.069
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_subspace.py` (``plot_subspace.py``)
-     - 00:02.613
+     - 00:02.435
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_label_prop_da.py` (``plot_label_prop_da.py``)
-     - 00:02.046
-     - 0.0
-   * - :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py` (``plot_optimal_transport_da.py``)
-     - 00:01.736
+     - 00:01.850
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_jdot_da.py` (``plot_jdot_da.py``)
-     - 00:01.631
+     - 00:01.565
+     - 0.0
+   * - :ref:`sphx_glr_auto_examples_methods_plot_optimal_transport_da.py` (``plot_optimal_transport_da.py``)
+     - 00:01.543
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_reweighting.py` (``plot_reweighting.py``)
-     - 00:01.459
+     - 00:01.358
      - 0.0
    * - :ref:`sphx_glr_auto_examples_methods_plot_monge_alignment_da.py` (``plot_monge_alignment_da.py``)
-     - 00:00.864
+     - 00:00.794
      - 0.0

@@ -127,7 +127,7 @@
 <h1>skada.MultiLinearMongeAlignment<a class="headerlink" href="#skada-multilinearmongealignment" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.MultiLinearMongeAlignment">
-<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">MultiLinearMongeAlignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#MultiLinearMongeAlignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.MultiLinearMongeAlignment" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">MultiLinearMongeAlignment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_fit_new_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#MultiLinearMongeAlignment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.MultiLinearMongeAlignment" title="Link to this definition"></a></dt>
 <dd><p>MultiLinearMongeAlignment pipeline with adapter and estimator.</p>
 <p>The method is a simplified extension of [29] using the Bures-Wasserstein
 distance and mapping of [7] to align multiple source domains to a
@@ -142,8 +142,8 @@ proposed in [30].</p>
 </dd>
 <dt><strong>bias</strong><span class="classifier">bool, optional (default=True)</span></dt><dd><p>Estimate bias.</p>
 </dd>
-<dt><strong>test_time</strong><span class="classifier">bool, optional (default=False)</span></dt><dd><p>If True, the estimator can be updated at test time to map new
-target domains unseen during training</p>
+<dt><strong>auto_fit_new_domain</strong><span class="classifier">bool, optional (default=False)</span></dt><dd><p>If True, fit_new_domain is called automatically during predict
+when unseen domains are present in the data.</p>
 </dd>
 </dl>
 </dd>
