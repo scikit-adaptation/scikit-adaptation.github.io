@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skada.MultiLinearMongeAlignmentAdapter &mdash; SKADA: Scikit Adaptation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=fd6457a4" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -18,9 +18,10 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=5e5be09d"></script>
+      <script src="../_static/documentation_options.js?v=db0e1f0c"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/sg-tags.js?v=d80f6fa4"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -126,7 +127,7 @@
 <h1>skada.MultiLinearMongeAlignmentAdapter<a class="headerlink" href="#skada-multilinearmongealignmentadapter" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="skada.MultiLinearMongeAlignmentAdapter">
-<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">MultiLinearMongeAlignmentAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#MultiLinearMongeAlignmentAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.MultiLinearMongeAlignmentAdapter" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">skada.</span></span><span class="sig-name descname"><span class="pre">MultiLinearMongeAlignmentAdapter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_fit_new_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/skada/_mapping.html#MultiLinearMongeAlignmentAdapter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#skada.MultiLinearMongeAlignmentAdapter" title="Link to this definition"></a></dt>
 <dd><p>Aligns multiple domains using Gaussian Monge mapping to a barycenter.</p>
 <p>The method is a simplified extension of [29] using the Bures-Wasserstein
 distance and mapping of [7] to align multiple source domains to a
@@ -139,8 +140,8 @@ proposed in [30].</p>
 </dd>
 <dt><strong>bias</strong><span class="classifier">bool, optional (default=True)</span></dt><dd><p>Estimate bias.</p>
 </dd>
-<dt><strong>test_time</strong><span class="classifier">bool, optional (default=False)</span></dt><dd><p>If True, the estimator can be updated at test time to map new
-target domains unseen during training</p>
+<dt><strong>auto_fit_new_domain</strong><span class="classifier">bool, optional (default=False)</span></dt><dd><p>If True, fit_new_domain is called automatically during predict
+when unseen domains are present in the data.</p>
 </dd>
 </dl>
 </dd>
@@ -184,7 +185,7 @@ Neural Information Processing Systems 36 (2024).</p>
 <section id="examples-using-skada-multilinearmongealignmentadapter">
 <span id="sphx-glr-backreferences-skada-multilinearmongealignmentadapter"></span><h2>Examples using <code class="docutils literal notranslate"><span class="pre">skada.MultiLinearMongeAlignmentAdapter</span></code><a class="headerlink" href="#examples-using-skada-multilinearmongealignmentadapter" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example illustrates the use of the MultiLinearMongeAlignmentAdapter"><img alt="" src="../_images/sphx_glr_plot_monge_alignment_da_thumb.png" />
-<p><a class="reference internal" href="../auto_examples/methods/plot_monge_alignment_da.html#sphx-glr-auto-examples-methods-plot-monge-alignment-da-py"><span class="std std-ref">Multi-domain Linear Monge Alignment</span></a></p>
+<p><a class="reference internal" href="../auto_examples/methods/plot_monge_alignment_da.html"><span class="doc">Multi-domain Linear Monge Alignment</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multi-domain Linear Monge Alignment</div>
 </div></div></section>
 </section>
@@ -218,7 +219,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.6.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

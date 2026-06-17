@@ -120,13 +120,13 @@ Train a classic model
 
       epoch    train_loss     dur
     -------  ------------  ------
-          1        1.4460  5.3023
-          2        0.1985  5.7021
-          3        0.0777  5.3999
-          4        0.0422  6.9946
-          5        0.0334  7.5007
+          1        1.6896  3.7050
+          2        0.4354  3.7962
+          3        0.1519  3.6977
+          4        0.0804  3.6998
+          5        0.0562  3.5944
 
-    0.8906752411575563
+    0.8778135048231511
 
 
 
@@ -159,30 +159,22 @@ Train a DeepJDOT model
 
  .. code-block:: none
 
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
-      epoch    train_loss      dur
-    -------  ------------  -------
-          1        2.0113  14.6628
-          2        1.1483  14.0983
-          3        0.7808  12.7022
-          4        0.6364  11.3017
-          5        0.5516  13.8933
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
-    /home/circleci/.local/lib/python3.10/site-packages/sklearn/utils/deprecation.py:132: FutureWarning: 'force_all_finite' was renamed to 'ensure_all_finite' in 1.6 and will be removed in 1.8.
-      warnings.warn(
+      epoch    train_loss     dur
+    -------  ------------  ------
+          1        2.0390  8.8703
+          2        1.1343  8.2033
+          3        0.7979  8.0966
+          4        0.6605  8.0005
+          5        0.5606  9.0974
 
-    0.8585209003215434
+    0.887459807073955
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 42.555 seconds)
+   **Total running time of the script:** (1 minutes 4.762 seconds)
 
 
 .. _sphx_glr_download_auto_examples_deep_plot_optimal_transport.py:
