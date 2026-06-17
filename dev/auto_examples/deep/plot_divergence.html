@@ -18,7 +18,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=5e5be09d"></script>
+      <script src="../../_static/documentation_options.js?v=db0e1f0c"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/sg-tags.js?v=d80f6fa4"></script>
@@ -148,16 +148,16 @@ adaptation. In ECCV Workshops, 2016.</p>
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  0%|          | 0.00/9.91M [00:00&lt;?, ?B/s]
-100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 145MB/s]
+100%|██████████| 9.91M/9.91M [00:00&lt;00:00, 105MB/s]
 
   0%|          | 0.00/28.9k [00:00&lt;?, ?B/s]
-100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 75.5MB/s]
+100%|██████████| 28.9k/28.9k [00:00&lt;00:00, 79.0MB/s]
 
   0%|          | 0.00/1.65M [00:00&lt;?, ?B/s]
-100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 66.9MB/s]
+100%|██████████| 1.65M/1.65M [00:00&lt;00:00, 63.9MB/s]
 
   0%|          | 0.00/4.54k [00:00&lt;?, ?B/s]
-100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 11.6MB/s]
+100%|██████████| 4.54k/4.54k [00:00&lt;00:00, 11.5MB/s]
 /home/circleci/project/skada/datasets/_mnist_usps.py:72: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.detach().clone() or sourceTensor.detach().clone().requires_grad_(True), rather than torch.tensor(sourceTensor).
   mnist_target = torch.tensor(mnist_dataset.targets)
 
@@ -165,12 +165,13 @@ adaptation. In ECCV Workshops, 2016.</p>
   2%|▏         | 32.8k/1.83M [00:00&lt;00:11, 163kB/s]
   5%|▌         | 98.3k/1.83M [00:00&lt;00:06, 259kB/s]
  11%|█         | 197k/1.83M [00:00&lt;00:04, 364kB/s]
- 16%|█▌        | 295k/1.83M [00:00&lt;00:03, 413kB/s]
- 25%|██▌       | 459k/1.83M [00:01&lt;00:02, 558kB/s]
- 30%|███       | 557k/1.83M [00:01&lt;00:02, 488kB/s]
- 48%|████▊     | 885k/1.83M [00:01&lt;00:01, 917kB/s]
- 66%|██████▌   | 1.21M/1.83M [00:01&lt;00:00, 867kB/s]
-100%|██████████| 1.83M/1.83M [00:01&lt;00:00, 980kB/s]
+ 18%|█▊        | 328k/1.83M [00:00&lt;00:03, 477kB/s]
+ 29%|██▊       | 524k/1.83M [00:01&lt;00:01, 658kB/s]
+ 41%|████      | 754k/1.83M [00:01&lt;00:01, 822kB/s]
+ 57%|█████▋    | 1.05M/1.83M [00:01&lt;00:01, 778kB/s]
+ 84%|████████▍ | 1.54M/1.83M [00:01&lt;00:00, 1.21MB/s]
+ 98%|█████████▊| 1.80M/1.83M [00:02&lt;00:00, 1.15MB/s]
+100%|██████████| 1.83M/1.83M [00:02&lt;00:00, 742kB/s]
 </pre></div>
 </div>
 </section>
@@ -190,13 +191,13 @@ adaptation. In ECCV Workshops, 2016.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
 -------  ------------  ------
-      1        1.5093  7.1033
-      2        0.2675  6.9232
-      3        0.0923  6.5000
-      4        0.0542  7.1725
-      5        0.0363  8.3994
+      1        1.6354  4.7994
+      2        0.2843  5.0986
+      3        0.0889  4.7022
+      4        0.0521  4.8951
+      5        0.0380  4.8628
 
-0.8938906752411575
+0.932475884244373
 </pre></div>
 </div>
 </section>
@@ -215,18 +216,18 @@ adaptation. In ECCV Workshops, 2016.</p>
 <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.ClassifierMixin.html#sklearn.base.ClassifierMixin.score" title="sklearn.base.ClassifierMixin.score" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-method"><span class="n">model</span><span class="o">.</span><span class="n">score</span></a><span class="p">(</span><a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X_test</span></a><span class="p">,</span> <a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y_test</span></a><span class="p">,</span> <a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain_test</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
--------  ------------  -------
-      1        1.5402  11.8687
-      2        0.3297  12.4005
-      3        0.1163  12.4981
-      4        0.0822  12.8993
-      5        0.0609  12.0998
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
+-------  ------------  ------
+      1        1.4452  9.9669
+      2        0.2607  8.9992
+      3        0.0956  10.5986
+      4        0.0675  8.7013
+      5        0.0520  8.7014
 
-0.8842443729903537
+0.8810289389067524
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 47.538 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 21.230 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-divergence-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/baa454a8beffca9aa574f441fec209a1/plot_divergence.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_divergence.ipynb</span></code></a></p>
@@ -271,7 +272,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.6.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->

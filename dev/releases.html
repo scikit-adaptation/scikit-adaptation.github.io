@@ -18,7 +18,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=5e5be09d"></script>
+      <script src="_static/documentation_options.js?v=db0e1f0c"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="_static/sg-tags.js?v=d80f6fa4"></script>
@@ -56,11 +56,18 @@
 <li class="toctree-l1"><a class="reference internal" href="all.html">API and modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples gallery</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release of SKADA</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#skada-v0-5-0">Skada v0.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-changed">What's Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#skada-v0-6-0">Skada v0.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-s-changed">What's Changed</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#new-features">🚀 New features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compatibility-and-bug-fixes">🔧 Compatibility and bug fixes</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#new-contributors">New Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#skada-v0-5-0">Skada v0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">What's Changed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">New Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#skada-v0-4-0">Skada v0.4.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">What's Changed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">What's Changed</a></li>
 </ul>
 </li>
 </ul>
@@ -94,6 +101,34 @@
              
   <section id="release-of-skada">
 <h1>Release of SKADA<a class="headerlink" href="#release-of-skada" title="Link to this heading"></a></h1>
+<section id="skada-v0-6-0">
+<h2>Skada v0.6.0<a class="headerlink" href="#skada-v0-6-0" title="Link to this heading"></a></h2>
+<p>Skada v0.6.0 Release Highlights</p>
+</section>
+<section id="what-s-changed">
+<h2>What's Changed<a class="headerlink" href="#what-s-changed" title="Link to this heading"></a></h2>
+<section id="new-features">
+<h3>🚀 New features<a class="headerlink" href="#new-features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added <strong>gradual domain adaptation</strong>, enabling progressive adaptation across domains (#354).</p></li>
+<li><p>Introduced a <strong>test-time adaptation API for shallow methods</strong> (#345).</p></li>
+</ul>
+</section>
+<section id="compatibility-and-bug-fixes">
+<h3>🔧 Compatibility and bug fixes<a class="headerlink" href="#compatibility-and-bug-fixes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed issues related to the upcoming <strong>scikit-learn 1.8</strong> release, including test failures and API compatibility (#358, #363).</p></li>
+</ul>
+</section>
+</section>
+<section id="new-contributors">
+<h2>New Contributors<a class="headerlink" href="#new-contributors" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>&#64;flefebv made their first contribution in #354.</p></li>
+<li><p>&#64;glemaitre made their first contribution in #359.</p></li>
+</ul>
+<p><strong>Full Changelog</strong>: https://github.com/scikit-adaptation/skada/compare/0.5.0...0.6.0</p>
+</section>
 <section id="skada-v0-5-0">
 <h2>Skada v0.5.0<a class="headerlink" href="#skada-v0-5-0" title="Link to this heading"></a></h2>
 <p>Skada v0.5.0 Release Highlights</p>
@@ -108,8 +143,8 @@
 <li><p>Enhancement: Fix CodeCov for the main branch.</p></li>
 </ol>
 </section>
-<section id="what-s-changed">
-<h2>What's Changed<a class="headerlink" href="#what-s-changed" title="Link to this heading"></a></h2>
+<section id="id1">
+<h2>What's Changed<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>[MRG] Fix Github action version v2 -&gt; v4 and fix test with skorch update by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/292">PR #292</a></p></li>
 <li><p>[WIP] Add new scorer: MaNoScorer by &#64;ambroiseodt in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/289">PR #289</a></p></li>
@@ -144,8 +179,8 @@
 <li><p>[MRG] Make DeepDADAtaset deal with regression masking by &#64;tgnassou in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/352">PR #352</a></p></li>
 </ul>
 </section>
-<section id="new-contributors">
-<h2>New Contributors<a class="headerlink" href="#new-contributors" title="Link to this heading"></a></h2>
+<section id="id2">
+<h2>New Contributors<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>&#64;mbarneche made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/299">PR #299</a></p></li>
 <li><p>&#64;arthurdrk made their first contribution in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/307">PR #307</a></p></li>
@@ -167,8 +202,8 @@
 <li><p>Deep Models: Enhanced batch handling, fixed predict_proba, stabilized MDD loss, and fixed Deep Coral.</p></li>
 <li><p>Docs &amp; Design: Added a contributor guide, new logo, and documentation updates.</p></li>
 </ol>
-<section id="id1">
-<h3>What's Changed<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>What's Changed<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update README.md with zenodo badge by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/216">PR #216</a></p></li>
 <li><p>[MRG] Add multi-domain Monge alignment and JCPOT Target shift method by &#64;rflamary in <a class="reference external" href="https://github.com/scikit-adaptation/skada/pull/180">PR #180</a></p></li>
@@ -250,7 +285,7 @@ aria-label="versions">
   <!--  add shift_up to the class for force viewing ,
   data-toggle="rst-current-version" -->
     <span class="rst-current-version"  style="margin-bottom:1mm;">
-      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.5.0
+      <span class="fa fa-book"> SKADA: SciKit-ADAptation</span> 0.6.0
       <hr  style="margin-bottom:1.5mm;margin-top:5mm;">
      <!--  versions
       <span class="fa fa-caret-down"></span>-->
