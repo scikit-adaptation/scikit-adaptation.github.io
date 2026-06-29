@@ -176,10 +176,10 @@ on a simple image classification task.</p>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="o">=</span><a href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="torch.Tensor" class="sphx-glr-backref-module-torch sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sample_domain</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss     dur
--------  ------------  ------
-      1        2.2824  8.4813
-      2        2.1863  8.9090
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>  epoch    train_loss      dur
+-------  ------------  -------
+      1        2.2286  14.3779
+      2        2.1368  11.4294
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -939,7 +939,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__epoch_timer&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x77329fd49930&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce8c3b0fd0&gt;</td>
         </tr>
 
 
@@ -949,7 +949,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__train_loss&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x77329fd4b490&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce8c3b2230&gt;</td>
         </tr>
 
 
@@ -989,7 +989,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__valid_loss&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x77329fd49cc0&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce8c3b0550&gt;</td>
         </tr>
 
 
@@ -1029,7 +1029,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__valid_acc&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x77329fd48d90&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce8c3b16c0&gt;</td>
         </tr>
 
 
@@ -1079,7 +1079,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
-            <td class="value">&lt;function to_...x7732d3991fc0&gt;</td>
+            <td class="value">&lt;function to_...x7cceaf9fe0e0&gt;</td>
         </tr>
 
 
@@ -1099,7 +1099,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__print_log&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x77329fd48a60&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce8c3b15d0&gt;</td>
         </tr>
 
 
@@ -1228,8 +1228,8 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
   dataset = Dataset(X_dict, torch.tensor(y))
   epoch    train_loss      dur
 -------  ------------  -------
-      1        2.3575  12.0219
-      2        2.2953  9.7028
+      1        2.2827  11.4754
+      2        2.1770  14.4294
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -1989,7 +1989,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__epoch_timer&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x7732a67685b0&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce9e226290&gt;</td>
         </tr>
 
 
@@ -1999,7 +1999,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__train_loss&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x7732a676b2b0&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce9e225ab0&gt;</td>
         </tr>
 
 
@@ -2039,7 +2039,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__valid_loss&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x7732a676be20&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce9e225fc0&gt;</td>
         </tr>
 
 
@@ -2079,7 +2079,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__valid_acc&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x7732a676b880&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce9e2257b0&gt;</td>
         </tr>
 
 
@@ -2129,7 +2129,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__valid_acc__target_extractor&nbsp;</td>
-            <td class="value">&lt;function to_...x7732d3991fc0&gt;</td>
+            <td class="value">&lt;function to_...x7cceaf9fe0e0&gt;</td>
         </tr>
 
 
@@ -2149,7 +2149,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
                           this.parentElement.nextElementSibling)"
             ></i></td>
             <td class="param">callbacks__print_log&nbsp;</td>
-            <td class="value">&lt;skorch.callb...x7732a6768490&gt;</td>
+            <td class="value">&lt;skorch.callb...x7cce8c3b0dc0&gt;</td>
         </tr>
 
 
@@ -2283,11 +2283,11 @@ document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loss:&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">running_loss</span></a> <span class="o">/</span> <span class="nb">iter</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loss: 0.8370137587189674
-Loss: 0.17120078578591347
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loss: 0.8525108657777309
+Loss: 0.13143176399171352
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 2.454 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (1 minutes 26.254 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-deep-plot-training-method-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/0a1031daef8de6949bff505828d49e0e/plot_training_method.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_training_method.ipynb</span></code></a></p>
