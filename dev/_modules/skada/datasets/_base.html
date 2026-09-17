@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -108,11 +108,11 @@
 <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">ModuleNotFoundError</span><span class="p">):</span>
     <span class="n">_IS_DEEPDADATASET_IMPORTED</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="n">_DEFAULT_HOME_FOLDER_KEY</span> <span class="o">=</span> <span class="s2">&quot;SKADA_DATA_FOLDER&quot;</span>
-<span class="n">_DEFAULT_HOME_FOLDER</span> <span class="o">=</span> <span class="s2">&quot;~/skada_datasets&quot;</span>
+<span class="n">_DEFAULT_HOME_FOLDER_KEY</span> <span class="o">=</span> <span class="s2">"SKADA_DATA_FOLDER"</span>
+<span class="n">_DEFAULT_HOME_FOLDER</span> <span class="o">=</span> <span class="s2">"~/skada_datasets"</span>
 
 
-<span class="n">ArrayLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="s2">&quot;torch.Tensor&quot;</span><span class="p">]</span>
+<span class="n">ArrayLike</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="s2">"torch.Tensor"</span><span class="p">]</span>
 
 <span class="c1"># xxx(okachaiev): if we use -1 as a detector for targets,</span>
 <span class="c1"># we should not allow non-labeled dataset or... we need</span>
@@ -127,21 +127,21 @@
 <span class="p">]</span>
 
 <span class="n">PackedDatasetType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
-    <span class="n">Bunch</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">ArrayLike</span><span class="p">],</span> <span class="s2">&quot;DeepDADataset&quot;</span>
+    <span class="n">Bunch</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">ArrayLike</span><span class="p">],</span> <span class="s2">"DeepDADataset"</span>
 <span class="p">]</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">get_data_home</span><span class="p">(</span><span class="n">data_home</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the path of the `skada` data folder.</span>
+<span class="w">    </span><span class="sd">"""Return the path of the `skada` data folder.</span>
 
 <span class="sd">    This folder is used by some large dataset loaders to avoid downloading the</span>
 <span class="sd">    data several times.</span>
 
-<span class="sd">    By default the data directory is set to a folder named &#39;skada_datasets&#39; in the</span>
+<span class="sd">    By default the data directory is set to a folder named 'skada_datasets' in the</span>
 <span class="sd">    user home folder.</span>
 
-<span class="sd">    Alternatively, it can be set by the &#39;SKADA_DATA_FOLDER&#39; environment</span>
-<span class="sd">    variable or programmatically by giving an explicit folder path. The &#39;~&#39;</span>
+<span class="sd">    Alternatively, it can be set by the 'SKADA_DATA_FOLDER' environment</span>
+<span class="sd">    variable or programmatically by giving an explicit folder path. The '~'</span>
 <span class="sd">    symbol is expanded to the user home folder.</span>
 
 <span class="sd">    If the folder does not already exist, it is automatically created.</span>
@@ -156,7 +156,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    data_home: str</span>
 <span class="sd">        The path to `skada` data folder.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">data_home</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">data_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_DEFAULT_HOME_FOLDER_KEY</span><span class="p">,</span> <span class="n">_DEFAULT_HOME_FOLDER</span><span class="p">)</span>
     <span class="n">data_home</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">data_home</span><span class="p">)</span>
@@ -167,7 +167,7 @@
 <div class="viewcode-block" id="DomainAwareDataset">
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DomainAwareDataset</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Container carrying all dataset domains.</span>
 
 <span class="sd">    This class allows to store and manipulate datasets from multiple domains,</span>
@@ -185,7 +185,7 @@
 <span class="sd">        List of domains added, each as a tuple (X, y) or (X,).</span>
 <span class="sd">    domain_names_ : dict</span>
 <span class="sd">        Dictionary mapping each domain name to its internal identifier.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -208,8 +208,8 @@
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.add_domain">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_domain</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DomainAwareDataset&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"DomainAwareDataset"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Add a new domain to the dataset.</span>
 
 <span class="sd">        Parameters</span>
@@ -225,13 +225,13 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : DomainAwareDataset</span>
 <span class="sd">            The updated dataset.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">domain_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># check the name is unique</span>
             <span class="c1"># xxx(okachaiev): ValueError would be more appropriate</span>
             <span class="k">assert</span> <span class="n">domain_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">domain_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">domain_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"_</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span>
         <span class="n">domain_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">X</span><span class="p">,))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">domain_id</span>
@@ -241,9 +241,9 @@
 <div class="viewcode-block" id="DomainAwareDataset.merge">
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.merge">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="s2">&quot;DomainAwareDataset&quot;</span><span class="p">,</span> <span class="n">names_mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DomainAwareDataset&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">:</span> <span class="s2">"DomainAwareDataset"</span><span class="p">,</span> <span class="n">names_mapping</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"DomainAwareDataset"</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Merge another DomainAwareDataset into this one.</span>
 
 <span class="sd">        Parameters</span>
@@ -257,11 +257,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : DomainAwareDataset</span>
 <span class="sd">            The updated dataset.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">for</span> <span class="n">domain_name</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">:</span>
             <span class="c1"># xxx(okachaiev): this needs to be more flexible</span>
             <span class="c1"># as it should be possible to pass only X with y=None</span>
-            <span class="c1"># i guess best way of doing so is to change &#39;add_domain&#39; API</span>
+            <span class="c1"># i guess best way of doing so is to change 'add_domain' API</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain_name</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">names_mapping</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">domain_name</span> <span class="o">=</span> <span class="n">names_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">domain_name</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">)</span>
@@ -272,7 +272,7 @@
 <div class="viewcode-block" id="DomainAwareDataset.get_domain">
 <a class="viewcode-back" href="../../../gen_modules/skada.datasets.DomainAwareDataset.html#skada.datasets.DomainAwareDataset.get_domain">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ArrayLike</span><span class="p">]]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve the data and labels for a given domain.</span>
 
 <span class="sd">        Parameters</span>
@@ -284,7 +284,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        domain : tuple</span>
 <span class="sd">            Tuple containing (X, y) or (X,) for the specified domain.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">domain_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">[</span><span class="n">domain_name</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">[</span><span class="n">domain_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span></div>
 
@@ -294,7 +294,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">select_domain</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> <span class="n">domains</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArrayLike</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Select samples belonging to one or more domains.</span>
 
 <span class="sd">        Parameters</span>
@@ -308,7 +308,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        mask : ArrayLike</span>
 <span class="sd">            Boolean mask indicating selected samples.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">select_domain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">domains</span><span class="p">)</span></div>
 
 
@@ -323,12 +323,12 @@
         <span class="n">mask_target_labels</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">return_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
-            <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">,</span> <span class="s2">&quot;DeepDADataset&quot;</span><span class="p">,</span> <span class="s2">&quot;Bunch&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+            <span class="s2">"auto"</span><span class="p">,</span> <span class="s2">"array"</span><span class="p">,</span> <span class="s2">"tensor"</span><span class="p">,</span> <span class="s2">"DeepDADataset"</span><span class="p">,</span> <span class="s2">"Bunch"</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
         <span class="n">train</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregates datasets from all domains into a unified domain-aware</span>
+<span class="w">        </span><span class="sd">"""Aggregates datasets from all domains into a unified domain-aware</span>
 <span class="sd">        representation, ensuring compatibility with domain adaptation (DA)</span>
 <span class="sd">        estimators.</span>
 
@@ -348,12 +348,12 @@
 <span class="sd">            [DEPRECATED] When set to True, returns a tuple (X, y, sample_domain).</span>
 <span class="sd">            Otherwise returns :class:`~sklearn.utils.Bunch` object with the structure</span>
 <span class="sd">            described below.</span>
-<span class="sd">        return_type : Literal[&quot;auto&quot;, &quot;array&quot;, &quot;tensor&quot;, &quot;DeepDADataset&quot;, &quot;Bunch&quot;]</span>
-<span class="sd">            The type of the returned data. If &quot;auto&quot;, it will return tensors if</span>
+<span class="sd">        return_type : Literal["auto", "array", "tensor", "DeepDADataset", "Bunch"]</span>
+<span class="sd">            The type of the returned data. If "auto", it will return tensors if</span>
 <span class="sd">            the data is in tensor format, otherwise it will return numpy arrays.</span>
-<span class="sd">            If &quot;array&quot;, returns numpy arrays. If &quot;tensor&quot;, returns torch tensors.</span>
-<span class="sd">            If &quot;DeepDADataset&quot;, returns a :class:`~skada.dataset.base.DeepDADataset`</span>
-<span class="sd">            If &quot;Bunch&quot;, returns a :class:`~sklearn.utils.Bunch` object</span>
+<span class="sd">            If "array", returns numpy arrays. If "tensor", returns torch tensors.</span>
+<span class="sd">            If "DeepDADataset", returns a :class:`~skada.dataset.base.DeepDADataset`</span>
+<span class="sd">            If "Bunch", returns a :class:`~sklearn.utils.Bunch` object</span>
 <span class="sd">        train: Optional[bool], default=None</span>
 <span class="sd">            [DEPRECATED] Use `mask_target_labels`instead.</span>
 <span class="sd">        mask: int | float (optional), default=None</span>
@@ -375,25 +375,25 @@
 <span class="sd">            domain_names : dict</span>
 <span class="sd">                The names of domains and associated domain labels.</span>
 
-<span class="sd">        (X, y, sample_domain) : tuple of Arraylike if `return_type=&quot;array&quot; or &quot;tensor&quot;`</span>
+<span class="sd">        (X, y, sample_domain) : tuple of Arraylike if `return_type="array" or "tensor"`</span>
 <span class="sd">            Tuple of (data, target, sample_domain), see the description above.</span>
 
 <span class="sd">        deep_da_dataset : DeepDADataset</span>
 <span class="sd">            compatible with torch : torch.Dataset extended with the sample_domain</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domains</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="n">domain_labels</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">return_X_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;The `return_X_y` parameter is deprecated and will be removed in&quot;</span>
-                <span class="s2">&quot;future versions. Use `return_type` instead.&quot;</span><span class="p">,</span>
+                <span class="s2">"The `return_X_y` parameter is deprecated and will be removed in"</span>
+                <span class="s2">"future versions. Use `return_type` instead."</span><span class="p">,</span>
                 <span class="ne">DeprecationWarning</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;array&quot;</span> <span class="k">if</span> <span class="n">return_X_y</span> <span class="k">else</span> <span class="s2">&quot;Bunch&quot;</span>
+            <span class="n">return_type</span> <span class="o">=</span> <span class="s2">"array"</span> <span class="k">if</span> <span class="n">return_X_y</span> <span class="k">else</span> <span class="s2">"Bunch"</span>
         <span class="k">if</span> <span class="n">train</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="s2">&quot;The `train` parameter is deprecated and will be removed in&quot;</span>
-                <span class="s2">&quot;future versions. Use `mask_target_labels` instead.&quot;</span><span class="p">,</span>
+                <span class="s2">"The `train` parameter is deprecated and will be removed in"</span>
+                <span class="s2">"future versions. Use `mask_target_labels` instead."</span><span class="p">,</span>
                 <span class="ne">DeprecationWarning</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">mask_target_labels</span> <span class="o">=</span> <span class="n">train</span>
@@ -406,7 +406,7 @@
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">source</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid definition for domain data&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid definition for domain data"</span><span class="p">)</span>
             <span class="c1"># xxx(okachaiev): this is horribly inefficient, re-write when API is fixed</span>
             <span class="n">Xs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
             <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -419,13 +419,13 @@
             <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_domain</span><span class="p">(</span><span class="n">domain_name</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="p">(</span><span class="n">X</span><span class="p">,)</span> <span class="o">=</span> <span class="n">target</span>
-                <span class="c1"># xxx(okachaiev): for what it&#39;s worth, we should likely to</span>
+                <span class="c1"># xxx(okachaiev): for what it's worth, we should likely to</span>
                 <span class="c1"># move the decision about dtype to the very end of the list</span>
                 <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
                 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">target</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid definition for domain data&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid definition for domain data"</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">mask_target_labels</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mask</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
@@ -452,21 +452,21 @@
             <span class="n">is_data_tensor</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># assume data is in numpy array format</span>
 
         <span class="c1"># Determine the return type when not explicitly specified</span>
-        <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
-            <span class="n">return_type</span> <span class="o">=</span> <span class="s2">&quot;tensor&quot;</span> <span class="k">if</span> <span class="n">is_data_tensor</span> <span class="k">else</span> <span class="s2">&quot;array&quot;</span>
+        <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">"auto"</span><span class="p">:</span>
+            <span class="n">return_type</span> <span class="o">=</span> <span class="s2">"tensor"</span> <span class="k">if</span> <span class="n">is_data_tensor</span> <span class="k">else</span> <span class="s2">"array"</span>
 
         <span class="c1"># Note that even if data are numpy arrays, we can return them as tensors</span>
         <span class="c1"># and vice versa : this is why concatenation is done inside the if-else block</span>
-        <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">&quot;array&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">"array"</span><span class="p">:</span>
             <span class="n">Xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
             <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
             <span class="n">sample_domains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">sample_domains</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domains</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">&quot;tensor&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">"tensor"</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">_IS_TORCH_IMPORTED</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                    <span class="s2">&quot;torch is required to return data as tensors. &quot;</span>
-                    <span class="s2">&quot;Please install torch to use this feature.&quot;</span>
+                    <span class="s2">"torch is required to return data as tensors. "</span>
+                    <span class="s2">"Please install torch to use this feature."</span>
                 <span class="p">)</span>
             <span class="n">Xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">ys</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -478,11 +478,11 @@
                 <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domains</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">&quot;DeepDADataset&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">"DeepDADataset"</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">_IS_DEEPDADATASET_IMPORTED</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                    <span class="s2">&quot;torch and skorch are required to return data as DeepDADataset. &quot;</span>
-                    <span class="s2">&quot;Please install them to use this feature.&quot;</span>
+                    <span class="s2">"torch and skorch are required to return data as DeepDADataset. "</span>
+                    <span class="s2">"Please install them to use this feature."</span>
                 <span class="p">)</span>
             <span class="n">Xs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="n">ys</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -494,7 +494,7 @@
                 <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">DeepDADataset</span><span class="p">(</span><span class="n">Xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">sample_domains</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">Xs</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">&quot;Bunch&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">return_type</span> <span class="o">==</span> <span class="s2">"Bunch"</span><span class="p">:</span>
             <span class="c1"># For now Bunch is associated with numpy arrays</span>
             <span class="n">Xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">Xs</span><span class="p">)</span>
             <span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
@@ -507,8 +507,8 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Invalid return_type. Expected one of &#39;auto&#39;, &#39;array&#39;, &quot;</span>
-                <span class="s2">&quot;&#39;tensor&#39;, &#39;DeepDADataset&#39;, or &#39;Bunch&#39;.&quot;</span>
+                <span class="s2">"Invalid return_type. Expected one of 'auto', 'array', "</span>
+                <span class="s2">"'tensor', 'DeepDADataset', or 'Bunch'."</span>
             <span class="p">)</span></div>
 
 
@@ -522,7 +522,7 @@
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">mask</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Aggregate source and target domains for training.</span>
 
 <span class="sd">        .. warning::</span>
@@ -553,7 +553,7 @@
 <span class="sd">            Dictionary-like object with attributes X, y, sample_domain, domain_names.</span>
 <span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
 <span class="sd">            Tuple of (data, target, sample_domain).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
             <span class="n">as_sources</span><span class="o">=</span><span class="n">as_sources</span><span class="p">,</span>
             <span class="n">as_targets</span><span class="o">=</span><span class="n">as_targets</span><span class="p">,</span>
@@ -571,7 +571,7 @@
         <span class="n">as_targets</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Aggregate target domains for testing.</span>
 
 <span class="sd">        .. warning::</span>
@@ -595,7 +595,7 @@
 <span class="sd">            Dictionary-like object with attributes X, y, sample_domain, domain_names.</span>
 <span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
 <span class="sd">            Tuple of (data, target, sample_domain).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
             <span class="n">as_sources</span><span class="o">=</span><span class="p">[],</span>
             <span class="n">as_targets</span><span class="o">=</span><span class="n">as_targets</span><span class="p">,</span>
@@ -610,12 +610,12 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">return_X_y</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">return_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
-            <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="s2">&quot;tensor&quot;</span><span class="p">,</span> <span class="s2">&quot;DeepDADataset&quot;</span><span class="p">,</span> <span class="s2">&quot;Bunch&quot;</span>
-        <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+            <span class="s2">"auto"</span><span class="p">,</span> <span class="s2">"array"</span><span class="p">,</span> <span class="s2">"tensor"</span><span class="p">,</span> <span class="s2">"DeepDADataset"</span><span class="p">,</span> <span class="s2">"Bunch"</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PackedDatasetType</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Packages all domains in a format compatible with the Leave-One-Domain-Out</span>
+<span class="w">        </span><span class="sd">"""Packages all domains in a format compatible with the Leave-One-Domain-Out</span>
 <span class="sd">        cross-validator (refer to :class:`~skada.model_selection.LeaveOneDomainOut` for</span>
-<span class="sd">        more details). To enable the splitter&#39;s dynamic assignment of source and target</span>
+<span class="sd">        more details). To enable the splitter's dynamic assignment of source and target</span>
 <span class="sd">        domains, data from each domain is included in the output twice — once as a</span>
 <span class="sd">        source and once as a target.</span>
 
@@ -628,12 +628,12 @@
 <span class="sd">            [DEPRECATED] When set to True, returns a tuple (X, y, sample_domain).</span>
 <span class="sd">            Otherwise returns :class:`~sklearn.utils.Bunch` object with the structure</span>
 <span class="sd">            described below.</span>
-<span class="sd">        return_type : Literal[&quot;auto&quot;, &quot;array&quot;, &quot;tensor&quot;, &quot;DeepDADataset&quot;, &quot;Bunch&quot;]</span>
-<span class="sd">            The type of the returned data. If &quot;auto&quot;, it will return tensors if</span>
+<span class="sd">        return_type : Literal["auto", "array", "tensor", "DeepDADataset", "Bunch"]</span>
+<span class="sd">            The type of the returned data. If "auto", it will return tensors if</span>
 <span class="sd">            the data is in tensor format, otherwise it will return numpy arrays.</span>
-<span class="sd">            If &quot;array&quot;, returns numpy arrays. If &quot;tensor&quot;, returns torch tensors.</span>
-<span class="sd">            If &quot;DeepDADataset&quot;, returns a :class:`~skada.dataset.base.DeepDADataset`</span>
-<span class="sd">            If &quot;Bunch&quot;, returns a :class:`~sklearn.utils.Bunch` object</span>
+<span class="sd">            If "array", returns numpy arrays. If "tensor", returns torch tensors.</span>
+<span class="sd">            If "DeepDADataset", returns a :class:`~skada.dataset.base.DeepDADataset`</span>
+<span class="sd">            If "Bunch", returns a :class:`~sklearn.utils.Bunch` object</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -653,7 +653,7 @@
 
 <span class="sd">        (X, y, sample_domain) : tuple if `return_X_y=True`</span>
 <span class="sd">            Tuple of (data, target, sample_domain), see the description above.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
             <span class="n">as_sources</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
             <span class="n">as_targets</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domain_names_</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
@@ -664,13 +664,13 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DomainAwareDataset(domains=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_domain_representation</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"DomainAwareDataset(domains=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_domain_representation</span><span class="p">()</span><span class="si">}</span><span class="s2">)"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">head</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span>
-        <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Number of domains: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-        <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total size: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tup</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">head</span><span class="p">]</span> <span class="o">+</span> <span class="n">body</span><span class="p">)</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"Number of domains: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total size: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">tup</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">domains_</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">head</span><span class="p">]</span> <span class="o">+</span> <span class="n">body</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_domain_representation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_domains</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
@@ -682,18 +682,18 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># If the number of domains is large, truncate the list and add ellipsis</span>
             <span class="n">truncated_domains</span> <span class="o">=</span> <span class="n">domain_names</span><span class="p">[:</span><span class="n">max_domains</span><span class="p">]</span>
-            <span class="n">domain_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">truncated_domains</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;, ...]&quot;</span>
+            <span class="n">domain_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">truncated_domains</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">", ...]"</span>
 
         <span class="c1"># Truncate the string representation if it exceeds max_length</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">domain_str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_length</span><span class="p">:</span>
-            <span class="n">domain_str</span> <span class="o">=</span> <span class="n">domain_str</span><span class="p">[:</span> <span class="n">max_length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...]&quot;</span>
+            <span class="n">domain_str</span> <span class="o">=</span> <span class="n">domain_str</span><span class="p">[:</span> <span class="n">max_length</span> <span class="o">-</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"...]"</span>
 
         <span class="k">return</span> <span class="n">domain_str</span></div>
 
 
 
 <span class="c1"># xxx(okachaiev): putting `domain_names` first argument</span>
-<span class="c1"># so it&#39;s compatible with `partial`</span>
+<span class="c1"># so it's compatible with `partial`</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">select_domain</span><span class="p">(</span>
     <span class="n">domain_names</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
     <span class="n">sample_domain</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span>

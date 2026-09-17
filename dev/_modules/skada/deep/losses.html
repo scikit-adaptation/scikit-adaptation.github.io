@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -103,7 +103,7 @@
 <div class="viewcode-block" id="deepcoral_loss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.deepcoral_loss.html#skada.deep.losses.deepcoral_loss">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">deepcoral_loss</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">features_target</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate the Frobenius norm divide by 4*n**2</span>
+<span class="w">    </span><span class="sd">"""Estimate the Frobenius norm divide by 4*n**2</span>
 <span class="sd">       for DeepCORAL method [12]_.</span>
 
 <span class="sd">    Parameters</span>
@@ -125,13 +125,13 @@
 <span class="sd">    .. [12] Baochen Sun and Kate Saenko. Deep coral:</span>
 <span class="sd">            Correlation alignment for deep domain</span>
 <span class="sd">            adaptation. In ECCV Workshops, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">assume_centered</span><span class="p">:</span>
         <span class="n">features</span> <span class="o">=</span> <span class="n">features</span> <span class="o">-</span> <span class="n">features</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">features_target</span> <span class="o">=</span> <span class="n">features_target</span> <span class="o">-</span> <span class="n">features_target</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">cov</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">features</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
     <span class="n">cov_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">features_target</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">divergence</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">cov_target</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;sum&quot;</span><span class="p">)</span>
+    <span class="n">divergence</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">cov_target</span><span class="p">,</span> <span class="n">reduction</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">)</span>
     <span class="n">dim</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">*</span> <span class="n">divergence</span>
     <span class="k">return</span> <span class="n">loss</span></div>
@@ -151,7 +151,7 @@
     <span class="n">target_sample_weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the OT loss for DeepJDOT method [13]_.</span>
+<span class="w">    </span><span class="sd">"""Compute the OT loss for DeepJDOT method [13]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -190,13 +190,13 @@
 <span class="sd">            for Unsupervised Domain Adaptation. In ECCV 2018</span>
 <span class="sd">            15th European Conference on Computer Vision,</span>
 <span class="sd">            September 2018. Springer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
 
     <span class="n">y_target_matrix</span> <span class="o">=</span> <span class="n">y_pred_t</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_pred_t</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+        <span class="n">criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)</span>
 
     <span class="n">loss_target</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">y_target_matrix</span><span class="p">,</span> <span class="n">y_s</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_s</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">reg_dist</span> <span class="o">*</span> <span class="n">dist</span> <span class="o">+</span> <span class="n">reg_cl</span> <span class="o">*</span> <span class="n">loss_target</span>
@@ -217,7 +217,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes multi gaussian kernel between each pair of the two vectors.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Computes multi gaussian kernel between each pair of the two vectors."""</span>
     <span class="n">sigmas</span> <span class="o">=</span> <span class="n">sigmas</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">sigmas</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">sigmas</span>
     <span class="n">dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -228,9 +228,9 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_maximum_mean_discrepancy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the maximum mean discrepancy between the vectors</span>
+<span class="w">    </span><span class="sd">"""Computes the maximum mean discrepancy between the vectors</span>
 <span class="sd">    using the given kernel.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">cost</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
     <span class="n">cost</span> <span class="o">+=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kernel</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
     <span class="n">cost</span> <span class="o">-=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
@@ -241,7 +241,7 @@
 <div class="viewcode-block" id="dan_loss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.dan_loss.html#skada.deep.losses.dan_loss">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">dan_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define the mmd loss based on multi-kernel defined in [14]_.</span>
+<span class="w">    </span><span class="sd">"""Define the mmd loss based on multi-kernel defined in [14]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -265,7 +265,7 @@
 <span class="sd">    .. [14]  Mingsheng Long et. al. Learning Transferable</span>
 <span class="sd">            Features with Deep Adaptation Networks.</span>
 <span class="sd">            In ICML, 2015.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">sigmas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">median_pairwise_distance</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_s</span><span class="p">))</span> <span class="o">+</span> <span class="n">eps</span>
@@ -299,7 +299,7 @@
     <span class="n">class_threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define the contrastive domain discrepancy loss based on [33]_.</span>
+<span class="w">    </span><span class="sd">"""Define the contrastive domain discrepancy loss based on [33]_.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -333,14 +333,14 @@
 <span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
 <span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
 <span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_s</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
 
     <span class="c1"># Use pre-computed target_kmeans</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">target_kmeans</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">SphericalKMeans</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;cdd_loss: Please ensure `target_kmeans` is initialized before proceeding.&quot;</span>
-            <span class="s2">&quot;A fitted SphericalKMeans should be provided.&quot;</span>
+            <span class="s2">"cdd_loss: Please ensure `target_kmeans` is initialized before proceeding."</span>
+            <span class="s2">"A fitted SphericalKMeans should be provided."</span>
         <span class="p">)</span>
 
     <span class="c1"># Predict clusters for target samples</span>
@@ -429,7 +429,7 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">TestLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test Loss to check the deep API&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Test Loss to check the deep API"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -440,12 +440,12 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="k">return</span> <span class="mi">0</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">probability_scaling</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probability scaling.</span>
+<span class="w">    </span><span class="sd">"""Probability scaling.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -458,14 +458,14 @@
 <span class="sd">    -------</span>
 <span class="sd">    torch.Tensor</span>
 <span class="sd">        The scaled probabilities.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span> <span class="o">/</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="mcc_loss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.mcc_loss.html#skada.deep.losses.mcc_loss">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcc_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimate the Frobenius norm divide by 4*n**2</span>
+<span class="w">    </span><span class="sd">"""Estimate the Frobenius norm divide by 4*n**2</span>
 <span class="sd">       for DeepCORAL method [33]_.</span>
 
 <span class="sd">    Parameters</span>
@@ -487,7 +487,7 @@
 <span class="sd">    .. [33] Ying Jin, Ximei Wang, Mingsheng Long, Jianmin Wang.</span>
 <span class="sd">            Minimum Class Confusion for Versatile Domain Adaptation.</span>
 <span class="sd">            In ECCV, 2020.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Probability Rescaling</span>
     <span class="n">y_scaled</span> <span class="o">=</span> <span class="n">probability_scaling</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">temperature</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
 
@@ -495,7 +495,7 @@
     <span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_scaled</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_scaled</span> <span class="o">+</span> <span class="n">eps</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">W</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">H</span><span class="p">))</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">H</span><span class="p">))</span>
     <span class="n">y_weighted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">W</span><span class="p">),</span> <span class="n">y_scaled</span><span class="p">)</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij,ik-&gt;jk&quot;</span><span class="p">,</span> <span class="n">y_scaled</span><span class="p">,</span> <span class="n">y_weighted</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">"ij,ik-&gt;jk"</span><span class="p">,</span> <span class="n">y_scaled</span><span class="p">,</span> <span class="n">y_weighted</span><span class="p">)</span>
 
     <span class="c1"># Category Normalization</span>
     <span class="n">C_tilde</span> <span class="o">=</span> <span class="n">C</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -508,51 +508,51 @@
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_adj</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euc&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inspired by https://github.com/CrownX/SPA&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_adj</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"euc"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Inspired by https://github.com/CrownX/SPA"""</span>
     <span class="c1"># s, t [bsize, dim], [bsize, dim] -&gt; [bsize, bsize]</span>
-    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;cos&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">"cos"</span><span class="p">:</span>
         <span class="n">s_norm</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">t_norm</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">s_norm</span><span class="p">,</span> <span class="n">t_norm</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
 
-    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;gauss&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">"gauss"</span><span class="p">:</span>
         <span class="n">squared_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
         <span class="n">sigma_</span> <span class="o">=</span> <span class="mf">1.5</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">squared_dist</span> <span class="o">/</span> <span class="n">sigma_</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;euc&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">"euc"</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown metric: </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown metric: </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_laplacian</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">laplac</span><span class="o">=</span><span class="s2">&quot;laplac1&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inspired by https://github.com/CrownX/SPA&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_laplacian</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">laplac</span><span class="o">=</span><span class="s2">"laplac1"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Inspired by https://github.com/CrownX/SPA"""</span>
     <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-7</span>  <span class="c1"># For numerical stability</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">laplac</span> <span class="o">==</span> <span class="s2">&quot;laplac1&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">laplac</span> <span class="o">==</span> <span class="s2">"laplac1"</span><span class="p">:</span>
         <span class="n">v_inv</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
         <span class="n">D_inv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">v_inv</span><span class="p">)</span>
         <span class="k">return</span> <span class="o">-</span><span class="n">D_inv</span> <span class="o">@</span> <span class="n">A</span>
 
-    <span class="k">elif</span> <span class="n">laplac</span> <span class="o">==</span> <span class="s2">&quot;laplac2&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">laplac</span> <span class="o">==</span> <span class="s2">"laplac2"</span><span class="p">:</span>
         <span class="n">D</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">D</span> <span class="o">-</span> <span class="n">A</span>
 
-    <span class="k">elif</span> <span class="n">laplac</span> <span class="o">==</span> <span class="s2">&quot;laplac3&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">laplac</span> <span class="o">==</span> <span class="s2">"laplac3"</span><span class="p">:</span>
         <span class="n">v_sqrt</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
         <span class="n">D_sqrt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">v_sqrt</span><span class="p">)</span>
         <span class="n">iden</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">iden</span> <span class="o">-</span> <span class="n">D_sqrt</span> <span class="o">@</span> <span class="n">A</span> <span class="o">@</span> <span class="n">D_sqrt</span>
 
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown Laplacian type: </span><span class="si">{</span><span class="n">laplac</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown Laplacian type: </span><span class="si">{</span><span class="n">laplac</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="gda_loss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.gda_loss.html#skada.deep.losses.gda_loss">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">gda_loss</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;euc&quot;</span><span class="p">,</span> <span class="n">laplac</span><span class="o">=</span><span class="s2">&quot;laplac1&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the GDA loss between two graphs.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gda_loss</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"euc"</span><span class="p">,</span> <span class="n">laplac</span><span class="o">=</span><span class="s2">"laplac1"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Compute the GDA loss between two graphs.</span>
 
 <span class="sd">        Inspired by https://github.com/CrownX/SPA</span>
 
@@ -562,11 +562,11 @@
 <span class="sd">        Source features.</span>
 <span class="sd">    t : torch.Tensor</span>
 <span class="sd">        Target features.</span>
-<span class="sd">    metric : str, default=&quot;euc&quot;</span>
+<span class="sd">    metric : str, default="euc"</span>
 <span class="sd">        The metric to use for the adjacency matrix.</span>
-<span class="sd">    laplac : str, default=&quot;laplac1&quot;</span>
+<span class="sd">    laplac : str, default="laplac1"</span>
 <span class="sd">        The Laplacian matrix to use.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># s, t [bsize, dim], [bsize, dim]</span>
     <span class="n">s_matrix</span> <span class="o">=</span> <span class="n">_adj</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
     <span class="n">t_matrix</span> <span class="o">=</span> <span class="n">_adj</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
@@ -582,7 +582,7 @@
 <div class="viewcode-block" id="nap_loss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.losses.nap_loss.html#skada.deep.losses.nap_loss">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nap_loss</span><span class="p">(</span><span class="n">features_t</span><span class="p">,</span> <span class="n">y_pred_t</span><span class="p">,</span> <span class="n">memory_features</span><span class="p">,</span> <span class="n">memory_outputs</span><span class="p">,</span> <span class="n">sample_idx_t</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the NAP loss.</span>
+<span class="w">    </span><span class="sd">"""Compute the NAP loss.</span>
 
 <span class="sd">        Inspired by https://github.com/CrownX/SPA</span>
 
@@ -600,9 +600,9 @@
 <span class="sd">        The sample indices in the batch features_t</span>
 <span class="sd">    K : int, default=5</span>
 <span class="sd">        The number of nearest neighbors.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">dis</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cdist</span><span class="p">(</span><span class="n">features_t</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">memory_features</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="n">dis</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">sample_idx_t</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;+inf&quot;</span><span class="p">)</span>
+    <span class="n">dis</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">sample_idx_t</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"+inf"</span><span class="p">)</span>
 
     <span class="c1"># Get top-K neighbors</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">top_k_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="o">-</span><span class="n">dis</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">K</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -612,7 +612,7 @@
     <span class="n">w</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">top_k_indices</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span>
 
     <span class="n">weight_</span><span class="p">,</span> <span class="n">pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">memory_outputs</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">loss_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)(</span><span class="n">y_pred_t</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+    <span class="n">loss_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span><span class="n">reduction</span><span class="o">=</span><span class="s2">"none"</span><span class="p">)(</span><span class="n">y_pred_t</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
     <span class="n">classifier_loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weight_</span> <span class="o">*</span> <span class="n">loss_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weight_</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">classifier_loss</span></div>

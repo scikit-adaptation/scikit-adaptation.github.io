@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -120,84 +120,80 @@ A unifying view on dataset shift in classification.
 Pattern recognition, 45(1):521-530.</p>
 </aside>
 </aside>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Ruben Bueno &lt;ruben.bueno@polytechnique.edu&gt;</span>
-<span class="c1">#</span>
-<span class="c1"># License: BSD 3-Clause</span>
-</pre></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="c1"># Author: Ruben Bueno &lt;ruben.bueno&#64;polytechnique.edu&gt;</span><span class="w">
+</span><span class="c1">#</span><span class="w">
+</span><span class="c1"># License: BSD 3-Clause</span><span class="w">
+</span></pre></div></div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="nn">.</span><span class="nn">pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span><span class="w">
+</span><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function reference internal" href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split"><span class="n">source_target_split</span></a><span class="w">
+</span><span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="nn">.</span><span class="nn">datasets</span><span class="w"> </span><span class="kn">import</span> <a class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function reference internal" href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets"><span class="n">make_shifted_datasets</span></a><span class="w">
+</span></pre></div></div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="k">def</span><span class="w"> </span><span class="nf">plot_shifted_dataset</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">shift</span></a><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot source and shifted target data for a given type of shift.
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">skada</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a>
-<span class="kn">from</span><span class="w"> </span><span class="nn">skada.datasets</span><span class="w"> </span><span class="kn">import</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a>
-</pre></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_shifted_dataset</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot source and shifted target data for a given type of shift.</span>
+    The possible shifts are 'covariate_shift', 'target_shift',
+    'conditional_shift' or 'subspace'.
 
-<span class="sd">    The possible shifts are &#39;covariate_shift&#39;, &#39;target_shift&#39;,</span>
-<span class="sd">    &#39;conditional_shift&#39; or &#39;subspace&#39;.</span>
-
-<span class="sd">    We use here the same random seed for multiple calls to</span>
-<span class="sd">    ensure same distributions.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <a href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets" class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function"><span class="n">make_shifted_datasets</span></a><span class="p">(</span>
-        <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-        <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-        <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a><span class="p">,</span>
-        <span class="n">noise</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;regression&quot;</span><span class="p">,</span>
-        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <a href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split" class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function"><span class="n">source_target_split</span></a><span class="p">(</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
-    <span class="p">)</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;row&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">(),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots_adjust.html#matplotlib.pyplot.subplots_adjust" title="matplotlib.pyplot.subplots_adjust" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span></a><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-        <span class="n">X_source</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">X_source</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="n">y_source</span><span class="p">,</span>
-        <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;autumn&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Source data&quot;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2&quot;</span><span class="p">)</span>
-
-    <span class="n">s</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-        <span class="n">X_target</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
-        <span class="n">X_target</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-        <span class="n">c</span><span class="o">=</span><span class="n">y_target</span><span class="p">,</span>
-        <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;autumn&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Target data&quot;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2&quot;</span><span class="p">)</span>
-
-    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-    <span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">])</span>
-    <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span>
-    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;y-value&quot;</span><span class="p">)</span>
-
-    <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;covariate_shift&quot;</span><span class="p">,</span> <span class="s2">&quot;target_shift&quot;</span><span class="p">,</span> <span class="s2">&quot;conditional_shift&quot;</span><span class="p">,</span> <span class="s2">&quot;subspace&quot;</span><span class="p">]:</span>
-    <span class="n">plot_shifted_dataset</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">shift</span></a><span class="p">)</span>
-</pre></div>
-</div>
+    We use here the same random seed for multiple calls to
+    ensure same distributions.
+    &quot;&quot;&quot;</span><span class="w">
+</span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <a class="sphx-glr-backref-module-skada-datasets sphx-glr-backref-type-py-function reference internal" href="../../gen_modules/skada.datasets.make_shifted_datasets.html#skada.datasets.make_shifted_datasets" title="skada.datasets.make_shifted_datasets"><span class="n">make_shifted_datasets</span></a><span class="p">(</span><span class="w">
+</span>        <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="w">
+</span>        <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="w">
+</span>        <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">shift</span></a><span class="o">=</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">shift</span></a><span class="p">,</span><span class="w">
+</span>        <span class="n">noise</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="w">
+</span>        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">regression</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span>        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span><span class="w">
+</span>    <span class="p">)</span><span class="w">
+</span>    <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <a class="sphx-glr-backref-module-skada sphx-glr-backref-type-py-function reference internal" href="../../gen_modules/skada.source_target_split.html#skada.source_target_split" title="skada.source_target_split"><span class="n">source_target_split</span></a><span class="p">(</span><span class="w">
+</span>        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="w">
+</span>    <span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">row</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">row</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="p">)</span><span class="w">
+</span>    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">shift</span></a><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">_</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2"> </span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots_adjust.html#matplotlib.pyplot.subplots_adjust" title="matplotlib.pyplot.subplots_adjust"><span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span></a><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span><span class="w">
+</span>    <span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="w">
+</span>        <span class="n">X_source</span><span class="p">[</span><span class="p">:</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>        <span class="n">X_source</span><span class="p">[</span><span class="p">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>        <span class="n">c</span><span class="o">=</span><span class="n">y_source</span><span class="p">,</span><span class="w">
+</span>        <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="w">
+</span>        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">autumn</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span>    <span class="p">)</span><span class="w">
+</span>    <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Source data</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>    <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Feature 1</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Feature 2</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="n">s</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="w">
+</span>        <span class="n">X_target</span><span class="p">[</span><span class="p">:</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>        <span class="n">X_target</span><span class="p">[</span><span class="p">:</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="p">,</span><span class="w">
+</span>        <span class="n">c</span><span class="o">=</span><span class="n">y_target</span><span class="p">,</span><span class="w">
+</span>        <span class="n">vmax</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="p">,</span><span class="w">
+</span>        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="w">
+</span>        <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;</span><span class="s2">autumn</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span>    <span class="p">)</span><span class="w">
+</span>    <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Target data</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>    <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Feature 1</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">Feature 2</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span><span class="w">
+</span>    <span class="n">cbar_ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="p">[</span><span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.80</span><span class="p">]</span><span class="p">)</span><span class="w">
+</span>    <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cbar_ax</span><span class="p">)</span><span class="w">
+</span>    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;</span><span class="s2">y-value</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span>    <a class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">(</span><span class="p">)</span><span class="w">
+</span></pre></div></div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span class="k">for</span> <a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">shift</span></a> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;</span><span class="s2">covariate_shift</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">target_shift</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">conditional_shift</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s2">subspace</span><span class="s2">&quot;</span><span class="p">]</span><span class="p">:</span><span class="w">
+</span>    <span class="n">plot_shifted_dataset</span><span class="p">(</span><a class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="str"><span class="n">shift</span></a><span class="p">)</span><span class="w">
+</span></pre></div></div>
 <ul class="sphx-glr-horizontal">
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_regression_001.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_regression_001.png" alt="Covariate Shift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_regression_002.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_regression_002.png" alt="Target Shift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_regression_003.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_regression_003.png" alt="Conditional Shift, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../../_images/sphx_glr_plot_shifted_dataset_regression_004.png" srcset="../../_images/sphx_glr_plot_shifted_dataset_regression_004.png" alt="Subspace, Source data, Target data" class = "sphx-glr-multi-img"/></li>
 </ul>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.995 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.802 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-datasets-plot-shifted-dataset-regression-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d60ce60a409539bb42aea31156ebd424/plot_shifted_dataset_regression.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_shifted_dataset_regression.ipynb</span></code></a></p>

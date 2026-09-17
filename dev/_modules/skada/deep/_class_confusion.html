@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -100,7 +100,7 @@
 <div class="viewcode-block" id="MCCLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.MCCLoss.html#skada.deep.MCCLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MCCLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss MCC.</span>
+<span class="w">    </span><span class="sd">"""Loss MCC.</span>
 
 <span class="sd">    This loss reduces the class confusion of the predicted label of target domain</span>
 <span class="sd">    See [33]_.</span>
@@ -118,7 +118,7 @@
 <span class="sd">    .. [33] Ying Jin, Ximei Wang, Mingsheng Long, Jianmin Wang.</span>
 <span class="sd">            Minimum Class Confusion for Versatile Domain Adaptation.</span>
 <span class="sd">            In ECCV, 2020.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -132,7 +132,7 @@
         <span class="n">y_pred_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">mcc_loss</span><span class="p">(</span>
             <span class="n">y_pred_t</span><span class="p">,</span>
             <span class="n">T</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
@@ -153,7 +153,7 @@
     <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;MCC.</span>
+<span class="w">    </span><span class="sd">"""MCC.</span>
 
 <span class="sd">       See [33]_.</span>
 
@@ -162,7 +162,7 @@
 <span class="sd">    module : torch module (class or instance)</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, default=1</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -177,7 +177,7 @@
 <span class="sd">    .. [33] Ying Jin, Ximei Wang, Mingsheng Long, Jianmin Wang.</span>
 <span class="sd">            Minimum Class Confusion for Versatile Domain Adaptation.</span>
 <span class="sd">            In ECCV, 2020.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 

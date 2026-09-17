@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -112,9 +112,9 @@
     <span class="n">mu_regression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">sigma_regression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">regression_scaling_constant</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"binary"</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate 2d classification data.</span>
+<span class="w">    </span><span class="sd">"""Generate 2d classification data.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -124,18 +124,18 @@
 <span class="sd">    rng : random generator</span>
 <span class="sd">        Generator for dataset creation</span>
 <span class="sd">    mu_regression : np.array, default=np.array([0, 0])</span>
-<span class="sd">        Will only be used if label==&#39;regression&#39;</span>
-<span class="sd">        When it&#39;s value is None, it will be changed to be the default one</span>
+<span class="sd">        Will only be used if label=='regression'</span>
+<span class="sd">        When it's value is None, it will be changed to be the default one</span>
 <span class="sd">    sigma_regression : np.array, default=np.array([[1, 0], [0, 1]])</span>
-<span class="sd">        Will only be used if label==&#39;regression&#39;</span>
-<span class="sd">        When it&#39;s value is None, it will be changed to be the default one</span>
+<span class="sd">        Will only be used if label=='regression'</span>
+<span class="sd">        When it's value is None, it will be changed to be the default one</span>
 <span class="sd">    regression_scaling_constant: float, default=27</span>
-<span class="sd">        Constant by which we multiply the y-value when label==&#39;regression&#39;</span>
-<span class="sd">    label : tuple, default=&#39;binary&#39;</span>
-<span class="sd">        If &#39;binary, return binary class.</span>
-<span class="sd">        If &#39;multiclass&#39;, return multiclass.</span>
-<span class="sd">        If &#39;regression&#39;, return regression&#39;s y-values</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Constant by which we multiply the y-value when label=='regression'</span>
+<span class="sd">    label : tuple, default='binary'</span>
+<span class="sd">        If 'binary, return binary class.</span>
+<span class="sd">        If 'multiclass', return multiclass.</span>
+<span class="sd">        If 'regression', return regression's y-values</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">mu_regression</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">mu_regression</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">sigma_regression</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -176,22 +176,22 @@
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">x21</span><span class="p">,</span> <span class="n">x22</span><span class="p">,</span> <span class="n">x23</span><span class="p">,</span> <span class="n">x24</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># make labels</span>
-    <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">"binary"</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n2</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;multiclass&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">"multiclass"</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n2</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;regression&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">"regression"</span><span class="p">:</span>
         <span class="c1"># create label y with gaussian distribution</span>
         <span class="n">normal_rv</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mu_regression</span><span class="p">,</span> <span class="n">sigma_regression</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">normal_rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">regression_scaling_constant</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid label value: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">. The label should either be &quot;</span>
-            <span class="s2">&quot;&#39;binary&#39;, &#39;multiclass&#39; or &#39;regression&#39;&quot;</span>
+            <span class="sa">f</span><span class="s2">"Invalid label value: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">. The label should either be "</span>
+            <span class="s2">"'binary', 'multiclass' or 'regression'"</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
@@ -202,9 +202,9 @@
     <span class="n">mu_regression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">sigma_regression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">regression_scaling_constant</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"binary"</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate 2d classification data.</span>
+<span class="w">    </span><span class="sd">"""Generate 2d classification data.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -214,18 +214,18 @@
 <span class="sd">    rng : random generator</span>
 <span class="sd">        Generator for dataset creation</span>
 <span class="sd">    mu_regression : float, default=0.</span>
-<span class="sd">        Will only be used if label==&#39;regression&#39;</span>
+<span class="sd">        Will only be used if label=='regression'</span>
 <span class="sd">    sigma_regression : float, default=1.</span>
-<span class="sd">        Will only be used if label==&#39;regression&#39;</span>
-<span class="sd">        When it&#39;s value is None, it will be changed to be the default one</span>
+<span class="sd">        Will only be used if label=='regression'</span>
+<span class="sd">        When it's value is None, it will be changed to be the default one</span>
 <span class="sd">    regression_scaling_constant: float, default=27</span>
-<span class="sd">        Constant by which we multiply the y-value when label==&#39;regression&#39;</span>
-<span class="sd">        When it&#39;s value is None, it will be changed to be the default one</span>
-<span class="sd">    label : str, default=&#39;binary&#39;</span>
-<span class="sd">        If &#39;binary, return binary class.</span>
-<span class="sd">        If &#39;multiclass&#39;, return multiclass.</span>
-<span class="sd">        If &#39;regression&#39;, return regression&#39;s y-values</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        Constant by which we multiply the y-value when label=='regression'</span>
+<span class="sd">        When it's value is None, it will be changed to be the default one</span>
+<span class="sd">    label : str, default='binary'</span>
+<span class="sd">        If 'binary, return binary class.</span>
+<span class="sd">        If 'multiclass', return multiclass.</span>
+<span class="sd">        If 'regression', return regression's y-values</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">mu_regression</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">mu_regression</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">sigma_regression</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -254,16 +254,16 @@
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">x21</span><span class="p">,</span> <span class="n">x22</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># make labels</span>
-    <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">"binary"</span><span class="p">:</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n2</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;multiclass&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">"multiclass"</span><span class="p">:</span>
         <span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n1</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n1</span> <span class="o">//</span> <span class="n">k</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)</span>
             <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;regression&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">"regression"</span><span class="p">:</span>
         <span class="c1"># create label y with gaussian distribution</span>
         <span class="n">normal_rv</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mu_regression</span><span class="p">,</span> <span class="n">sigma_regression</span><span class="p">)</span>
         <span class="c1"># We project on the line: y=x</span>
@@ -271,14 +271,14 @@
         <span class="n">y</span> <span class="o">=</span> <span class="n">normal_rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">X_projected</span><span class="p">)</span> <span class="o">*</span> <span class="n">regression_scaling_constant</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid label value: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">. The label should either be &quot;</span>
-            <span class="s2">&quot;&#39;binary&#39;, &#39;multiclass&#39; or &#39;regression&#39;&quot;</span>
+            <span class="sa">f</span><span class="s2">"Invalid label value: </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">. The label should either be "</span>
+            <span class="s2">"'binary', 'multiclass' or 'regression'"</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_generate_data_from_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">rng</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate two gaussian clusters with centers draw from two moons.</span>
+<span class="w">    </span><span class="sd">"""Generate two gaussian clusters with centers draw from two moons.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -288,7 +288,7 @@
 <span class="sd">        Give the position of the centers in the moons</span>
 <span class="sd">    rng : random generator</span>
 <span class="sd">        Generator for dataset creation</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">n_samples_circ</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="n">outer_circ_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_samples_circ</span><span class="p">))</span>
     <span class="n">outer_circ_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_samples_circ</span><span class="p">))</span>
@@ -334,9 +334,9 @@
                 <span class="n">sos</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span>
                     <span class="mi">10</span><span class="p">,</span>
                     <span class="p">[</span><span class="n">frequency</span><span class="p">,</span> <span class="n">frequency</span> <span class="o">+</span> <span class="n">band_size</span><span class="p">],</span>
-                    <span class="s2">&quot;bandpass&quot;</span><span class="p">,</span>
+                    <span class="s2">"bandpass"</span><span class="p">,</span>
                     <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span>
-                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;sos&quot;</span><span class="p">,</span>
+                    <span class="n">output</span><span class="o">=</span><span class="s2">"sos"</span><span class="p">,</span>
                 <span class="p">)</span>
 
                 <span class="n">X_filtered</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">sosfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">X_random</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
@@ -365,7 +365,7 @@
     <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">return_dataset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate source and shift target isotropic Gaussian blobs .</span>
+<span class="w">    </span><span class="sd">"""Generate source and shift target isotropic Gaussian blobs .</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -423,7 +423,7 @@
 
 <span class="sd">    dataset : :class:`~skada.datasets.DomainAwareDataset`</span>
 <span class="sd">        Dataset object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
 
     <span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span>
@@ -446,16 +446,16 @@
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">DomainAwareDataset</span><span class="p">(</span>
         <span class="n">domains</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">"t"</span><span class="p">),</span>
         <span class="p">]</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
-            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span>
-            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">"s"</span><span class="p">],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">"t"</span><span class="p">],</span>
             <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
             <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span></div>
@@ -467,9 +467,9 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">make_shifted_datasets</span><span class="p">(</span>
     <span class="n">n_samples_source</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
     <span class="n">n_samples_target</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-    <span class="n">shift</span><span class="o">=</span><span class="s2">&quot;covariate_shift&quot;</span><span class="p">,</span>
+    <span class="n">shift</span><span class="o">=</span><span class="s2">"covariate_shift"</span><span class="p">,</span>
     <span class="n">noise</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"binary"</span><span class="p">,</span>
     <span class="n">ratio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
     <span class="n">mean</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">sigma</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
@@ -484,7 +484,7 @@
     <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">return_dataset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate source and shift target.</span>
+<span class="w">    </span><span class="sd">"""Generate source and shift target.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -494,22 +494,22 @@
 <span class="sd">    n_samples_target : int, default=100</span>
 <span class="sd">        It is the total number of points among one</span>
 <span class="sd">        target clusters. At the end 8*n_samples points.</span>
-<span class="sd">    shift : tuple, default=&#39;covariate_shift&#39;</span>
+<span class="sd">    shift : tuple, default='covariate_shift'</span>
 <span class="sd">        Choose the nature of the shift.</span>
-<span class="sd">        If &#39;covariate_shift&#39;, use covariate shift.</span>
-<span class="sd">        If &#39;target_shift&#39;, use target shift.</span>
-<span class="sd">        If &#39;conditional_shift&#39;, use conditional shift.</span>
-<span class="sd">        If &#39;subspace&#39;, a subspace where the classes are separable</span>
+<span class="sd">        If 'covariate_shift', use covariate shift.</span>
+<span class="sd">        If 'target_shift', use target shift.</span>
+<span class="sd">        If 'conditional_shift', use conditional shift.</span>
+<span class="sd">        If 'subspace', a subspace where the classes are separable</span>
 <span class="sd">        independently of the domains exists.</span>
 <span class="sd">        See detailed description of each shift in [1]_.</span>
 <span class="sd">    noise : float or array_like, default=None</span>
 <span class="sd">        If float, standard deviation of Gaussian noise added to the data.</span>
 <span class="sd">        If array-like, each element of the sequence indicate standard</span>
 <span class="sd">        deviation of Gaussian noise added to the source and target data.</span>
-<span class="sd">    label : str, default=&#39;binary&#39;</span>
-<span class="sd">        If &#39;binary, generates binary class labels.</span>
-<span class="sd">        If &#39;multiclass&#39;, generates multiclass labels.</span>
-<span class="sd">        If &#39;regression&#39;, generates regression&#39;s y-values.</span>
+<span class="sd">    label : str, default='binary'</span>
+<span class="sd">        If 'binary, generates binary class labels.</span>
+<span class="sd">        If 'multiclass', generates multiclass labels.</span>
+<span class="sd">        If 'regression', generates regression's y-values.</span>
 <span class="sd">    ratio : float, default=0.9</span>
 <span class="sd">        Ratio of the number of data in class 1 selected</span>
 <span class="sd">        in the target shift and the sample_selection bias</span>
@@ -518,15 +518,15 @@
 <span class="sd">    sigma : float, default=0.7</span>
 <span class="sd">        multiplicative value of the conditional shift.</span>
 <span class="sd">    mu_regression : np.array|float, default=None</span>
-<span class="sd">        Will only be used if label==&#39;regression&#39;</span>
-<span class="sd">        should be 2x1 matrix when shift != &#39;subspace&#39;</span>
-<span class="sd">        should be a scalar when shift == &#39;subspace&#39;</span>
+<span class="sd">        Will only be used if label=='regression'</span>
+<span class="sd">        should be 2x1 matrix when shift != 'subspace'</span>
+<span class="sd">        should be a scalar when shift == 'subspace'</span>
 <span class="sd">    sigma_regression : np.array|float, default=None</span>
-<span class="sd">        Will only be used if label==&#39;regression&#39;</span>
-<span class="sd">        should be a 2x2 matrix when shift != &#39;subspace&#39;</span>
-<span class="sd">        should be a scalar when shift == &#39;subspace&#39;</span>
+<span class="sd">        Will only be used if label=='regression'</span>
+<span class="sd">        should be a 2x2 matrix when shift != 'subspace'</span>
+<span class="sd">        should be a scalar when shift == 'subspace'</span>
 <span class="sd">    regression_scaling_constant: float, default=27</span>
-<span class="sd">        Constant by which we multiply the y-value when label==&#39;regression&#39;</span>
+<span class="sd">        Constant by which we multiply the y-value when label=='regression'</span>
 <span class="sd">    gamma :  float, default=2</span>
 <span class="sd">        Parameter of the RBF kernel.</span>
 <span class="sd">    center : array-like of shape (1, 2), default=((0, 2))</span>
@@ -578,7 +578,7 @@
 <span class="sd">            R., Chawla, N. V., and Herrera, F. (2012).</span>
 <span class="sd">            A unifying view on dataset shift in classification.</span>
 <span class="sd">            Pattern recognition, 45(1):521-530.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
     <span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span> <span class="o">=</span> <span class="n">_generate_data_2d_classif</span><span class="p">(</span>
         <span class="n">n_samples_source</span><span class="p">,</span>
@@ -589,7 +589,7 @@
         <span class="n">label</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">&quot;covariate_shift&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">"covariate_shift"</span><span class="p">:</span>
         <span class="n">n_samples_target_temp</span> <span class="o">=</span> <span class="n">n_samples_target</span> <span class="o">*</span> <span class="mi">100</span>
         <span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">_generate_data_2d_classif</span><span class="p">(</span>
             <span class="n">n_samples_target_temp</span><span class="p">,</span>
@@ -608,7 +608,7 @@
         <span class="n">X_target</span> <span class="o">=</span> <span class="n">X_target</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span>
         <span class="n">y_target</span> <span class="o">=</span> <span class="n">y_target</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span>
 
-    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">&quot;target_shift&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">"target_shift"</span><span class="p">:</span>
         <span class="n">n_samples_target_temp</span> <span class="o">=</span> <span class="n">n_samples_target</span> <span class="o">*</span> <span class="mi">3</span>
         <span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">_generate_data_2d_classif</span><span class="p">(</span>
             <span class="n">n_samples_target_temp</span><span class="p">,</span>
@@ -634,7 +634,7 @@
         <span class="n">X_target</span> <span class="o">=</span> <span class="n">X_target</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span>
         <span class="n">y_target</span> <span class="o">=</span> <span class="n">y_target</span><span class="p">[</span><span class="n">isel</span><span class="p">]</span>
 
-    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">&quot;conditional_shift&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">"conditional_shift"</span><span class="p">:</span>
         <span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">_generate_data_2d_classif</span><span class="p">(</span>
             <span class="n">n_samples_target</span><span class="p">,</span>
             <span class="n">rng</span><span class="p">,</span>
@@ -645,7 +645,7 @@
         <span class="p">)</span>
         <span class="n">X_target</span> <span class="o">=</span> <span class="n">X_target</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">+</span> <span class="n">mean</span>
 
-    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">&quot;subspace&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">shift</span> <span class="o">==</span> <span class="s2">"subspace"</span><span class="p">:</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span> <span class="o">=</span> <span class="n">_generate_data_2d_classif_subspace</span><span class="p">(</span>
             <span class="n">n_samples_source</span><span class="p">,</span>
             <span class="n">rng</span><span class="p">,</span>
@@ -666,9 +666,9 @@
 
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid shift value: </span><span class="si">{</span><span class="n">shift</span><span class="si">}</span><span class="s2">. The shift should either be &quot;</span>
-            <span class="s2">&quot;&#39;covariate_shift&#39;, &#39;target_shift&#39;, &#39;conditional_shift&#39; &quot;</span>
-            <span class="s2">&quot;or &#39;subspace&#39;&quot;</span>
+            <span class="sa">f</span><span class="s2">"Invalid shift value: </span><span class="si">{</span><span class="n">shift</span><span class="si">}</span><span class="s2">. The shift should either be "</span>
+            <span class="s2">"'covariate_shift', 'target_shift', 'conditional_shift' "</span>
+            <span class="s2">"or 'subspace'"</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">):</span>
@@ -687,16 +687,16 @@
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">DomainAwareDataset</span><span class="p">(</span>
         <span class="n">domains</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">"t"</span><span class="p">),</span>
         <span class="p">]</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
-            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span>
-            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">"s"</span><span class="p">],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">"t"</span><span class="p">],</span>
             <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
             <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span></div>
@@ -715,7 +715,7 @@
     <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">return_dataset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make dataset from moons.</span>
+<span class="w">    </span><span class="sd">"""Make dataset from moons.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -770,7 +770,7 @@
 
 <span class="sd">    dataset : :class:`~skada.datasets.DomainAwareDataset`</span>
 <span class="sd">        Dataset object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">DomainAwareDataset</span><span class="p">(</span><span class="n">domains</span><span class="o">=</span><span class="p">[])</span>
@@ -785,8 +785,8 @@
             <span class="n">X_source</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">X_source</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">)</span>
-        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">)</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"s"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pos_source</span><span class="p">):</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_generate_data_from_moons</span><span class="p">(</span><span class="n">n_samples_source</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">rng</span><span class="p">)</span>
@@ -794,8 +794,8 @@
                 <span class="n">X</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">X</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-            <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;s</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;s</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"s</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"s</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pos_target</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">):</span>
         <span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">_generate_data_from_moons</span><span class="p">(</span>
@@ -805,8 +805,8 @@
             <span class="n">X_target</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">X_target</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">)</span>
-        <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">"t"</span><span class="p">)</span>
+        <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"t"</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pos_target</span><span class="p">):</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_generate_data_from_moons</span><span class="p">(</span><span class="n">n_samples_target</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">rng</span><span class="p">)</span>
@@ -814,8 +814,8 @@
                 <span class="n">X</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">X</span> <span class="o">+=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-            <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">dataset</span><span class="o">.</span><span class="n">add_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">targets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"t</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
@@ -846,7 +846,7 @@
     <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">return_dataset</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make dataset with different peak frequency.</span>
+<span class="w">    </span><span class="sd">"""Make dataset with different peak frequency.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -907,7 +907,7 @@
 
 <span class="sd">    dataset : :class:`~skada.datasets.DomainAwareDataset`</span>
 <span class="sd">        Dataset object.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
     <span class="n">input_size</span> <span class="o">=</span> <span class="mi">3000</span>
     <span class="n">fs</span> <span class="o">=</span> <span class="mi">100</span>
@@ -947,16 +947,16 @@
 
     <span class="n">dataset</span> <span class="o">=</span> <span class="n">DomainAwareDataset</span><span class="p">(</span>
         <span class="n">domains</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="s2">"t"</span><span class="p">),</span>
         <span class="p">]</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">return_dataset</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
-            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">],</span>
-            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span>
+            <span class="n">as_sources</span><span class="o">=</span><span class="p">[</span><span class="s2">"s"</span><span class="p">],</span>
+            <span class="n">as_targets</span><span class="o">=</span><span class="p">[</span><span class="s2">"t"</span><span class="p">],</span>
             <span class="n">return_X_y</span><span class="o">=</span><span class="n">return_X_y</span><span class="p">,</span>
             <span class="n">mask_target_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span></div>

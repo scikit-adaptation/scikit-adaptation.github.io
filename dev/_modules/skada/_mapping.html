@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -112,14 +112,14 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseOTMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all DA estimators implemented using OT mapping.</span>
+<span class="w">    </span><span class="sd">"""Base class for all DA estimators implemented using OT mapping.</span>
 
 <span class="sd">    Each implementation has to provide `_create_transport_estimator` callback</span>
 <span class="sd">    to create OT object using parameters saved in the constructor.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -134,18 +134,20 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
         <span class="p">)</span>
         <span class="n">transport</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_transport_estimator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ot_transport_</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">transport</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">CONTINUOUS</span><span class="p">:</span>
+            <span class="n">y_target</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ot_transport_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xs</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">ys</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">Xt</span><span class="o">=</span><span class="n">X_target</span><span class="p">,</span> <span class="n">yt</span><span class="o">=</span><span class="n">y_target</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+<span class="w">        </span><span class="sd">"""Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -160,7 +162,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data transformed to the target subspace.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -177,7 +179,7 @@
         <span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="c1"># in case of prediction we would get only target samples here,</span>
-        <span class="c1"># thus there&#39;s no need to perform any transformations</span>
+        <span class="c1"># thus there's no need to perform any transformations</span>
         <span class="k">if</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">X_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ot_transport_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">Xs</span><span class="o">=</span><span class="n">X_source</span><span class="p">)</span>
         <span class="n">X_adapt</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_merge</span><span class="p">(</span>
@@ -193,15 +195,15 @@
 <div class="viewcode-block" id="OTMappingAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.OTMappingAdapter.html#skada.OTMappingAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+<span class="w">    </span><span class="sd">"""Domain Adaptation Using Optimal Transport.</span>
 
 <span class="sd">    See [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
+<span class="sd">    metric : str, optional (default="sqeuclidean")</span>
 <span class="sd">        The ground metric for the Wasserstein problem</span>
-<span class="sd">    norm : {&#39;median&#39;, &#39;max&#39;, &#39;log&#39;, &#39;loglog&#39;} (default=None)</span>
+<span class="sd">    norm : {'median', 'max', 'log', 'loglog'} (default=None)</span>
 <span class="sd">        If given, normalize the ground metric to avoid numerical errors that</span>
 <span class="sd">        can occur with large metric values.</span>
 <span class="sd">    max_iter : int, optional (default=100_000)</span>
@@ -211,7 +213,7 @@
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    ot_transport_ : object</span>
-<span class="sd">        The OT object based on Earth Mover&#39;s distance</span>
+<span class="sd">        The OT object based on Earth Mover's distance</span>
 <span class="sd">        fitted on the source and target data.</span>
 
 <span class="sd">    References</span>
@@ -219,11 +221,11 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
+        <span class="n">metric</span><span class="o">=</span><span class="s2">"sqeuclidean"</span><span class="p">,</span>
         <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">max_iter</span><span class="o">=</span><span class="mi">100_000</span><span class="p">,</span>
     <span class="p">):</span>
@@ -243,8 +245,8 @@
 
 <div class="viewcode-block" id="OTMapping">
 <a class="viewcode-back" href="../../gen_modules/skada.OTMapping.html#skada.OTMapping">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">OTMapping</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;OTmapping pipeline with adapter and estimator.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">OTMapping</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"sqeuclidean"</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""OTmapping pipeline with adapter and estimator.</span>
 
 <span class="sd">    See [6]_ for details.</span>
 
@@ -252,9 +254,9 @@
 <span class="sd">    ----------</span>
 <span class="sd">    base_estimator : object, optional (default=None)</span>
 <span class="sd">        The base estimator to fit on the target dataset.</span>
-<span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
+<span class="sd">    metric : str, optional (default="sqeuclidean")</span>
 <span class="sd">        The ground metric for the Wasserstein problem</span>
-<span class="sd">    norm : {&#39;median&#39;, &#39;max&#39;, &#39;log&#39;, &#39;loglog&#39;} (default=None)</span>
+<span class="sd">    norm : {'median', 'max', 'log', 'loglog'} (default=None)</span>
 <span class="sd">        If given, normalize the ground metric to avoid numerical errors that</span>
 <span class="sd">        can occur with large metric values.</span>
 <span class="sd">    max_iter : int, optional (default=100_000)</span>
@@ -271,9 +273,9 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">OTMappingAdapter</span><span class="p">(</span><span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">),</span>
@@ -285,7 +287,7 @@
 <div class="viewcode-block" id="EntropicOTMappingAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.EntropicOTMappingAdapter.html#skada.EntropicOTMappingAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EntropicOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+<span class="w">    </span><span class="sd">"""Domain Adaptation Using Optimal Transport.</span>
 
 <span class="sd">    See [6]_ for details.</span>
 
@@ -293,9 +295,9 @@
 <span class="sd">    ----------</span>
 <span class="sd">    reg_e : float, default=1</span>
 <span class="sd">        Entropic regularization parameter.</span>
-<span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
+<span class="sd">    metric : str, optional (default="sqeuclidean")</span>
 <span class="sd">        The ground metric for the Wasserstein problem.</span>
-<span class="sd">    norm : {&#39;median&#39;, &#39;max&#39;, &#39;log&#39;, &#39;loglog&#39;} (default=None)</span>
+<span class="sd">    norm : {'median', 'max', 'log', 'loglog'} (default=None)</span>
 <span class="sd">        If given, normalize the ground metric to avoid numerical errors that</span>
 <span class="sd">        can occur with large metric values.</span>
 <span class="sd">    max_iter : int, float, optional (default=1000)</span>
@@ -316,12 +318,12 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-        <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
+        <span class="n">metric</span><span class="o">=</span><span class="s2">"sqeuclidean"</span><span class="p">,</span>
         <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
         <span class="n">tol</span><span class="o">=</span><span class="mf">10e-9</span><span class="p">,</span>
@@ -348,13 +350,13 @@
 <a class="viewcode-back" href="../../gen_modules/skada.EntropicOTMapping.html#skada.EntropicOTMapping">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">EntropicOTMapping</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s2">"sqeuclidean"</span><span class="p">,</span>
     <span class="n">norm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;EntropicOTMapping pipeline with adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""EntropicOTMapping pipeline with adapter and estimator.</span>
 
 <span class="sd">    see [6]_ for details.</span>
 
@@ -364,9 +366,9 @@
 <span class="sd">        The base estimator to fit on the target dataset.</span>
 <span class="sd">    reg_e : float, default=1</span>
 <span class="sd">        Entropic regularization parameter.</span>
-<span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
+<span class="sd">    metric : str, optional (default="sqeuclidean")</span>
 <span class="sd">        The ground metric for the Wasserstein problem.</span>
-<span class="sd">    norm : {&#39;median&#39;, &#39;max&#39;, &#39;log&#39;, &#39;loglog&#39;} (default=None)</span>
+<span class="sd">    norm : {'median', 'max', 'log', 'loglog'} (default=None)</span>
 <span class="sd">        If given, normalize the ground metric to avoid numerical errors that</span>
 <span class="sd">        can occur with large metric values.</span>
 <span class="sd">    max_iter : int, float, optional (default=1000)</span>
@@ -386,9 +388,9 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">EntropicOTMappingAdapter</span><span class="p">(</span>
@@ -402,7 +404,7 @@
 <div class="viewcode-block" id="ClassRegularizerOTMappingAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.ClassRegularizerOTMappingAdapter.html#skada.ClassRegularizerOTMappingAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ClassRegularizerOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+<span class="w">    </span><span class="sd">"""Domain Adaptation Using Optimal Transport.</span>
 
 <span class="sd">    See [6]_ for details.</span>
 
@@ -412,11 +414,11 @@
 <span class="sd">        Entropic regularization parameter.</span>
 <span class="sd">    reg_cl : float, default=0.1</span>
 <span class="sd">        Class regularization parameter.</span>
-<span class="sd">    norm : str, default=&quot;lpl1&quot;</span>
+<span class="sd">    norm : str, default="lpl1"</span>
 <span class="sd">        Norm use for the regularizer of the class labels.</span>
-<span class="sd">        If &quot;lpl1&quot;, use the lp l1 norm.</span>
-<span class="sd">        If &quot;l1l2&quot;, use the l1 l2 norm.</span>
-<span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
+<span class="sd">        If "lpl1", use the lp l1 norm.</span>
+<span class="sd">        If "l1l2", use the l1 l2 norm.</span>
+<span class="sd">    metric : str, optional (default="sqeuclidean")</span>
 <span class="sd">        The ground metric for the Wasserstein problem</span>
 <span class="sd">    max_iter : int, float, optional (default=10)</span>
 <span class="sd">        The minimum number of iteration before stopping the optimization</span>
@@ -438,14 +440,14 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
-        <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span>
-        <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
+        <span class="n">norm</span><span class="o">=</span><span class="s2">"lpl1"</span><span class="p">,</span>
+        <span class="n">metric</span><span class="o">=</span><span class="s2">"sqeuclidean"</span><span class="p">,</span>
         <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
         <span class="n">max_inner_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
         <span class="n">tol</span><span class="o">=</span><span class="mf">10e-9</span><span class="p">,</span>
@@ -460,11 +462,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_create_transport_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span> <span class="s2">&quot;l1l2&quot;</span><span class="p">],</span> <span class="s2">&quot;Unknown norm&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"lpl1"</span><span class="p">,</span> <span class="s2">"l1l2"</span><span class="p">],</span> <span class="s2">"Unknown norm"</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">==</span> <span class="s2">&quot;lpl1&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">==</span> <span class="s2">"lpl1"</span><span class="p">:</span>
             <span class="n">transport_cls</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">SinkhornLpl1Transport</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">==</span> <span class="s2">&quot;l1l2&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">==</span> <span class="s2">"l1l2"</span><span class="p">:</span>
             <span class="n">transport_cls</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">SinkhornL1l2Transport</span>
         <span class="k">return</span> <span class="n">transport_cls</span><span class="p">(</span>
             <span class="n">reg_e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reg_e</span><span class="p">,</span>
@@ -480,32 +482,32 @@
 <div class="viewcode-block" id="ClassRegularizerOTMapping">
 <a class="viewcode-back" href="../../gen_modules/skada.ClassRegularizerOTMapping.html#skada.ClassRegularizerOTMapping">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ClassRegularizerOTMapping</span><span class="p">(</span>
-    <span class="n">base_estimator</span><span class="o">=</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">),</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;sqeuclidean&quot;</span><span class="p">,</span>
-    <span class="n">norm</span><span class="o">=</span><span class="s2">&quot;lpl1&quot;</span><span class="p">,</span>
+    <span class="n">base_estimator</span><span class="o">=</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">),</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s2">"sqeuclidean"</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="s2">"lpl1"</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">max_inner_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
     <span class="n">reg_e</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">reg_cl</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;ClassRegularizedOTMapping pipeline with adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""ClassRegularizedOTMapping pipeline with adapter and estimator.</span>
 
 <span class="sd">    see [6]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    base_estimator : object, optional (default=SVC(kernel=&quot;rbf&quot;))</span>
+<span class="sd">    base_estimator : object, optional (default=SVC(kernel="rbf"))</span>
 <span class="sd">        The base estimator to fit on the target dataset.</span>
 <span class="sd">    reg_e : float, default=1</span>
 <span class="sd">        Entropic regularization parameter.</span>
 <span class="sd">    reg_cl : float, default=0.1</span>
 <span class="sd">        Class regularization parameter.</span>
-<span class="sd">    norm : str, default=&quot;lpl1&quot;</span>
+<span class="sd">    norm : str, default="lpl1"</span>
 <span class="sd">        Norm use for the regularizer of the class labels.</span>
-<span class="sd">        If &quot;lpl1&quot;, use the lp l1 norm.</span>
-<span class="sd">        If &quot;l1l2&quot;, use the l1 l2 norm.</span>
-<span class="sd">    metric : str, optional (default=&quot;sqeuclidean&quot;)</span>
+<span class="sd">        If "lpl1", use the lp l1 norm.</span>
+<span class="sd">        If "l1l2", use the l1 l2 norm.</span>
+<span class="sd">    metric : str, optional (default="sqeuclidean")</span>
 <span class="sd">        The ground metric for the Wasserstein problem</span>
 <span class="sd">    max_iter : int, float, optional (default=10)</span>
 <span class="sd">        The minimum number of iteration before stopping the optimization</span>
@@ -525,7 +527,7 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">ot_mapping</span> <span class="o">=</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">ClassRegularizerOTMappingAdapter</span><span class="p">(</span>
             <span class="n">metric</span><span class="o">=</span><span class="n">metric</span><span class="p">,</span>
@@ -545,7 +547,7 @@
 <div class="viewcode-block" id="LinearOTMappingAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.LinearOTMappingAdapter.html#skada.LinearOTMappingAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LinearOTMappingAdapter</span><span class="p">(</span><span class="n">BaseOTMappingAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain Adaptation Using Optimal Transport.</span>
+<span class="w">    </span><span class="sd">"""Domain Adaptation Using Optimal Transport.</span>
 
 <span class="sd">    Uses Gaussian Monge mapping to align source and target domains as proposed</span>
 <span class="sd">    in [7].</span>
@@ -569,7 +571,7 @@
 <span class="sd">    .. [7] Flamary, R., Lounici, K., &amp; Ferrari, A. (2019). Concentration bounds</span>
 <span class="sd">        for linear monge mapping estimation and optimal transport domain</span>
 <span class="sd">        adaptation. arXiv preprint arXiv:1905.10155.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -588,7 +590,7 @@
     <span class="n">reg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a the linear OT mapping method with adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""Returns a the linear OT mapping method with adapter and estimator.</span>
 
 <span class="sd">    Uses Gaussian Monge mapping to align source and target domains as proposed</span>
 <span class="sd">    in [7].</span>
@@ -612,9 +614,9 @@
 <span class="sd">    .. [6] N. Courty, R. Flamary, D. Tuia and A. Rakotomamonjy,</span>
 <span class="sd">           Optimal Transport for Domain Adaptation, in IEEE</span>
 <span class="sd">           Transactions on Pattern Analysis and Machine Intelligence</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">LinearOTMappingAdapter</span><span class="p">(</span>
@@ -627,7 +629,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_cov_mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns covariance and mean</span>
+<span class="w">    </span><span class="sd">"""Returns covariance and mean</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -644,7 +646,7 @@
 <span class="sd">        The covariance matrix.</span>
 <span class="sd">    mean : array-like, shape (n_features,)</span>
 <span class="sd">        The mean vector.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
@@ -659,7 +661,7 @@
 <div class="viewcode-block" id="MultiLinearMongeAlignmentAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.MultiLinearMongeAlignmentAdapter.html#skada.MultiLinearMongeAlignmentAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MultiLinearMongeAlignmentAdapter</span><span class="p">(</span><span class="n">BaseTestTimeAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aligns multiple domains using Gaussian Monge mapping to a barycenter.</span>
+<span class="w">    </span><span class="sd">"""Aligns multiple domains using Gaussian Monge mapping to a barycenter.</span>
 
 <span class="sd">    The method is a simplified extension of [29] using the Bures-Wasserstein</span>
 <span class="sd">    distance and mapping of [7] to align multiple source domains to a</span>
@@ -690,7 +692,7 @@
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [29] Montesuma, Eduardo Fernandes, and Fred Maurice Ngole Mboula.</span>
-<span class="sd">        &quot;Wasserstein barycenter for multi-source domain adaptation.&quot; In Proceedings</span>
+<span class="sd">        "Wasserstein barycenter for multi-source domain adaptation." In Proceedings</span>
 <span class="sd">        of the IEEE/CVF conference on computer vision and pattern recognition, pp.</span>
 <span class="sd">        16785-16793. 2021.</span>
 
@@ -698,11 +700,11 @@
 <span class="sd">        for linear monge mapping estimation and optimal transport domain</span>
 <span class="sd">        adaptation. arXiv preprint arXiv:1905.10155.</span>
 
-<span class="sd">    .. [30] Gnassounou, Theo, Rémi Flamary, and Alexandre Gramfort. &quot;Convolution</span>
-<span class="sd">        Monge Mapping Normalization for learning on sleep data.&quot; Advances in</span>
+<span class="sd">    .. [30] Gnassounou, Theo, Rémi Flamary, and Alexandre Gramfort. "Convolution</span>
+<span class="sd">        Monge Mapping Normalization for learning on sleep data." Advances in</span>
 <span class="sd">        Neural Information Processing Systems 36 (2024).</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_fit_new_domain</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">auto_fit_new_domain</span><span class="o">=</span><span class="n">auto_fit_new_domain</span><span class="p">)</span>
@@ -710,7 +712,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">bias</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -725,7 +727,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">sources</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">per_domain_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
@@ -773,7 +775,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+<span class="w">        </span><span class="sd">"""Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -788,7 +790,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data (same as X).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -804,7 +806,7 @@
         <span class="k">for</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">idx</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">domain</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_fit_new_domain</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitting new domain:&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">"Fitting new domain:"</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
                     <span class="n">X_domain</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">sample_domain</span> <span class="o">==</span> <span class="n">domain</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">fit_new_domain</span><span class="p">(</span>
                         <span class="n">X_domain</span><span class="p">,</span>
@@ -813,8 +815,8 @@
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;Domain </span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2"> is not present in the mappings. &quot;</span>
-                        <span class="s2">&quot;Please fit the adapter first or enable auto_fit_new_domain.&quot;</span>
+                        <span class="sa">f</span><span class="s2">"Domain </span><span class="si">{</span><span class="n">domain</span><span class="si">}</span><span class="s2"> is not present in the mappings. "</span>
+                        <span class="s2">"Please fit the adapter first or enable auto_fit_new_domain."</span>
                     <span class="p">)</span>
         <span class="k">for</span> <span class="n">domain</span><span class="p">,</span> <span class="n">sel</span> <span class="ow">in</span> <span class="n">idx</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">A</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span><span class="p">[</span><span class="n">domain</span><span class="p">]</span>
@@ -823,7 +825,7 @@
         <span class="k">return</span> <span class="n">X_adapt</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_new_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters for a new domain.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters for a new domain.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -838,7 +840,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">domain</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mappings_</span><span class="p">:</span>
@@ -862,7 +864,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">MultiLinearMongeAlignment</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_fit_new_domain</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;MultiLinearMongeAlignment pipeline with adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""MultiLinearMongeAlignment pipeline with adapter and estimator.</span>
 
 <span class="sd">    The method is a simplified extension of [29] using the Bures-Wasserstein</span>
 <span class="sd">    distance and mapping of [7] to align multiple source domains to a</span>
@@ -890,7 +892,7 @@
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [29] Montesuma, Eduardo Fernandes, and Fred Maurice Ngole Mboula.</span>
-<span class="sd">        &quot;Wasserstein barycenter for multi-source domain adaptation.&quot; In Proceedings</span>
+<span class="sd">        "Wasserstein barycenter for multi-source domain adaptation." In Proceedings</span>
 <span class="sd">        of the IEEE/CVF conference on computer vision and pattern recognition, pp.</span>
 <span class="sd">        16785-16793. 2021.</span>
 
@@ -898,10 +900,10 @@
 <span class="sd">        for linear monge mapping estimation and optimal transport domain</span>
 <span class="sd">        adaptation. arXiv preprint arXiv:1905.10155.</span>
 
-<span class="sd">    .. [30] Gnassounou, Theo, Rémi Flamary, and Alexandre Gramfort. &quot;Convolution</span>
-<span class="sd">        Monge Mapping Normalization for learning on sleep data.&quot; Advances in</span>
+<span class="sd">    .. [30] Gnassounou, Theo, Rémi Flamary, and Alexandre Gramfort. "Convolution</span>
+<span class="sd">        Monge Mapping Normalization for learning on sleep data." Advances in</span>
 <span class="sd">        Neural Information Processing Systems 36 (2024).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
 
@@ -915,7 +917,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_sqrtm</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Square root of SPD matrices.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Square root of SPD matrices.</span>
 
 <span class="sd">    The matrix square root of a SPD matrix C is defined by:</span>
 
@@ -935,13 +937,13 @@
 <span class="sd">    -------</span>
 <span class="sd">    D : ndarray, shape (n, n)</span>
 <span class="sd">        Matrix inverse square root of C.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_invsqrtm</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Inverse square root of SPD matrices.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Inverse square root of SPD matrices.</span>
 
 <span class="sd">    The matrix inverse square root of a SPD matrix C is defined by:</span>
 
@@ -961,7 +963,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    D : ndarray, shape (n, n)</span>
 <span class="sd">        Matrix inverse square root of C.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">eigvecs</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigvals</span><span class="p">))</span> <span class="o">@</span> <span class="n">eigvecs</span><span class="o">.</span><span class="n">T</span>
 
@@ -969,18 +971,18 @@
 <div class="viewcode-block" id="CORALAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.CORALAdapter.html#skada.CORALAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CORALAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Estimator based on Correlation Alignment [1]_.</span>
+<span class="w">    </span><span class="sd">"""Estimator based on Correlation Alignment [1]_.</span>
 
 <span class="sd">    See [5]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    reg : &#39;auto&#39; or float, default=&quot;auto&quot;</span>
+<span class="sd">    reg : 'auto' or float, default="auto"</span>
 <span class="sd">        The regularization parameter of the covariance estimator.</span>
 <span class="sd">        Possible values:</span>
 
 <span class="sd">          - None: no shrinkage).</span>
-<span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
+<span class="sd">          - 'auto': automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
 <span class="sd">    assume_centered: bool, default=False</span>
 <span class="sd">        If True, data are not centered before computation.</span>
@@ -999,15 +1001,15 @@
 <span class="sd">    .. [5] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
 <span class="sd">           Correlation Alignment for Unsupervised Domain Adaptation.</span>
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span> <span class="o">=</span> <span class="n">assume_centered</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1022,7 +1024,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -1041,7 +1043,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+<span class="w">        </span><span class="sd">"""Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1056,7 +1058,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_features)</span>
 <span class="sd">            The data transformed to the target space.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1099,10 +1101,10 @@
 <a class="viewcode-back" href="../../gen_modules/skada.CORAL.html#skada.CORAL">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">CORAL</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
     <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;CORAL pipeline with adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""CORAL pipeline with adapter and estimator.</span>
 
 <span class="sd">    See [5]_ for details.</span>
 
@@ -1110,12 +1112,12 @@
 <span class="sd">    ----------</span>
 <span class="sd">    base_estimator : object, optional (default=None)</span>
 <span class="sd">        The base estimator to fit on the target dataset.</span>
-<span class="sd">    reg : &#39;auto&#39; or float, default=&quot;auto&quot;</span>
+<span class="sd">    reg : 'auto' or float, default="auto"</span>
 <span class="sd">        The regularization parameter of the covariance estimator.</span>
 <span class="sd">        Possible values:</span>
 
 <span class="sd">          - None: no shrinkage).</span>
-<span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
+<span class="sd">          - 'auto': automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
 <span class="sd">    assume_centered: bool, default=False</span>
 <span class="sd">        If True, data are not centered before computation.</span>
@@ -1130,9 +1132,9 @@
 <span class="sd">    .. [5] Baochen Sun, Jiashi Feng, and Kate Saenko.</span>
 <span class="sd">           Correlation Alignment for Unsupervised Domain Adaptation.</span>
 <span class="sd">           In Advances in Computer Vision and Pattern Recognition, 2017.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">CORALAdapter</span><span class="p">(</span><span class="n">reg</span><span class="o">=</span><span class="n">reg</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="n">assume_centered</span><span class="p">),</span>
@@ -1141,12 +1143,12 @@
 
 
 
-<span class="c1"># xxx(okachaiev): we should move this to &#39;skada.deep.*&#39; I guess</span>
-<span class="c1"># to avoid defining things that won&#39;t work anyways</span>
+<span class="c1"># xxx(okachaiev): we should move this to 'skada.deep.*' I guess</span>
+<span class="c1"># to avoid defining things that won't work anyways</span>
 <div class="viewcode-block" id="MMDLSConSMappingAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.MMDLSConSMappingAdapter.html#skada.MMDLSConSMappingAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MMDLSConSMappingAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Location-Scale mapping minimizing the MMD with a Gaussian kernel.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Location-Scale mapping minimizing the MMD with a Gaussian kernel.</span>
 
 <span class="sd">    MMDLSConSMapping finds a linear transformation that minimizes the Maximum Mean</span>
 <span class="sd">    Discrepancy (MMD) between the source and target domains, such that</span>
@@ -1185,7 +1187,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
 <span class="sd">           In ICML, 2013.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1198,12 +1200,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">B_</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_mapping_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Mapping optimization&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Mapping optimization"""</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
         <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;MMDLSConSMappingAdapter requires pytorch to be installed.&quot;</span>
+                <span class="s2">"MMDLSConSMappingAdapter requires pytorch to be installed."</span>
             <span class="p">)</span>
 
         <span class="c1"># check y is discrete or continuous</span>
@@ -1267,7 +1269,7 @@
         <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">H</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1282,8 +1284,8 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># xxx(okachaiev): we can&#39;t test X_y here because y might</span>
+<span class="sd">        """</span>
+        <span class="c1"># xxx(okachaiev): we can't test X_y here because y might</span>
         <span class="c1"># have NaNs, thought it might be better to keep this as an</span>
         <span class="c1"># argument of a checker</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
@@ -1299,7 +1301,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation (weights, sample or labels).</span>
+<span class="w">        </span><span class="sd">"""Predict adaptation (weights, sample or labels).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1314,7 +1316,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        X_t : array-like, shape (n_samples, n_components)</span>
 <span class="sd">            The data (same as X).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_source</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1342,7 +1344,7 @@
                         <span class="n">R</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_source</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
                     <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">G_</span><span class="p">,</span> <span class="n">R</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">H_</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># assign the nearest neighbor&#39;s mapping to the source samples</span>
+                    <span class="c1"># assign the nearest neighbor's mapping to the source samples</span>
                     <span class="n">C</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span><span class="p">)</span>
                     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                     <span class="n">W</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
@@ -1359,7 +1361,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">MMDLSConSMapping</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">reg_k</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">reg_m</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;MMDLSConSMapping pipeline with adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""MMDLSConSMapping pipeline with adapter and estimator.</span>
 
 <span class="sd">    See [21]_ for details.</span>
 
@@ -1387,9 +1389,9 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
 <span class="sd">            In ICML, 2013.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">)</span>
+        <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
         <span class="n">MMDLSConSMappingAdapter</span><span class="p">(</span>

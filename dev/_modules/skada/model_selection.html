@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -112,15 +112,15 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">SplitSampleDomainRequesterMixin</span><span class="p">(</span><span class="n">_MetadataRequester</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mixin for domain aware splitting that requires &#39;sample_domain&#39; parameter.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Mixin for domain aware splitting that requires 'sample_domain' parameter."""</span>
 
-    <span class="n">__metadata_request__split</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sample_domain&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="n">__metadata_request__split</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"sample_domain"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseDomainAwareShuffleSplit</span><span class="p">(</span><span class="n">SplitSampleDomainRequesterMixin</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for domain aware implementation of the</span>
+<span class="w">    </span><span class="sd">"""Base class for domain aware implementation of the</span>
 <span class="sd">    ShuffleSplit and StratifiedShuffleSplit.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
@@ -132,7 +132,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_default_test_size</span> <span class="o">=</span> <span class="mf">0.1</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate indices to split data into training and test set.</span>
+<span class="w">        </span><span class="sd">"""Generate indices to split data into training and test set.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -160,7 +160,7 @@
 <span class="sd">        Randomized CV splitters may return different results for each call of</span>
 <span class="sd">        split. You can make the results identical by setting `random_state`</span>
 <span class="sd">        to an integer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># automatically derive sample_domain if it is not provided</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span>
@@ -173,10 +173,10 @@
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate (train, test) indices&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Generate (train, test) indices"""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_n_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of splitting iterations in the cross-validator</span>
+<span class="w">        </span><span class="sd">"""Returns the number of splitting iterations in the cross-validator</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -193,7 +193,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        n_splits : int</span>
 <span class="sd">            Returns the number of splitting iterations in the cross-validator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_splits</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -203,7 +203,7 @@
 <div class="viewcode-block" id="SourceTargetShuffleSplit">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.SourceTargetShuffleSplit.html#skada.model_selection.SourceTargetShuffleSplit">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SourceTargetShuffleSplit</span><span class="p">(</span><span class="n">BaseDomainAwareShuffleSplit</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Source-Target-Shuffle-Split cross-validator.</span>
+<span class="w">    </span><span class="sd">"""Source-Target-Shuffle-Split cross-validator.</span>
 
 <span class="sd">    Provides train/test indices to split data in train/test sets.</span>
 <span class="sd">    Each sample is used once as a test set (singleton) while the</span>
@@ -212,7 +212,7 @@
 <span class="sd">    Default split is implemented hierarchically. If first designates</span>
 <span class="sd">    a single domain as a target followed up by the single train/test</span>
 <span class="sd">    shuffle split.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
@@ -268,10 +268,10 @@
 <div class="viewcode-block" id="LeaveOneDomainOut">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.LeaveOneDomainOut.html#skada.model_selection.LeaveOneDomainOut">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LeaveOneDomainOut</span><span class="p">(</span><span class="n">SplitSampleDomainRequesterMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Leave-One-Domain-Out cross-validator.</span>
+<span class="w">    </span><span class="sd">"""Leave-One-Domain-Out cross-validator.</span>
 
 <span class="sd">    Provides train/test indices to split data in train/test sets.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">max_n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
@@ -287,7 +287,7 @@
 <div class="viewcode-block" id="LeaveOneDomainOut.split">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.LeaveOneDomainOut.html#skada.model_selection.LeaveOneDomainOut.split">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate indices to split data into training and test set.</span>
+<span class="w">        </span><span class="sd">"""Generate indices to split data into training and test set.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -315,7 +315,7 @@
 <span class="sd">        Randomized CV splitters may return different results for each call of</span>
 <span class="sd">        split. You can make the results identical by setting `random_state`</span>
 <span class="sd">        to an integer.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># automatically derive sample_domain if it is not provided</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span>
@@ -393,7 +393,7 @@
 <div class="viewcode-block" id="LeaveOneDomainOut.get_n_splits">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.LeaveOneDomainOut.html#skada.model_selection.LeaveOneDomainOut.get_n_splits">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_n_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of splitting iterations in the cross-validator</span>
+<span class="w">        </span><span class="sd">"""Returns the number of splitting iterations in the cross-validator</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -410,7 +410,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        n_splits : int</span>
 <span class="sd">            Returns the number of splitting iterations in the cross-validator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">domains</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_domain_labels</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">n_splits</span> <span class="o">=</span> <span class="n">domains</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_n_splits</span><span class="p">,</span> <span class="n">n_splits</span><span class="p">)</span></div>
@@ -424,7 +424,7 @@
 <div class="viewcode-block" id="StratifiedDomainShuffleSplit">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html#skada.model_selection.StratifiedDomainShuffleSplit">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">StratifiedDomainShuffleSplit</span><span class="p">(</span><span class="n">BaseDomainAwareShuffleSplit</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stratified-Domain-Shuffle-Split cross-validator.</span>
+<span class="w">    </span><span class="sd">"""Stratified-Domain-Shuffle-Split cross-validator.</span>
 
 <span class="sd">    This cross-validation object returns stratified randomized folds.</span>
 <span class="sd">    The folds are made by preserving the percentage of samples</span>
@@ -452,22 +452,22 @@
 <span class="sd">    &gt;&gt;&gt; for i, (train_index, test_index) in enumerate(</span>
 <span class="sd">    ...    da_shufflesplit.split(X, y, sample_domain)</span>
 <span class="sd">    ... ):</span>
-<span class="sd">    ...     print(f&quot;Fold {i}:&quot;)</span>
-<span class="sd">    ...     print(f&quot;  Train: index={train_index}, &quot;</span>
-<span class="sd">    ...     f&#39;&#39;&#39;group={[[b.item(), a.item()]</span>
+<span class="sd">    ...     print(f"Fold {i}:")</span>
+<span class="sd">    ...     print(f"  Train: index={train_index}, "</span>
+<span class="sd">    ...     f'''group={[[b.item(), a.item()]</span>
 <span class="sd">    ...     for a, b in zip(y[train_index], sample_domain[train_index])</span>
-<span class="sd">    ...     ]}&#39;&#39;&#39;)</span>
-<span class="sd">    ...     print(f&quot;  Test: index={test_index}, &quot;</span>
-<span class="sd">    ...     f&#39;&#39;&#39;group={[[b.item(), a.item()]</span>
+<span class="sd">    ...     ]}''')</span>
+<span class="sd">    ...     print(f"  Test: index={test_index}, "</span>
+<span class="sd">    ...     f'''group={[[b.item(), a.item()]</span>
 <span class="sd">    ...     for a, b in zip(y[test_index], sample_domain[test_index])</span>
-<span class="sd">    ...     ]}&#39;&#39;&#39;)</span>
+<span class="sd">    ...     ]}''')</span>
 <span class="sd">    Fold 0:</span>
 <span class="sd">        Train: index=[0 6 1 8 2], group=[[-2, -1], [-2, -1], [1, 0], [1, 1], [1, 1]]</span>
 <span class="sd">        Test:  index=[4 9 7 5 3], group=[[1, 0], [-2, -1], [1, 0], [1, 1], [-2, -1]]</span>
 <span class="sd">    Fold 1:</span>
 <span class="sd">        Train: index=[1 2 8 0 3], group=[[1, 0], [1, 1], [1, 1], [-2, -1], [-2, -1]]</span>
 <span class="sd">        Test:  index=[7 5 9 4 6], group=[[1, 0], [1, 1], [-2, -1], [1, 0], [-2, -1]]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span>
@@ -494,7 +494,7 @@
         <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">indexable</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
 
         <span class="n">n_samples</span> <span class="o">=</span> <span class="n">_num_samples</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">ensure_2d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">input_name</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">ensure_2d</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">n_train</span><span class="p">,</span> <span class="n">n_test</span> <span class="o">=</span> <span class="n">_validate_shuffle_split</span><span class="p">(</span>
             <span class="n">n_samples</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">test_size</span><span class="p">,</span>
@@ -505,7 +505,7 @@
         <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="c1"># for multi-label y, map each distinct row to a string repr</span>
             <span class="c1"># using join because str(row) uses an ellipsis if len(row) &gt; 1000</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">y</span><span class="p">])</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">y</span><span class="p">])</span>
 
         <span class="c1"># Stack y and sample_domain to have sample groups</span>
         <span class="n">groups_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -517,27 +517,27 @@
         <span class="n">group_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">group_indices</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">group_counts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The least populated group has only 1&quot;</span>
-                <span class="s2">&quot; member, which is too few. The minimum&quot;</span>
-                <span class="s2">&quot; number of samples for any group cannot&quot;</span>
-                <span class="s2">&quot; be less than 2.&quot;</span>
+                <span class="s2">"The least populated group has only 1"</span>
+                <span class="s2">" member, which is too few. The minimum"</span>
+                <span class="s2">" number of samples for any group cannot"</span>
+                <span class="s2">" be less than 2."</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">n_train</span> <span class="o">&lt;</span> <span class="n">n_groups</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The train_size = </span><span class="si">%d</span><span class="s2"> should be greater or &quot;</span>
-                <span class="s2">&quot;equal to the number of groups = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_train</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">)</span>
+                <span class="s2">"The train_size = </span><span class="si">%d</span><span class="s2"> should be greater or "</span>
+                <span class="s2">"equal to the number of groups = </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_train</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">)</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">n_test</span> <span class="o">&lt;</span> <span class="n">n_groups</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;The test_size = </span><span class="si">%d</span><span class="s2"> should be greater or &quot;</span>
-                <span class="s2">&quot;equal to the number of groups = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_test</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">)</span>
+                <span class="s2">"The test_size = </span><span class="si">%d</span><span class="s2"> should be greater or "</span>
+                <span class="s2">"equal to the number of groups = </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">n_test</span><span class="p">,</span> <span class="n">n_groups</span><span class="p">)</span>
             <span class="p">)</span>
 
         <span class="c1"># Find the sorted list of instances for each class:</span>
         <span class="c1"># (np.unique above performs a sort, so code is O(n logn) already)</span>
         <span class="n">group_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">group_indices</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;mergesort&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">group_counts</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">group_indices</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"mergesort"</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">group_counts</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="p">)</span>
 
         <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
@@ -554,7 +554,7 @@
 
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_groups</span><span class="p">):</span>
                 <span class="n">permutation</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">group_counts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                <span class="n">perm_indices_group_i</span> <span class="o">=</span> <span class="n">group_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">permutation</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;clip&quot;</span><span class="p">)</span>
+                <span class="n">perm_indices_group_i</span> <span class="o">=</span> <span class="n">group_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">permutation</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"clip"</span><span class="p">)</span>
 
                 <span class="n">train</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">perm_indices_group_i</span><span class="p">[:</span> <span class="n">n_i</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
                 <span class="n">test</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">perm_indices_group_i</span><span class="p">[</span><span class="n">n_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">:</span> <span class="n">n_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">t_i</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
@@ -567,7 +567,7 @@
 <div class="viewcode-block" id="StratifiedDomainShuffleSplit.split">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.StratifiedDomainShuffleSplit.html#skada.model_selection.StratifiedDomainShuffleSplit.split">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;XXX: Docstring here&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""XXX: Docstring here"""</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span></div>
 </div>
 
@@ -576,7 +576,7 @@
 <div class="viewcode-block" id="DomainShuffleSplit">
 <a class="viewcode-back" href="../../gen_modules/skada.model_selection.DomainShuffleSplit.html#skada.model_selection.DomainShuffleSplit">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DomainShuffleSplit</span><span class="p">(</span><span class="n">BaseDomainAwareShuffleSplit</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain-Shuffle-Split cross-validator.</span>
+<span class="w">    </span><span class="sd">"""Domain-Shuffle-Split cross-validator.</span>
 
 <span class="sd">    Provides randomized train/test indices to split data depending</span>
 <span class="sd">    on their sample_domain.</span>
@@ -616,11 +616,11 @@
 <span class="sd">    ...     test_size=0.1,</span>
 <span class="sd">    ...     )</span>
 <span class="sd">    &gt;&gt;&gt; for train_index, test_index in rsdas.split(X, y, sample_domain):</span>
-<span class="sd">    ...     print(&quot;TRAIN:&quot;, train_index, &quot;TEST:&quot;, test_index)</span>
+<span class="sd">    ...     print("TRAIN:", train_index, "TEST:", test_index)</span>
 <span class="sd">    TRAIN: [4 2 0 1 3 9] TEST: [6 5]</span>
 <span class="sd">    TRAIN: [8 6 2 5 3 9] TEST: [4 7]</span>
 <span class="sd">    TRAIN: [8 2 6 3 1 9] TEST: [4 5]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -641,7 +641,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">under_sampling</span> <span class="o">=</span> <span class="n">under_sampling</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">under_sampling</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;under_sampling should be between 0 and 1&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"under_sampling should be between 0 and 1"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_iter_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_nd</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

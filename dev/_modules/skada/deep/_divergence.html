@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -104,7 +104,7 @@
 <div class="viewcode-block" id="DeepCoralLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepCoralLoss.html#skada.deep.DeepCoralLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DeepCoralLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DeepCORAL</span>
+<span class="w">    </span><span class="sd">"""Loss DeepCORAL</span>
 
 <span class="sd">    This loss reduces the distance between covariances</span>
 <span class="sd">    of the source features and the target features.</span>
@@ -120,7 +120,7 @@
 <span class="sd">    .. [12]  Baochen Sun and Kate Saenko. Deep coral:</span>
 <span class="sd">            Correlation alignment for deep domain</span>
 <span class="sd">            adaptation. In ECCV Workshops, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -137,7 +137,7 @@
         <span class="n">features_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">deepcoral_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">assume_centered</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
@@ -149,7 +149,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">DeepCoral</span><span class="p">(</span>
     <span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">assume_centered</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;DeepCORAL domain adaptation method.</span>
+<span class="w">    </span><span class="sd">"""DeepCORAL domain adaptation method.</span>
 
 <span class="sd">    From [12]_.</span>
 
@@ -158,7 +158,7 @@
 <span class="sd">    module : torch module (class or instance)</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -173,7 +173,7 @@
 <span class="sd">    .. [12]  Baochen Sun and Kate Saenko. Deep coral:</span>
 <span class="sd">            Correlation alignment for deep domain</span>
 <span class="sd">            adaptation. In ECCV Workshops, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 
@@ -195,7 +195,7 @@
 <div class="viewcode-block" id="DANLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANLoss.html#skada.deep.DANLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DAN</span>
+<span class="w">    </span><span class="sd">"""Loss DAN</span>
 
 <span class="sd">    This loss reduces the MMD distance between</span>
 <span class="sd">    source features and target features.</span>
@@ -213,7 +213,7 @@
 <span class="sd">    .. [14]  Mingsheng Long et. al. Learning Transferable</span>
 <span class="sd">            Features with Deep Adaptation Networks.</span>
 <span class="sd">            In ICML, 2015.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -228,7 +228,7 @@
         <span class="n">features_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">dan_loss</span><span class="p">(</span><span class="n">features_s</span><span class="p">,</span> <span class="n">features_t</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span></div>
 </div>
@@ -238,7 +238,7 @@
 <div class="viewcode-block" id="DAN">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DAN.html#skada.deep.DAN">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">DAN</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;DAN domain adaptation method.</span>
+<span class="w">    </span><span class="sd">"""DAN domain adaptation method.</span>
 
 <span class="sd">    See [14]_.</span>
 
@@ -247,7 +247,7 @@
 <span class="sd">    module : torch module (class or instance)</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -262,7 +262,7 @@
 <span class="sd">    .. [14]  Mingsheng Long et. al. Learning Transferable</span>
 <span class="sd">            Features with Deep Adaptation Networks.</span>
 <span class="sd">            In ICML, 2015.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 
@@ -284,7 +284,7 @@
 <div class="viewcode-block" id="CANLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CANLoss.html#skada.deep.CANLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss for Contrastive Adaptation Network (CAN)</span>
+<span class="w">    </span><span class="sd">"""Loss for Contrastive Adaptation Network (CAN)</span>
 
 <span class="sd">    This loss implements the contrastive domain discrepancy (CDD)</span>
 <span class="sd">    as described in [33].</span>
@@ -310,7 +310,7 @@
 <span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
 <span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
 <span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -365,7 +365,7 @@
     <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Contrastive Adaptation Network (CAN) domain adaptation method.</span>
+<span class="w">    </span><span class="sd">"""Contrastive Adaptation Network (CAN) domain adaptation method.</span>
 
 <span class="sd">    From [33].</span>
 
@@ -374,7 +374,7 @@
 <span class="sd">    module : torch module (class or instance)</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, optional (default=1)</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -398,7 +398,7 @@
 <span class="sd">           Contrastive adaptation network for unsupervised domain adaptation.</span>
 <span class="sd">           In Proceedings of the IEEE/CVF Conference on Computer Vision</span>
 <span class="sd">           and Pattern Recognition (pp. 4893-4902).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 

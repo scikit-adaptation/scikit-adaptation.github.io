@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -119,12 +119,12 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseReweightAdapter</span><span class="p">(</span><span class="n">BaseAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for the adapter that yields weights for samples.</span>
+<span class="w">    </span><span class="sd">"""Base class for the adapter that yields weights for samples.</span>
 
 <span class="sd">    Specific implementation should provide `fit` and `compute_weights`.</span>
 <span class="sd">    The base class takes care of the rest of machinery to make it fully</span>
 <span class="sd">    compatible with DA pipelines.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -135,7 +135,7 @@
         <span class="k">pass</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Predict adaptation weights and returns them as an additional</span>
+<span class="w">        </span><span class="sd">"""Predict adaptation weights and returns them as an additional</span>
 <span class="sd">        parameters for the pipeline to propagate them into the estimator.</span>
 
 <span class="sd">        Parameters</span>
@@ -153,7 +153,7 @@
 <span class="sd">            The data (same as X).</span>
 <span class="sd">        sample_weight : array-like, shape (n_samples,)</span>
 <span class="sd">            The weights of the samples.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="n">weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_weights</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
@@ -162,7 +162,7 @@
 <div class="viewcode-block" id="DensityReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.DensityReweightAdapter.html#skada.DensityReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DensityReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using density estimation.</span>
+<span class="w">    </span><span class="sd">"""Adapter based on re-weighting samples using density estimation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -176,7 +176,7 @@
 <span class="sd">        The estimator object fitted on the source data.</span>
 <span class="sd">    weight_estimator_target_ : object</span>
 <span class="sd">        The estimator object fitted on the target data.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weight_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -185,7 +185,7 @@
 <div class="viewcode-block" id="DensityReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.DensityReweightAdapter.html#skada.DensityReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -200,7 +200,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
@@ -225,7 +225,7 @@
         <span class="k">if</span> <span class="n">source_weights</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">source_weights</span> <span class="o">/=</span> <span class="n">source_weights</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;All weights are zero. Using uniform weights.&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"All weights are zero. Using uniform weights."</span><span class="p">)</span>
             <span class="n">source_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">source_weights</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">source_weights</span><span class="p">)</span>
 
         <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">source_weights</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
@@ -240,7 +240,7 @@
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">weight_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Density re-weighting pipeline adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""Density re-weighting pipeline adapter and estimator.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -254,7 +254,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    pipeline : sklearn pipeline</span>
 <span class="sd">        Pipeline containing the DensityReweight adapter and the base estimator.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -268,18 +268,18 @@
 <div class="viewcode-block" id="GaussianReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">GaussianReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian approximation re-weighting method.</span>
+<span class="w">    </span><span class="sd">"""Gaussian approximation re-weighting method.</span>
 
 <span class="sd">    See [1]_ for details.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    reg : &#39;auto&#39; or float, default=&quot;auto&quot;</span>
+<span class="sd">    reg : 'auto' or float, default="auto"</span>
 <span class="sd">        The regularization parameter of the covariance estimator.</span>
 <span class="sd">        Possible values:</span>
 
 <span class="sd">          - None: no shrinkage.</span>
-<span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
+<span class="sd">          - 'auto': automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
 
 <span class="sd">    Attributes</span>
@@ -298,16 +298,16 @@
 <span class="sd">    .. [1]  Hidetoshi Shimodaira. Improving predictive inference under</span>
 <span class="sd">            covariate shift by weighting the log-likelihood function.</span>
 <span class="sd">            In Journal of Statistical Planning and Inference, 2000.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span>
 
 <div class="viewcode-block" id="GaussianReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.GaussianReweightAdapter.html#skada.GaussianReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -322,7 +322,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
 
@@ -355,9 +355,9 @@
 <a class="viewcode-back" href="../../gen_modules/skada.GaussianReweight.html#skada.GaussianReweight">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">GaussianReweight</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">reg</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian approximation re-weighting pipeline adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""Gaussian approximation re-weighting pipeline adapter and estimator.</span>
 
 <span class="sd">    see [1]_ for details.</span>
 
@@ -365,12 +365,12 @@
 <span class="sd">    ----------</span>
 <span class="sd">    base_estimator : sklearn estimator, default=None</span>
 <span class="sd">        estimator used for fitting and prediction</span>
-<span class="sd">    reg : &#39;auto&#39; or float, default=&quot;auto&quot;</span>
+<span class="sd">    reg : 'auto' or float, default="auto"</span>
 <span class="sd">        The regularization parameter of the covariance estimator.</span>
 <span class="sd">        Possible values:</span>
 
 <span class="sd">          - None: no shrinkage.</span>
-<span class="sd">          - &#39;auto&#39;: automatic shrinkage using the Ledoit-Wolf lemma.</span>
+<span class="sd">          - 'auto': automatic shrinkage using the Ledoit-Wolf lemma.</span>
 <span class="sd">          - float between 0 and 1: fixed shrinkage parameter.</span>
 
 <span class="sd">    Returns</span>
@@ -384,7 +384,7 @@
 <span class="sd">    .. [1] Hidetoshi Shimodaira. Improving predictive inference under</span>
 <span class="sd">           covariate shift by weighting the log-likelihood function.</span>
 <span class="sd">           In Journal of Statistical Planning and Inference, 2000.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -398,7 +398,7 @@
 <div class="viewcode-block" id="DiscriminatorReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.DiscriminatorReweightAdapter.html#skada.DiscriminatorReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DiscriminatorReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian approximation re-weighting method.</span>
+<span class="w">    </span><span class="sd">"""Gaussian approximation re-weighting method.</span>
 
 <span class="sd">    See [1]_ for details.</span>
 
@@ -418,7 +418,7 @@
 <span class="sd">    .. [1] Hidetoshi Shimodaira. Improving predictive inference under</span>
 <span class="sd">           covariate shift by weighting the log-likelihood function.</span>
 <span class="sd">           In Journal of Statistical Planning and Inference, 2000.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_classifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -427,7 +427,7 @@
 <div class="viewcode-block" id="DiscriminatorReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.DiscriminatorReweightAdapter.html#skada.DiscriminatorReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -442,7 +442,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="p">(</span><span class="n">source_idx</span><span class="p">,)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">source_idx</span><span class="p">)</span>
@@ -474,7 +474,7 @@
 <div class="viewcode-block" id="DiscriminatorReweight">
 <a class="viewcode-back" href="../../gen_modules/skada.DiscriminatorReweight.html#skada.DiscriminatorReweight">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">DiscriminatorReweight</span><span class="p">(</span><span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domain_classifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Discriminator re-weighting pipeline adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""Discriminator re-weighting pipeline adapter and estimator.</span>
 
 <span class="sd">    see [1]_ for details.</span>
 
@@ -497,7 +497,7 @@
 <span class="sd">    .. [1] Hidetoshi Shimodaira. Improving predictive inference under</span>
 <span class="sd">           covariate shift by weighting the log-likelihood function.</span>
 <span class="sd">           In Journal of Statistical Planning and Inference, 2000.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -511,7 +511,7 @@
 <div class="viewcode-block" id="KLIEPReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.KLIEPReweightAdapter.html#skada.KLIEPReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KLIEPReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Kullback-Leibler Importance Estimation Procedure (KLIEPReweight).</span>
+<span class="w">    </span><span class="sd">"""Kullback-Leibler Importance Estimation Procedure (KLIEPReweight).</span>
 
 <span class="sd">    The idea of KLIEPReweight is to find an importance estimate w(x) such that</span>
 <span class="sd">    the Kullback-Leibler (KL) divergence between the source input density</span>
@@ -554,7 +554,7 @@
 <span class="sd">    .. [3] Masashi Sugiyama et. al. Direct Importance Estimation with Model Selection</span>
 <span class="sd">           and Its Application to Covariate Shift Adaptation.</span>
 <span class="sd">           In NeurIPS, 2007.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -576,7 +576,7 @@
 <div class="viewcode-block" id="KLIEPReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.KLIEPReweightAdapter.html#skada.KLIEPReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -591,7 +591,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -611,14 +611,14 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_weights_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimization loop.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Optimization loop."""</span>
         <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
         <span class="n">n_targets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_target</span><span class="p">)</span>
         <span class="n">n_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">((</span><span class="n">n_targets</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_centers</span><span class="p">))</span>
 
         <span class="n">centers</span> <span class="o">=</span> <span class="n">X_target</span><span class="p">[</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_targets</span><span class="p">),</span> <span class="n">n_centers</span><span class="p">)]</span>
-        <span class="n">A</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_centers</span><span class="p">)</span>
@@ -633,15 +633,15 @@
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">obj</span> <span class="o">-</span> <span class="n">old_obj</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
                 <span class="k">break</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Maximum iteration reached before convergence.&quot;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Maximum iteration reached before convergence."</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">centers</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_likelihood_cross_validation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gammas</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the likelihood cross validation.</span>
+<span class="w">        </span><span class="sd">"""Compute the likelihood cross validation.</span>
 
 <span class="sd">        Used to choose the best parameter for the kernel.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">log_liks</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># xxx(okachaiev): should this be done when fitting?</span>
         <span class="n">rng</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
@@ -657,7 +657,7 @@
                     <span class="n">X_target</span><span class="p">[</span><span class="n">train</span><span class="p">],</span>
                 <span class="p">)</span>
                 <span class="n">A</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span>
-                    <span class="n">X_target</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">centers</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">this_gamma</span>
+                    <span class="n">X_target</span><span class="p">[</span><span class="n">test</span><span class="p">],</span> <span class="n">centers</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">this_gamma</span>
                 <span class="p">)</span>
                 <span class="n">weights</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">alpha</span>
                 <span class="n">this_log_lik</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">weights</span> <span class="o">+</span> <span class="n">EPS</span><span class="p">)))</span>
@@ -672,7 +672,7 @@
         <span class="n">source_idx</span> <span class="o">=</span> <span class="n">extract_source_indices</span><span class="p">(</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="p">(</span><span class="n">source_idx</span><span class="p">,)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">source_idx</span><span class="p">)</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">centers_</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">best_gamma_</span>
+            <span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">centers_</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">best_gamma_</span>
         <span class="p">)</span>
         <span class="n">source_weights</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_</span>
         <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">source_weights</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
@@ -682,12 +682,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_auto_scale_gammas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="c1"># Code snippet from sklearn SVC</span>
-            <span class="k">if</span> <span class="n">gamma</span> <span class="o">==</span> <span class="s2">&quot;scale&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">gamma</span> <span class="o">==</span> <span class="s2">"scale"</span><span class="p">:</span>
                 <span class="c1"># var = E[X^2] - E[X]^2 if sparse</span>
                 <span class="n">sparse</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
                 <span class="n">X_var</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">sparse</span> <span class="k">else</span> <span class="n">X</span><span class="o">.</span><span class="n">var</span><span class="p">()</span>
                 <span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">X_var</span><span class="p">)</span> <span class="k">if</span> <span class="n">X_var</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
-            <span class="k">elif</span> <span class="n">gamma</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">gamma</span> <span class="o">==</span> <span class="s2">"auto"</span><span class="p">:</span>
                 <span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
@@ -706,7 +706,7 @@
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;KLIEPReweight pipeline adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""KLIEPReweight pipeline adapter and estimator.</span>
 
 <span class="sd">    see [3]_ for details.</span>
 
@@ -742,7 +742,7 @@
 <span class="sd">    .. [3] Masashi Sugiyama et. al. Direct Importance Estimation with Model Selection</span>
 <span class="sd">           and Its Application to Covariate Shift Adaptation.</span>
 <span class="sd">           In NeurIPS, 2007.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
@@ -762,7 +762,7 @@
 <div class="viewcode-block" id="NearestNeighborReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">NearestNeighborReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapter based on re-weighting samples using a KNN,</span>
+<span class="w">    </span><span class="sd">"""Adapter based on re-weighting samples using a KNN,</span>
 
 <span class="sd">    See [24]_ for details.</span>
 
@@ -776,12 +776,12 @@
 <span class="sd">        thus adding 1 to all our weights (to prevent some</span>
 <span class="sd">        of them to be 0)</span>
 
-<span class="sd">    weights : {&#39;uniform&#39;, &#39;distance&#39;}, callable or None, default=&#39;uniform&#39;</span>
+<span class="sd">    weights : {'uniform', 'distance'}, callable or None, default='uniform'</span>
 <span class="sd">        Weight function used in prediction.  Possible values:</span>
 
-<span class="sd">        - &#39;uniform&#39; : uniform weights.  All points in each neighborhood</span>
+<span class="sd">        - 'uniform' : uniform weights.  All points in each neighborhood</span>
 <span class="sd">          are weighted equally.</span>
-<span class="sd">        - &#39;distance&#39; : weight points by the inverse of their distance.</span>
+<span class="sd">        - 'distance' : weight points by the inverse of their distance.</span>
 <span class="sd">          in this case, closer neighbors of a query point will have a</span>
 <span class="sd">          greater influence than neighbors which are further away.</span>
 <span class="sd">        - [callable] : a user-defined function which accepts an</span>
@@ -793,13 +793,13 @@
 <span class="sd">        showing the impact of the `weights` parameter on the decision</span>
 <span class="sd">        boundary.</span>
 
-<span class="sd">    algorithm : {&#39;auto&#39;, &#39;ball_tree&#39;, &#39;kd_tree&#39;, &#39;brute&#39;}, default=&#39;auto&#39;</span>
+<span class="sd">    algorithm : {'auto', 'ball_tree', 'kd_tree', 'brute'}, default='auto'</span>
 <span class="sd">        Algorithm used to compute the nearest neighbors:</span>
 
-<span class="sd">        - &#39;ball_tree&#39; will use :class:`BallTree`</span>
-<span class="sd">        - &#39;kd_tree&#39; will use :class:`KDTree`</span>
-<span class="sd">        - &#39;brute&#39; will use a brute-force search.</span>
-<span class="sd">        - &#39;auto&#39; will attempt to decide the most appropriate algorithm</span>
+<span class="sd">        - 'ball_tree' will use :class:`BallTree`</span>
+<span class="sd">        - 'kd_tree' will use :class:`KDTree`</span>
+<span class="sd">        - 'brute' will use a brute-force search.</span>
+<span class="sd">        - 'auto' will attempt to decide the most appropriate algorithm</span>
 <span class="sd">          based on the values passed to :meth:`fit` method.</span>
 
 <span class="sd">        Note: fitting on sparse input will override the setting of</span>
@@ -817,8 +817,8 @@
 <span class="sd">        For arbitrary p, minkowski_distance (l_p) is used. This parameter is expected</span>
 <span class="sd">        to be positive.</span>
 
-<span class="sd">    metric : str or callable, default=&#39;minkowski&#39;</span>
-<span class="sd">        Metric to use for distance computation. Default is &quot;minkowski&quot;, which</span>
+<span class="sd">    metric : str or callable, default='minkowski'</span>
+<span class="sd">        Metric to use for distance computation. Default is "minkowski", which</span>
 <span class="sd">        results in the standard Euclidean distance when p = 2. See the</span>
 <span class="sd">        documentation of `scipy.spatial.distance</span>
 <span class="sd">        &lt;https://docs.scipy.org/doc/scipy/reference/spatial.distance.html&gt;`_ and</span>
@@ -826,13 +826,13 @@
 <span class="sd">        :class:`~sklearn.metrics.pairwise.distance_metrics` for valid metric</span>
 <span class="sd">        values.</span>
 
-<span class="sd">        If metric is &quot;precomputed&quot;, X is assumed to be a distance matrix and</span>
+<span class="sd">        If metric is "precomputed", X is assumed to be a distance matrix and</span>
 <span class="sd">        must be square during fit. X may be a :term:`sparse graph`, in which</span>
-<span class="sd">        case only &quot;nonzero&quot; elements may be considered neighbors.</span>
+<span class="sd">        case only "nonzero" elements may be considered neighbors.</span>
 
 <span class="sd">        If metric is a callable function, it takes two arrays representing 1D</span>
 <span class="sd">        vectors as inputs and must return one value indicating the distance</span>
-<span class="sd">        between those vectors. This works for Scipy&#39;s metrics, but is less</span>
+<span class="sd">        between those vectors. This works for Scipy's metrics, but is less</span>
 <span class="sd">        efficient than passing the metric name as a string.</span>
 
 <span class="sd">    metric_params : dict, default=None</span>
@@ -843,23 +843,23 @@
 <span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
 <span class="sd">        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`</span>
 <span class="sd">        for more details.</span>
-<span class="sd">        Doesn&#39;t affect :meth:`fit` method.</span>
+<span class="sd">        Doesn't affect :meth:`fit` method.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [24] Nearest neighbor-based importance weighting.</span>
 <span class="sd">            In 2012 IEEE International Workshop on Machine</span>
 <span class="sd">            Learning for Signal Processing, pages 1–6. IEEE.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
-        <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="s2">"uniform"</span><span class="p">,</span>
+        <span class="n">algorithm</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
         <span class="n">leaf_size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
         <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;minkowski&quot;</span><span class="p">,</span>
+        <span class="n">metric</span><span class="o">=</span><span class="s2">"minkowski"</span><span class="p">,</span>
         <span class="n">metric_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">laplace_smoothing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -888,7 +888,7 @@
 <div class="viewcode-block" id="NearestNeighborReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.NearestNeighborReweightAdapter.html#skada.NearestNeighborReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -903,7 +903,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X_source_fit</span> <span class="o">=</span> <span class="n">X_source</span>
@@ -948,16 +948,16 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">NearestNeighborReweight</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
-    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="s2">"uniform"</span><span class="p">,</span>
+    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
     <span class="n">leaf_size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
     <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;minkowski&quot;</span><span class="p">,</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s2">"minkowski"</span><span class="p">,</span>
     <span class="n">metric_params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">n_jobs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">laplace_smoothing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Density re-weighting pipeline adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""Density re-weighting pipeline adapter and estimator.</span>
 
 <span class="sd">    The last 7 parameters are the parameters from the KNN estimator that</span>
 <span class="sd">    will be used to estimate the weights in the `adapt` method</span>
@@ -977,12 +977,12 @@
 <span class="sd">        thus adding 1 to all our weights (to prevent some</span>
 <span class="sd">        of them to be 0)</span>
 
-<span class="sd">    weights : {&#39;uniform&#39;, &#39;distance&#39;}, callable or None, default=&#39;uniform&#39;</span>
+<span class="sd">    weights : {'uniform', 'distance'}, callable or None, default='uniform'</span>
 <span class="sd">        Weight function used in prediction.  Possible values:</span>
 
-<span class="sd">        - &#39;uniform&#39; : uniform weights.  All points in each neighborhood</span>
+<span class="sd">        - 'uniform' : uniform weights.  All points in each neighborhood</span>
 <span class="sd">          are weighted equally.</span>
-<span class="sd">        - &#39;distance&#39; : weight points by the inverse of their distance.</span>
+<span class="sd">        - 'distance' : weight points by the inverse of their distance.</span>
 <span class="sd">          in this case, closer neighbors of a query point will have a</span>
 <span class="sd">          greater influence than neighbors which are further away.</span>
 <span class="sd">        - [callable] : a user-defined function which accepts an</span>
@@ -994,13 +994,13 @@
 <span class="sd">        showing the impact of the `weights` parameter on the decision</span>
 <span class="sd">        boundary.</span>
 
-<span class="sd">    algorithm : {&#39;auto&#39;, &#39;ball_tree&#39;, &#39;kd_tree&#39;, &#39;brute&#39;}, default=&#39;auto&#39;</span>
+<span class="sd">    algorithm : {'auto', 'ball_tree', 'kd_tree', 'brute'}, default='auto'</span>
 <span class="sd">        Algorithm used to compute the nearest neighbors:</span>
 
-<span class="sd">        - &#39;ball_tree&#39; will use :class:`BallTree`</span>
-<span class="sd">        - &#39;kd_tree&#39; will use :class:`KDTree`</span>
-<span class="sd">        - &#39;brute&#39; will use a brute-force search.</span>
-<span class="sd">        - &#39;auto&#39; will attempt to decide the most appropriate algorithm</span>
+<span class="sd">        - 'ball_tree' will use :class:`BallTree`</span>
+<span class="sd">        - 'kd_tree' will use :class:`KDTree`</span>
+<span class="sd">        - 'brute' will use a brute-force search.</span>
+<span class="sd">        - 'auto' will attempt to decide the most appropriate algorithm</span>
 <span class="sd">          based on the values passed to :meth:`fit` method.</span>
 
 <span class="sd">        Note: fitting on sparse input will override the setting of</span>
@@ -1018,8 +1018,8 @@
 <span class="sd">        For arbitrary p, minkowski_distance (l_p) is used. This parameter is expected</span>
 <span class="sd">        to be positive.</span>
 
-<span class="sd">    metric : str or callable, default=&#39;minkowski&#39;</span>
-<span class="sd">        Metric to use for distance computation. Default is &quot;minkowski&quot;, which</span>
+<span class="sd">    metric : str or callable, default='minkowski'</span>
+<span class="sd">        Metric to use for distance computation. Default is "minkowski", which</span>
 <span class="sd">        results in the standard Euclidean distance when p = 2. See the</span>
 <span class="sd">        documentation of `scipy.spatial.distance</span>
 <span class="sd">        &lt;https://docs.scipy.org/doc/scipy/reference/spatial.distance.html&gt;`_ and</span>
@@ -1027,13 +1027,13 @@
 <span class="sd">        :class:`~sklearn.metrics.pairwise.distance_metrics` for valid metric</span>
 <span class="sd">        values.</span>
 
-<span class="sd">        If metric is &quot;precomputed&quot;, X is assumed to be a distance matrix and</span>
+<span class="sd">        If metric is "precomputed", X is assumed to be a distance matrix and</span>
 <span class="sd">        must be square during fit. X may be a :term:`sparse graph`, in which</span>
-<span class="sd">        case only &quot;nonzero&quot; elements may be considered neighbors.</span>
+<span class="sd">        case only "nonzero" elements may be considered neighbors.</span>
 
 <span class="sd">        If metric is a callable function, it takes two arrays representing 1D</span>
 <span class="sd">        vectors as inputs and must return one value indicating the distance</span>
-<span class="sd">        between those vectors. This works for Scipy&#39;s metrics, but is less</span>
+<span class="sd">        between those vectors. This works for Scipy's metrics, but is less</span>
 <span class="sd">        efficient than passing the metric name as a string.</span>
 
 <span class="sd">    metric_params : dict, default=None</span>
@@ -1044,7 +1044,7 @@
 <span class="sd">        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.</span>
 <span class="sd">        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`</span>
 <span class="sd">        for more details.</span>
-<span class="sd">        Doesn&#39;t affect :meth:`fit` method.</span>
+<span class="sd">        Doesn't affect :meth:`fit` method.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1056,7 +1056,7 @@
 <span class="sd">    .. [24] Nearest neighbor-based importance weighting.</span>
 <span class="sd">            In 2012 IEEE International Workshop on Machine</span>
 <span class="sd">            Learning for Signal Processing, pages 1–6. IEEE.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -1080,7 +1080,7 @@
 <div class="viewcode-block" id="KMMReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.KMMReweightAdapter.html#skada.KMMReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KMMReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Kernel Mean Matching (KMMReweight).</span>
+<span class="w">    </span><span class="sd">"""Kernel Mean Matching (KMMReweight).</span>
 
 <span class="sd">    The idea of KMMReweight is to find an importance estimate w(x) such that</span>
 <span class="sd">    the Maximum Mean Discrepancy (MMD) divergence between the target</span>
@@ -1091,7 +1091,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    kernel : str, default=&quot;rbf&quot;</span>
+<span class="sd">    kernel : str, default="rbf"</span>
 <span class="sd">        Kernel</span>
 <span class="sd">    gamma : float, None</span>
 <span class="sd">        Parameters for the kernels.</span>
@@ -1109,9 +1109,9 @@
 <span class="sd">    max_iter : int, default=100</span>
 <span class="sd">        Number of maximum iteration before stopping the optimization.</span>
 <span class="sd">    smooth_weights : bool, default=False</span>
-<span class="sd">        If True, the weights are &quot;smoothed&quot; using the kernel function.</span>
-<span class="sd">    solver : string, default=&#39;frank-wolfe&#39;</span>
-<span class="sd">        Available solvers : [&#39;frank-wolfe&#39;, &#39;scipy&#39;].</span>
+<span class="sd">        If True, the weights are "smoothed" using the kernel function.</span>
+<span class="sd">    solver : string, default='frank-wolfe'</span>
+<span class="sd">        Available solvers : ['frank-wolfe', 'scipy'].</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -1123,13 +1123,13 @@
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [23] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.</span>
-<span class="sd">            &#39;Correcting sample selection bias by unlabeled data.&#39;</span>
+<span class="sd">            'Correcting sample selection bias by unlabeled data.'</span>
 <span class="sd">            In NIPS, 2007.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span>
+        <span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span>
         <span class="n">gamma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
         <span class="n">coef0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1138,7 +1138,7 @@
         <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
         <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
         <span class="n">smooth_weights</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;frank-wolfe&quot;</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">"frank-wolfe"</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
@@ -1155,14 +1155,14 @@
         <span class="k">if</span> <span class="n">kernel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">KERNEL_PARAMS</span><span class="p">:</span>
             <span class="n">kernel_list</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">KERNEL_PARAMS</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;`kernel` argument should be included in </span><span class="si">%s</span><span class="s2">,&quot;</span>
-                <span class="s2">&quot; got &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">kernel_list</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">kernel</span><span class="p">))</span>
+                <span class="s2">"`kernel` argument should be included in </span><span class="si">%s</span><span class="s2">,"</span>
+                <span class="s2">" got '</span><span class="si">%s</span><span class="s2">'"</span> <span class="o">%</span> <span class="p">(</span><span class="n">kernel_list</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">kernel</span><span class="p">))</span>
             <span class="p">)</span>
 
 <div class="viewcode-block" id="KMMReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.KMMReweightAdapter.html#skada.KMMReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1177,7 +1177,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">,</span> <span class="n">allow_multi_source</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_multi_target</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
@@ -1190,7 +1190,7 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_weights_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Weight optimization&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Weight optimization"""</span>
         <span class="n">Kss</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span>
             <span class="n">X_source</span><span class="p">,</span>
             <span class="n">metric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span>
@@ -1263,7 +1263,7 @@
 <a class="viewcode-back" href="../../gen_modules/skada.KMMReweight.html#skada.KMMReweight">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">KMMReweight</span><span class="p">(</span>
     <span class="n">base_estimator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span>
     <span class="n">gamma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">coef0</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1272,9 +1272,9 @@
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="n">smooth_weights</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;frank-wolfe&quot;</span><span class="p">,</span>
+    <span class="n">solver</span><span class="o">=</span><span class="s2">"frank-wolfe"</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;KMMReweight pipeline adapter and estimator.</span>
+<span class="w">    </span><span class="sd">"""KMMReweight pipeline adapter and estimator.</span>
 
 <span class="sd">    see [23]_ for details.</span>
 
@@ -1282,7 +1282,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    base_estimator : sklearn estimator, default=LogisticRegression()</span>
 <span class="sd">        estimator used for fitting and prediction</span>
-<span class="sd">    kernel : str, default=&quot;rbf&quot;</span>
+<span class="sd">    kernel : str, default="rbf"</span>
 <span class="sd">        Kernel</span>
 <span class="sd">    gamma : float, None</span>
 <span class="sd">        Parameters for the kernels.</span>
@@ -1300,10 +1300,10 @@
 <span class="sd">    max_iter : int, default=100</span>
 <span class="sd">        Number of maximum iteration before stopping the optimization.</span>
 <span class="sd">    smooth_weights : bool, default=False</span>
-<span class="sd">        If True, the weights are &quot;smoothed&quot; using the kernel function.</span>
+<span class="sd">        If True, the weights are "smoothed" using the kernel function.</span>
 <span class="sd">        Pipeline containing the KMMReweight adapter and the base estimator.</span>
-<span class="sd">    solver : string, default=&#39;frank-wolfe&#39;</span>
-<span class="sd">        Available solvers : [&#39;frank-wolfe&#39;, &#39;scipy&#39;].</span>
+<span class="sd">    solver : string, default='frank-wolfe'</span>
+<span class="sd">        Available solvers : ['frank-wolfe', 'scipy'].</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1313,9 +1313,9 @@
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    .. [23] J. Huang, A. Gretton, K. Borgwardt, B. Schölkopf and A. J. Smola.</span>
-<span class="sd">            &#39;Correcting sample selection bias by unlabeled data.&#39;</span>
+<span class="sd">            'Correcting sample selection bias by unlabeled data.'</span>
 <span class="sd">            In NIPS, 2007.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">make_da_pipeline</span><span class="p">(</span>
@@ -1339,7 +1339,7 @@
 <div class="viewcode-block" id="MMDTarSReweightAdapter">
 <a class="viewcode-back" href="../../gen_modules/skada.MMDTarSReweightAdapter.html#skada.MMDTarSReweightAdapter">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MMDTarSReweightAdapter</span><span class="p">(</span><span class="n">BaseReweightAdapter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Target shift reweighting using MMD.</span>
+<span class="w">    </span><span class="sd">"""Target shift reweighting using MMD.</span>
 
 <span class="sd">    The idea of MMDTarSReweight is to find an importance estimate beta(y) such that</span>
 <span class="sd">    the Maximum Mean Discrepancy (MMD) divergence between the source input density</span>
@@ -1376,7 +1376,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
 <span class="sd">            In ICML, 2013.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1386,15 +1386,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_weights_optimization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Weight optimization&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Weight optimization"""</span>
         <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">X_source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># check y is discrete or continuous</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">discrete_</span> <span class="o">=</span> <span class="n">discrete</span> <span class="o">=</span> <span class="n">_find_y_type</span><span class="p">(</span><span class="n">y_source</span><span class="p">)</span> <span class="o">==</span> <span class="n">Y_Type</span><span class="o">.</span><span class="n">DISCRETE</span>
 
         <span class="c1"># compute A</span>
-        <span class="n">L</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">y_source</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
-        <span class="n">K</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">y_source</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_source</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
         <span class="n">omega</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">omega</span> <span class="o">@</span> <span class="n">K</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span>
 
@@ -1409,7 +1409,7 @@
             <span class="n">R</span> <span class="o">=</span> <span class="n">L</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
 
         <span class="c1"># compute M</span>
-        <span class="n">K_cross</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+        <span class="n">K_cross</span> <span class="o">=</span> <span class="n">pairwise_kernels</span><span class="p">(</span><span class="n">X_target</span><span class="p">,</span> <span class="n">X_source</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">"rbf"</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span> <span class="o">@</span> <span class="n">K_cross</span> <span class="o">@</span> <span class="n">omega</span><span class="o">.</span><span class="n">T</span>
 
         <span class="c1"># solve the optimization problem</span>
@@ -1445,7 +1445,7 @@
 <div class="viewcode-block" id="MMDTarSReweightAdapter.fit">
 <a class="viewcode-back" href="../../gen_modules/skada.MMDTarSReweightAdapter.html#skada.MMDTarSReweightAdapter.fit">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fit adaptation parameters.</span>
+<span class="w">        </span><span class="sd">"""Fit adaptation parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1460,7 +1460,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        self : object</span>
 <span class="sd">            Returns self.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span> <span class="o">=</span> <span class="n">check_X_domain</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">sample_domain</span><span class="p">)</span>
         <span class="n">X_source</span><span class="p">,</span> <span class="n">X_target</span><span class="p">,</span> <span class="n">y_source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">source_target_split</span><span class="p">(</span>
             <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_domain</span><span class="o">=</span><span class="n">sample_domain</span>
@@ -1493,7 +1493,7 @@
                     <span class="n">R</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_source</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
                 <span class="n">source_weights</span> <span class="o">=</span> <span class="n">R</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha_</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># assign the nearest neighbor&#39;s weights to the source samples</span>
+                <span class="c1"># assign the nearest neighbor's weights to the source samples</span>
                 <span class="n">C</span> <span class="o">=</span> <span class="n">pairwise_distances</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">source_idx</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_source_</span><span class="p">)</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="n">source_weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_weights_</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
@@ -1514,7 +1514,7 @@
     <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
     <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Target shift reweighting using MMD.</span>
+<span class="w">    </span><span class="sd">"""Target shift reweighting using MMD.</span>
 
 <span class="sd">    See Section 3 of [21]_ for details.</span>
 
@@ -1540,7 +1540,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [21] Kun Zhang et. al. Domain Adaptation under Target and Conditional Shift</span>
 <span class="sd">            In ICML, 2013.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_estimator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">()</span><span class="o">.</span><span class="n">set_fit_request</span><span class="p">(</span><span class="n">sample_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 

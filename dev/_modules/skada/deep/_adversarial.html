@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -108,7 +108,7 @@
 <div class="viewcode-block" id="DANNLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DANNLoss.html#skada.deep.DANNLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DANNLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DANN.</span>
+<span class="w">    </span><span class="sd">"""Loss DANN.</span>
 
 <span class="sd">    This loss tries to minimize the divergence between features with</span>
 <span class="sd">    adversarial method. The weights are updated to make harder</span>
@@ -127,7 +127,7 @@
 <span class="sd">    .. [15] Yaroslav Ganin et. al. Domain-Adversarial Training</span>
 <span class="sd">            of Neural Networks. In Journal of Machine Learning</span>
 <span class="sd">            Research, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -144,7 +144,7 @@
         <span class="n">domain_pred_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="n">domain_label</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
             <span class="p">(</span><span class="n">domain_pred_s</span><span class="o">.</span><span class="n">size</span><span class="p">()[</span><span class="mi">0</span><span class="p">]),</span>
             <span class="n">device</span><span class="o">=</span><span class="n">domain_pred_s</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
@@ -176,7 +176,7 @@
     <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Domain-Adversarial Training of Neural Networks (DANN).</span>
+<span class="w">    </span><span class="sd">"""Domain-Adversarial Training of Neural Networks (DANN).</span>
 
 <span class="sd">    From [15]_.</span>
 
@@ -187,7 +187,7 @@
 <span class="sd">        uninstantiated class should be passed, although instantiated</span>
 <span class="sd">        modules will also work.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training.</span>
 <span class="sd">    reg : float, default=1</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -212,12 +212,12 @@
 <span class="sd">    .. [15] Yaroslav Ganin et. al. Domain-Adversarial Training</span>
 <span class="sd">            of Neural Networks. In Journal of Machine Learning</span>
 <span class="sd">            Research, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">domain_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># raise error if num_feature is None</span>
         <span class="k">if</span> <span class="n">num_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;If domain_classifier is None, num_features has to be provided&quot;</span>
+                <span class="s2">"If domain_classifier is None, num_features has to be provided"</span>
             <span class="p">)</span>
         <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">)</span>
 
@@ -243,7 +243,7 @@
 <div class="viewcode-block" id="CDANLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.CDANLoss.html#skada.deep.CDANLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CDANLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conditional Domain Adversarial Networks (CDAN) loss.</span>
+<span class="w">    </span><span class="sd">"""Conditional Domain Adversarial Networks (CDAN) loss.</span>
 
 <span class="sd">    This loss tries to minimize the divergence between features with</span>
 <span class="sd">    adversarial method. The weights are updated to make harder</span>
@@ -262,7 +262,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [16] Mingsheng Long et. al. Conditional Adversarial Domain Adaptation</span>
 <span class="sd">            In NeurIPS, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -281,7 +281,7 @@
         <span class="n">features_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
 
         <span class="c1"># create domain label</span>
@@ -302,7 +302,7 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CDANModule</span><span class="p">(</span><span class="n">DomainAwareModule</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conditional Domain Adversarial Networks (CDAN) module.</span>
+<span class="w">    </span><span class="sd">"""Conditional Domain Adversarial Networks (CDAN) module.</span>
 
 <span class="sd">    From [16]_.</span>
 
@@ -311,7 +311,7 @@
 <span class="sd">    module : torch module (class or instance)</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training for adaptation.</span>
 <span class="sd">    domain_classifier : torch module</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module` used to classify the</span>
@@ -325,7 +325,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [16] Mingsheng Long et. al. Conditional Adversarial Domain Adaptation</span>
 <span class="sd">            In NeurIPS, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -400,7 +400,7 @@
     <span class="n">domain_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Conditional Domain Adversarial Networks (CDAN).</span>
+<span class="w">    </span><span class="sd">"""Conditional Domain Adversarial Networks (CDAN).</span>
 
 <span class="sd">    From [16]_.</span>
 
@@ -411,7 +411,7 @@
 <span class="sd">        uninstantiated class should be passed, although instantiated</span>
 <span class="sd">        modules will also work.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training.</span>
 <span class="sd">    reg : float, default=1</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -440,15 +440,15 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .. [16]  Mingsheng Long et. al. Conditional Adversarial Domain Adaptation</span>
 <span class="sd">            In NeurIPS, 2016.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">domain_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">num_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;If domain_classifier is None, num_features has to be provided&quot;</span>
+                <span class="s2">"If domain_classifier is None, num_features has to be provided"</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="n">n_classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;If domain_classifier is None, n_classes has to be provided&quot;</span>
+                <span class="s2">"If domain_classifier is None, n_classes has to be provided"</span>
             <span class="p">)</span>
         <span class="n">num_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">num_features</span> <span class="o">*</span> <span class="n">n_classes</span><span class="p">,</span> <span class="n">max_features</span><span class="p">])</span>
         <span class="n">domain_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span><span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">)</span>
@@ -474,20 +474,20 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ModifiedCrossEntropyLoss</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Modified CrossEntropyLoss as described in (29) from [35]_ with label smoothing.</span>
+<span class="w">    </span><span class="sd">"""Modified CrossEntropyLoss as described in (29) from [35]_ with label smoothing.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    smoothing : float, default=0.1</span>
 <span class="sd">        Smoothing factor for label smoothing.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smoothing</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">smoothing</span> <span class="o">=</span> <span class="n">smoothing</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Compute the modified CrossEntropyLoss</span>
 <span class="sd">        with label smoothing applied to predictions.</span>
 
@@ -502,7 +502,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        loss : torch.Tensor</span>
 <span class="sd">            The modified CrossEntropyLoss with label smoothing applied to predictions.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Compute probabilities</span>
         <span class="n">prob</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
@@ -523,7 +523,7 @@
 <div class="viewcode-block" id="MDDLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.MDDLoss.html#skada.deep.MDDLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MDDLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss MDD.</span>
+<span class="w">    </span><span class="sd">"""Loss MDD.</span>
 
 <span class="sd">    This loss tries to minimize the disparity discrepancy between</span>
 <span class="sd">    the source and target domains. The discrepancy is estimated</span>
@@ -542,7 +542,7 @@
 <span class="sd">    .. [35] Yuchen Zhang et. al. Bridging Theory and Algorithm</span>
 <span class="sd">            for Domain Adaptation. In International Conference on</span>
 <span class="sd">            Machine Learning, 2019.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">4.0</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -560,7 +560,7 @@
         <span class="n">domain_pred_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="c1"># TODO: handle binary classification</span>
         <span class="c1"># Multiclass classification</span>
         <span class="n">pseudo_label_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_pred_s</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -590,7 +590,7 @@
     <span class="n">base_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Margin Disparity Discrepancy (MDD).</span>
+<span class="w">    </span><span class="sd">"""Margin Disparity Discrepancy (MDD).</span>
 
 <span class="sd">    From [35]_.</span>
 
@@ -601,7 +601,7 @@
 <span class="sd">        uninstantiated class should be passed, although instantiated</span>
 <span class="sd">        modules will also work.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training.</span>
 <span class="sd">    reg : float, default=1</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -630,12 +630,12 @@
 <span class="sd">    .. [35] Yuchen Zhang et. al. Bridging Theory and Algorithm</span>
 <span class="sd">            for Domain Adaptation. In International Conference on</span>
 <span class="sd">            Machine Learning, 2019.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">disc_classifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># raise error if num_feature is None</span>
         <span class="k">if</span> <span class="n">num_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;If disc_classifier is None, num_features has to be provided&quot;</span>
+                <span class="s2">"If disc_classifier is None, num_features has to be provided"</span>
             <span class="p">)</span>
         <span class="n">disc_classifier</span> <span class="o">=</span> <span class="n">DomainClassifier</span><span class="p">(</span>
             <span class="n">num_features</span><span class="o">=</span><span class="n">num_features</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="n">n_classes</span>
@@ -663,7 +663,7 @@
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">_RandomLayer</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Randomized multilinear map layer.</span>
+<span class="w">    </span><span class="sd">"""Randomized multilinear map layer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -673,7 +673,7 @@
 <span class="sd">        List of input dimensions.</span>
 <span class="sd">    output_dims : int</span>
 <span class="sd">        Output dimension wanted.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">random_state</span><span class="p">,</span> <span class="n">input_dims</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>

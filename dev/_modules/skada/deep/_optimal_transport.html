@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -100,7 +100,7 @@
 <div class="viewcode-block" id="DeepJDOTLoss">
 <a class="viewcode-back" href="../../../gen_modules/skada.deep.DeepJDOTLoss.html#skada.deep.DeepJDOTLoss">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DeepJDOTLoss</span><span class="p">(</span><span class="n">BaseDALoss</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loss DeepJDOT.</span>
+<span class="w">    </span><span class="sd">"""Loss DeepJDOT.</span>
 
 <span class="sd">    This loss reduces the distance between source and target domain</span>
 <span class="sd">    through a measure of discrepancy on joint deep</span>
@@ -115,7 +115,7 @@
 <span class="sd">        Class distance term regularization parameter.</span>
 <span class="sd">    target_criterion : torch criterion (class)</span>
 <span class="sd">        The uninitialized criterion (loss) used to compute the</span>
-<span class="sd">        DeepJDOT loss. The criterion should support reduction=&#39;none&#39;.</span>
+<span class="sd">        DeepJDOT loss. The criterion should support reduction='none'.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -125,7 +125,7 @@
 <span class="sd">            for Unsupervised Domain Adaptation. In ECCV 2018</span>
 <span class="sd">            15th European Conference on Computer Vision,</span>
 <span class="sd">            September 2018. Springer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reg_dist</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reg_cl</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -143,7 +143,7 @@
         <span class="n">features_t</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the domain adaptation loss&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Compute the domain adaptation loss"""</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">deepjdot_loss</span><span class="p">(</span>
             <span class="n">y_s</span><span class="p">,</span>
             <span class="n">y_pred_t</span><span class="p">,</span>
@@ -169,7 +169,7 @@
     <span class="n">target_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;DeepJDOT.</span>
+<span class="w">    </span><span class="sd">"""DeepJDOT.</span>
 
 <span class="sd">       See [13]_.</span>
 
@@ -178,7 +178,7 @@
 <span class="sd">    module : torch module (class or instance)</span>
 <span class="sd">        A PyTorch :class:`~torch.nn.Module`.</span>
 <span class="sd">    layer_name : str</span>
-<span class="sd">        The name of the module&#39;s layer whose outputs are</span>
+<span class="sd">        The name of the module's layer whose outputs are</span>
 <span class="sd">        collected during the training for the adaptation.</span>
 <span class="sd">    reg : float, default=1</span>
 <span class="sd">        Regularization parameter for DA loss.</span>
@@ -189,7 +189,7 @@
 <span class="sd">        labels. If None, the default is `torch.nn.CrossEntropyLoss`.</span>
 <span class="sd">    target_criterion : torch criterion (class)</span>
 <span class="sd">        The uninitialized criterion (loss) used to compute the</span>
-<span class="sd">        DeepJDOT loss. The criterion should support reduction=&#39;none&#39;.</span>
+<span class="sd">        DeepJDOT loss. The criterion should support reduction='none'.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -199,7 +199,7 @@
 <span class="sd">            for Unsupervised Domain Adaptation. In ECCV 2018</span>
 <span class="sd">            15th European Conference on Computer Vision,</span>
 <span class="sd">            September 2018. Springer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">base_criterion</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">base_criterion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 

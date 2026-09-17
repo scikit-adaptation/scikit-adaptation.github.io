@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
-      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=fd6457a4" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=c83e6b79" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
@@ -97,22 +97,22 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseSelector</span><span class="p">,</span> <span class="n">PerDomain</span><span class="p">,</span> <span class="n">Shared</span>
 
 <span class="n">_DEFAULT_SELECTORS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="n">Shared</span><span class="p">,</span>
-    <span class="s2">&quot;per_domain&quot;</span><span class="p">:</span> <span class="n">PerDomain</span><span class="p">,</span>
+    <span class="s2">"shared"</span><span class="p">:</span> <span class="n">Shared</span><span class="p">,</span>
+    <span class="s2">"per_domain"</span><span class="p">:</span> <span class="n">PerDomain</span><span class="p">,</span>
 <span class="p">}</span>
 
 
-<span class="c1"># xxx(okachaiev): block &#39;fit_predict&#39; as it is somewhat unexpected</span>
+<span class="c1"># xxx(okachaiev): block 'fit_predict' as it is somewhat unexpected</span>
 <div class="viewcode-block" id="make_da_pipeline">
 <a class="viewcode-back" href="../../gen_modules/skada.make_da_pipeline.html#skada.make_da_pipeline">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">make_da_pipeline</span><span class="p">(</span>
     <span class="o">*</span><span class="n">steps</span><span class="p">,</span>
     <span class="n">memory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Memory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">default_selector</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">BaseEstimator</span><span class="p">],</span> <span class="n">BaseSelector</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;shared&quot;</span><span class="p">,</span>
+    <span class="n">default_selector</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">BaseEstimator</span><span class="p">],</span> <span class="n">BaseSelector</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">"shared"</span><span class="p">,</span>
     <span class="n">mask_target_labels</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pipeline</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct a :class:`~sklearn.pipeline.Pipeline` from the given estimators.</span>
+<span class="w">    </span><span class="sd">"""Construct a :class:`~sklearn.pipeline.Pipeline` from the given estimators.</span>
 
 <span class="sd">    This is a shorthand for the :class:`sklearn.pipeline.Pipeline` constructor;</span>
 <span class="sd">    it does not require, and does not permit, naming the estimators. Instead,</span>
@@ -137,11 +137,11 @@
 <span class="sd">        If True, the time elapsed while fitting each step will be printed as it</span>
 <span class="sd">        is completed.</span>
 
-<span class="sd">    default_selector : str or callable, default = &#39;shared&#39;</span>
+<span class="sd">    default_selector : str or callable, default = 'shared'</span>
 <span class="sd">        Specifies a domain selector to wrap the estimator, if it is not already</span>
 <span class="sd">        wrapped. Refer to :class:`~skada.base.BaseSelector` for an understanding of</span>
-<span class="sd">        selector functionalities. The available options include &#39;shared&#39; and</span>
-<span class="sd">        &#39;per_domain&#39;. For integrating a custom selector as the default, pass a</span>
+<span class="sd">        selector functionalities. The available options include 'shared' and</span>
+<span class="sd">        'per_domain'. For integrating a custom selector as the default, pass a</span>
 <span class="sd">        callable that accepts :class:`~sklearn.base.BaseEstimator` and returns</span>
 <span class="sd">        the estimator encapsulated within a domain selector.</span>
 
@@ -159,15 +159,15 @@
 <span class="sd">    &gt;&gt;&gt; from sklearn.preprocessing import StandardScaler</span>
 <span class="sd">    &gt;&gt;&gt; from skada import make_da_pipeline</span>
 <span class="sd">    &gt;&gt;&gt; make_da_pipeline(StandardScaler(), GaussianNB(priors=None))</span>
-<span class="sd">    Pipeline(steps=[(&#39;standardscaler&#39;,</span>
+<span class="sd">    Pipeline(steps=[('standardscaler',</span>
 <span class="sd">                     Shared(base_estimator=StandardScaler(), copy=True,</span>
 <span class="sd">                            with_mean=True, with_std=True)),</span>
-<span class="sd">                    (&#39;gaussiannb&#39;,</span>
+<span class="sd">                    ('gaussiannb',</span>
 <span class="sd">                     Shared(base_estimator=GaussianNB(), priors=None,</span>
 <span class="sd">                            var_smoothing=1e-09))])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">steps</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Missing 1 required positional argument: &#39;steps&#39;&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Missing 1 required positional argument: 'steps'"</span><span class="p">)</span>
 
     <span class="n">names</span><span class="p">,</span> <span class="n">estimators</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
@@ -176,7 +176,7 @@
             <span class="c1"># this means we got DA pipeline as a step in the pipeline</span>
             <span class="k">for</span> <span class="n">nested_name</span><span class="p">,</span> <span class="n">nested_selector</span> <span class="ow">in</span> <span class="n">estimator</span><span class="o">.</span><span class="n">steps</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">nested_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">nested_name</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="n">nested_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">__</span><span class="si">{</span><span class="n">nested_name</span><span class="si">}</span><span class="s2">"</span>
                 <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nested_name</span><span class="p">)</span>
                 <span class="n">estimators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nested_selector</span><span class="o">.</span><span class="n">_unmark_as_final</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
@@ -205,19 +205,19 @@
             <span class="n">estimator</span> <span class="o">=</span> <span class="n">selector</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">mask_target_labels</span><span class="o">=</span><span class="n">mask_target_labels</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">BaseSelector</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Callable `default_selector` has to return `BaseSelector` &quot;</span>  <span class="c1"># noqa: E501</span>
-                    <span class="sa">f</span><span class="s2">&quot;instance, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead.&quot;</span>
+                    <span class="s2">"Callable `default_selector` has to return `BaseSelector` "</span>  <span class="c1"># noqa: E501</span>
+                    <span class="sa">f</span><span class="s2">"instance, got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span><span class="si">}</span><span class="s2"> instead."</span>
                 <span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">selector_cls</span> <span class="o">=</span> <span class="n">_DEFAULT_SELECTORS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">selector_cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Unsupported `default_selector` name: </span><span class="si">{</span><span class="n">selector</span><span class="si">}</span><span class="s2">.&quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;Use one of </span><span class="si">{</span><span class="n">_DEFAULT_SELECTORS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">"Unsupported `default_selector` name: </span><span class="si">{</span><span class="n">selector</span><span class="si">}</span><span class="s2">."</span>
+                    <span class="sa">f</span><span class="s2">"Use one of </span><span class="si">{</span><span class="n">_DEFAULT_SELECTORS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
                 <span class="p">)</span>
             <span class="n">estimator</span> <span class="o">=</span> <span class="n">selector_cls</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">mask_target_labels</span><span class="o">=</span><span class="n">mask_target_labels</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported `default_selector` type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported `default_selector` type: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">estimator</span>
 
 
@@ -228,7 +228,7 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">BaseEstimator</span><span class="p">]:</span>
     <span class="n">wrap_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">estimators</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;predicts_target_labels&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">"predicts_target_labels"</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
             <span class="n">mask_target_labels</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="n">wrap_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -240,7 +240,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_name_estimators</span><span class="p">(</span><span class="n">estimators</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate names for estimators.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Generate names for estimators."""</span>
     <span class="c1"># From scikit-learn: https://github.com/scikit-learn/scikit-learn</span>
     <span class="c1"># Author: Edouard Duchesnay</span>
     <span class="c1">#         Gael Varoquaux</span>
@@ -253,15 +253,15 @@
     <span class="k">for</span> <span class="n">estimator</span> <span class="ow">in</span> <span class="n">estimators</span><span class="p">:</span>
         <span class="c1"># xxx(okachaiev): this logic gets progressively more</span>
         <span class="c1"># awkward. maybe we just need to make sure that default</span>
-        <span class="c1"># &#39;Shared&#39; selector does not get into a way of setting</span>
+        <span class="c1"># 'Shared' selector does not get into a way of setting</span>
         <span class="c1"># parameters, but all others are just fine to be more</span>
         <span class="c1"># verbose</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;base_estimator&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">"base_estimator"</span><span class="p">):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="o">.</span><span class="n">base_estimator</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">PerDomain</span><span class="p">):</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;perdomain_&quot;</span> <span class="o">+</span> <span class="n">name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">"perdomain_"</span> <span class="o">+</span> <span class="n">name</span>
         <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
     <span class="n">namecount</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
@@ -275,7 +275,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">estimators</span><span class="p">))):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">namecount</span><span class="p">:</span>
-            <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;-</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">namecount</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">"-</span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">namecount</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
             <span class="n">namecount</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
 
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">estimators</span><span class="p">))</span>
